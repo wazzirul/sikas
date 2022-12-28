@@ -83,7 +83,7 @@ Check out our live [Documentation](https://themeselection.com/demo/sneat-bootstr
 - Copyright © [ThemeSelection](https://themeselection.com/)
 - Licensed under [MIT](LICENSE)
 
-## Installation
+## Other Installation Instruction
 ### How To Install 
 1. git clone this branch
 2. git fetch origin >> git checkout dev >> git pull origin dev
