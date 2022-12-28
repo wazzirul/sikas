@@ -1,0 +1,17 @@
+// * Miscellaneous
+// *******************************************************************************
+
+@import '../_bootstrap-extended/include';
+
+.layout-menu{
+  .menu-inner{
+    .menu-item{
+      .menu-link{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+  }
+}
