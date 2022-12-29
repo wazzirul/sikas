@@ -3,6 +3,7 @@ stages:
   - deploy
   - cleanup
 
+# Test
 image: faisaladiprayugo/ubuntu:v5
 
 cache:
