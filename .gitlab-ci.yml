@@ -44,7 +44,7 @@ deploy_laravel:
     - sftp -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST <<< $'put '"$ZIP_FILE"
     - ssh -o StrictHostKeyChecking=yes $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'unzip '"$ZIP_FILE"' -d '"$SIKAS_DEPLOY_TEMP"
     - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'rsync -av '"$SIKAS_DEPLOY_TEMP $SIKAS_DEPLOY_DIR"
-    - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'cd '"$SIKAS_DEPLOY_DIR"' && php artisan config:clear'
+    - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'cd '"$SIKAS_DEPLOY_DIR"' && $(which php8.1) artisan config:clear'
     - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'chown -R '"$SIKAS_INSTANCE_OWNED"' '"$SIKAS_DEPLOY_DIR"
     - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'chmod -R 755 '"$SIKAS_DEPLOY_DIR"
   only:
