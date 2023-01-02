@@ -30,6 +30,9 @@ $container = ($container ?? 'container-xxl');
 
     <!-- Layout page -->
     <div class="layout-page">
+      <!-- BEGIN: Custom Header-->
+      @include('sikas/layout/header')
+      <!-- END: Navbar-->
 
       <!-- Content wrapper -->
       <div class="content-wrapper">

@@ -3,6 +3,7 @@
 <script src="{{ asset(mix('assets/vendor/libs/popper/popper.js')) }}"></script>
 <script src="{{ asset(mix('assets/vendor/js/bootstrap.js')) }}"></script>
 <script src="{{ asset(mix('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')) }}"></script>
+<script src="{{ asset('assets/fontawesome-free-6.2.1/js/all.min.js') }}"></script>
 <script src="{{ asset(mix('assets/vendor/js/menu.js')) }}"></script>
 @yield('vendor-script')
 <!-- END: Page Vendor JS-->

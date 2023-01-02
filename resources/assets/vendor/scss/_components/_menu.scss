@@ -61,6 +61,13 @@
   &.menu-item-animating {
     transition: height $menu-animation-duration ease-in-out;
   }
+  .menu-item__text{
+    text-transform: capitalize;
+  }
+  .menu-item__icon{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 .menu-item,
@@ -128,6 +135,19 @@
 
   .menu-item.open > & {
     display: flex;
+  }
+
+  .menu-item{
+    .menu-link{
+      padding-left: 2rem !important;
+      &::before{
+        display: none;
+      }
+    }
+    .menu-item__icon{
+      width: 1.25rem;
+      height: 1.25rem;
+    }
   }
 }
 

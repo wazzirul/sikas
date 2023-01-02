@@ -21,8 +21,7 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Selamat datang di {{config('variables.templateName')}}! 👋</h4>
-          <p class="mb-4">Silahkan login menggunakan akun anda</p>
+          <h4 class="mb-2">Sistem Pembayaran dan Kas Sekolah</h4>
 
           <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">
             <div class="mb-3">
