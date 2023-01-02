@@ -62,7 +62,7 @@
 
     <!--Logout OF MENU SIDEBAR (LAST ITEM)-->
     <li class="menu-item mt-auto mb-3">
-      <a href="{{url('/login')}}" class="menu-link">
+      <a href="{{url('/logout')}}" class="menu-link">
         <img src="{{asset('assets/img/icons/power-off.png')}}" alt="">
         <div>Logout</div>
       </a>

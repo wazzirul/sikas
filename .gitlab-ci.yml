@@ -1,0 +1,72 @@
+stages:
+  - pack
+  - deploy
+  - cleanup
+
+image: faisaladiprayugo/ubuntu:v5
+
+cache:
+  paths:
+    - vendor/
+    - sikas.zip
+
+pack_laravel:
+  tags:
+    - cicd
+    - devops
+    - illiyin
+    - runner
+  stage: pack
+  before_script:
+    - source .${CI_COMMIT_REF_NAME}.env
+    - apt update -y
+    - dpkg-query -W --showformat='${Status}\n' zip | grep "install ok installed" || install zip -y
+    - dpkg-query -W --showformat='${Status}\n' unzip | grep "install ok installed" || install unzip -y
+  script:
+    - echo "Creating ZIP file for $ZIP_FILE"
+    - zip -r $ZIP_FILE app bootstrap config database public resources routes storage tests vendor README.md artisan composer.json composer.lock package.json phpunit.xml server.php webpack.mix.js
+  only:
+    - staging
+
+deploy_laravel:
+  tags:
+    - cicd
+    - devops
+    - illiyin
+    - runner
+  stage: deploy
+  before_script:
+    - source .${CI_COMMIT_REF_NAME}.env
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SIKAS_INSTANCE_KEY")
+  script:
+    - ls -lah
+    - sftp -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST <<< $'put '"$ZIP_FILE"
+    - ssh -o StrictHostKeyChecking=yes $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'unzip '"$ZIP_FILE"' -d '"$SIKAS_DEPLOY_TEMP"
+    - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'rsync -av '"$SIKAS_DEPLOY_TEMP $SIKAS_DEPLOY_DIR"
+    - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'cd '"$SIKAS_DEPLOY_DIR"' && $(which php8.1) artisan config:clear'
+    - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'chown -R '"$SIKAS_INSTANCE_OWNED"' '"$SIKAS_DEPLOY_DIR"
+    - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'chmod -R 755 '"$SIKAS_DEPLOY_DIR"
+  only:
+    - staging
+  allow_failure: true
+
+cleanup_package:
+  tags:
+    - cicd
+    - devops
+    - illiyin
+    - runner
+  stage: cleanup
+  before_script:
+    - source .${CI_COMMIT_REF_NAME}.env
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SIKAS_INSTANCE_KEY")
+  script:
+    - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'rm -rf '"$SIKAS_DEPLOY_TEMP"
+    - ssh -o StrictHostKeyChecking=no $SIKAS_INSTANCE_USER@$SIKAS_INSTANCE_HOST 'rm -f '"$ZIP_FILE"
+    - rm -f $ZIP_FILE
+  only:
+    - staging
+  when: always
+

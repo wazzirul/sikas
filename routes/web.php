@@ -12,20 +12,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\sikas\Main;
+use App\Http\Controllers\sikas\Auth\AuthController;
+
 $controller_path = 'App\Http\Controllers';
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //MAIN ROUTE SIKAS
 Route::get('/', [Main::class, 'index'])->name('sikas-dashboard');
-Route::get('/pengguna', [Main::class, 'index'])->name('sikas-pengguna');
-Route::get('/laporan', [Main::class, 'index'])->name('sikas-laporan');
-Route::get('/pengaturan', [Main::class, 'index'])->name('sikas-pengaturan');
 Route::get('/login', [Main::class, 'login'])->name('sikas-login');
 Route::get('/register', [Main::class, 'register'])->name('sikas-register');
+Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('sikas-authenticate');
+
+// Session Middleware
+Route::group(['middleware' => 'authsession'], function () {    
+    Route::get('/', [Main::class, 'index'])->name('sikas-dashboard');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('sikas-logout');
+});
+
+// Don't uncomment
+// Route::get('/new-admin', [AuthController::class, 'newAdmin'])->name('sikas-newAdmin');
 
 // Transaksi
 Route::get('/transaksi', [Main::class, 'index'])->name('sikas-transaksi');
 Route::get('/transaksi/pembayaran', [Main::class, 'index'])->name('sikas-transaksi--pembayaran');
 Route::get('/transaksi/tabungan', [Main::class, 'index'])->name('sikas-transaksi--tabungan');
+
+//Other
+Route::get('/pengguna', [Main::class, 'index'])->name('sikas-pengguna');
+Route::get('/laporan', [Main::class, 'index'])->name('sikas-laporan');
+Route::get('/pengaturan', [Main::class, 'index'])->name('sikas-pengaturan');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
