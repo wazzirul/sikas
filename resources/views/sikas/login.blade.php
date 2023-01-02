@@ -24,10 +24,19 @@
           <h4 class="mb-2">Selamat datang di {{config('variables.templateName')}}! 👋</h4>
           <p class="mb-4">Silahkan login menggunakan akun anda</p>
 
-          <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">
+          @if(Session::has('error'))
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            {{ Session::get('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+          </div>
+          @endif
+
+          <form id="formAuthentication" class="mb-3" action="{{url('/authenticate')}}" method="POST">
+            {{ csrf_field() }}
             <div class="mb-3">
               <label for="email" class="form-label">Email or Username</label>
-              <input type="text" class="form-control" id="email" name="email-username" placeholder="Enter your email or username" autofocus>
+              <input type="text" class="form-control" id="email" name="username" placeholder="Enter your email or username" autofocus>
             </div>
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
@@ -54,12 +63,12 @@
             </div>
           </form>
 
-          <p class="text-center">
+          <!-- <p class="text-center">
             <span>Belum punya akun?</span>
-            <a href="{{url('/register')}}">
+            <a href="{{url('/')}}">
               <span>buat disini</span>
             </a>
-          </p>
+          </p> -->
         </div>
       </div>
     </div>
