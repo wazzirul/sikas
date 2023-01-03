@@ -3,15 +3,15 @@
 @section('title', 'Transaksi Pembayaran - Sikas')
 
 @section('vendor-style')
-<!-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}"> -->
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
 @endsection
 
 @section('vendor-script')
-<!-- <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script> -->
+<script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
 @endsection
 
 @section('page-script')
-<!-- <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script> -->
+<script src="{{asset('assets/js/pages/pembayaran.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -27,88 +27,276 @@
 <p class="fw-bold mb-5">
   <span class="text-muted fw-light">Transaksi /</span> Pembayaran
 </p>
-<div class="card card--pembayaran">
-  <div class="card-body">
-    <div class="card-item card-item--cari-siswa">
-      <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
-      <div class="input-group input-group-merge">
-        <span class="input-group-text" id="cari-siswa-icon"><i class="bx bx-search"></i></span>
-        <input type="text" id="cari-siswa" class="form-control" placeholder="Masukkan nama atau NISN" aria-label="Masukkan nama atau NISN" aria-describedby="cari-siswa-icon">
-      </div>
-      <div class="cari-siswa">
-        <div class="cari-siswa__item">
-          <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-            <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-            <div class="d-flex flex-column gap-1">
-              <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">Tasya Savella</p>
-              <p class="nomor-siswa color-neutral-80">172410103029</p>
-            </div>
-          </div>
-          <div class="d-flex flex-column gap-1">
-            <p class="text-bold color-neutral-100">Kelas</p>
-            <p class="kelas-siswa color-neutral-80">XI TKJ 2</p>
-          </div>
-          <a href="#" class="cari-siswa__item-detail">
-            <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-          </a>
+<div class="jenis-pembayaran">
+  <div class="card">
+    <div class="card-body">
+      <a href="{{route('sikas-transaksi--pembayaran-akademik')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
+        <div class="jenis-pembayaran__icon-wrap">
+          <i class="fa-solid fa-graduation-cap jenis-pembayaran__icon"></i>
         </div>
-        <div class="cari-siswa__item">
-          <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-            <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-            <div class="d-flex flex-column gap-1">
-              <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">Anastasya Anzella</p>
-              <p class="nomor-siswa color-neutral-80">120293487</p>
-            </div>
-          </div>
-          <div class="d-flex flex-column gap-1">
-            <p class="text-bold color-neutral-100">Kelas</p>
-            <p class="kelas-siswa color-neutral-80">XI TKJ 3</p>
-          </div>
-          <a href="#" class="cari-siswa__item-detail">
-            <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-          </a>
-        </div>
-      </div>
+        <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Pembayaran Uang Akademik</h5>
     </div>
-    <div class="horizontal-line"></div>
-    <div class="card-item">
-      <form action="#" class="card-item--detail-dan-form">
-        <h3 class="text-bold">Detail Siswa</h3>
-        <div class="detail-siswa">
-          <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
-            <i class="fa-regular fa-user detail-siswa__icon"></i>
-            <div class="d-flex flex-column gap-1">
-              <h5 class="text-bold color-neutral-100">Anastasya Anzella</h5>
-              <p class="nomor-siswa color-neutral-80">120293487</p>
-            </div>
-          </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <a href="#" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
+        <div class="jenis-pembayaran__icon-wrap">
+          <i class="fa-regular fa-credit-card jenis-pembayaran__icon"></i>
         </div>
-        <div class="d-flex flex-row justify-content-between align-items-center gap-3">
-          <a href="#" class="btn btn-outline-primary">Ajukan Keringanan</a>
-          <a href="{{route('sikas-transaksi--pembayaran-history')}}" class="detail-siswa__history-pembayaran text-primary">Lihat History Pembayaran</a>
-        </div>
-        <div class="">
-          <label for="nominalPembayaran" class="form-label">Nominal</label>
-          <input type="text" class="form-control" id="nominalPembayaran" placeholder="0.00">
-        </div>
-        <button class="btn btn-primary pembayaran-button" data-bs-toggle="modal" data-bs-target="#modalPembayaran">Bayar Sekarang</button>
-      </form>
+        <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Sekolah</h5>
     </div>
   </div>
 </div>
-
-<!-- Modal -->
-<div class="modal modal--pembayaran fade" id="modalPembayaran" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="d-flex flex-column justify-content-center align-items-center text-center">
-          <i class="fa-solid fa-circle-check icon-success text-success"></i>
-          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Melakukan Pembayaran</h4>
-          <p class="color-neutral-80">Anda bisa melihat detail pembayaran yang baru saja anda lakukan di halaman home.</p>
+<div class="card riwayat-transaksi mt-5">
+  <h4 class="color-neutral-100 mb-5">Riwayat Transaksi</h4>
+  <div class="nav-align-top mb-4">
+      <ul class="nav nav-pills mb-3" role="tablist">
+        <li class="nav-item">
+          <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pembayaran-akademik" aria-controls="navs-pills-pembayaran-akademik" aria-selected="true">Pembayaran Akademik</button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-sekolah" aria-controls="navs-pills-tabungan-sekolah" aria-selected="false">Tabungan Sekolah</button>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="navs-pills-pembayaran-akademik" role="tabpanel">
+          <div class="table-responsive text-nowrap">
+            <table class="table table-striped" id="riwayat-transaksi">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>NISN/NIP</th>
+                  <th>Nama</th>
+                  <th>Nominal</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Aldi taher</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Ibnu setiaji</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Tasya savella</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Ibnu setiaji</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Alfian Bayu</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Ibnu Setiaji</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="navs-pills-tabungan-sekolah" role="tabpanel">
+          <div class="table-responsive text-nowrap">
+            <table class="table table-striped" id="riwayat-transaksi">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>NISN/NIP</th>
+                  <th>Nama</th>
+                  <th>Nominal</th>
+                  <th>Jenis Transaksi</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Aldi taher</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black text-center">Setor</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Ibnu setiaji</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black text-center">Tarik</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Tasya savella</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black text-center">Setor</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Ibnu setiaji</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black text-center">Tarik</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Alfian Bayu</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black text-center">Setor</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>January, 02 2023</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td>
+                    <p class="text-medium text-black">Ibnu Setiaji</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black">Rp. 700.000</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black text-center">Tarik</p>
+                  </td>
+                  <td>
+                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </div>
 @endsection

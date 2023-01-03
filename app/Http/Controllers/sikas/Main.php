@@ -15,6 +15,9 @@ class Main extends Controller
   public function transaksiPembayaran(){
     return view('sikas.transaksi-pembayaran');
   }
+  public function PembayaranAkademik(){
+    return view('sikas.transaksi-pembayaran-akademik');
+  }
   public function historyTransaksiPembayaran(){
     return view('sikas.history-transaksi-pembayaran');
   }

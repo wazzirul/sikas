@@ -1,6 +1,6 @@
 @extends('sikas/layout/layout')
 
-@section('title', 'Transaksi Pembayaran - Sikas')
+@section('title', 'History Pembayaran - Sikas')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
@@ -44,7 +44,7 @@
         </div>
         <div class="d-flex flex-column gap-3">
           <p class="color-neutral-80">Sisa Tanggungan</p>
-          <h5 class="text-bold text-primary">XI TKJ 2</h5>
+          <h5 class="text-bold text-primary">1.300.000</h5>
         </div>
       </div>
     </div>
