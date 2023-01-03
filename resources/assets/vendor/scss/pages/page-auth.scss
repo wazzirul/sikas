@@ -16,6 +16,8 @@ $auth-basic-bottom-svg: "data:image/svg+xml,%3Csvg width='243px' height='240px' 
 
   .authentication-inner {
     width: 100%;
+    max-width: 584px;
+    padding: 2rem;
   }
 
   &.authentication-basic {
@@ -32,7 +34,7 @@ $auth-basic-bottom-svg: "data:image/svg+xml,%3Csvg width='243px' height='240px' 
   }
 
   &.authentication-basic .authentication-inner {
-    max-width: $authentication-1-inner-max-width;
+    max-width: 584px;
     position: relative;
     &:before {
       width: 148px;
@@ -57,8 +59,18 @@ $auth-basic-bottom-svg: "data:image/svg+xml,%3Csvg width='243px' height='240px' 
     }
     .card {
       z-index: 1;
+      .card-body{
+        padding: 2rem;
+      }
       .app-brand {
         margin-bottom: 1.5rem;
+      }
+      .app-brand-logo{
+        width: 10rem;
+        height: auto;
+      }
+      .auth-subtitle{
+        margin-bottom: 2rem;
       }
     }
   }

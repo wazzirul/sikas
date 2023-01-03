@@ -1,0 +1,131 @@
+// * Miscellaneous
+// *******************************************************************************
+
+@import '../_bootstrap-extended/include';
+@import '../_reset';
+.card--pembayaran{
+  position: relative;
+  .card-body{
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: toRem(32);
+    padding: 2rem;
+  }
+  .horizontal-line{
+    background: $color-neutral-30;
+    height: 100%;
+    width: 1px;
+  }
+  .cari-siswa{
+    margin-top: toRem(24);
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    .cari-siswa__item{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: toRem(24);
+      padding: toRem(16);
+      background-color: $color-white;
+      transition: all linear .2s;
+      border: 1px solid $color-neutral-30;
+      &:hover{
+        background-color: $color-neutral-40;
+      }      
+    }
+    .cari-siswa__item-nama{
+      width: toRem(188);
+    }
+    .cari-siswa__nama-siswa{
+      height: toRem(20);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      max-width: toRem(150);
+    }
+    .cari-siswa__icon{
+      width: toRem(32);
+      height: toRem(32);
+    }
+    .cari-siswa__item-detail{
+      .cari-siswa__item-detail__icon{
+        width: toRem(20);
+        height: toRem(20);
+      }
+    }
+  }
+  .card-item--detail-dan-form{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+  }
+  .detail-siswa{
+    padding: toRem(16);
+    background: $color-neutral-40;
+    border-radius: toRem(8);
+    .detail-siswa__icon{
+      width: toRem(40);
+      height: toRem(40);
+    }
+  }
+  .detail-siswa__history-pembayaran{
+    text-decoration: underline;
+  }
+  .pembayaran-button{
+    padding: 1rem 2rem;
+    width: max-content;
+  }
+}
+
+.modal--pembayaran{
+  .modal-dialog{
+    max-width: toRem(380);
+  }
+  .icon-success{
+    width: toRem(56);
+    height: toRem(56);
+  }
+}
+
+.card--history-pembayaran{
+  padding: toRem(32);
+  .card-body{
+    padding: 0;
+  }
+  .detail-siswa-history__subs{
+    max-width: toRem(438);
+  }
+}
+.border-line{
+  width: 100%;
+  height: 1px;
+  background: $color-neutral-30;
+  margin: toRem(32) 0;
+}
+.tahun-ajaran{
+  position: relative;
+  .tahun-ajaran-input{
+  position: relative;
+    .form-control{
+      padding: toRem(12) toRem(16);
+      padding-right: toRem(48); 
+      width: toRem(344);
+    }
+    .input-icon{
+      position: absolute;
+      top: 0;bottom: 0;right: 1rem;
+      margin: auto 0;
+      width: toRem(20);
+      height: toRem(20);
+      transition: all linear .2s;
+    }
+    &:focus,&:focus-visible,&:focus-within,&:active{
+      .input-icon{
+        color: $primary;
+      }
+    }
+  }
+}

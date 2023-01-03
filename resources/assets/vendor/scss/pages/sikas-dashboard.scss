@@ -2,16 +2,7 @@
 // *******************************************************************************
 
 @import '../_bootstrap-extended/include';
-
-.layout-menu{
-  .menu-inner{
-    .menu-item{
-      .menu-link{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
-      }
-    }
-  }
+@import '../_reset';
+.table-responsive{
+  padding: 0 toRem(32);
 }

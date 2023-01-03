@@ -9,17 +9,23 @@ use Session;
 class Main extends Controller
 {
     //
-  public function index()
-  {
+  public function index(){
     return view('sikas.dashboard');
   }
-  public function login()
-  {
+  public function transaksiPembayaran(){
+    return view('sikas.transaksi-pembayaran');
+  }
+  public function historyTransaksiPembayaran(){
+    return view('sikas.history-transaksi-pembayaran');
+  }
+
+  //Login
+  public function login(){
     if(Session::has('authenticated')) return redirect('/');
     return view('sikas.login');
   }
-  public function register()
-  {
+  //Register
+  public function register(){
     return view('sikas.register');
   }
 }

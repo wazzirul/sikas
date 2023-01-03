@@ -33,8 +33,11 @@ Route::group(['middleware' => 'authsession'], function () {
 
 // Transaksi
 Route::get('/transaksi', [Main::class, 'index'])->name('sikas-transaksi');
-Route::get('/transaksi/pembayaran', [Main::class, 'index'])->name('sikas-transaksi--pembayaran');
+Route::get('/transaksi/pembayaran', [Main::class, 'transaksiPembayaran'])->name('sikas-transaksi--pembayaran');
+Route::get('/transaksi/history-pembayaran', [Main::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
 Route::get('/transaksi/tabungan', [Main::class, 'index'])->name('sikas-transaksi--tabungan');
+Route::get('/transaksi/pemasukan', [Main::class, 'index'])->name('sikas-transaksi--pemasukan');
+Route::get('/transaksi/pengeluaran', [Main::class, 'index'])->name('sikas-transaksi--pengeluaran');
 
 //Other
 Route::get('/pengguna', [Main::class, 'index'])->name('sikas-pengguna');
