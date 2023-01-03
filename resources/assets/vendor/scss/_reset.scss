@@ -6,6 +6,7 @@
 $color-white: #fff;
 $color-black: #000;
 $grey-icon:#C2C2C2;
+$dark-subtle:#ABB6C3;
 $color-neutral-30: #EDEDED;
 $color-neutral-40: #E0E0E0;
 $color-neutral-50: #C2C2C2;
@@ -16,6 +17,7 @@ $colorsMap: (
   white: #fff,
   black: #000,
   grey-icon: #C2C2C2,
+  dark-subtle: #ABB6C3,
   neutral-30: #EDEDED,
   neutral-40: #E0E0E0,
   neutral-50: #C2C2C2,
@@ -33,7 +35,19 @@ $colorsMap: (
 
 @include ColorClass;
 
+*{
+  transition: all linear .2s;
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
 
+html{
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 
 h1,h2,h3,h4,h5,h6,p{
   margin: 0;
@@ -84,4 +98,11 @@ input[type=number] {
 
 .dt-row{
   margin-top: toRem(16) !important;
+}
+
+.table-striped{
+  border: 1px solid $color-neutral-40 !important;
+  thead,tbody,tr,td,th{
+    border-color: $color-neutral-40 !important;
+  }
 }

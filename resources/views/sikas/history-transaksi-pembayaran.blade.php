@@ -38,11 +38,11 @@
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-3 detail-siswa-history__subs">
-        <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Kelas</p>
           <p class="text-bold color-neutral-100">XI TKJ 2</p>
         </div>
-        <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Sisa Tanggungan</p>
           <h5 class="text-bold text-primary">1.300.000</h5>
         </div>

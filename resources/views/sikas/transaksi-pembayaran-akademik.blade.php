@@ -94,7 +94,7 @@
           </div>
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center gap-3">
-          <a href="#" class="btn btn-outline-primary">Ajukan Keringanan</a>
+          <a href="{{route('sikas-transaksi--pembayaran-pengajuan-keringanan')}}" class="btn btn-outline-primary">Ajukan Keringanan</a> 
           <a href="{{route('sikas-transaksi--pembayaran-history')}}" class="detail-siswa__history-pembayaran text-primary">Lihat History Pembayaran</a>
         </div>
         <div class="">
@@ -108,7 +108,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal modal--pembayaran fade" id="modalPembayaran" tabindex="-1" aria-hidden="true">
+<div class="modal modal--transaksi fade" id="modalPembayaran" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">

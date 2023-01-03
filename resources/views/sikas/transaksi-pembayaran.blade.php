@@ -172,7 +172,7 @@
         </div>
         <div class="tab-pane fade" id="navs-pills-tabungan-sekolah" role="tabpanel">
           <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi">
+            <table class="table table-striped" id="riwayat-tabungan-sekolah">
               <thead>
                 <tr>
                   <th>Tanggal</th>

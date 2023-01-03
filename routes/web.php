@@ -36,6 +36,7 @@ Route::get('/transaksi', [Main::class, 'index'])->name('sikas-transaksi');
 Route::get('/transaksi/pembayaran', [Main::class, 'transaksiPembayaran'])->name('sikas-transaksi--pembayaran');
 Route::get('/transaksi/pembayaran/akademik', [Main::class, 'PembayaranAkademik'])->name('sikas-transaksi--pembayaran-akademik');
 Route::get('/transaksi/history-pembayaran', [Main::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
+Route::get('/transaksi/pengajuan-keringanan', [Main::class, 'pengajuanKeringananPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-keringanan');
 Route::get('/transaksi/tabungan', [Main::class, 'index'])->name('sikas-transaksi--tabungan');
 Route::get('/transaksi/pemasukan', [Main::class, 'index'])->name('sikas-transaksi--pemasukan');
 Route::get('/transaksi/pengeluaran', [Main::class, 'index'])->name('sikas-transaksi--pengeluaran');

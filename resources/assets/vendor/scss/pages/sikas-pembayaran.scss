@@ -130,7 +130,7 @@
   }
 }
 
-.modal--pembayaran{
+.modal--transaksi{
   .modal-dialog{
     max-width: toRem(380);
   }
@@ -148,20 +148,21 @@
   .detail-siswa-history__subs{
     max-width: toRem(438);
   }
-}
-
-.border-line{
-  width: 100%;
-  height: 1px;
-  background: $color-neutral-30;
-  margin: toRem(32) 0;
+  .border-line{
+    width: 100%;
+    height: 1px;
+    background: $color-neutral-30;
+    margin: toRem(32) 0;
+  }
 }
 
 .tahun-ajaran{
   position: relative;
+  width: max-content;
   .tahun-ajaran-input{
   position: relative;
     .form-control{
+      position: relative;
       padding: toRem(12) toRem(16);
       padding-right: toRem(48); 
       width: toRem(344);
@@ -173,10 +174,57 @@
       width: toRem(20);
       height: toRem(20);
       transition: all linear .2s;
+      pointer-events: none;
     }
     &:focus,&:focus-visible,&:focus-within,&:active{
       .input-icon{
         color: $primary;
+      }
+    }
+  }
+}
+
+.pengajuan-keringanan{
+  padding: toRem(32);
+  display: grid;
+  grid-template-columns: 1fr 1px max-content;
+  gap: toRem(32);
+  .detail-siswa{
+    .horizontal-line{
+      height: 1px;
+      width: 100%;
+      background-color: $color-neutral-30;
+    }
+  }
+  .border-line{
+    height: 100%;
+    width: 1px;
+    background-color: $color-neutral-30;
+  }
+  .pengajuan-keringanan__form{
+    width: toRem(438);
+    .pengajuan-keringanan-form__item-upload{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: toRem(8);
+      margin-top: toRem(16);
+      width: 100%;
+      .file-icon{
+        width: toRem(32);
+        height: toRem(32);
+      }
+      .delete-file{
+        margin-left: auto;
+        .delete-file__icon{
+          width: toRem(24);
+          height: toRem(24);
+        }
+        &:hover{
+          .delete-file__icon{
+            color: $danger;
+          }
+        }
       }
     }
   }
