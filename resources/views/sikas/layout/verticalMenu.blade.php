@@ -22,7 +22,7 @@
     </li>
     <li class="menu-item {{ Route::is('sikas-transaksi*') == true ? 'active open' : '' }}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="fa-solid fa-money-bill-transfer menu-item__icon"></i>
+        <i class="fa-solid fa-chart-simple menu-item__icon"></i>
         <p class="menu-item__text">Transaksi</p>
       </a>
       <ul class="menu-sub">
@@ -43,27 +43,27 @@
         </li>
       </ul> 
     </li>
-    <li class="menu-item {{ Route::is('sikas-laporan') == true ? 'active' : '' }}">
-      <a href="{{route('sikas-laporan')}}" class="menu-link">
-        <i class="fa-solid fa-file-lines menu-item__icon"></i>
-        <p class="menu-item__text">laporan</p>
-      </a>
-    </li>
     <li class="menu-item {{ Route::is('sikas-pengguna') == true ? 'active' : '' }}">
       <a href="{{route('sikas-pengguna')}}" class="menu-link">
-        <i class="fa-solid fa-user-group menu-item__icon"></i>
+        <i class="fa-regular fa-user menu-item__icon"></i>
         <p class="menu-item__text">pengguna</p>
       </a>
     </li>
+    <li class="menu-item {{ Route::is('sikas-laporan') == true ? 'active' : '' }}">
+      <a href="{{route('sikas-laporan')}}" class="menu-link">
+        <i class="fa-regular fa-file-lines menu-item__icon"></i>
+        <p class="menu-item__text">laporan</p>
+      </a>
+    </li>
+    <div class="menu-line my-4"></div>
     <li class="menu-item {{ Route::is('sikas-pengaturan') == true ? 'active' : '' }}">
       <a href="{{route('sikas-pengaturan')}}" class="menu-link">
         <i class="fa-solid fa-gear menu-item__icon"></i>
         <p class="menu-item__text">pengaturan</p>
       </a>
     </li>
-
     <!--Logout OF MENU SIDEBAR (LAST ITEM)-->
-    <li class="menu-item mt-auto mb-3">
+    <li class="menu-item">
       <a href="{{url('/logout')}}" class="menu-link">
         <img src="{{asset('assets/img/icons/power-off.png')}}" alt="">
         <div>Logout</div>

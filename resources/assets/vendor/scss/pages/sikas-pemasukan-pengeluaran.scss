@@ -1,0 +1,33 @@
+// * SIKAS Transaksi Pemasukan dan Pengeluaran
+// *******************************************************************************
+
+@import '../_bootstrap-extended/include';
+@import '../_reset';
+
+
+.card--pemasukan-pengeluaran{
+  padding: toRem(32);
+  display: grid;
+  grid-template-columns: max-content 1px 1fr;
+  gap: toRem(32);
+  .pemasukan-pengeluaran__form{
+    width: toRem(438);
+  }
+  .border-line{
+    height: 100%;
+    width: 1px;
+    background-color: $color-neutral-30;
+  }
+}
+.modal--transaksi{
+  .modal-dialog{
+    max-width: toRem(380);
+  }
+  .modal-body{
+    padding: toRem(32);
+  }
+  .icon-success{
+    width: toRem(56);
+    height: toRem(56);
+  }
+}

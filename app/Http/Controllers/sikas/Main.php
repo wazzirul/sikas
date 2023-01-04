@@ -28,6 +28,14 @@ class Main extends Controller
     return view('sikas.transaksi-pembayaran-tabungan');
   }
 
+  //Pemasukan dan Pengeluaran
+  public function transaksiPemasukan(){
+    return view('sikas.transaksi-pemasukan');
+  }
+  public function transaksiPengeluaran(){
+    return view('sikas.transaksi-pengeluaran');
+  }
+
   //Login
   public function login(){
     if(Session::has('authenticated')) return redirect('/');

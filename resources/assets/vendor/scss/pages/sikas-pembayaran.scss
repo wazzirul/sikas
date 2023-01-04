@@ -1,4 +1,4 @@
-// * Miscellaneous
+// * SIKAS Transaksi Pembayaran
 // *******************************************************************************
 
 @import '../_bootstrap-extended/include';
@@ -147,7 +147,7 @@
   }
 }
 
-.modal--transaksi{
+.modal--transaksi-tabungan{
   .modal-dialog{
     max-width: toRem(480);
   }

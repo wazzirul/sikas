@@ -6,6 +6,10 @@
   color: #000;
 }
 
+.color-border {
+  color: #D0D4E0;
+}
+
 .color-grey-icon {
   color: #C2C2C2;
 }
@@ -106,6 +110,7 @@ input[type=number] {
   border-color: #E0E0E0 !important;
 }
 
-.table-responsive {
-  padding: 0 2rem;
+.avatar-icon {
+  width: 2rem;
+  height: 2rem;
 }

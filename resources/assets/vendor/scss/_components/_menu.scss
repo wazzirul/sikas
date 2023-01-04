@@ -255,6 +255,13 @@
     padding: 0;
   }
 
+  .menu-line{
+    width: calc( 100% - toRem(32) );
+    margin: 0 auto;
+    height: 1px;
+    background-color: $color-border;
+  } 
+
   .menu-sub {
     padding-top: $menu-vertical-menu-link-padding-y * 0.5;
     padding-bottom: $menu-vertical-menu-link-padding-y * 0.5;

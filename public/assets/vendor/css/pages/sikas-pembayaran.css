@@ -6,6 +6,10 @@
   color: #000;
 }
 
+.color-border {
+  color: #D0D4E0;
+}
+
 .color-grey-icon {
   color: #C2C2C2;
 }
@@ -242,7 +246,7 @@ input[type=number] {
   height: 3.5rem;
 }
 
-.modal--transaksi .modal-dialog {
+.modal--transaksi-tabungan .modal-dialog {
   max-width: 30rem;
 }
 

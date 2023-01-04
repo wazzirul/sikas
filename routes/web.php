@@ -38,8 +38,8 @@ Route::get('/transaksi/pembayaran/akademik', [Main::class, 'PembayaranAkademik']
 Route::get('/transaksi/history-pembayaran', [Main::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
 Route::get('/transaksi/pengajuan-keringanan', [Main::class, 'pengajuanKeringananPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-keringanan');
 Route::get('/transaksi/pembayaran/tabungan', [Main::class, 'PembayaranTabungan'])->name('sikas-transaksi--pembayaran-tabungan');
-Route::get('/transaksi/pemasukan', [Main::class, 'index'])->name('sikas-transaksi--pemasukan');
-Route::get('/transaksi/pengeluaran', [Main::class, 'index'])->name('sikas-transaksi--pengeluaran');
+Route::get('/transaksi/pemasukan', [Main::class, 'transaksiPemasukan'])->name('sikas-transaksi--pemasukan');
+Route::get('/transaksi/pengeluaran', [Main::class, 'transaksiPengeluaran'])->name('sikas-transaksi--pengeluaran');
 
 //Other
 Route::get('/pengguna', [Main::class, 'index'])->name('sikas-pengguna');

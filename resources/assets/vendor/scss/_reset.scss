@@ -2,9 +2,9 @@
   $remValue: ($value / 16) + rem; 
   @return $remValue;
 }
-
 $color-white: #fff;
 $color-black: #000;
+$color-border: #D0D4E0;
 $grey-icon:#C2C2C2;
 $dark-subtle:#ABB6C3;
 $color-neutral-30: #EDEDED;
@@ -16,6 +16,7 @@ $color-neutral-100:#1B1B1B;
 $colorsMap: (
   white: #fff,
   black: #000,
+  border: #D0D4E0,
   grey-icon: #C2C2C2,
   dark-subtle: #ABB6C3,
   neutral-30: #EDEDED,

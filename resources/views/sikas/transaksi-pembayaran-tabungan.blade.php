@@ -323,7 +323,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal modal--transaksi modal--transaksi-penarikan fade" id="modalPenarikan" tabindex="-1" aria-hidden="true">
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalPenarikan" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -349,7 +349,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal modal--transaksi modal--transaksi-penarikan fade" id="modalSetoran" tabindex="-1" aria-hidden="true">
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalSetoran" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">

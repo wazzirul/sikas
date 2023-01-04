@@ -8528,6 +8528,10 @@ button.list-group-item-gray.active {
   color: #000;
 }
 
+.color-border {
+  color: #D0D4E0;
+}
+
 .color-grey-icon {
   color: #C2C2C2;
 }
@@ -13992,6 +13996,12 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
   padding: 0;
+}
+.menu-vertical .menu-line {
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  height: 1px;
+  background-color: #D0D4E0;
 }
 .menu-vertical .menu-sub {
   padding-top: 0.3125rem;

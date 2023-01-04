@@ -19,114 +19,91 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/sikas-dashboard.css')}}">
 @endsection
 
+@section('current-pages-title')
+  Dashboard
+@endsection
+
 @section('content')
-<h4 class="fw-bold mb-3">
-  Dashboard /
-</h4>
-<div class="card">
-  <h4 class="card-header">Transaksi Terakhir</h4>
-  <div class="table-responsive text-nowrap">
-    <table class="table table-striped" id="transaksi-terakhir">
-      <caption class="ms-4">Daftar of Transaksi Terakhir</caption>
-      <thead>
-        <tr>
-          <th>Tanggal</th>
-          <th>NISN/NIP</th>
-          <th>Nama</th>
-          <th>Nominal</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <p>02-January-2023</p>
-          </td>
-          <td class="text-medium text-primary">1010292938384747</td>
-          <td>
-            <p class="text-medium text-black">Faisal Adi Prayugo</p>
-          </td>
-          <td>
-            <p class="text-bold text-black">Rp 1.000.000,00</p>
-          </td>
-          <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>02-January-2023</p>
-          </td>
-          <td class="text-medium text-primary">1010292938384747</td>
-          <td>
-            <p class="text-medium text-black">Bayu Wicaksono</p>
-          </td>
-          <td>
-            <p class="text-bold text-black">Rp 1.000.000,00</p>
-          </td>
-          <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>02-January-2023</p>
-          </td>
-          <td class="text-medium text-primary">1010292938384747</td>
-          <td>
-            <p class="text-medium text-black">Faiz Pulungan</p>
-          </td>
-          <td>
-            <p class="text-bold text-black">Rp 1.000.000,00</p>
-          </td>
-          <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>02-January-2023</p>
-          </td>
-          <td class="text-medium text-primary">1010292938384747</td>
-          <td>
-            <p class="text-medium text-black">Ibnu Suhaemy</p>
-          </td>
-          <td>
-            <p class="text-bold text-black">Rp 1.000.000,00</p>
-          </td>
-          <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="row">
+  <div class="col-lg-3 col-md-6 col-6 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title d-flex align-items-start justify-content-between">
+          <div class="avatar flex-shrink-0">
+            <i class="fa-regular fa-user text-primary avatar-icon"></i>
+          </div>
+        </div>
+        <span class="fw-semibold d-block mb-1">Jumlah Siswa</span>
+        <h3 class="card-title color-black mb-2">2167</h3>
+      </div>
+    </div>
   </div>
-  <div class="card-footer">
-    <a href="#" class="btn btn-primary d-block">Lihat Semua History Transaksi</a>
+  <div class="col-lg-3 col-md-6 col-6 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title d-flex align-items-start justify-content-between">
+          <div class="avatar flex-shrink-0">
+            <i class="fa-solid fa-user-tie text-info avatar-icon"></i>
+          </div>
+        </div>
+        <span class="fw-semibold d-block mb-1">Jumlah Karyawan</span>
+        <h3 class="card-title color-black mb-2">125</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-6 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title d-flex align-items-start justify-content-between">
+          <div class="avatar flex-shrink-0">
+            <i class="fa-solid fa-money-bill-transfer text-success avatar-icon"></i>
+          </div>
+        </div>
+        <span class="fw-semibold d-block mb-1">Jumlah Transaksi SPP</span>
+        <h3 class="card-title color-black mb-2">3549</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-6 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title d-flex align-items-start justify-content-between">
+          <div class="avatar flex-shrink-0">
+            <i class="fa-solid fa-coins text-danger avatar-icon"></i>
+          </div>
+        </div>
+        <span class="fw-semibold d-block mb-1">Jumlah Transaksi Lain</span>
+        <h3 class="card-title color-black mb-2">1472</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col-md-6 col-12 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title d-flex align-items-start justify-content-between">
+          <div class="avatar flex-shrink-0">
+            <i class="fa-regular fa-user text-primary avatar-icon"></i>
+          </div>
+        </div>
+        <span class="fw-semibold d-block mb-1">Jumlah Keringanan yang Diajukan</span>
+        <h3 class="card-title color-black mb-2">Rp. 22.500.000,00</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-12 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title d-flex align-items-start justify-content-between">
+          <div class="avatar flex-shrink-0">
+            <i class="fa-solid fa-user-tie text-info avatar-icon"></i>
+          </div>
+        </div>
+        <span class="fw-semibold d-block mb-1">Jumlah Tabungan Siswa</span>
+        <h3 class="card-title color-black mb-2">Rp. 32.150.000,00</h3>
+      </div>
+    </div>
   </div>
 </div>
 @endsection

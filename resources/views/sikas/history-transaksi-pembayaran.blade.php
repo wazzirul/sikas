@@ -70,6 +70,7 @@
             <th class="text-bold">Jenis Pembayaran</th>
             <th class="text-bold">Tanggal</th>
             <th class="text-bold">Jumlah Pembayaran</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -77,34 +78,170 @@
             <td class="color-neutral-100">Uang SPP</td>
             <td class="color-neutral-100">January, 02 2023</td>
             <td class="color-neutral-100">+ Rp. 700.000</td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
           </tr>
           <tr>
             <td class="color-neutral-100">Uang SPP</td>
             <td class="color-neutral-100">January, 02 2023</td>
             <td class="color-neutral-100">+ Rp. 700.000</td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
           </tr>
           <tr>
             <td class="color-neutral-100">Uang SPP</td>
             <td class="color-neutral-100">January, 02 2023</td>
             <td class="color-neutral-100">+ Rp. 700.000</td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
           </tr>
           <tr>
             <td class="color-neutral-100">Uang SPP</td>
             <td class="color-neutral-100">January, 02 2023</td>
             <td class="color-neutral-100">+ Rp. 700.000</td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
           </tr>
           <tr>
             <td class="color-neutral-100">Uang SPP</td>
             <td class="color-neutral-100">January, 02 2023</td>
             <td class="color-neutral-100">+ Rp. 700.000</td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
           </tr>
           <tr>
             <td class="color-neutral-100">Uang SPP</td>
             <td class="color-neutral-100">January, 02 2023</td>
             <td class="color-neutral-100">+ Rp. 700.000</td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalEditData" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+          <h4 class="color-black text-bold">Edit Transaksi Pembayaran</h4>
+          <a href="#" data-bs-dismiss="modal" class="text-danger" aria-label="Close">
+            <i class="fa-solid fa-xmark icon"></i>
+          </a>
+        </div>
+        <form action="#">
+          <div class="mt-5">
+            <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
+            <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
+          </div>
+          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalDeleteData" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <h4 class="color-black text-bold text-center">Hapus Transaksi Pembayaran</h4>
+        </div>
+        <form action="#">
+          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+            <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalEditSuccess" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-check icon-success text-success"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Mengedit Data</h4>
+          <p class="color-neutral-80">Uang SPP berhasil diubah menjadi Rp. 700.000</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalDeleteSuccess" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-check icon-success text-success"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Menghapus Data</h4>
+          <p class="color-neutral-80">Uang SPP berhasil dihapus</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@
 
 @import '../_bootstrap-extended/include';
 @import '../_reset';
-.table-responsive{
-  padding: 0 toRem(32);
+.avatar-icon{
+  width: toRem(32);
+  height: toRem(32);
 }
