@@ -36,11 +36,6 @@
 
 * {
   transition: all linear 0.2s;
-  user-select: none; /* supported by Chrome and Opera */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 html {
@@ -235,9 +230,20 @@ input[type=number] {
 .modal--transaksi .modal-dialog {
   max-width: 23.75rem;
 }
+.modal--transaksi .modal-body {
+  padding: 2rem;
+}
+.modal--transaksi .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .modal--transaksi .icon-success {
   width: 3.5rem;
   height: 3.5rem;
+}
+
+.modal--transaksi .modal-dialog {
+  max-width: 30rem;
 }
 
 .card--history-pembayaran {
@@ -325,4 +331,15 @@ input[type=number] {
 }
 .pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .delete-file:hover .delete-file__icon {
   color: #ff3e1d;
+}
+
+.card--riwayat-tabungan {
+  padding: 2rem;
+}
+.card--riwayat-tabungan .card-body {
+  padding: 0;
+}
+.card--riwayat-tabungan .table tr td:last-child, .card--riwayat-tabungan .table tr th:last-child {
+  width: 1%;
+  white-space: nowrap;
 }

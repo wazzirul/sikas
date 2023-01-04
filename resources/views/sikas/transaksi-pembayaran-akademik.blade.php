@@ -99,7 +99,7 @@
         </div>
         <div class="">
           <label for="nominalPembayaran" class="form-label">Nominal</label>
-          <input type="text" class="form-control" id="nominalPembayaran" placeholder="0.00">
+          <input type="text" class="form-control" id="nominalPembayaran" placeholder="Rp. 0.00">
         </div>
         <button class="btn btn-primary pembayaran-button" data-bs-toggle="modal" data-bs-target="#modalPembayaran">Bayar Sekarang</button>
       </form>

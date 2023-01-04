@@ -134,9 +134,22 @@
   .modal-dialog{
     max-width: toRem(380);
   }
+  .modal-body{
+    padding: toRem(32);
+  }
+  .icon{
+    width: toRem(24);
+    height: toRem(24);
+  }
   .icon-success{
     width: toRem(56);
     height: toRem(56);
+  }
+}
+
+.modal--transaksi{
+  .modal-dialog{
+    max-width: toRem(480);
   }
 }
 
@@ -226,6 +239,19 @@
           }
         }
       }
+    }
+  }
+}
+
+.card--riwayat-tabungan{
+  padding: toRem(32);
+  .card-body{
+    padding: 0;
+  }
+  .table{
+    tr td:last-child,tr th:last-child {
+      width: 1%;
+      white-space: nowrap;
     }
   }
 }

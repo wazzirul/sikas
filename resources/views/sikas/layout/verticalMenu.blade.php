@@ -31,11 +31,6 @@
             <div>Pembayaran</div>
           </a>
         </li>
-        <li class="menu-item {{ Route::is('sikas-transaksi--tabungan') == true ? 'active' : '' }}">
-          <a href="{{route('sikas-transaksi--tabungan')}}" class="menu-link">
-            <div>Tabungan</div>
-          </a>
-        </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--pemasukan') == true ? 'active' : '' }}">
           <a href="{{route('sikas-transaksi--pemasukan')}}" class="menu-link">
             <div>Pemasukan</div>

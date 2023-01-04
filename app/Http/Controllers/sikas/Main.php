@@ -24,6 +24,9 @@ class Main extends Controller
   public function pengajuanKeringananPembayaran(){
     return view('sikas.transaksi-pengajuan-keringanan-akademik');
   }
+  public function PembayaranTabungan(){
+    return view('sikas.transaksi-pembayaran-tabungan');
+  }
 
   //Login
   public function login(){

@@ -8,6 +8,9 @@ $(document).ready(function () {
   if($("#riwayat-tabungan-sekolah").length == 1) {
     $('#riwayat-tabungan-sekolah').DataTable();
   }
+  if($("#riwayat-tabungan").length == 1) {
+    $('#riwayat-tabungan').DataTable();
+  }
   if($("#upload-surat-pengajuan").length == 1) {
     $('#upload-surat-pengajuan').change(function(){
       var f = this.files[0];  
