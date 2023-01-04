@@ -17,8 +17,8 @@ return new class extends Migration
             $table->increments('id_pengajuan_keringanan');
             $table->unsignedInteger('id_anggota');
             $table->foreign('id_anggota')->references('id_anggota')->on('anggota');
-            $table->smallInteger('status');
             $table->bigInteger('jumlah');
+            $table->string('file');
             $table->timestamp('tanggal')->useCurrent();
 
             $table->smallInteger('soft_delete')->default(0);

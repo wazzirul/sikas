@@ -20,7 +20,6 @@ return new class extends Migration
             $table->bigInteger('tabungan')->default(0);
             $table->bigInteger('tagihan')->default(0);
             $table->smallInteger('status_tagihan')->default(0);
-            $table->bigInteger('bpp')->default(0);
 
             $table->smallInteger('soft_delete')->default(0);
             $table->timestamps();
