@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages/pembayaran.js')}}"></script>
+<script src="{{asset('assets/js/pages/pengajuan-keringanan.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -33,18 +33,18 @@
       <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
         <i class="fa-regular fa-user detail-siswa__icon"></i>
         <div class="d-flex flex-column gap-1">
-          <h5 class="text-bold color-neutral-100">Anastasya Anzella</h5>
-          <p class="nomor-siswa color-neutral-80">120293487</p>
+          <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
+          <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn }}</p>
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-3 detail-siswa-history__subs">
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Kelas</p>
-          <p class="text-bold color-neutral-100">XI TKJ 2</p>
+          <p class="text-bold color-neutral-100">{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}</p>
         </div>
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Sisa Tanggungan</p>
-          <h5 class="text-bold text-primary">1.300.000</h5>
+          <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
         </div>
       </div>
     </div>
@@ -65,54 +65,16 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($history as $h)
           <tr>
             <td>
-              <p class="color-neutral-100">January, 02 2023</p>
+              <p class="color-neutral-100">{{ \Carbon\Carbon::parse($h->tanggal)->format('F, d Y') }}</p>
             </td>
             <td>
-              <p class="color-neutral-100">+ Rp. 700.000</p>
+              <p class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</p>
             </td>
           </tr>
-          <tr>
-            <td>
-              <p class="color-neutral-100">January, 02 2023</p>
-            </td>
-            <td>
-              <p class="color-neutral-100">+ Rp. 700.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="color-neutral-100">January, 02 2023</p>
-            </td>
-            <td>
-              <p class="color-neutral-100">+ Rp. 700.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="color-neutral-100">January, 02 2023</p>
-            </td>
-            <td>
-              <p class="color-neutral-100">+ Rp. 700.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="color-neutral-100">January, 02 2023</p>
-            </td>
-            <td>
-              <p class="color-neutral-100">+ Rp. 700.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="color-neutral-100">January, 02 2023</p>
-            </td>
-            <td>
-              <p class="color-neutral-100">+ Rp. 700.000</p>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -120,13 +82,15 @@
   <div class="border-line"></div>
   <div class="pengajuan-keringanan__form">
     <h4 class="text-bold color-black mb-4">Form Pengajuan Keringanan</h4>
-    <form action="#" class="pengajuan-keringanan-form">
+    <form action="/transaksi/postPengajuanKeringanan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
+      {{ csrf_field() }}
+      <input type="hidden" name="id_anggota" value="{{ $anggota->id_anggota }}"/>
       <div class="pengajuan-keringanan-form__input-wrapper">
         <div class="pengajuan-keringanan-form__input">
           <label for="upload-surat-pengajuan" class="form-label">Upload Surat Pengajuan </label>
-          <input class="form-control" type="file" id="upload-surat-pengajuan" multiple="">
+          <input class="form-control" type="file" name="file-pengajuan" id="upload-surat-pengajuan" accept="application/pdf">
         </div>
-        <div class="pengajuan-keringanan-form__item-upload">
+        <div class="pengajuan-keringanan-form__item-upload d-none">
           <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
           <p class="color-neutral-100 file-name">Account-receible.pdf</p>
           <a href="#" class="delete-file">
@@ -136,7 +100,7 @@
       </div>
       <div class="mt-3">
         <label for="nominalPembayaran" class="form-label text-bold color-black">Nominal Keringanan</label>
-        <input type="number" min="0" class="form-control" id="nominalPembayaran" placeholder="0.00">
+        <input type="text" min="0" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
       </div>
       <button class="btn btn-primary pengajuan-keringanan-button mt-4" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringanan">Bayar Sekarang</button>
     </form>
