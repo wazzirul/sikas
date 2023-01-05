@@ -41,7 +41,7 @@
   </div>
   <div class="card">
     <div class="card-body">
-      <a href="{{route('sikas-transaksi--pembayaran-tabungan')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
+      <a href="{{route('sikas-transaksi--pembayaran-tabungan-siswa')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
         <div class="jenis-pembayaran__icon-wrap">
           <i class="fa-regular fa-credit-card jenis-pembayaran__icon"></i>
         </div>
