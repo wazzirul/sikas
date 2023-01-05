@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sikas\Main;
 use App\Http\Controllers\sikas\PembayaranController;
 use App\Http\Controllers\sikas\TellerController;
+use App\Http\Controllers\sikas\SiswaController;
+use App\Http\Controllers\sikas\KaryawanController;
 use App\Http\Controllers\sikas\TabunganController;
 use App\Http\Controllers\sikas\Auth\AuthController;
 use App\Http\Controllers\sikas\Query\QueryController;

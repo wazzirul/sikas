@@ -128,6 +128,11 @@ input[type=number] {
   color: #000 !important;
 }
 
+.table tr td:last-child, .table tr th:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
 .btn-tambah-teller {
   margin-left: auto;
 }

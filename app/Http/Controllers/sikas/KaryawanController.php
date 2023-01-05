@@ -9,6 +9,6 @@ class KaryawanController extends Controller
 {
     //
   public function index(){
-    return view('sikas.teller');
+    return view('sikas.karyawan');
   }
 }

@@ -19,6 +19,13 @@
   }
 }
 
+.table{
+  tr td:last-child,tr th:last-child {
+    width: 1%;
+    white-space: nowrap;
+  }
+}
+
 .btn-tambah-teller{
   margin-left: auto;
 }
