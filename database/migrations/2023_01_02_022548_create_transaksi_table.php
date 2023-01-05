@@ -26,6 +26,7 @@ return new class extends Migration
             $table->unsignedInteger('id_tagihan')->nullable();
             $table->foreign('id_tagihan')->references('id_tagihan')->on('tagihan');
             $table->bigInteger('jumlah');
+            $table->bigInteger('mutasi')->nullable();
             $table->unsignedInteger('id_kelas')->nullable();
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas');
             $table->timestamp('tanggal')->useCurrent();

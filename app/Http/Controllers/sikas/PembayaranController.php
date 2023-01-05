@@ -84,11 +84,11 @@ class PembayaranController extends Controller
 
     public function PembayaranAkademik(){
         $anggota = Anggota::where('tipe_anggota', 2)
-        ->where('soft_delete', 0)
-        ->inRandomOrder()
-        ->limit(3)
-        ->with('Kelas', 'Jurusan')
-        ->get();
+            ->where('soft_delete', 0)
+            ->inRandomOrder()
+            ->limit(3)
+            ->with('Kelas', 'Jurusan')
+            ->get();
 
         return view('sikas.transaksi-pembayaran-akademik', [
             'anggota' => $anggota,
@@ -111,6 +111,7 @@ class PembayaranController extends Controller
             $transaksi->id_admin = Session::get('id_user');
             $transaksi->nomor_transaksi = '001000'.date('dmY');
             $transaksi->kode_transaksi = 'AKDMK-'.$id_anggota.'-'.date('hi-dmY');
+            $transaksi->nama_transaksi = 'Pembayaran SPP';
             $transaksi->id_anggota = $id_anggota;
             $transaksi->tipe_transaksi = 1;
             $transaksi->jumlah = $nominal;
@@ -135,12 +136,6 @@ class PembayaranController extends Controller
         }else{
             return redirect()->back();
         }
-    }
-    
-
-    //TABUNGAN GURU 
-    public function PembayaranTabunganGuru(){
-        return view('sikas.transaksi-pembayaran-tabungan-guru');
     }
 
     //HISTORY TRANSAKSI SISWA

@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages/transaksi.js')}}"></script>
+<script src="{{asset('assets/js/pages/pembayaran-akademik.js')}}"></script>
 @endsection
 
 @section('page-style')

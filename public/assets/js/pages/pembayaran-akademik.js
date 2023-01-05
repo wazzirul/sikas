@@ -7,7 +7,8 @@ $('#cari-siswa').keyup((e) => {
         method: 'POST',
         data: {
             _token: $('#ctoken').val(),
-            search: search
+            search: search,
+            limit: 3,
         },
         success: (result) => {
             dataSiswa = result;
@@ -33,6 +34,10 @@ $('#cari-siswa').keyup((e) => {
                     </div>
                 `);
             })
+
+            $('.cari-siswa__item').click((e) => {
+                clickSiswa(e);
+            })
         },
         error: (err) => {
             console.log(err);
@@ -41,6 +46,10 @@ $('#cari-siswa').keyup((e) => {
 })
 
 $('.cari-siswa__item').click((e) => {
+    clickSiswa(e);
+})
+
+function clickSiswa(e) {
     $('.pembayaran-button').removeClass('disabled');
     $('#id_anggota').val(e.currentTarget.dataset.id);
     $('.ajukan-keringanan-button').attr('href', `/transaksi/pengajuan-keringanan/${e.currentTarget.dataset.id}`);
@@ -65,7 +74,7 @@ $('.cari-siswa__item').click((e) => {
             console.log(err);
         }
     })
-})
+}
 
 function numberFormat(x) {
     var parts = x.toString().split(".");
