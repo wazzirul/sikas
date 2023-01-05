@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages/pembayaran.js')}}"></script>
+<script src="{{asset('assets/js/pages/history-pembayaran.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -32,6 +32,7 @@
     <div class="detail-siswa-history">
       <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
         <i class="fa-regular fa-user detail-siswa__icon"></i>
+        <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         <div class="d-flex flex-column gap-1">
           <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
           <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn }}</p>
@@ -81,10 +82,10 @@
             <td class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi({{ $h->id_transaksi }})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi({{ $h->id_transaksi }})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
@@ -109,16 +110,15 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
-          <div class="mt-5">
-            <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
-            <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
-          </div>
-          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
-          </div>
-        </form>
+        <div class="mt-5">
+          <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
+          <input type="hidden" id="id_transaksi" />
+          <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+        </div>
       </div>
     </div>
   </div>
@@ -132,12 +132,10 @@
         <div class="d-flex justify-content-center align-items-center gap-3">
           <h4 class="color-black text-bold text-center">Hapus Transaksi Pembayaran</h4>
         </div>
-        <form action="#">
-          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
-          </div>
-        </form>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+        </div>
       </div>
     </div>
   </div>
@@ -151,7 +149,7 @@
         <div class="d-flex flex-column justify-content-center align-items-center text-center">
           <i class="fa-solid fa-circle-check icon-success text-success"></i>
           <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Mengedit Data</h4>
-          <p class="color-neutral-80">Uang SPP berhasil diubah menjadi Rp. 700.000</p>
+          <p class="color-neutral-80">Uang SPP berhasil diubah menjadi Rp. <span id="update-result">0</span></p>
         </div>
       </div>
     </div>
