@@ -6,20 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 
+use App\Anggota;
+
 class Main extends Controller
 {
     //
-  public function index()
-  {
+  public function index(){
     return view('sikas.dashboard');
   }
-  public function login()
-  {
+
+  //Login
+  public function login(){
     if(Session::has('authenticated')) return redirect('/');
     return view('sikas.login');
   }
-  public function register()
-  {
+  //Register
+  public function register(){
     return view('sikas.register');
   }
 }

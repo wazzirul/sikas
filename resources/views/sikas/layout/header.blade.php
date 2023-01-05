@@ -3,11 +3,9 @@
   <div class="container">
     <div class="header-wrapper">
       <div class="header-logo">
-        <i class="fa-solid fa-money-bill-wave header-logo__icon"></i>
-        <div class="header-logo__content">
-          <h2 class="text-primary">Sikas</h2>
-          <p>Sistem pembayaran dan kas sekolah</p>
-        </div>
+        <h2 class="text-primary">
+          @yield('current-pages-title')
+        </h2>
       </div>
       <!-- User -->
       <div class="nav-item navbar-dropdown dropdown-user dropdown">

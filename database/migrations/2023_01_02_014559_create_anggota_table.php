@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('anggota', function (Blueprint $table) {
             $table->increments('id_anggota');
             $table->smallInteger('tipe_anggota');
-            $table->string('username');
-            $table->string('password');
             $table->string('nama');
             $table->string('nisn')->nullable();
             $table->string('nip')->nullable();
@@ -26,8 +24,6 @@ return new class extends Migration
             $table->unsignedInteger('id_jurusan')->nullable();
             $table->foreign('id_jurusan')->references('id_jurusan')->on('jurusan');
             $table->integer('nomor_kelas')->nullable();
-            $table->smallInteger('keringanan')->default(0);
-            $table->bigInteger('jumlah_keringanan')->nullable();
 
             $table->smallInteger('soft_delete')->default(0);
             $table->timestamps();

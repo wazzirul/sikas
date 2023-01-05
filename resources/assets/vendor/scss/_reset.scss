@@ -1,3 +1,108 @@
+@function toRem($value) {
+  $remValue: ($value / 16) + rem; 
+  @return $remValue;
+}
+
+$color-white: #fff;
+$color-black: #000;
+$grey-icon:#C2C2C2;
+$dark-subtle:#ABB6C3;
+$color-neutral-30: #EDEDED;
+$color-neutral-40: #E0E0E0;
+$color-neutral-50: #C2C2C2;
+$color-neutral-80: #616161;
+$color-neutral-100:#1B1B1B;
+
+$colorsMap: (
+  white: #fff,
+  black: #000,
+  grey-icon: #C2C2C2,
+  dark-subtle: #ABB6C3,
+  neutral-30: #EDEDED,
+  neutral-40: #E0E0E0,
+  neutral-50: #C2C2C2,
+  neutral-80: #616161,
+  neutral-100: #1B1B1B,
+);
+
+@mixin ColorClass {
+  @each $name, $color in $colorsMap {
+    .color-#{$name} {
+      color: $color;  
+    }
+  }
+}
+
+@include ColorClass;
+
+*{
+  transition: all linear .2s;
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+html{
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 h1,h2,h3,h4,h5,h6,p{
   margin: 0;
+}
+h4{
+  font-style: normal;
+  font-weight: 600;
+  font-size: toRem(24);
+  line-height: 1.2;
+}
+h5{
+  font-style: normal;
+  font-weight: 600;
+  font-size: toRem(20);
+  line-height: 1.2;
+}
+.mt-5{
+  margin-top: 2rem !important;
+}
+.mb-5{
+  margin-bottom: 2rem !important;
+}
+
+.btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: toRem(12);
+}
+
+.form-control{
+  color: $color-neutral-100;
+  &:focus,&:focus-visible,&:focus-within,&:active{
+    color: $color-neutral-100;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.dt-row{
+  margin-top: toRem(16) !important;
+}
+
+.table-striped{
+  border: 1px solid $color-neutral-40 !important;
+  thead,tbody,tr,td,th{
+    border-color: $color-neutral-40 !important;
+  }
 }

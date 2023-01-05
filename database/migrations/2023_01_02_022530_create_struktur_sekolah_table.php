@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('struktur_sekolah', function (Blueprint $table) {
             $table->increments('id_struktur_sekolah');
-            $table->string('nama');
+            $table->unsignedInteger('id_anggota');
+            $table->foreign('id_anggota')->references('id_anggota')->on('anggota');
             $table->string('jabatan');
 
             $table->smallInteger('soft_delete')->default(0);
