@@ -6,34 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 
+use App\Anggota;
+
 class Main extends Controller
 {
     //
   public function index(){
     return view('sikas.dashboard');
-  }
-  public function transaksiPembayaran(){
-    return view('sikas.transaksi-pembayaran');
-  }
-  public function PembayaranAkademik(){
-    return view('sikas.transaksi-pembayaran-akademik');
-  }
-  public function historyTransaksiPembayaran(){
-    return view('sikas.history-transaksi-pembayaran');
-  }
-  public function pengajuanKeringananPembayaran(){
-    return view('sikas.transaksi-pengajuan-keringanan-akademik');
-  }
-  public function PembayaranTabungan(){
-    return view('sikas.transaksi-pembayaran-tabungan');
-  }
-
-  //Pemasukan dan Pengeluaran
-  public function transaksiPemasukan(){
-    return view('sikas.transaksi-pemasukan');
-  }
-  public function transaksiPengeluaran(){
-    return view('sikas.transaksi-pengeluaran');
   }
 
   //Login

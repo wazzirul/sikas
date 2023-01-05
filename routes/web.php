@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\sikas\Main;
+use App\Http\Controllers\sikas\PembayaranController;
 use App\Http\Controllers\sikas\Auth\AuthController;
+use App\Http\Controllers\sikas\Query\QueryController;
 
 $controller_path = 'App\Http\Controllers';
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,25 +28,32 @@ Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('sik
 Route::group(['middleware' => 'authsession'], function () {    
     Route::get('/', [Main::class, 'index'])->name('sikas-dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('sikas-logout');
+
+    // Transaksi
+    Route::get('/transaksi', [Main::class, 'index'])->name('sikas-transaksi');
+    Route::get('/transaksi/pembayaran', [PembayaranController::class, 'transaksiPembayaran'])->name('sikas-transaksi--pembayaran');
+    Route::get('/transaksi/pembayaran/akademik', [PembayaranController::class, 'PembayaranAkademik'])->name('sikas-transaksi--pembayaran-akademik');
+    Route::get('/transaksi/history-pembayaran/{id}', [PembayaranController::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
+    Route::get('/transaksi/pengajuan-keringanan/{id}', [PembayaranController::class, 'pengajuanKeringananPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-keringanan');
+    Route::get('/transaksi/tabungan', [Main::class, 'index'])->name('sikas-transaksi--tabungan');
+    Route::get('/transaksi/pemasukan', [Main::class, 'index'])->name('sikas-transaksi--pemasukan');
+    Route::get('/transaksi/pengeluaran', [Main::class, 'index'])->name('sikas-transaksi--pengeluaran');
+    Route::post('/transaksi/postPembayaranAkademik', [PembayaranController::class, 'postPembayaranAkademik'])->name('sikas-transaksi--post-pembayaran-akademik');
+    Route::post('/transaksi/postPengajuanKeringanan', [PembayaranController::class, 'postPengajuanKeringanan'])->name('sikas-transaksi--post-pengajuan-keringanan');
+
+    //Other
+    Route::get('/pengguna', [Main::class, 'index'])->name('sikas-pengguna');
+    Route::get('/laporan', [Main::class, 'index'])->name('sikas-laporan');
+    Route::get('/pengaturan', [Main::class, 'index'])->name('sikas-pengaturan');
+
+    // Query
+    Route::post('/query/dataSiswa', [QueryController::class, 'dataSiswa'])->name('sikas-query-datasiswa');
+    Route::post('/query/siswaById', [QueryController::class, 'siswaById'])->name('sikas-query-siswabyid');
 });
 
 // Don't uncomment
 // Route::get('/new-admin', [AuthController::class, 'newAdmin'])->name('sikas-newAdmin');
 
-// Transaksi
-Route::get('/transaksi', [Main::class, 'index'])->name('sikas-transaksi');
-Route::get('/transaksi/pembayaran', [Main::class, 'transaksiPembayaran'])->name('sikas-transaksi--pembayaran');
-Route::get('/transaksi/pembayaran/akademik', [Main::class, 'PembayaranAkademik'])->name('sikas-transaksi--pembayaran-akademik');
-Route::get('/transaksi/history-pembayaran', [Main::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
-Route::get('/transaksi/pengajuan-keringanan', [Main::class, 'pengajuanKeringananPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-keringanan');
-Route::get('/transaksi/pembayaran/tabungan', [Main::class, 'PembayaranTabungan'])->name('sikas-transaksi--pembayaran-tabungan');
-Route::get('/transaksi/pemasukan', [Main::class, 'transaksiPemasukan'])->name('sikas-transaksi--pemasukan');
-Route::get('/transaksi/pengeluaran', [Main::class, 'transaksiPengeluaran'])->name('sikas-transaksi--pengeluaran');
-
-//Other
-Route::get('/pengguna', [Main::class, 'index'])->name('sikas-pengguna');
-Route::get('/laporan', [Main::class, 'index'])->name('sikas-laporan');
-Route::get('/pengaturan', [Main::class, 'index'])->name('sikas-pengaturan');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,96 @@
+let dataSiswa;
+
+$('#cari-siswa').keyup((e) => {
+    let search = e.currentTarget.value;
+    $.ajax({
+        url: '/query/dataSiswa',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            search: search
+        },
+        success: (result) => {
+            dataSiswa = result;
+
+            $('.cari-siswa').empty();
+            $.each(result, (index, value) => {
+                $('.cari-siswa').append(`
+                    <div class="cari-siswa__item" data-id="${value.id_anggota}">
+                        <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
+                        <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
+                        <div class="d-flex flex-column gap-1">
+                            <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">${value.nama}</p>
+                            <p class="nomor-siswa color-neutral-80">${value.nisn}</p>
+                        </div>
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                        <p class="text-bold color-neutral-100">Kelas</p>
+                        <p class="kelas-siswa color-neutral-80">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
+                        </div>
+                        <a href="#" class="cari-siswa__item-detail">
+                        <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
+                        </a>
+                    </div>
+                `);
+            })
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+})
+
+$('.cari-siswa__item').click((e) => {
+    $('.pembayaran-button').removeClass('disabled');
+    $('#id_anggota').val(e.currentTarget.dataset.id);
+    $('.ajukan-keringanan-button').attr('href', `/transaksi/pengajuan-keringanan/${e.currentTarget.dataset.id}`);
+    $('.history-pembayaran-button').attr('href', `/transaksi/history-pembayaran/${e.currentTarget.dataset.id}`);
+
+    $.ajax({
+        url: '/query/siswaById',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id: e.currentTarget.dataset.id
+        },
+        success: (result) => {
+            console.log(result);
+            result = result[0];
+            $('.detail-nama').text(result.nama);
+            $('.detail-nisn').text(result.nisn);
+            $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
+            $('.detail-tagihan').text(numberFormat(result.keuangan_anggota.tagihan));
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+})
+
+function numberFormat(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return parts.join(",");
+}
+
+$('#nominalPembayaran').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominalPembayaran').val(formatRupiah(input, 'RP. '))
+})
+
+function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split = number_string.split(','),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}

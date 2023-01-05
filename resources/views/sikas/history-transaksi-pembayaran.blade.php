@@ -33,18 +33,18 @@
       <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
         <i class="fa-regular fa-user detail-siswa__icon"></i>
         <div class="d-flex flex-column gap-1">
-          <h5 class="text-bold color-neutral-100">Anastasya Anzella</h5>
-          <p class="nomor-siswa color-neutral-80">120293487</p>
+          <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
+          <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn }}</p>
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-3 detail-siswa-history__subs">
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Kelas</p>
-          <p class="text-bold color-neutral-100">XI TKJ 2</p>
+          <p class="text-bold color-neutral-100">{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}</p>
         </div>
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Sisa Tanggungan</p>
-          <h5 class="text-bold text-primary">1.300.000</h5>
+          <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
         </div>
       </div>
     </div>
@@ -74,10 +74,11 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($history as $h)
           <tr>
             <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
+            <td class="color-neutral-100">{{ \Carbon\Carbon::parse($h->tanggal)->format('F, d Y') }}</td>
+            <td class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
                 <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
@@ -89,81 +90,7 @@
               </div>
             </td>
           </tr>
-          <tr>
-            <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
