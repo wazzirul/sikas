@@ -14,6 +14,12 @@ class Main extends Controller
   public function index(){
     return view('sikas.dashboard');
   }
+  public function TransaksiPemasukan(){
+    return view('sikas.transaksi-pemasukan');
+  }
+  public function TransaksiPengeluaran(){
+    return view('sikas.transaksi-pengeluaran');
+  }
 
   //Login
   public function login(){

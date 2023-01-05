@@ -137,4 +137,17 @@ class PembayaranController extends Controller
         }
     }
     
+
+    //TABUNGAN GURU 
+    public function PembayaranTabunganGuru(){
+        return view('sikas.transaksi-pembayaran-tabungan-guru');
+    }
+
+    //HISTORY TRANSAKSI SISWA
+    public function historyTransaksiSiswa(){
+        return view('sikas.history-transaksi-siswa');
+    }
+    public function historyTransaksiSiswaDetail(){
+        return view('sikas.history-transaksi-siswa-detail');
+    }
 }

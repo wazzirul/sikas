@@ -50,6 +50,28 @@
       <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Sekolah</h5>
     </div>
   </div>
+  <div class="card">
+    <div class="card-body">
+      <a href="{{route('sikas-transaksi--pembayaran-tabungan-guru')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
+        <div class="jenis-pembayaran__icon-wrap">
+          <i class="fa-solid fa-credit-card jenis-pembayaran__icon"></i>
+        </div>
+        <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Guru</h5>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <a href="{{route('sikas-transaksi--pembayaran-history-siswa')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
+        <div class="jenis-pembayaran__icon-wrap">
+          <i class="fa-solid fa-school jenis-pembayaran__icon"></i>
+        </div>
+        <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Histroy Transaksi Siswa</h5>
+    </div>
+  </div>
 </div>
 <div class="card riwayat-transaksi mt-5">
   <h4 class="color-neutral-100 mb-5">Riwayat Transaksi</h4>
@@ -88,7 +110,12 @@
                     <p class="text-bold text-black">Rp. 700.000</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -103,7 +130,12 @@
                     <p class="text-bold text-black">Rp. 700.000</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -118,7 +150,12 @@
                     <p class="text-bold text-black">Rp. 700.000</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -133,7 +170,12 @@
                     <p class="text-bold text-black">Rp. 700.000</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -148,7 +190,12 @@
                     <p class="text-bold text-black">Rp. 700.000</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -163,7 +210,12 @@
                     <p class="text-bold text-black">Rp. 700.000</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -199,7 +251,12 @@
                     <p class="text-bold text-black text-center">Setor</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -217,7 +274,12 @@
                     <p class="text-bold text-black text-center">Tarik</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -235,7 +297,12 @@
                     <p class="text-bold text-black text-center">Setor</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -253,7 +320,12 @@
                     <p class="text-bold text-black text-center">Tarik</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -271,7 +343,12 @@
                     <p class="text-bold text-black text-center">Setor</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -289,7 +366,12 @@
                     <p class="text-bold text-black text-center">Tarik</p>
                   </td>
                   <td>
-                    <a href="#" class="table__link-detail text-primary">Lihat Detail</a>
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
               </tbody>

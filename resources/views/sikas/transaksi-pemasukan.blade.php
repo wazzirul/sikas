@@ -68,32 +68,12 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Dana bos</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
@@ -110,32 +90,12 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Dana bos</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
@@ -152,32 +112,12 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Dana bos</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
@@ -194,32 +134,12 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Dana bos</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
@@ -236,32 +156,12 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Dana bos</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
-                </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
@@ -278,11 +178,12 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
@@ -299,11 +200,122 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="#" class="table__link-detail color-neutral-100">
-                  <i class="fa-regular fa-trash-can"></i>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-medium color-neutral-100">January, 02 2023</p>
+            </td>
+            <td class="text-medium">
+              <p class="text-medium color-neutral-100">Dana bos</p>              
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+            </td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
+                </a>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-medium color-neutral-100">January, 02 2023</p>
+            </td>
+            <td class="text-medium">
+              <p class="text-medium color-neutral-100">Dana bos</p>              
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+            </td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
+                </a>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-medium color-neutral-100">January, 02 2023</p>
+            </td>
+            <td class="text-medium">
+              <p class="text-medium color-neutral-100">Dana bos</p>              
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+            </td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
+                </a>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-medium color-neutral-100">January, 02 2023</p>
+            </td>
+            <td class="text-medium">
+              <p class="text-medium color-neutral-100">Dana bos</p>              
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+            </td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
+                </a>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-medium color-neutral-100">January, 02 2023</p>
+            </td>
+            <td class="text-medium">
+              <p class="text-medium color-neutral-100">Dana bos</p>              
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+            </td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
+                </a>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary gap-1" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
