@@ -35,7 +35,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi/pembayaran/akademik', [PembayaranController::class, 'PembayaranAkademik'])->name('sikas-transaksi--pembayaran-akademik');
     Route::get('/transaksi/history-pembayaran/{id}', [PembayaranController::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
     Route::get('/transaksi/pengajuan-keringanan/{id}', [PembayaranController::class, 'pengajuanKeringananPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-keringanan');
-    Route::get('/transaksi/tabungan', [Main::class, 'index'])->name('sikas-transaksi--tabungan');
+    Route::get('/transaksi/pembayaran/tabungan', [Main::class, 'PembayaranTabungan'])->name('sikas-transaksi--pembayaran-tabungan');
     Route::get('/transaksi/pemasukan', [Main::class, 'index'])->name('sikas-transaksi--pemasukan');
     Route::get('/transaksi/pengeluaran', [Main::class, 'index'])->name('sikas-transaksi--pengeluaran');
     Route::post('/transaksi/postPembayaranAkademik', [PembayaranController::class, 'postPembayaranAkademik'])->name('sikas-transaksi--post-pembayaran-akademik');
