@@ -16,6 +16,8 @@ use App\Http\Controllers\sikas\PembayaranController;
 use App\Http\Controllers\sikas\TellerController;
 use App\Http\Controllers\sikas\SiswaController;
 use App\Http\Controllers\sikas\KaryawanController;
+use App\Http\Controllers\sikas\JenisPembayaranController;
+use App\Http\Controllers\sikas\LaporanController;
 use App\Http\Controllers\sikas\TabunganController;
 use App\Http\Controllers\sikas\Auth\AuthController;
 use App\Http\Controllers\sikas\Query\QueryController;
@@ -57,10 +59,15 @@ Route::group(['middleware' => 'authsession'], function () {
     //Karyawan Controller
     Route::get('/karyawan', [KaryawanController::class, 'index'])->name('sikas-karyawan');
 
+    //Jenis Pembayaran Controller
+    Route::get('/jenis-pembayaran', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');
+
+    //Laporan Controller
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('sikas-laporan');
+
 
     //Other
     Route::get('/pengguna', [Main::class, 'index'])->name('sikas-pengguna');
-    Route::get('/laporan', [Main::class, 'index'])->name('sikas-laporan');
     Route::get('/pengaturan', [Main::class, 'index'])->name('sikas-pengaturan');
 
     // Query

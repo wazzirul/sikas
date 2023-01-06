@@ -1,0 +1,178 @@
+.color-white {
+  color: #fff;
+}
+
+.color-black {
+  color: #000;
+}
+
+.color-border {
+  color: #D0D4E0;
+}
+
+.color-grey-icon {
+  color: #C2C2C2;
+}
+
+.color-dark-subtle {
+  color: #ABB6C3;
+}
+
+.color-neutral-30 {
+  color: #EDEDED;
+}
+
+.color-neutral-40 {
+  color: #E0E0E0;
+}
+
+.color-neutral-50 {
+  color: #C2C2C2;
+}
+
+.color-neutral-80 {
+  color: #616161;
+}
+
+.color-neutral-100 {
+  color: #1B1B1B;
+}
+
+* {
+  transition: all linear 0.2s;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h4 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+h5 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.mt-5 {
+  margin-top: 2rem !important;
+}
+
+.mb-5 {
+  margin-bottom: 2rem !important;
+}
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-control {
+  color: #1B1B1B;
+}
+.form-control:focus, .form-control:focus-visible, .form-control:focus-within, .form-control:active {
+  color: #1B1B1B;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.dt-row {
+  margin-top: 1rem !important;
+}
+
+.table-striped {
+  border: 1px solid #E0E0E0 !important;
+}
+.table-striped thead, .table-striped tbody, .table-striped tr, .table-striped td, .table-striped th {
+  border-color: #E0E0E0 !important;
+}
+.table-striped .table-link-border {
+  width: 1px;
+  height: 1.25rem;
+  background-color: #C2C2C2;
+}
+
+.card--laporan {
+  padding: 2rem;
+}
+
+.table .table__link-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.table .table__link-detail:hover {
+  color: #000 !important;
+}
+.table tr td:last-child, .table tr th:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.date-range {
+  position: relative;
+}
+.date-range #date-range-span {
+  padding-right: 2.5rem;
+}
+.date-range .date-range-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
+  height: 1rem;
+  width: 1rem;
+  margin: auto 0;
+}
+
+.daterangepicker {
+  right: 1.5rem !important;
+}
+.daterangepicker .drp-buttons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: end;
+}
+.daterangepicker .drp-selected {
+  width: 100% !important;
+}
+
+.modal--laporan .modal-dialog {
+  max-width: 30rem;
+}
+.modal--laporan .modal-body {
+  padding: 2rem;
+}
+.modal--laporan .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.modal--laporan .icon-success {
+  width: 3.5rem;
+  height: 3.5rem;
+}

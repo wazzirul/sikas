@@ -136,7 +136,7 @@
         </div>
         <form action="#">
           <div class="mb-3">
-            <label for="nama_karyawan" class="form-label">Nama</label>
+            <label for="nama_karyawan" class="form-label">Nama Karyawan</label>
             <input type="text" class="form-control" id="nama_karyawan" placeholder="Nama Karyawan..." value="">
           </div>
           <div class="mb-3">
@@ -175,7 +175,7 @@
         </div>
         <form action="#">
           <div class="mb-3">
-            <label for="nama_karyawan" class="form-label">Nama</label>
+            <label for="nama_karyawan" class="form-label">Nama Karyawan</label>
             <input type="text" class="form-control" id="nama_karyawan" placeholder="Nama Karyawan..." value="">
           </div>
           <div class="mb-3">

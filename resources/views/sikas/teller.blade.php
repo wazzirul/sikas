@@ -149,7 +149,7 @@
         </div>
         <form action="#">
           <div class="mb-3">
-            <label for="nama_teller" class="form-label">Nama</label>
+            <label for="nama_teller" class="form-label">Nama Teller</label>
             <input type="text" class="form-control" id="nama_teller" placeholder="Nama Teller..." value="">
           </div>
           <div class="mb-3">
@@ -198,7 +198,7 @@
         </div>
         <form action="#">
           <div class="mb-3">
-            <label for="nama_teller" class="form-label">Nama</label>
+            <label for="nama_teller" class="form-label">Nama Teller</label>
             <input type="text" class="form-control" id="nama_teller" placeholder="Nama Teller..." value="Aldi Taher">
           </div>
           <div class="mb-3">
