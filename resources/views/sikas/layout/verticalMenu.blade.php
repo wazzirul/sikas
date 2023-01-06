@@ -43,10 +43,22 @@
         </li>
       </ul> 
     </li>
-    <li class="menu-item {{ Route::is('sikas-pengguna') == true ? 'active' : '' }}">
-      <a href="{{route('sikas-pengguna')}}" class="menu-link">
-        <i class="fa-regular fa-user menu-item__icon"></i>
-        <p class="menu-item__text">pengguna</p>
+    <li class="menu-item {{ Route::is('sikas-karyawan') == true ? 'active' : '' }}">
+      <a href="{{route('sikas-karyawan')}}" class="menu-link">
+        <i class="fa-solid fa-user-tie menu-item__icon"></i>
+        <p class="menu-item__text">karyawan</p>
+      </a>
+    </li>
+    <li class="menu-item {{ Route::is('sikas-siswa') == true ? 'active' : '' }}">
+      <a href="{{route('sikas-siswa')}}" class="menu-link">
+        <i class="fa-solid fa-graduation-cap menu-item__icon"></i>
+        <p class="menu-item__text">siswa</p>
+      </a>
+    </li>
+    <li class="menu-item {{ Route::is('sikas-teller') == true ? 'active' : '' }}">
+      <a href="{{route('sikas-teller')}}" class="menu-link">
+        <i class="fa-solid fa-headset menu-item__icon"></i>
+        <p class="menu-item__text">teller</p>
       </a>
     </li>
     <li class="menu-item {{ Route::is('sikas-laporan') == true ? 'active' : '' }}">

@@ -101,4 +101,9 @@ input[type=number] {
   thead,tbody,tr,td,th{
     border-color: $color-neutral-40 !important;
   }
+  .table-link-border{
+    width: 1px;
+    height: toRem(20);
+    background-color: $color-neutral-50;
+  }
 }

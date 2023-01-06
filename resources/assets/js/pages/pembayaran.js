@@ -11,6 +11,9 @@ $(document).ready(function () {
   if($("#riwayat-tabungan").length == 1) {
     $('#riwayat-tabungan').DataTable();
   }
+  if($("#history-transaksi-siswa").length == 1) {
+    $('#history-transaksi-siswa').DataTable();
+  }
   if($("#upload-surat-pengajuan").length == 1) {
     $('#upload-surat-pengajuan').change(function(){
       var f = this.files[0];  

@@ -137,5 +137,12 @@ class PembayaranController extends Controller
             return redirect()->back();
         }
     }
-    
+
+    //HISTORY TRANSAKSI SISWA
+    public function historyTransaksiSiswa(){
+        return view('sikas.history-transaksi-siswa');
+    }
+    public function historyTransaksiSiswaDetail(){
+        return view('sikas.history-transaksi-siswa-detail');
+    }
 }

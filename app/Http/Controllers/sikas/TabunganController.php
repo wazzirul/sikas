@@ -26,4 +26,9 @@ class TabunganController extends Controller
             'anggota' => $anggota,
         ]);
     }
+
+    //TABUNGAN GURU 
+    public function guru(){
+        return view('sikas.transaksi-pembayaran-tabungan-guru');
+    }
 }

@@ -83,7 +83,7 @@
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center gap-3">
           <a href="#!" class="btn btn-outline-primary ajukan-keringanan-button">Ajukan Keringanan</a> 
-          <a href="#!" class="detail-siswa__history-pembayaran text-primary history-pembayaran-button">Lihat History Pembayaran</a>
+          <a href="#!" class="detail-siswa__history-pembayaran text-primary history-pembayaran-button">Lihat History Pembayaran SPP</a>
         </div>
         <div class="">
           <label for="nominalPembayaran" class="form-label">Nominal</label>

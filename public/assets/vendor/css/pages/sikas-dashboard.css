@@ -109,6 +109,11 @@ input[type=number] {
 .table-striped thead, .table-striped tbody, .table-striped tr, .table-striped td, .table-striped th {
   border-color: #E0E0E0 !important;
 }
+.table-striped .table-link-border {
+  width: 1px;
+  height: 1.25rem;
+  background-color: #C2C2C2;
+}
 
 .avatar-icon {
   width: 2rem;
