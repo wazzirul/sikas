@@ -106,10 +106,10 @@ function clickSiswa(e) {
                         </td>
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
-                            <a href="#" class="table__link-detail color-neutral-100">
+                            <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                             <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a href="#" class="table__link-detail color-neutral-100">
+                            <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                             <i class="fa-regular fa-trash-can"></i>
                             </a>
                         </div>
@@ -117,11 +117,71 @@ function clickSiswa(e) {
                     </tr>
                 `);
             })
+
+            $('.update-transaksi-button').click(() => {
+                updateTransaksi();
+            })
+
+            $('.delete-transaksi-button').click(() => {
+                deleteTransaksi();
+            })
         },
         error: (err) => {
             console.log(err);
         }
     })
+}
+
+function updateTransaksi() {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+    $('#update-result').text(numberFormat($('#jumlah-pembayaran').val()));
+
+    $.ajax({
+        url: '/query/updateHistoryTabungan',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_transaksi: id_transaksi,
+            id_anggota: id_anggota,
+            nominal: $('#jumlah-pembayaran').val(),
+        },
+        success: () => {
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+function deleteTransaksi() {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+
+    $.ajax({
+        url: '/query/deleteHistoryTabungan',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_transaksi: id_transaksi,
+            id_anggota: id_anggota,
+        },
+        success: () => {
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+function changeTransaksi($id_transaksi) {
+    $('#id_transaksi').val($id_transaksi);
 }
 
 function numberFormat(x) {
@@ -138,6 +198,11 @@ $('#nominalTabungan').keyup((e) => {
 $('#nominalPenarikan').keyup((e) => {
     let input = e.currentTarget.value;
     $('#nominalPenarikan').val(formatRupiah(input, 'RP. '))
+})
+
+$('#jumlah-pembayaran').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
 })
 
 $('.post-setoran-tabungan-button').click((e) => {

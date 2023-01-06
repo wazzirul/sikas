@@ -169,6 +169,48 @@
 </div>
 
 <!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalEditData" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+          <h4 class="color-black text-bold">Edit Transaksi Pembayaran</h4>
+          <a href="#" data-bs-dismiss="modal" class="text-danger" aria-label="Close">
+            <i class="fa-solid fa-xmark icon"></i>
+          </a>
+        </div>
+        <div class="mt-5">
+          <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
+          <input type="hidden" id="id_transaksi" />
+          <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalDeleteData" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <h4 class="color-black text-bold text-center">Hapus Transaksi Pembayaran</h4>
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
 <div class="modal modal--transaksi fade" id="modalPenarikanSuccess" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -192,6 +234,36 @@
           <i class="fa-solid fa-circle-check icon-success text-success"></i>
           <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Melakukan Setoran</h4>
           <p class="color-neutral-80">Anda bisa melihat detail setoran yang baru saja anda lakukan di halaman home.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalEditSuccess" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-check icon-success text-success"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Mengedit Data</h4>
+          <p class="color-neutral-80">Transaksi berhasil diubah menjadi Rp. <span id="update-result">0</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalDeleteSuccess" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-check icon-success text-success"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Menghapus Data</h4>
+          <p class="color-neutral-80">Transaksi berhasil dihapus</p>
         </div>
       </div>
     </div>

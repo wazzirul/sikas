@@ -55,6 +55,8 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/riwayatTabungan', [QueryController::class, 'riwayatTabungan'])->name('sikas-query-riwayattabungan');
     Route::post('/query/updateHistoryPembayaran', [QueryController::class, 'updateHistoryPembayaran'])->name('sikas-query-updatehistorypembayaran');
     Route::post('/query/deleteHistoryPembayaran', [QueryController::class, 'deleteHistoryPembayaran'])->name('sikas-query-deletehistorypembayaran');
+    Route::post('/query/updateHistoryTabungan', [QueryController::class, 'updateHistoryTabungan'])->name('sikas-query-updatehistorytabungan');
+    Route::post('/query/deleteHistoryTabungan', [QueryController::class, 'deleteHistoryTabungan'])->name('sikas-query-deletehistorytabungan');
 });
 
 // Don't uncomment

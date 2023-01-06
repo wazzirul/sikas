@@ -169,4 +169,118 @@ class QueryController extends Controller
 
         return response($transaksi, 200);
     }
+
+    public function updateHistoryTabungan(Request $request){
+        $id_transaksi = $request->input('id_transaksi');
+        $id_anggota = $request->input('id_anggota');
+        $nominal = $request->input('nominal');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $transaksi = Transaksi::find($id_transaksi);
+        $nominal_awal = $transaksi->jumlah;
+        $keuangan_anggota = KeuanganAnggota::where('id_anggota', $transaksi->id_anggota)->first();
+        $selisih_nominal = 0;
+        $validasi_nominal;
+
+        if((int)$nominal_awal >= (int)$nominal){
+            $selisih_nominal = (int)$nominal_awal - (int)$nominal;
+            $tabungan_awal = $keuangan_anggota->tabungan;
+            $mutasi_awal = $transaksi->mutasi;
+            $transaksi->jumlah = $nominal;
+            if((int)$transaksi->tipe_transaksi == 2){
+                $keuangan_anggota->tabungan = (int)$tabungan_awal - (int)$selisih_nominal;
+                $transaksi->mutasi = (int)$mutasi_awal - (int)$selisih_nominal;
+            }else{
+                $keuangan_anggota->tabungan = (int)$tabungan_awal + (int)$selisih_nominal;
+                $transaksi->mutasi = (int)$mutasi_awal + (int)$selisih_nominal;
+            }
+            $validasi_nominal = 'besar';
+
+        }else{
+            $selisih_nominal = (int)$nominal - (int)$nominal_awal;
+            $tabungan_awal = $keuangan_anggota->tabungan;
+            $mutasi_awal = $transaksi->mutasi;
+            $transaksi->jumlah = $nominal;
+            if((int)$transaksi->tipe_transaksi == 2){
+                $keuangan_anggota->tabungan = (int)$tabungan_awal + (int)$selisih_nominal;
+                $transaksi->mutasi = (int)$mutasi_awal + (int)$selisih_nominal;
+            }else{
+                $keuangan_anggota->tabungan = (int)$tabungan_awal - (int)$selisih_nominal;
+                $transaksi->mutasi = (int)$mutasi_awal - (int)$selisih_nominal;
+            }
+            $validasi_nominal = 'kecil';
+        }
+
+        $transaksi->save();
+        $keuangan_anggota->save();
+
+        // HISTORY
+        $history = Transaksi::where('id_anggota', $id_anggota)
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->where('id_transaksi', '>', $id_transaksi)
+            ->where('soft_delete', 0)
+            ->get();
+
+        foreach($history as $h){
+            $mutasi_lama = $h->mutasi;
+            if((int)$transaksi->tipe_transaksi == 2){
+                if($validasi_nominal == 'besar'){
+                    $h->mutasi = (int)$mutasi_lama - (int)$selisih_nominal;
+                }else{
+                    $h->mutasi = (int)$mutasi_lama + (int)$selisih_nominal;
+                }
+            }else{
+                if($validasi_nominal == 'besar'){
+                    $h->mutasi = (int)$mutasi_lama + (int)$selisih_nominal;
+                }else{
+                    $h->mutasi = (int)$mutasi_lama - (int)$selisih_nominal;
+                }
+            }
+            $h->save();
+        }
+
+        return response($transaksi, 200);
+    }
+
+    public function deleteHistoryTabungan(Request $request){
+        $id_transaksi = $request->input('id_transaksi');
+        $id_anggota = $request->input('id_anggota');
+        $transaksi = Transaksi::find($id_transaksi);
+        $keuangan_anggota = KeuanganAnggota::where('id_anggota', $transaksi->id_anggota)->first();
+        
+        $nominal_awal = $transaksi->jumlah;
+        $tabungan_awal = $keuangan_anggota->tabungan;
+        if((int)$transaksi->tipe_transaksi == 2){
+            $keuangan_anggota->tabungan = (int)$tabungan_awal - (int)$nominal_awal;
+        }else{
+            $keuangan_anggota->tabungan = (int)$tabungan_awal + (int)$nominal_awal;
+        }
+        $transaksi->soft_delete = 1;
+
+        $transaksi->save();
+        $keuangan_anggota->save();
+
+        // HISTORY
+        $history = Transaksi::where('id_anggota', $id_anggota)
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->where('id_transaksi', '>', $id_transaksi)
+            ->where('soft_delete', 0)
+            ->get();
+
+        foreach($history as $h){
+            $mutasi_lama = $h->mutasi;
+            if((int)$transaksi->tipe_transaksi == 2){
+                $h->mutasi = (int)$mutasi_lama - (int)$nominal_awal;
+            }else{
+                $h->mutasi = (int)$mutasi_lama + (int)$nominal_awal;
+            }
+            $h->save();
+        }
+
+        return response($transaksi, 200);
+    }
 }
