@@ -61,7 +61,7 @@
         <p class="menu-item__text">teller</p>
       </a>
     </li>
-    <li class="menu-item {{ Route::is('sikas-laporan') == true ? 'active' : '' }}">
+    <li class="menu-item {{ Route::is('sikas-laporan*') == true ? 'active' : '' }}">
       <a href="{{route('sikas-laporan')}}" class="menu-link">
         <i class="fa-regular fa-file-lines menu-item__icon"></i>
         <p class="menu-item__text">laporan</p>

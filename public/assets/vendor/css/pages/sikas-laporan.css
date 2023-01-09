@@ -115,6 +115,47 @@ input[type=number] {
   background-color: #C2C2C2;
 }
 
+.jenis-laporan {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.jenis-laporan .card {
+  background-color: #fff;
+  padding: 2rem;
+}
+.jenis-laporan .card .card-body {
+  padding: 0;
+}
+.jenis-laporan .jenis-laporan__icon {
+  width: 2rem;
+  height: 2rem;
+  transition: all linear 0.2s;
+}
+.jenis-laporan .jenis-laporan__icon-wrap {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: #1B1B1B;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all linear 0.2s;
+}
+.jenis-laporan .jenis-laporan__icon-wrap .jenis-laporan__icon {
+  color: #fff;
+  margin: auto;
+}
+.jenis-laporan .jenis-laporan__link .jenis-laporan__icon--link {
+  color: #1B1B1B;
+}
+.jenis-laporan .jenis-laporan__link:hover .jenis-laporan__icon-wrap {
+  background: #696cff;
+}
+.jenis-laporan .jenis-laporan__link:hover .jenis-laporan__icon--link {
+  color: #696cff;
+}
+
 .card--laporan {
   padding: 2rem;
 }

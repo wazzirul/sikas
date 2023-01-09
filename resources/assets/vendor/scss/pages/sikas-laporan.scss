@@ -4,6 +4,52 @@
 @import '../_bootstrap-extended/include';
 @import '../_reset';
 
+
+.jenis-laporan{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: toRem(16);
+  .card{
+    background-color: $color-white;
+    padding: toRem(32);
+    .card-body{
+      padding: 0;
+    }
+  }
+  .jenis-laporan__icon{
+    width: toRem(32);
+    height: toRem(32);
+    transition: all linear .2s;
+  }
+  .jenis-laporan__icon-wrap{
+    width: toRem(56);
+    height: toRem(56);
+    background: $color-neutral-100;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all linear .2s;
+    .jenis-laporan__icon{
+      color: $color-white;
+      margin: auto;
+    }
+  }
+  .jenis-laporan__link{
+    .jenis-laporan__icon--link{
+      color: $color-neutral-100;
+    }
+    &:hover{
+      .jenis-laporan__icon-wrap{
+        background: $primary;
+      }
+      .jenis-laporan__icon--link{
+        color: $primary;
+      }
+    }
+  }
+}
+
 .card--laporan{
   padding: toRem(32);
 }

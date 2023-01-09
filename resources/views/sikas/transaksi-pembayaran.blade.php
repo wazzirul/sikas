@@ -47,7 +47,7 @@
         </div>
         <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
       </a>
-      <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Sekolah</h5>
+      <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Siswa</h5>
     </div>
   </div>
   <div class="card">

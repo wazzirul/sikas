@@ -13840,7 +13840,7 @@ body {
 }
 
 .menu-inner-shadow {
-  display: none;
+  display: none !important;
   position: absolute;
   top: 4.225rem;
   height: 3rem;

@@ -28,6 +28,53 @@
 @endsection
 
 @section('content')
+
+<div class="jenis-laporan mb-5">
+  <div class="card">
+    <div class="card-body">
+      <a href="{{route('sikas-laporan--penggunaan-dana')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
+        <div class="jenis-laporan__icon-wrap">
+          <i class="fa-solid fa-school jenis-laporan__icon"></i>
+        </div>
+        <i class="fa-solid fa-chevron-right jenis-laporan__icon jenis-laporan__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Laporan Penggunaan Dana</h5>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <a href="{{route('sikas-laporan--pemasukan-dari-sumber-lain')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
+        <div class="jenis-laporan__icon-wrap">
+          <i class="fa-regular fa-building jenis-laporan__icon"></i>
+        </div>
+        <i class="fa-solid fa-chevron-right jenis-laporan__icon jenis-laporan__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Laporan Pemasukan dari Sumber Lain</h5>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <a href="{{route('sikas-laporan--pengajuan-keringanan')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
+        <div class="jenis-laporan__icon-wrap">
+          <i class="fa-solid fa-money-bill-wave jenis-laporan__icon"></i>
+        </div>
+        <i class="fa-solid fa-chevron-right jenis-laporan__icon jenis-laporan__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Laporan Pengajuan Keringanan</h5>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <a href="{{route('sikas-laporan--pembayaran-spp')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
+        <div class="jenis-laporan__icon-wrap">
+          <i class="fa-solid fa-graduation-cap jenis-laporan__icon"></i>
+        </div>
+        <i class="fa-solid fa-chevron-right jenis-laporan__icon jenis-laporan__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Laporan Pembayaran SPP</h5>
+    </div>
+  </div>
+</div>
 <div class="card card--laporan">
   <div class="laporan-wrapper">
     <h4 class="text-bold color-black mb-4">Data Laporan</h4>    
@@ -74,7 +121,7 @@
               <p class="text-medium color-neutral-100">02 Januari 2023</p>
             </td>
             <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pemasukan</p>              
+              <p class="text-medium color-neutral-100">Pemasukan dari Sumber Lain</p>              
             </td>
             <td>
               <p class="text-medium color-neutral-100">Dana Bos</p>
@@ -88,7 +135,7 @@
               <p class="text-medium color-neutral-100">02 Januari 2023</p>
             </td>
             <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pengeluaran</p>              
+              <p class="text-medium color-neutral-100">Penggunaan Dana</p>              
             </td>
             <td>
               <p class="text-medium color-neutral-100">Operasional sekolah</p>
@@ -102,10 +149,24 @@
               <p class="text-medium color-neutral-100">02 Januari 2023</p>
             </td>
             <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pemasukan</p>              
+              <p class="text-medium color-neutral-100">Pemasukan dari Sumber Lain</p>              
             </td>
             <td>
               <p class="text-medium color-neutral-100">Donatur Wali Murid</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-medium color-neutral-100">02 Januari 2023</p>
+            </td>
+            <td class="text-medium">
+              <p class="text-medium color-neutral-100">Pengajuan Keringanan</p>              
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">Alfian yoga ‘kelas XI TKJ 2’</p>
             </td>
             <td>
               <p class="text-medium color-neutral-100">Rp. 100.000</p>

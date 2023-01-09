@@ -47,7 +47,7 @@
   height: 100%;
 }
 .menu-inner-shadow {
-  display: none;
+  display: none !important;
   position: absolute;
   top: $navbar-height + 0.35rem;
   height: 3rem;
