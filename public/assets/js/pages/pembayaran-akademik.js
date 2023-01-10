@@ -137,6 +137,9 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
         },
         complete: () => {
             form.trigger('reset')
+
+            let id = $('#id_anggota').val()
+            $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
         }
     })
 })
