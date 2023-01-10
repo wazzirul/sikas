@@ -110,6 +110,12 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
         method = form.attr('method'),
         data = form.serialize()
 
+    let dontSubmit = false
+    form.find('input:not([type="hidden"])').each((_, el) => {
+        if (!$(el).val()) dontSubmit = true
+    })
+    if (dontSubmit) return
+
     $.ajax({
         url,
         method,

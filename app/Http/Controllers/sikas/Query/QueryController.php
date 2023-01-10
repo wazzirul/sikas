@@ -9,6 +9,7 @@ use Session;
 use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
+use App\Models\PengajuanKeringanan;
 use App\Models\Transaksi;
 use Carbon\Carbon as Carbon;
 
@@ -152,7 +153,19 @@ class QueryController extends Controller
         $keuangan_anggota->tagihan = (int)$tanggungan - (int)$nominal;
         $keuangan_anggota->save();
 
-        return response($pengajuan, 200);
+        $res_anggota = Anggota::where('id_anggota', $id_anggota)
+            ->with('Kelas', 'Jurusan')
+            ->first();
+
+        $res_anggota['detail_kelas'] = $res_anggota->Kelas->nama . ' ' . $res_anggota->Jurusan->nama
+            . ' ' . $res_anggota->nomor_kelas;
+
+        $data['tanggal'] = Carbon::now()->format('l, d F Y');
+        $data['anggota'] = $res_anggota;
+        $data['pengajuan'] = $pengajuan;
+        $data['kasir'] = Session::get('nama');
+
+        return response($data, 200);
     }
 
     public function setorTabunganSiswa(Request $request)
@@ -191,7 +204,23 @@ class QueryController extends Controller
         $keuangan_sekolah->save();
         $keuangan_anggota->save();
 
-        return response($keuangan_anggota, 200);
+        $res_anggota = Anggota::where('id_anggota', $id_anggota)
+            ->with('Kelas', 'Jurusan', 'Jabatan')
+            ->first();
+
+        if ($res_anggota->tipe_anggota == 1) {
+            $res_anggota['detail_kelas'] = $res_anggota->Jabatan->jabatan ?? 'Guru';
+        } else {
+            $res_anggota['detail_kelas'] = $res_anggota->Kelas->nama . ' ' . $res_anggota->Jurusan->nama
+                . ' ' . $res_anggota->nomor_kelas;
+        }
+
+        $data['tanggal'] = Carbon::now()->format('l, d F Y');
+        $data['anggota'] = $res_anggota;
+        $data['transaksi'] = $transaksi;
+        $data['kasir'] = Session::get('nama');
+
+        return response($data, 200);
     }
 
     public function penarikanTabunganSiswa(Request $request)
@@ -230,7 +259,23 @@ class QueryController extends Controller
         $keuangan_sekolah->save();
         $keuangan_anggota->save();
 
-        return response($keuangan_anggota, 200);
+        $res_anggota = Anggota::where('id_anggota', $id_anggota)
+            ->with('Kelas', 'Jurusan', 'Jabatan')
+            ->first();
+
+        if ($res_anggota->tipe_anggota == 1) {
+            $res_anggota['detail_kelas'] = $res_anggota->Jabatan->jabatan ?? 'Guru';
+        } else {
+            $res_anggota['detail_kelas'] = $res_anggota->Kelas->nama . ' ' . $res_anggota->Jurusan->nama
+                . ' ' . $res_anggota->nomor_kelas;
+        }
+
+        $data['tanggal'] = Carbon::now()->format('l, d F Y');
+        $data['anggota'] = $res_anggota;
+        $data['transaksi'] = $transaksi;
+        $data['kasir'] = Session::get('nama');
+
+        return response($data, 200);
     }
 
     public function riwayatTabungan(Request $request)

@@ -205,42 +205,100 @@ $('#jumlah-pembayaran').keyup((e) => {
     $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
 })
 
-$('.post-setoran-tabungan-button').click((e) => {
+$(document).on('submit', 'form#form-setor-tabungan', function (e) {
+    e.preventDefault()
+
+    let form = $(this),
+        url = form.attr('action'),
+        method = form.attr('method'),
+        data = form.serialize()
+
+    let dontSubmit = false
+    form.find('input:not([type="hidden"])').each((_, el) => {
+        if (!$(el).val()) dontSubmit = true
+    })
+    if (dontSubmit) return
+
     $.ajax({
-        url: '/query/setorTabunganSiswa',
-        method: 'POST',
-        data: {
-            _token: $('#ctoken').val(),
-            id_anggota: $('#id_anggota_setoran').val(),
-            nominal: $('#nominalTabungan').val(),
-        },
-        success: () => {
-            setTimeout(() => {
-                location.reload()
-            }, 2000);
+        url,
+        method,
+        data,
+        success: (result) => {
+            try {
+                let { tanggal, anggota, kasir, transaksi } = result
+
+                let username = kasir,
+                    numberanddate = `${tanggal}`,
+                    removetransactionnumber = true,
+                    numberandname = `${anggota.nip} / ${anggota.nama}`,
+                    classname = anggota.detail_kelas,
+                    transactiontype = 'Setor Dana Tabungan',
+                    total = transaksi.jumlah,
+                    savingsFund = transaksi.mutasi,
+                    notClassname = true
+
+                printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsFund, notClassname })
+            } catch (error) {
+                console.error(error);
+            }
         },
         error: (err) => {
             console.log(err);
+        },
+        complete: () => {
+            $('#nominalTabungan').val('')
+
+            let id = $('.id_anggota_input').val()
+            $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
         }
     })
 })
 
-$('.post-penarikan-tabungan-button').click((e) => {
+$(document).on('submit', 'form#form-tarik-tabungan', function (e) {
+    e.preventDefault()
+
+    let form = $(this),
+        url = form.attr('action'),
+        method = form.attr('method'),
+        data = form.serialize()
+
+    let dontSubmit = false
+    form.find('input:not([type="hidden"])').each((_, el) => {
+        if (!$(el).val()) dontSubmit = true
+    })
+    if (dontSubmit) return
+
     $.ajax({
-        url: '/query/penarikanTabunganSiswa',
-        method: 'POST',
-        data: {
-            _token: $('#ctoken').val(),
-            id_anggota: $('#id_anggota_setoran').val(),
-            nominal: $('#nominalPenarikan').val(),
-        },
-        success: () => {
-            setTimeout(() => {
-                location.reload()
-            }, 2000);
+        url,
+        method,
+        data,
+        success: (result) => {
+            try {
+                let { tanggal, anggota, kasir, transaksi } = result
+
+                let username = kasir,
+                    numberanddate = `${tanggal}`,
+                    removetransactionnumber = true,
+                    numberandname = `${anggota.nip} / ${anggota.nama}`,
+                    classname = anggota.detail_kelas,
+                    transactiontype = 'Penarikan Dana Tabungan',
+                    total = transaksi.jumlah,
+                    savingsFund = transaksi.mutasi,
+                    notClassname = true
+
+                printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsFund, notClassname })
+            } catch (error) {
+                console.error(error);
+            }
         },
         error: (err) => {
             console.log(err);
+        },
+        complete: () => {
+            $('#nominalPenarikan').val('')
+
+            let id = $('.id_anggota_input').val()
+            $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
         }
     })
 })
