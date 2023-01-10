@@ -38,3 +38,50 @@ function formatRupiah(angka, prefix) {
   rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
   return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
+
+$(document).on('submit', 'form#form-pengajuan-keringanan', function (e) {
+  e.preventDefault()
+
+  let form = $(this),
+    url = form.attr('action'),
+    method = form.attr('method'),
+    data = new FormData(this)
+
+  let dontSubmit = false
+  form.find('input:not([type="hidden"])').each((_, el) => {
+    if (!$(el).val()) dontSubmit = true
+  })
+  if (dontSubmit) return
+
+  $.ajax({
+    url,
+    method,
+    data,
+    processData: false,
+    contentType: false,
+    success: (result) => {
+      try {
+        let { tanggal, anggota, pengajuan, kasir } = result
+
+        let username = kasir,
+          numberanddate = `${tanggal}`,
+          removetransactionnumber = true,
+          numberandname = `${anggota.nisn} / ${anggota.nama}`,
+          classname = anggota.detail_kelas,
+          transactiontype = 'Pengajuan Keringanan Uang Akademik',
+          total = pengajuan.jumlah
+
+        printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total }, () => location.reload())
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    error: (err) => {
+      console.log(err);
+    },
+    complete: () => {
+      form.trigger('reset')
+      $('.pengajuan-keringanan-form__item-upload').addClass('d-none');
+    }
+  })
+})

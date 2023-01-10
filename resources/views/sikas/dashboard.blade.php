@@ -20,7 +20,7 @@
 @endsection
 
 @section('current-pages-title')
-  Dashboard
+Dashboard
 @endsection
 
 @section('content')

@@ -4,13 +4,17 @@
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/printjs/print.min.css')}}">
 @endsection
 
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/printjs/print.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/terbilangjs/terbilang.min.js')}}"></script>
 @endsection
 
 @section('page-script')
+<script src="{{asset('assets/js/print-receipt.js')}}"></script>
 <script src="{{asset('assets/js/pages/pembayaran-tabungan-guru.js')}}"></script>
 @endsection
 
@@ -20,7 +24,7 @@
 @endsection
 
 @section('current-pages-title')
-  Transaksi
+Transaksi
 @endsection
 
 @section('content')
@@ -111,7 +115,7 @@
           </tr>
         </thead>
         <tbody class="list-riwayat-tabungan">
-          
+
         </tbody>
       </table>
     </div>
@@ -129,13 +133,15 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
+        <form id="form-tarik-tabungan" action="/query/penarikanTabunganSiswa" method="POST">
+          {{ csrf_field() }}
           <div class="mt-5">
             <label for="nominalPenarikan" class="form-label">Nominal Penarikan</label>
-            <input type="text" class="form-control" name="nominalPenarikan" id="nominalPenarikan" placeholder="Rp. 0.00">
+            <input type="hidden" name="id_anggota" class="id_anggota_input" id="id_anggota_penarikan" />
+            <input type="text" class="form-control" name="nominal" id="nominalPenarikan" placeholder="Rp. 0.00">
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
             <button class="btn btn-primary w-100 post-penarikan-tabungan-button" data-bs-toggle="modal" data-bs-target="#modalPenarikanSuccess">Tarik Sekarang</button>
           </div>
         </form>
@@ -155,15 +161,16 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
+        <form id="form-setor-tabungan" action="/query/setorTabunganSiswa" method="POST">
+          {{ csrf_field() }}
           <div class="mt-5">
             <label for="nominalTabungan" class="form-label">Nominal Tabungan</label>
             <input type="hidden" name="id_anggota" class="id_anggota_input" id="id_anggota_setoran" />
-            <input type="text" class="form-control" name="nominalTabungan" id="nominalTabungan" placeholder="Rp. 0.00">
+            <input type="text" class="form-control" name="nominal" id="nominalTabungan" placeholder="Rp. 0.00">
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100 post-setoran-tabungan-button" data-bs-toggle="modal" data-bs-target="#modalSetoranSuccess">Setor Sekarang</button>
+            <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary w-100 post-setoran-tabungan-button" data-bs-toggle="modal" data-bs-target="#modalSetoranSuccess">Setor Sekarang</button>
           </div>
         </form>
       </div>

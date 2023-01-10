@@ -4,14 +4,18 @@
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/printjs/print.min.css')}}">
 @endsection
 
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/printjs/print.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/terbilangjs/terbilang.min.js')}}"></script>
 @endsection
 
 @section('page-script')
 <script src="{{asset('assets/js/pages/history-pembayaran.js')}}"></script>
+<script src="{{asset('assets/js/print-receipt.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -20,7 +24,7 @@
 @endsection
 
 @section('current-pages-title')
-  Transaksi
+Transaksi
 @endsection
 
 @section('content')
@@ -30,7 +34,7 @@
 <div class="card card--history-pembayaran">
   <div class="card-body">
     <div class="detail-siswa-history">
-    <div class="d-flex flex-row justify-content-between align-items-center gap-3">
+      <div class="d-flex flex-row justify-content-between align-items-center gap-3">
         <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
           <i class="fa-regular fa-user detail-siswa__icon"></i>
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
@@ -92,6 +96,9 @@
             <td class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail color-neutral-100" onClick="printReceipt(this)" data-username="{{ \Session::get('nama') }}" data-numberanddate="{{ $h->nomor_transaksi }} / {{ \Carbon\Carbon::parse($h->tanggal)->format('l, d F Y') }}" data-numberandname="{{ $anggota->nisn }} / {{ $anggota->nama }}" data-classname="{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}" data-transactiontype="{{ $h->nama_transaksi }}" data-total="{{ $h->jumlah }}" data-transactioncode="{{ $h->kode_transaksi }}">
+                  <i class="fa-solid fa-print"></i>
+                </a>
                 <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi({{ $h->id_transaksi }})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   <i class="fa-solid fa-pen"></i>
                 </a>
@@ -126,7 +133,7 @@
           <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
           <button class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
         </div>
       </div>
@@ -143,7 +150,7 @@
           <h4 class="color-black text-bold text-center">Hapus Transaksi Pembayaran</h4>
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
           <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
         </div>
       </div>
