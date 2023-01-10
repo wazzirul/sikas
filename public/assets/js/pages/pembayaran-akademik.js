@@ -101,3 +101,42 @@ function formatRupiah(angka, prefix) {
     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
+
+$(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
+    e.preventDefault()
+
+    let form = $(this),
+        url = form.attr('action'),
+        method = form.attr('method'),
+        data = form.serialize()
+
+    $.ajax({
+        url,
+        method,
+        data,
+        success: (result) => {
+            try {
+                let { tanggal, anggota, transaksi, kasir } = result
+
+                let username = kasir,
+                    numberanddate = `${transaksi.nomor_transaksi} / ${tanggal}`,
+                    numberandname = `${anggota.nisn} / ${anggota.nama}`,
+                    classname = anggota.detail_kelas,
+                    transactiontype = transaksi.nama_transaksi,
+                    total = transaksi.jumlah,
+                    transactioncode = transaksi.kode_transaksi
+
+                printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode })
+            } catch (error) {
+                console.error(error);
+            }
+
+        },
+        error: (err) => {
+            console.log(err);
+        },
+        complete: () => {
+            form.trigger('reset')
+        }
+    })
+})

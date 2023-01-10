@@ -4,13 +4,17 @@
 
 @section('vendor-style')
 <!-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}"> -->
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/printjs/print.min.css')}}">
 @endsection
 
 @section('vendor-script')
 <!-- <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script> -->
+<script src="{{asset('assets/vendor/libs/printjs/print.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/terbilangjs/terbilang.min.js')}}"></script>
 @endsection
 
 @section('page-script')
+<script src="{{asset('assets/js/print-receipt.js')}}"></script>
 <script src="{{asset('assets/js/pages/pembayaran-akademik.js')}}"></script>
 @endsection
 
@@ -20,7 +24,7 @@
 @endsection
 
 @section('current-pages-title')
-  Transaksi
+Transaksi
 @endsection
 
 @section('content')
@@ -59,7 +63,7 @@
     </div>
     <div class="horizontal-line"></div>
     <div class="card-item">
-      <form action="/transaksi/postPembayaranAkademik" method="POST" class="card-item--detail-dan-form">
+      <form id="form-pembayaran-akademik" action="/query/postPembayaranAkademik" method="POST" class="card-item--detail-dan-form">
         {{ csrf_field() }}
         <h3 class="text-bold">Detail Siswa</h3>
         <div class="detail-siswa">
@@ -82,13 +86,13 @@
           </div>
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center gap-3">
-          <a href="#!" class="btn btn-outline-primary ajukan-keringanan-button">Ajukan Keringanan</a> 
+          <a href="#!" class="btn btn-outline-primary ajukan-keringanan-button">Ajukan Keringanan</a>
           <a href="#!" class="detail-siswa__history-pembayaran text-primary history-pembayaran-button">Lihat History Pembayaran SPP</a>
         </div>
         <div class="">
           <label for="nominalPembayaran" class="form-label">Nominal</label>
           <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
-          <input type="hidden" id="id_anggota" name="id_anggota"/>
+          <input type="hidden" id="id_anggota" name="id_anggota" />
         </div>
         <button class="btn btn-primary pembayaran-button disabled" data-bs-toggle="modal" data-bs-target="#modalPembayaran">Bayar Sekarang</button>
       </form>

@@ -4,13 +4,17 @@
 
 @section('vendor-style')
 <!-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}"> -->
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/printjs/print.min.css')}}">
 @endsection
 
 @section('vendor-script')
 <!-- <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script> -->
+<script src="{{asset('assets/vendor/libs/printjs/print.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/terbilangjs/terbilang.min.js')}}"></script>
 @endsection
 
 @section('page-script')
+<script src="{{asset('assets/js/print-receipt.js')}}"></script>
 <script src="{{asset('assets/js/pages/pengajuan-keringanan.js')}}"></script>
 @endsection
 
@@ -20,7 +24,7 @@
 @endsection
 
 @section('current-pages-title')
-  Transaksi
+Transaksi
 @endsection
 
 @section('content')
@@ -82,9 +86,9 @@
   <div class="border-line"></div>
   <div class="pengajuan-keringanan__form">
     <h4 class="text-bold color-black mb-4">Form Pengajuan Keringanan</h4>
-    <form action="/transaksi/postPengajuanKeringanan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
+    <form id="form-pengajuan-keringanan" action="/query/postPengajuanKeringanan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
       {{ csrf_field() }}
-      <input type="hidden" name="id_anggota" value="{{ $anggota->id_anggota }}"/>
+      <input type="hidden" name="id_anggota" value="{{ $anggota->id_anggota }}" />
       <div class="pengajuan-keringanan-form__input-wrapper">
         <div class="pengajuan-keringanan-form__input">
           <label for="upload-surat-pengajuan" class="form-label">Upload Surat Pengajuan </label>
