@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages/pembayaran.js')}}"></script>
+<script src="{{asset('assets/js/pages/history-transaksi-siswa-detail.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -33,32 +33,34 @@
       <div class="d-flex flex-row justify-content-between align-items-center gap-3">
         <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
           <i class="fa-regular fa-user detail-siswa__icon"></i>
+          <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
           <div class="d-flex flex-column gap-1">
-            <h5 class="text-bold color-neutral-100">Anastasya Anzella</h5>
-            <p class="nomor-siswa color-neutral-80">120293487</p>
+            <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
+            <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn ?? $anggota->nip }}</p>
           </div>
         </div>
         <div class="d-flex flex-column gap-1">
+          @if($anggota->tipe_anggota == 2)
           <p class="color-neutral-80">Kelas</p>
-          <h5 class="text-bold color-neutral-100">XI TKJ 2</h5>
+          <h5 class="text-bold color-neutral-100">{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}</h5>
+          @else
+          <p class="color-neutral-80">Jabatan</p>
+          <h5 class="text-bold color-neutral-100">{{ $anggota->Jabatan->jabatan ?? 'Guru' }}</h5>
+          @endif
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-4 detail-siswa-history__subs">
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Sisa Tanggungan</p>
-          <h5 class="text-bold text-primary">Rp. 1.300.000</h5>
+          <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
         </div>
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Total Keringanan</p>
-          <h5 class="text-bold text-info">Rp. 500.000</h5>
-        </div>
-        <div class="d-flex flex-column gap-1">
-          <p class="color-neutral-80">Total Masuk</p>
-          <h5 class="text-bold text-primary">Rp. 5.750.000</h5>
+          <h5 class="text-bold text-info total-keringanan">{{ $total_keringanan }}</h5>
         </div>
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Total Tabungan</p>
-          <h5 class="text-bold text-success">Rp. 550.000</h5>
+          <h5 class="text-bold text-success total-tabungan">{{ $anggota->KeuanganAnggota->tabungan }}</h5>
         </div>
       </div>
     </div>
@@ -89,125 +91,29 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($transaksi as $t)
           <tr>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">Setor</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
+            <td class="color-neutral-100">{{ \Carbon\Carbon::parse($t->tanggal)->format('F, d Y') }}</td>
+            <td class="color-neutral-100">{{ $t->tipe_transaksi == 1 ? 'Uang SPP' : 'Tabungan' }}</td>
+            @if($t->tipe_transaksi == 1)
+            <td class="color-neutral-100">Pembayaran</td>
+            @else
+            <td class="color-neutral-100">{{ $t->tipe_transaksi == 2 ? 'Setor' : 'Tarik' }}</td>
+            @endif
+            <td class="color-neutral-100 nominal-transaksi">{{ $t->jumlah }}</td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" onClick="changeTransaksi({{ $t->id_transaksi }}, {{ $t->tipe_transaksi }}, {{ $t->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" onClick="changeTransaksi({{ $t->id_transaksi }}, {{ $t->tipe_transaksi }}, {{ $t->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
           </tr>
-          <tr>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">Tabungan</td>
-            <td class="color-neutral-100">Setor</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">Setor</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">Tabungan</td>
-            <td class="color-neutral-100">Setor</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">Tabungan</td>
-            <td class="color-neutral-100">Tarik</td>
-            <td class="color-neutral-100">- Rp. 350.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">Setor</td>
-            <td class="color-neutral-100">+ Rp. 700.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-neutral-100">January, 02 2023</td>
-            <td class="color-neutral-100">Tabungan</td>
-            <td class="color-neutral-100">Tarik</td>
-            <td class="color-neutral-100">- Rp. 350.000</td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -226,16 +132,17 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
-          <div class="mt-5">
-            <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
-            <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
-          </div>
-          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
-          </div>
-        </form>
+        <div class="mt-5">
+          <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
+          <input type="hidden" id="id_transaksi" />
+          <input type="hidden" id="id_anggota" />
+          <input type="hidden" id="tipe_transaksi" />
+          <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+        </div>
       </div>
     </div>
   </div>
@@ -249,12 +156,10 @@
         <div class="d-flex justify-content-center align-items-center gap-3">
           <h4 class="color-black text-bold text-center">Hapus Transaksi Pembayaran</h4>
         </div>
-        <form action="#">
-          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
-          </div>
-        </form>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+        </div>
       </div>
     </div>
   </div>

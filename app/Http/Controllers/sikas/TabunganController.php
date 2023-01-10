@@ -29,6 +29,15 @@ class TabunganController extends Controller
 
     //TABUNGAN GURU 
     public function guru(){
-        return view('sikas.transaksi-pembayaran-tabungan-guru');
+        $anggota = Anggota::where('tipe_anggota', 1)
+            ->where('soft_delete', 0)
+            ->inRandomOrder()
+            ->limit(2)
+            ->with('Jabatan')
+            ->get();
+
+        return view('sikas.transaksi-pembayaran-tabungan-guru', [
+            'anggota' => $anggota,
+        ]);
     }
 }

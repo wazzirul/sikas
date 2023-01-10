@@ -98,126 +98,28 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach($transaksi_akademik as $ta)
                 <tr>
                   <td>
-                    <p>January, 02 2023</p>
+                    <p>{{ \Carbon\Carbon::parse($ta->tanggal)->format('F, d Y') }}</p>
                   </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td class="text-medium color-neutral-100">{{ $ta->Anggota->nisn }}</td>
                   <td>
-                    <p class="text-medium text-black">Aldi taher</p>
+                    <p class="text-medium text-black">{{ $ta->Anggota->nama }}</p>
                   </td>
                   <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
+                    <p class="text-bold text-black jumlah-pembayaran">{{ $ta->jumlah }}</p>
                   </td>
                   <td>
                     <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                      <a href="/transaksi/history-transaksi-siswa/detail/{{ $ta->Anggota->id_anggota }}" class="table__link-detail d-flex align-items-center gap-2">
                         Lihat Detail
                         <i class="fa-solid fa-eye"></i>
                       </a>
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Ibnu setiaji</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Tasya savella</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Ibnu setiaji</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Alfian Bayu</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Ibnu Setiaji</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -236,144 +138,31 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach($transaksi_tabungan as $tt)
                 <tr>
                   <td>
-                    <p>January, 02 2023</p>
+                    <p>{{ \Carbon\Carbon::parse($tt->tanggal)->format('F, d Y') }}</p>
                   </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
+                  <td class="text-medium color-neutral-100">{{ $tt->Anggota->nisn ?? $tt->Anggota->nip }}</td>
                   <td>
-                    <p class="text-medium text-black">Aldi taher</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
+                    <p class="text-medium text-black">{{ $tt->Anggota->nama }}</p>
                   </td>
                   <td>
-                    <p class="text-bold text-black text-center">Setor</p>
+                    <p class="text-bold text-black jumlah-pembayaran">{{ $tt->jumlah }}</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black text-center">{{ $tt->tipe_transaksi == 2 ? 'Setor' : 'Tarik' }}</p>
                   </td>
                   <td>
                     <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
+                      <a href="/transaksi/history-transaksi-siswa/detail/{{ $tt->Anggota->id_anggota }}" class="table__link-detail d-flex align-items-center gap-2">
                         Lihat Detail
                         <i class="fa-solid fa-eye"></i>
                       </a>
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Ibnu setiaji</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black text-center">Tarik</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Tasya savella</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black text-center">Setor</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Ibnu setiaji</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black text-center">Tarik</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Alfian Bayu</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black text-center">Setor</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>January, 02 2023</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">172410103029</td>
-                  <td>
-                    <p class="text-medium text-black">Ibnu Setiaji</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black">Rp. 700.000</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black text-center">Tarik</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-end gap-3">
-                      <a href="{{route('sikas-transaksi--pembayaran-history-siswa-detail')}}" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
