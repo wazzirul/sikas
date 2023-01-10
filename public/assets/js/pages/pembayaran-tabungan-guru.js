@@ -4,7 +4,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 $('#cari-siswa').keyup((e) => {
     let search = e.currentTarget.value;
     $.ajax({
-        url: '/query/dataSiswa',
+        url: '/query/dataGuru',
         method: 'POST',
         data: {
             _token: $('#ctoken').val(),
@@ -12,6 +12,7 @@ $('#cari-siswa').keyup((e) => {
             limit: 2,
         },
         success: (result) => {
+            console.log(result);
             dataSiswa = result;
 
             $('.cari-siswa').empty();
@@ -19,18 +20,18 @@ $('#cari-siswa').keyup((e) => {
                 $('.cari-siswa').append(`
                     <div class="cari-siswa__item" data-id="${value.id_anggota}">
                         <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-                        <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-                        <div class="d-flex flex-column gap-1">
+                            <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
+                            <div class="d-flex flex-column gap-1">
                             <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">${value.nama}</p>
-                            <p class="nomor-siswa color-neutral-80">${value.nisn}</p>
-                        </div>
+                            <p class="nomor-siswa color-neutral-80">${value.nama}</p>
+                            </div>
                         </div>
                         <div class="d-flex flex-column gap-1">
-                        <p class="text-bold color-neutral-100">Kelas</p>
-                        <p class="kelas-siswa color-neutral-80">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
+                            <p class="text-bold color-neutral-100">Jabatan</p>
+                            <p class="kelas-siswa color-neutral-80">${value.jabatan != null ? value.jabatan.jabatan : 'Guru'}</p>
                         </div>
                         <a href="#" class="cari-siswa__item-detail">
-                        <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
+                            <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
                         </a>
                     </div>
                 `);
@@ -57,17 +58,16 @@ function clickSiswa(e) {
     $('.card--riwayat-tabungan').removeClass('d-none');
 
     $.ajax({
-        url: '/query/siswaById',
+        url: '/query/guruById',
         method: 'POST',
         data: {
             _token: $('#ctoken').val(),
             id: e.currentTarget.dataset.id
         },
         success: (result) => {
-            result = result[0];
             $('.detail-nama').text(result.nama);
-            $('.detail-nisn').text(result.nisn);
-            $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
+            $('.detail-nip').text(result.nip);
+            $('.detail-jabatan').text(`${result.jabatan != null ? result.jabatan.jabatan : 'Guru'}`);
             $('.detail-tabungan').text(numberFormat(result.keuangan_anggota.tabungan));
         },
         error: (err) => {

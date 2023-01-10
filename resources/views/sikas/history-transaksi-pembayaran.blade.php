@@ -30,22 +30,32 @@
 <div class="card card--history-pembayaran">
   <div class="card-body">
     <div class="detail-siswa-history">
-      <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
-        <i class="fa-regular fa-user detail-siswa__icon"></i>
-        <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
-        <div class="d-flex flex-column gap-1">
-          <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
-          <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn }}</p>
+    <div class="d-flex flex-row justify-content-between align-items-center gap-3">
+        <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
+          <i class="fa-regular fa-user detail-siswa__icon"></i>
+          <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
+          <div class="d-flex flex-column gap-1">
+            <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
+            <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn }}</p>
+          </div>
         </div>
-      </div>
-      <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-3 detail-siswa-history__subs">
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Kelas</p>
-          <p class="text-bold color-neutral-100">{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}</p>
+          <h5 class="text-bold color-neutral-100">{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}</h5>
         </div>
+      </div>
+      <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-4 detail-siswa-history__subs">
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Sisa Tanggungan</p>
           <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
+        </div>
+        <div class="d-flex flex-column gap-1">
+          <p class="color-neutral-80">Total Keringanan</p>
+          <h5 class="text-bold text-info total-keringanan">{{ $total_keringanan }}</h5>
+        </div>
+        <div class="d-flex flex-column gap-1">
+          <p class="color-neutral-80">Total Tabungan</p>
+          <h5 class="text-bold text-success total-tabungan">{{ $anggota->KeuanganAnggota->tabungan }}</h5>
         </div>
       </div>
     </div>

@@ -18,11 +18,28 @@ class QueryController extends Controller
         $limit = $request->input('limit');
         $anggota = Anggota::where('nama', 'LIKE', '%'.$search.'%')
             ->orWhere('nisn', 'LIKE', '%'.$search.'%')
+            ->inRandomOrder()
             ->where('tipe_anggota', 2)
             ->where('soft_delete', 0)
-            ->inRandomOrder()
             ->limit($limit)
             ->with('Kelas', 'Jurusan')
+            ->get();
+
+        return response($anggota, 200);
+    }
+
+    public function dataGuru(Request $request){
+        $search = $request->input('search');
+        $limit = $request->input('limit');
+        $anggota = Anggota::where(function($query) use ($search){
+                $query->where('nama', 'LIKE', '%'.$search.'%');
+                $query->orWhere('nip', 'LIKE', '%'.$search.'%');
+            })
+            ->inRandomOrder()
+            ->where('tipe_anggota', 1)
+            ->where('soft_delete', 0)
+            ->limit($limit)
+            ->with('Jabatan')
             ->get();
 
         return response($anggota, 200);
@@ -32,7 +49,16 @@ class QueryController extends Controller
         $id = $request->input('id');
         $anggota = Anggota::where('id_anggota', $id)
             ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
-            ->get();
+            ->first();
+
+        return response($anggota, 200);
+    }
+
+    public function guruById(Request $request){
+        $id = $request->input('id');
+        $anggota = Anggota::where('id_anggota', $id)
+            ->with('Jabatan', 'KeuanganAnggota')
+            ->first();
 
         return response($anggota, 200);
     }
@@ -280,6 +306,166 @@ class QueryController extends Controller
             }
             $h->save();
         }
+
+        return response($transaksi, 200);
+    }
+
+    public function pengeluaran(Request $request){
+        $keterangan = $request->input('keterangan');
+        $nominal = $request->input('nominal');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $transaksi = new Transaksi();
+        $transaksi->id_admin = Session::get('id_user');
+        $transaksi->nomor_transaksi = '002000'.date('dmY');
+        $transaksi->kode_transaksi = 'PNGLRN'.date('hi-dmY');
+        $transaksi->nama_transaksi = $keterangan;
+        $transaksi->tipe_transaksi = 4;
+        $transaksi->jumlah = (int)$nominal;
+
+        $keuangan_sekolah = KeuanganSekolah::first();
+        if(!$keuangan_sekolah){
+            $keuangan_sekolah = new KeuanganSekolah();
+            $keuangan_sekolah->pengeluaran = $nominal;
+            $keuangan_sekolah->total = $nominal;
+        }else{
+            $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal;
+        }
+
+        $transaksi->save();
+        $keuangan_sekolah->save();
+
+        return response($keuangan_sekolah, 200);
+    }
+
+    public function updatePengeluaran(Request $request){
+        $id_transaksi = $request->input('id_transaksi');
+        $nominal = $request->input('nominal');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $transaksi = Transaksi::find($id_transaksi);
+        $keuangan_sekolah = KeuanganSekolah::first();
+        $nominal_awal = $transaksi->jumlah;
+        $selisih_nominal = 0;
+
+        if((int)$nominal_awal >= (int)$nominal){
+            $selisih_nominal = (int)$nominal_awal - (int)$nominal;
+            $pengeluaran_awal = $keuangan_sekolah->pengeluaran;
+            $transaksi->jumlah = $nominal;
+            $keuangan_sekolah->pengeluaran = (int)$pengeluaran_awal - (int)$selisih_nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
+
+        }else{
+            $selisih_nominal = (int)$nominal - (int)$nominal_awal;
+            $pengeluaran_awal = $keuangan_sekolah->pengeluaran;
+            $transaksi->jumlah = $nominal;
+            $keuangan_sekolah->pengeluaran = (int)$pengeluaran_awal + (int)$selisih_nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
+        }
+
+        $transaksi->save();
+        $keuangan_sekolah->save();
+
+        return response($transaksi, 200);
+    }
+
+    public function deletePengeluaran(Request $request){
+        $id_transaksi = $request->input('id_transaksi');
+
+        $transaksi = Transaksi::find($id_transaksi);
+        $keuangan_sekolah = KeuanganSekolah::first();
+        $nominal_awal = $transaksi->jumlah;
+        $keuangan_sekolah->pengeluaran -= (int)$nominal_awal;
+        $keuangan_sekolah->total += (int)$nominal_awal;
+        $transaksi->soft_delete = 1;
+
+        $transaksi->save();
+        $keuangan_sekolah->save();
+
+        return response($transaksi, 200);
+    }
+
+    public function pemasukan(Request $request){
+        $keterangan = $request->input('keterangan');
+        $nominal = $request->input('nominal');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $transaksi = new Transaksi();
+        $transaksi->id_admin = Session::get('id_user');
+        $transaksi->nomor_transaksi = '002000'.date('dmY');
+        $transaksi->kode_transaksi = 'PMSKN'.date('hi-dmY');
+        $transaksi->nama_transaksi = $keterangan;
+        $transaksi->tipe_transaksi = 5;
+        $transaksi->jumlah = (int)$nominal;
+
+        $keuangan_sekolah = KeuanganSekolah::first();
+        if(!$keuangan_sekolah){
+            $keuangan_sekolah = new KeuanganSekolah();
+            $keuangan_sekolah->pemasukan = $nominal;
+            $keuangan_sekolah->total = $nominal;
+        }else{
+            $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan + (int)$nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$nominal;
+        }
+
+        $transaksi->save();
+        $keuangan_sekolah->save();
+
+        return response($keuangan_sekolah, 200);
+    }
+
+    public function updatePemasukan(Request $request){
+        $id_transaksi = $request->input('id_transaksi');
+        $nominal = $request->input('nominal');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $transaksi = Transaksi::find($id_transaksi);
+        $keuangan_sekolah = KeuanganSekolah::first();
+        $nominal_awal = $transaksi->jumlah;
+        $selisih_nominal = 0;
+
+        if((int)$nominal_awal >= (int)$nominal){
+            $selisih_nominal = (int)$nominal_awal - (int)$nominal;
+            $pemasukan_awal = $keuangan_sekolah->pemasukan;
+            $transaksi->jumlah = $nominal;
+            $keuangan_sekolah->pemasukan = (int)$pemasukan_awal - (int)$selisih_nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
+
+        }else{
+            $selisih_nominal = (int)$nominal - (int)$nominal_awal;
+            $pemasukan_awal = $keuangan_sekolah->pemasukan;
+            $transaksi->jumlah = $nominal;
+            $keuangan_sekolah->pemasukan = (int)$pemasukan_awal + (int)$selisih_nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
+        }
+
+        $transaksi->save();
+        $keuangan_sekolah->save();
+
+        return response($transaksi, 200);
+    }
+
+    public function deletePemasukan(Request $request){
+        $id_transaksi = $request->input('id_transaksi');
+
+        $transaksi = Transaksi::find($id_transaksi);
+        $keuangan_sekolah = KeuanganSekolah::first();
+        $nominal_awal = $transaksi->jumlah;
+        $keuangan_sekolah->pemasukan -= (int)$nominal_awal;
+        $keuangan_sekolah->total -= (int)$nominal_awal;
+        $transaksi->soft_delete = 1;
+
+        $transaksi->save();
+        $keuangan_sekolah->save();
 
         return response($transaksi, 200);
     }

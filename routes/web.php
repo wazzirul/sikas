@@ -46,7 +46,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/transaksi/postPembayaranAkademik', [PembayaranController::class, 'postPembayaranAkademik'])->name('sikas-transaksi--post-pembayaran-akademik');
     Route::post('/transaksi/postPengajuanKeringanan', [PembayaranController::class, 'postPengajuanKeringanan'])->name('sikas-transaksi--post-pengajuan-keringanan');
     Route::get('/transaksi/history-transaksi-siswa', [PembayaranController::class, 'historyTransaksiSiswa'])->name('sikas-transaksi--pembayaran-history-siswa');
-    Route::get('/transaksi/history-transaksi-siswa/detail', [PembayaranController::class, 'historyTransaksiSiswaDetail'])->name('sikas-transaksi--pembayaran-history-siswa-detail');
+    Route::get('/transaksi/history-transaksi-siswa/detail/{id}', [PembayaranController::class, 'historyTransaksiSiswaDetail'])->name('sikas-transaksi--pembayaran-history-siswa-detail');
 
     //Teller Controller
     Route::get('/teller', [TellerController::class, 'index'])->name('sikas-teller');
@@ -65,7 +65,9 @@ Route::group(['middleware' => 'authsession'], function () {
 
     // Query
     Route::post('/query/dataSiswa', [QueryController::class, 'dataSiswa'])->name('sikas-query-datasiswa');
+    Route::post('/query/dataGuru', [QueryController::class, 'dataGuru'])->name('sikas-query-dataguru');
     Route::post('/query/siswaById', [QueryController::class, 'siswaById'])->name('sikas-query-siswabyid');
+    Route::post('/query/guruById', [QueryController::class, 'guruById'])->name('sikas-query-gurubyid');
     Route::post('/query/setorTabunganSiswa', [QueryController::class, 'setorTabunganSiswa'])->name('sikas-query-setortabungansiswa');
     Route::post('/query/penarikanTabunganSiswa', [QueryController::class, 'penarikanTabunganSiswa'])->name('sikas-query-penarikantabungansiswa');
     Route::post('/query/riwayatTabungan', [QueryController::class, 'riwayatTabungan'])->name('sikas-query-riwayattabungan');
@@ -73,6 +75,12 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/deleteHistoryPembayaran', [QueryController::class, 'deleteHistoryPembayaran'])->name('sikas-query-deletehistorypembayaran');
     Route::post('/query/updateHistoryTabungan', [QueryController::class, 'updateHistoryTabungan'])->name('sikas-query-updatehistorytabungan');
     Route::post('/query/deleteHistoryTabungan', [QueryController::class, 'deleteHistoryTabungan'])->name('sikas-query-deletehistorytabungan');
+    Route::post('/query/pengeluaran', [QueryController::class, 'pengeluaran'])->name('sikas-query-pengeluaran');
+    Route::post('/query/updatePengeluaran', [QueryController::class, 'updatePengeluaran'])->name('sikas-query-updatepengeluaran');
+    Route::post('/query/deletePengeluaran', [QueryController::class, 'deletePengeluaran'])->name('sikas-query-deletepengeluaran');
+    Route::post('/query/pemasukan', [QueryController::class, 'pemasukan'])->name('sikas-query-pemasukan');
+    Route::post('/query/updatePemasukan', [QueryController::class, 'updatePemasukan'])->name('sikas-query-updatepemasukan');
+    Route::post('/query/deletePemasukan', [QueryController::class, 'deletePemasukan'])->name('sikas-query-deletepemasukan');
 });
 
 // Don't uncomment

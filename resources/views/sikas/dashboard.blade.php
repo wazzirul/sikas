@@ -34,7 +34,7 @@
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">Jumlah Siswa</span>
-        <h3 class="card-title color-black mb-2">2167</h3>
+        <h3 class="card-title color-black mb-2">{{ $siswa }}</h3>
       </div>
     </div>
   </div>
@@ -46,8 +46,8 @@
             <i class="fa-solid fa-user-tie text-info avatar-icon"></i>
           </div>
         </div>
-        <span class="fw-semibold d-block mb-1">Jumlah Karyawan</span>
-        <h3 class="card-title color-black mb-2">125</h3>
+        <span class="fw-semibold d-block mb-1">Jumlah Guru / Karyawan</span>
+        <h3 class="card-title color-black mb-2">{{ $guru }}</h3>
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">Jumlah Transaksi SPP</span>
-        <h3 class="card-title color-black mb-2">3549</h3>
+        <h3 class="card-title color-black mb-2">{{ $transaksi_spp }}</h3>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">Jumlah Transaksi Lain</span>
-        <h3 class="card-title color-black mb-2">1472</h3>
+        <h3 class="card-title color-black mb-2">{{ $transaksi_lain }}</h3>
       </div>
     </div>
   </div>
@@ -88,7 +88,7 @@
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">Jumlah Keringanan yang Diajukan</span>
-        <h3 class="card-title color-black mb-2">Rp. 22.500.000,00</h3>
+        <h3 class="card-title color-black mb-2 jumlah-keringanan">{{ $keringanan }}</h3>
       </div>
     </div>
   </div>
@@ -100,8 +100,8 @@
             <i class="fa-solid fa-user-tie text-info avatar-icon"></i>
           </div>
         </div>
-        <span class="fw-semibold d-block mb-1">Jumlah Tabungan Siswa</span>
-        <h3 class="card-title color-black mb-2">Rp. 32.150.000,00</h3>
+        <span class="fw-semibold d-block mb-1">Jumlah Tabungan Sekolah</span>
+        <h3 class="card-title color-black mb-2 jumlah-tabungan">{{ $tabungan }}</h3>
       </div>
     </div>
   </div>

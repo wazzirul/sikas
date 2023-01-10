@@ -63,8 +63,6 @@ function clickSiswa(e) {
             id: e.currentTarget.dataset.id
         },
         success: (result) => {
-            console.log(result);
-            result = result[0];
             $('.detail-nama').text(result.nama);
             $('.detail-nisn').text(result.nisn);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);

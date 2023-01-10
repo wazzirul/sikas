@@ -1,16 +1,10 @@
 $(document).ready(function () {
   if ($("#history-pembayaran").length == 1) {
-    $('#history-pembayaran').DataTable();
+    $('#history-pembayaran').DataTable({
+      "aaSorting": [],
+    });
   }
-  if ($("#riwayat-transaksi").length == 1) {
-    $('#riwayat-transaksi').DataTable();
-  }
-  if ($("#riwayat-tabungan-sekolah").length == 1) {
-    $('#riwayat-tabungan-sekolah').DataTable();
-  }
-  if ($("#riwayat-tabungan").length == 1) {
-    $('#riwayat-tabungan').DataTable();
-  }
+
   if ($("#upload-surat-pengajuan").length == 1) {
     $('#upload-surat-pengajuan').change(function () {
       var f = this.files[0];
@@ -19,7 +13,9 @@ $(document).ready(function () {
     });
   }
 
-  $('.sisa-tanggungan').text(numberFormat($('.sisa-tanggungan').text()));
+  $('.sisa-tanggungan').text('Rp. ' + numberFormat($('.sisa-tanggungan').text()));
+  $('.total-keringanan').text('Rp. ' + numberFormat($('.total-keringanan').text()));
+  $('.total-tabungan').text('Rp. ' + numberFormat($('.total-tabungan').text()));
 
   $.each($('.nominal-transaksi'), (index, value) => {
     $(value).text('+ Rp. ' + numberFormat($(value).text()))

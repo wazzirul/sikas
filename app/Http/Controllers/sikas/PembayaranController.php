@@ -15,7 +15,23 @@ use App\Models\Transaksi;
 class PembayaranController extends Controller
 {
     public function transaksiPembayaran(){
-        return view('sikas.transaksi-pembayaran');
+        $transaksi_akademik = Transaksi::where('tipe_transaksi', 1)
+            ->with('Anggota')
+            ->where('soft_delete', 0)
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+
+        $transaksi_tabungan = Transaksi::where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->with('Anggota')
+            ->where('soft_delete', 0)
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+        
+        return view('sikas.transaksi-pembayaran', [
+            'transaksi_akademik' => $transaksi_akademik,
+            'transaksi_tabungan' => $transaksi_tabungan,
+        ]);
     }
 
     public function historyTransaksiPembayaran($id){
@@ -29,9 +45,19 @@ class PembayaranController extends Controller
             ->orderBy('id_transaksi', 'DESC')
             ->get();
 
+        $total_keringanan = 0;
+        $keringanan = PengajuanKeringanan::where('id_anggota', $id)
+            ->where('soft_delete', 0)
+            ->get();
+
+        foreach($keringanan as $k){
+            $total_keringanan += (int)$k->jumlah;
+        }
+
         return view('sikas.history-transaksi-pembayaran', [
             'anggota' => $anggota,
             'history' => $history,
+            'total_keringanan' => $total_keringanan,
         ]);
     }
     
@@ -142,7 +168,30 @@ class PembayaranController extends Controller
     public function historyTransaksiSiswa(){
         return view('sikas.history-transaksi-siswa');
     }
-    public function historyTransaksiSiswaDetail(){
-        return view('sikas.history-transaksi-siswa-detail');
+
+    public function historyTransaksiSiswaDetail($id){
+        $anggota = Anggota::where('id_anggota', $id)
+            ->with('Kelas','Jurusan','KeuanganAnggota')
+            ->first();
+
+        $transaksi = Transaksi::where('id_anggota', $id)
+            ->where('soft_delete', 0)
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+
+        $total_keringanan = 0;
+        $keringanan = PengajuanKeringanan::where('id_anggota', $id)
+            ->where('soft_delete', 0)
+            ->get();
+
+        foreach($keringanan as $k){
+            $total_keringanan += (int)$k->jumlah;
+        }
+
+        return view('sikas.history-transaksi-siswa-detail', [
+            'anggota' => $anggota,
+            'transaksi' => $transaksi,
+            'total_keringanan' => $total_keringanan,
+        ]);
     }
 }

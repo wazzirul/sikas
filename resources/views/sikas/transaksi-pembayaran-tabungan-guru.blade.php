@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages/pembayaran.js')}}"></script>
+<script src="{{asset('assets/js/pages/pembayaran-tabungan-guru.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -34,82 +34,69 @@
       <label class="text-bold mb-3" for="cari-siswa">Cari Guru</label>
       <div class="input-group input-group-merge">
         <span class="input-group-text" id="cari-siswa-icon"><i class="bx bx-search"></i></span>
-        <input type="text" id="cari-siswa" class="form-control" placeholder="Masukkan nama atau NISN" aria-label="Masukkan nama atau NISN" aria-describedby="cari-siswa-icon">
+        <input type="text" id="cari-siswa" class="form-control" placeholder="Masukkan nama atau NIP" aria-label="Masukkan nama atau NIP" aria-describedby="cari-siswa-icon">
+        <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       </div>
       <div class="cari-siswa">
-        <div class="cari-siswa__item">
+        @foreach($anggota as $a)
+        <div class="cari-siswa__item" data-id="{{ $a->id_anggota }}">
           <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
             <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
             <div class="d-flex flex-column gap-1">
-              <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">Drs. SUPARDI</p>
-              <p class="nomor-siswa color-neutral-80">19590401 198603 1 025</p>
+              <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
+              <p class="nomor-siswa color-neutral-80">{{ $a->nama }}</p>
             </div>
           </div>
           <div class="d-flex flex-column gap-1">
             <p class="text-bold color-neutral-100">Jabatan</p>
-            <p class="kelas-siswa color-neutral-80">Guru</p>
+            <p class="kelas-siswa color-neutral-80">{{ $a->Jabatan->jabatan ?? 'Guru' }}</p>
           </div>
           <a href="#" class="cari-siswa__item-detail">
             <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
           </a>
         </div>
-        <div class="cari-siswa__item">
-          <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-            <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-            <div class="d-flex flex-column gap-1">
-              <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">SRI JUNIARTI UTAMI, S.T.,S.Pd</p>
-              <p class="nomor-siswa color-neutral-80">19790613 200604 2 035</p>
-            </div>
-          </div>
-          <div class="d-flex flex-column gap-1">
-            <p class="text-bold color-neutral-100">Jabatan</p>
-            <p class="kelas-siswa color-neutral-80">Guru</p>
-          </div>
-          <a href="#" class="cari-siswa__item-detail">
-            <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-          </a>
-        </div>
+        @endforeach
       </div>
     </div>
     <div class="horizontal-line"></div>
     <div class="card-item">
-      <form action="#" class="card-item--detail-dan-form">
+      <div class="card-item--detail-dan-form">
         <h3 class="text-bold">Detail Karyawan</h3>
         <div class="detail-siswa">
           <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
             <i class="fa-regular fa-user detail-siswa__icon"></i>
             <div class="d-flex flex-column gap-1">
-              <h5 class="text-bold color-neutral-100">Drs. SUPARDI</h5>
-              <p class="nomor-siswa color-neutral-80">19590401 198603 1 025</p>
+              <h5 class="text-bold color-neutral-100 detail-nama">Nama Guru</h5>
+              <p class="nomor-siswa color-neutral-80 detail-nip">-</p>
             </div>
           </div>
           <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-3">
             <div class="d-flex flex-column gap-1">
               <p class="color-neutral-80">Jabatan</p>
-              <p class="text-bold color-neutral-100">Guru</p>
+              <p class="text-bold color-neutral-100 detail-jabatan">-</p>
             </div>
             <div class="d-flex flex-column gap-1">
               <p class="color-neutral-80">Total Tabungan</p>
-              <h5 class="text-bold text-primary">1.300.000</h5>
+              <h5 class="text-bold text-primary detail-tabungan">-</h5>
             </div>
           </div>
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3">
-          <button class="btn btn-lg btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#modalPenarikan">
+          <button class="btn btn-lg btn-outline-primary w-100 penarikan-button disabled" data-bs-toggle="modal" data-bs-target="#modalPenarikan">
             Penarikan
             <i class="fa-solid fa-money-bill"></i>
           </button>
-          <button class="btn btn-lg btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalSetoran">
+          <button class="btn btn-lg btn-primary w-100 setoran-button disabled" data-bs-toggle="modal" data-bs-target="#modalSetoran">
             Setor Tabungan
             <i class="fa-solid fa-plus"></i>
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="card card--riwayat-tabungan mt-5">
+<div class="card card--riwayat-tabungan mt-5 d-none">
   <h4 class="color-neutral-100 mb-5">Riwayat Tabungan</h4>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
@@ -123,207 +110,8 @@
             <th></th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Setor</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <p class="text-bold color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Tarik</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <p class="text-bold color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Setor</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <p class="text-bold color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Tarik</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <p class="text-bold color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Setor</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <p class="text-bold color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Tarik</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <p class="text-bold color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Setor</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <p class="text-bold color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">January, 02 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Tarik</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <p class="text-bold color-neutral-100">Rp. 100.000</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
+        <tbody class="list-riwayat-tabungan">
+          
         </tbody>
       </table>
     </div>
@@ -344,11 +132,11 @@
         <form action="#">
           <div class="mt-5">
             <label for="nominalPenarikan" class="form-label">Nominal Penarikan</label>
-            <input type="text" class="form-control" id="nominalPenarikan" placeholder="Rp. 0.00">
+            <input type="text" class="form-control" name="nominalPenarikan" id="nominalPenarikan" placeholder="Rp. 0.00">
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalPenarikanSuccess">Tarik Sekarang</button>
+            <button class="btn btn-primary w-100 post-penarikan-tabungan-button" data-bs-toggle="modal" data-bs-target="#modalPenarikanSuccess">Tarik Sekarang</button>
           </div>
         </form>
       </div>
@@ -370,11 +158,12 @@
         <form action="#">
           <div class="mt-5">
             <label for="nominalTabungan" class="form-label">Nominal Tabungan</label>
-            <input type="text" class="form-control" id="nominalTabungan" placeholder="Rp. 0.00">
+            <input type="hidden" name="id_anggota" class="id_anggota_input" id="id_anggota_setoran" />
+            <input type="text" class="form-control" name="nominalTabungan" id="nominalTabungan" placeholder="Rp. 0.00">
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalSetoranSuccess">Setor Sekarang</button>
+            <button class="btn btn-primary w-100 post-setoran-tabungan-button" data-bs-toggle="modal" data-bs-target="#modalSetoranSuccess">Setor Sekarang</button>
           </div>
         </form>
       </div>

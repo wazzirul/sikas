@@ -25,12 +25,19 @@ class Anggota extends Model
     {
         return $this->hasOne('App\Models\KeuanganAnggota','id_anggota','id_anggota');
     }
+
     public function Transaksi()
     {
         return $this->hasOne('App\Models\Transaksi','id_anggota','id_anggota');
     }
+
     public function Akademik()
     {
         return $this->Transaksi()->where('tipe_transaksi', 1);
+    }
+
+    public function Jabatan()
+    {
+        return $this->hasOne('App\Models\StrukturSekolah','id_anggota','id_anggota');
     }
 }

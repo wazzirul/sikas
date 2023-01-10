@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages/pembayaran-tabungan.js')}}"></script>
+<script src="{{asset('assets/js/pages/pembayaran-tabungan-siswa.js')}}"></script>
 @endsection
 
 @section('page-style')
