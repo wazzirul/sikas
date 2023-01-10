@@ -58,6 +58,8 @@ Route::group(['middleware' => 'authsession'], function () {
 
     //Karyawan Controller
     Route::get('/karyawan', [KaryawanController::class, 'index'])->name('sikas-karyawan');
+    Route::post('/karyawan/post', [KaryawanController::class, 'postKaryawan'])->name('sikas-postkaryawan');
+    Route::post('/karyawan/import', [KaryawanController::class, 'importKaryawan'])->name('sikas-importkaryawan');
 
     //Jenis Pembayaran Controller
     Route::get('/jenis-pembayaran', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');
@@ -92,6 +94,8 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/pemasukan', [QueryController::class, 'pemasukan'])->name('sikas-query-pemasukan');
     Route::post('/query/updatePemasukan', [QueryController::class, 'updatePemasukan'])->name('sikas-query-updatepemasukan');
     Route::post('/query/deletePemasukan', [QueryController::class, 'deletePemasukan'])->name('sikas-query-deletepemasukan');
+    Route::post('/query/updateKaryawan', [QueryController::class, 'updateKaryawan'])->name('sikas-query-updatekaryawan');
+    Route::post('/query/deleteKaryawan', [QueryController::class, 'deleteKaryawan'])->name('sikas-query-deletekaryawan');
 });
 
 // Don't uncomment

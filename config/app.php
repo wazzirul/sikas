@@ -179,6 +179,9 @@ return [
     App\Providers\RouteServiceProvider::class,
     App\Providers\MenuServiceProvider::class,
 
+    // Customize
+    Maatwebsite\Excel\ExcelServiceProvider::class,
+
   ],
 
   /*
@@ -193,7 +196,8 @@ return [
     */
 
   'aliases' => Facade::defaultAliases()->merge([
-    // ...
+    // Customize
+    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
   ])->toArray(),
 
 ];

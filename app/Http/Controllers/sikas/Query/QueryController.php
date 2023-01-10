@@ -469,4 +469,39 @@ class QueryController extends Controller
 
         return response($transaksi, 200);
     }
+
+    public function updateKaryawan(Request $request){
+        $id_anggota = $request->input('id_anggota');
+        $nama_karyawan = $request->input('nama_karyawan') ?? null;
+        $nip = $request->input('nip') ?? null;
+        $jabatan = $request->input('jabatan') ?? null;
+    
+        $karyawan = Anggota::find($id_anggota);
+        $nama_karyawan != null && $karyawan->nama = $nama_karyawan;
+        $nip != null && $karyawan->nip = $nip;
+        $karyawan->save();
+    
+        if($jabatan != null){
+          $master_jabatan = StrukturSekolah::find($jabatan);
+          $master_jabatan->id_anggota = $karyawan->id_anggota;
+          $master_jabatan->save();
+        }
+    
+        return response($karyawan, 200);
+    }
+
+    public function deleteKaryawan(Request $request){
+        $id_anggota = $request->input('id_anggota');
+    
+        $karyawan = Anggota::find($id_anggota);
+        $karyawan->soft_delete = 1;
+        $karyawan->save();
+
+        $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)
+            ->first();
+        $keuangan_anggota->soft_delete = 1;
+        $keuangan_anggota->save();
+    
+        return response($karyawan, 200);
+    }
 }

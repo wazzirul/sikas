@@ -28,8 +28,10 @@
   <div class="karyawan-wrapper">
     <h4 class="text-bold color-black mb-4">Data Karyawan</h4>    
     <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
-      <form action="#" class="form-upload-karyawan">
-        <input type="file" name="upload" id="karyawan-upload-file" class="d-none">
+      <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
+      <form action="/karyawan/import" id="importForm" class="form-upload-karyawan" method="POST" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <input type="file" name="file" id="karyawan-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
         <label for="karyawan-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center">
             Upload Karyawan
             <i class="fa-solid fa-arrow-up-from-bracket"></i>
@@ -51,72 +53,30 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($karyawan as $k)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
+              <p class="text-medium color-neutral-100">{{ $k->nip }}</p>
             </td>
             <td class="text-medium">
-              <p class="text-medium color-neutral-100">Adi prahita</p>              
+              <p class="text-medium color-neutral-100">{{ $k->nama }}</p>              
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Guru</p>
+              <p class="text-medium color-neutral-100">{{ $k->Jabatan->jabatan ?? 'Guru' }}</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-primary" onClick="changeAnggota({{ $k->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail text-primary" onClick="changeAnggota({{ $k->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
           </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Arsy devano</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Kepala Sekolah</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Bayu adi</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Guru</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -134,27 +94,28 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
+        <form action="/karyawan/post" method="POST">
+          {{ csrf_field() }}
           <div class="mb-3">
             <label for="nama_karyawan" class="form-label">Nama Karyawan</label>
-            <input type="text" class="form-control" id="nama_karyawan" placeholder="Nama Karyawan..." value="">
+            <input type="text" class="form-control" name="nama_karyawan" id="nama_karyawan" placeholder="Nama Karyawan..." value="">
           </div>
           <div class="mb-3">
             <label for="nip" class="form-label">NIP</label>
-            <input type="text" class="form-control" id="nip" placeholder="NIP..." value="">
+            <input type="text" class="form-control" name="nip" id="nip" placeholder="NIP..." value="">
           </div>
           <div class="mb-3">
             <label for="jabatan" class="form-label text-bold color-black">Jabatan</label>
-            <select id="jabatan" class="form-select">
-              <option value="kepala-sekolah">Kepala Sekolah</option>
-              <option value="Guru">Guru</option>
-              <option value="Admin">Admin</option>
-              <option value="Security">Security</option>
+            <select name="jabatan" id="jabatan" class="form-select">
+              <option value="" selected>Guru</option>
+              @foreach($jabatan as $j)
+                <option value="{{ $j->id_struktur_sekolah }}">{{ $j->jabatan }}</option>
+              @endforeach
             </select>
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
+            <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+            <button type="submit" class="btn btn-primary w-100 submit" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
           </div>
         </form>
       </div>
@@ -173,29 +134,28 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
-          <div class="mb-3">
-            <label for="nama_karyawan" class="form-label">Nama Karyawan</label>
-            <input type="text" class="form-control" id="nama_karyawan" placeholder="Nama Karyawan..." value="">
-          </div>
-          <div class="mb-3">
-            <label for="nip" class="form-label">NIP</label>
-            <input type="text" class="form-control" id="nip" placeholder="NIP..." value="">
-          </div>
-          <div class="mb-3">
-            <label for="jabatan" class="form-label text-bold color-black">Jabatan</label>
-            <select id="jabatan" class="form-select">
-              <option value="kepala-sekolah">Kepala Sekolah</option>
-              <option value="Guru">Guru</option>
-              <option value="Admin">Admin</option>
-              <option value="Security">Security</option>
-            </select>
-          </div>
-          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
-          </div>
-        </form>
+        <div class="mb-3">
+          <label for="update_nama_karyawan" class="form-label">Nama Karyawan</label>
+          <input type="hidden" id="id_anggota"/>
+          <input type="text" class="form-control" id="update_nama_karyawan" placeholder="Nama Karyawan..." value="">
+        </div>
+        <div class="mb-3">
+          <label for="update_nip" class="form-label">NIP</label>
+          <input type="text" class="form-control" id="update_nip" placeholder="NIP..." value="">
+        </div>
+        <div class="mb-3">
+          <label for="update_jabatan" class="form-label text-bold color-black">Jabatan</label>
+          <select id="update_jabatan" class="form-select">
+            <option value="" selected>Guru</option>
+            @foreach($jabatan as $j)
+              <option value="{{ $j->id_struktur_sekolah }}">{{ $j->jabatan }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+          <button type="button" class="btn btn-primary w-100 update-karyawan-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+        </div>
       </div>
     </div>
   </div>
@@ -210,10 +170,10 @@
           <h4 class="color-black text-bold text-center">Hapus Data Karyawan</h4>
         </div>
         <form action="#" class="mt-3">
-          <p class="color-neutral-100 text-center">Apakah anda yakin ingin menghapus data Karyawan ‘ <span class="text-bold">Adi Prahita</span> ‘</p>
+          <p class="color-neutral-100 text-center">Apakah anda yakin ingin menghapus data Karyawan ‘ <span class="text-bold nama-delete-modal">-</span> ‘</p>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+            <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+            <button type="button" class="btn btn-danger w-100 delete-karyawan-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
           </div>
         </form>
       </div>
