@@ -77,22 +77,30 @@
       <table class="table table-striped" id="data-siswa">
         <thead>
           <tr>
-            <th>NIP</th>
             <th>Nama</th>
-            <th>Jabatan</th>
+            <th>NISN</th>
+            <th>Kelas</th>
+            <th>Jurusan</th>
+            <th>Angkatan Tahun</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
-            </td>
-            <td class="text-medium">
               <p class="text-medium color-neutral-100">Adi prahita</p>              
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Guru</p>
+              <p class="text-medium color-neutral-100">172410103026</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">XI</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">TKJ 2</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">2021</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
@@ -108,13 +116,19 @@
           </tr>
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Arsy devano</p>              
+              <p class="text-medium color-neutral-100">Widia Sari</p>              
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Kepala Sekolah</p>
+              <p class="text-medium color-neutral-100">172410103026</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">XI</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">TKJ 2</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">2021</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
@@ -130,13 +144,47 @@
           </tr>
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Bayu adi</p>              
+              <p class="text-medium color-neutral-100">Shella Desi</p>              
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Guru</p>
+              <p class="text-medium color-neutral-100">172410103026</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">XI</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">TKJ 2</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">2021</p>
+            </td>
+            <td>
+              <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  Edit <i class="fa-solid fa-pen"></i>
+                </a>
+                <div class="table-link-border"></div>
+                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  Hapus <i class="fa-regular fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="text-medium color-neutral-100">Nafi Gakatur</p>              
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">172410103026</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">XI</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">TKJ 2</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">2021</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">

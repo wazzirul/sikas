@@ -117,7 +117,7 @@ input[type=number] {
 
 .jenis-laporan {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 .jenis-laporan .card {
@@ -126,6 +126,9 @@ input[type=number] {
 }
 .jenis-laporan .card .card-body {
   padding: 0;
+}
+.jenis-laporan .jenis-laporan__name {
+  font-size: 1.125rem;
 }
 .jenis-laporan .jenis-laporan__icon {
   width: 2rem;

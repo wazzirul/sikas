@@ -17,4 +17,10 @@ $(document).ready(function () {
   if($("#data-laporan-pembayaran-spp").length == 1) {
     $('#data-laporan-pembayaran-spp').DataTable();
   }  
+  if($("#data-laporan-pembayaran-tabungan").length == 1) {
+    $('#data-laporan-pembayaran-tabungan').DataTable();
+  }  
+  if($("#data-master-jabatan").length == 1) {
+    $('#data-master-jabatan').DataTable();
+  }  
 });

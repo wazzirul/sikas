@@ -68,10 +68,11 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/laporan-pemasukan-dari-sumber-lain', [LaporanController::class, 'pemasukanSumberLain'])->name('sikas-laporan--pemasukan-dari-sumber-lain');
     Route::get('/laporan-pengajuan-keringanan', [LaporanController::class, 'pengajuanKeringanan'])->name('sikas-laporan--pengajuan-keringanan');
     Route::get('/laporan-pembayaran-spp', [LaporanController::class, 'pembayaranSPP'])->name('sikas-laporan--pembayaran-spp');
+    Route::get('/laporan-pembayaran-tabungan', [LaporanController::class, 'pembayaranTabungan'])->name('sikas-laporan--pembayaran-tabungan');
 
 
     //Other
-    Route::get('/pengguna', [Main::class, 'index'])->name('sikas-pengguna');
+    Route::get('/master-jabatan', [Main::class, 'masterJabatan'])->name('sikas-master-jabatan');
     Route::get('/pengaturan', [Main::class, 'index'])->name('sikas-pengaturan');
 
     // Query

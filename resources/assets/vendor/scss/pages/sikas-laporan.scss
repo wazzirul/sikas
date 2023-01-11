@@ -7,7 +7,7 @@
 
 .jenis-laporan{
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(3,1fr);
   gap: toRem(16);
   .card{
     background-color: $color-white;
@@ -15,6 +15,9 @@
     .card-body{
       padding: 0;
     }
+  }
+  .jenis-laporan__name{
+    font-size: toRem(18);
   }
   .jenis-laporan__icon{
     width: toRem(32);

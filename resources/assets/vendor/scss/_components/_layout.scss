@@ -186,6 +186,7 @@
 .layout-menu {
   position: relative;
   flex: 1 0 auto;
+  padding-bottom: toRem(32);
 
   .menu {
     transform: translate3d(0, 0, 0);

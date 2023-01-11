@@ -23,4 +23,7 @@ class LaporanController extends Controller
   public function pembayaranSPP(){
     return view('sikas.laporan-pembayaran-spp');
   }  
+  public function pembayaranTabungan(){
+    return view('sikas.laporan-pembayaran-tabungan');
+  }  
 }

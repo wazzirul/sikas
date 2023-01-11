@@ -54,6 +54,21 @@
   &.avatar-busy:after {
     background-color: $danger;
   }
+
+  .avatar-wrap{
+    display: block;
+    width: toRem(40);
+    height: toRem(40);
+    background-color: $primary;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    p{
+      font-weight: 700;
+    }
+  }
 }
 
 // Pull up avatar style

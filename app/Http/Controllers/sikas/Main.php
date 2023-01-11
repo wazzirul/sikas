@@ -71,7 +71,7 @@ class Main extends Controller
     return view('sikas.login');
   }
   //Register
-  public function register(){
-    return view('sikas.register');
+  public function masterJabatan(){
+    return view('sikas.master-jabatan');
   }
 }

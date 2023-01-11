@@ -16,7 +16,7 @@
   <ul class="menu-inner py-1">
     <li class="menu-item {{ Route::is('sikas-dashboard') == true ? 'active' : '' }}">
       <a href="{{route('sikas-dashboard')}}" class="menu-link">
-        <img class="menu-item__icon" src="{{asset('assets/img/icons/home.svg')}}" alt="">
+        <i class="fa-solid fa-house menu-item__icon"></i>
         <p class="menu-item__text">Dashboard</p>
       </a>
     </li>
@@ -73,6 +73,12 @@
         <p class="menu-item__text">Jenis Pembayaran</p>
       </a>
     </li>
+    <li class="menu-item {{ Route::is('sikas-master-jabatan') == true ? 'active' : '' }}">
+      <a href="{{route('sikas-master-jabatan')}}" class="menu-link">
+        <i class="fa-solid fa-users menu-item__icon"></i>
+        <p class="menu-item__text">Master Jabatan</p>
+      </a>
+    </li>
     <div class="menu-line my-4"></div>
     <li class="menu-item {{ Route::is('sikas-pengaturan') == true ? 'active' : '' }}">
       <a href="{{route('sikas-pengaturan')}}" class="menu-link">
@@ -83,7 +89,7 @@
     <!--Logout OF MENU SIDEBAR (LAST ITEM)-->
     <li class="menu-item">
       <a href="{{url('/logout')}}" class="menu-link">
-        <img src="{{asset('assets/img/icons/power-off.png')}}" alt="">
+        <i class="fa-solid fa-power-off menu-item__icon"></i>
         <div>Logout</div>
       </a>
     </li>
