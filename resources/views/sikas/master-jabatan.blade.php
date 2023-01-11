@@ -1,6 +1,6 @@
 @extends('sikas/layout/layout')
 
-@section('title', 'Jenis Pembayaran - Sikas')
+@section('title', 'Master Jabatan - Sikas')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">

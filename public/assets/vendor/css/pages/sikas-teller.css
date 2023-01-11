@@ -115,6 +115,23 @@ input[type=number] {
   background-color: #C2C2C2;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
+@media (max-width: 1399.98px) {
+  .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+    max-width: 100%;
+    width: 100%;
+    padding: 2rem;
+  }
+}
+@media (max-width: 991.98px) {
+  .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+    padding: 1.5rem;
+  }
+}
+
 .card--teller {
   padding: 2rem;
 }

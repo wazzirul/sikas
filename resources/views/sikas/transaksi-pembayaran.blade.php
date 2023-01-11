@@ -83,6 +83,9 @@
         <li class="nav-item">
           <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-sekolah" aria-controls="navs-pills-tabungan-sekolah" aria-selected="false">Tabungan Sekolah</button>
         </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-empty-state" aria-controls="navs-pills-empty-state" aria-selected="false">Empty State</button>
+        </li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade show active" id="navs-pills-pembayaran-akademik" role="tabpanel">
@@ -165,6 +168,13 @@
                 @endforeach
               </tbody>
             </table>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="navs-pills-empty-state" role="tabpanel">
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+            <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
+            <h4 class="text-bold color-neutral-100">Data Tabungan Sekolah Kosong</h4>
+            <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan sekolah.</p>
           </div>
         </div>
       </div>

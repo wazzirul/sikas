@@ -1,0 +1,10 @@
+.empty-state{
+  gap: toRem(10);
+  img{
+    max-width: toRem(406);
+    max-height: toRem(406);
+  }
+  p{
+    max-width: toRem(347);
+  }
+}

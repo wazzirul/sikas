@@ -260,6 +260,13 @@
     margin: 0 auto;
     height: 1px;
     background-color: $color-border;
+    &::after{
+      content: '';
+      position: relative;
+      height: 1px;
+      background-color: $color-border;
+      width: calc( 100% - toRem(32) );
+    }
   } 
 
   .menu-sub {

@@ -12,11 +12,22 @@
   gap: toRem(32);
   .pemasukan-pengeluaran__form{
     width: toRem(438);
+    @include media-breakpoint-down(xxl) {
+      width: toRem(350);
+    }
+    @include media-breakpoint-down(xl) {
+      width: toRem(300);
+      gap: toRem(24);
+    }
   }
   .border-line{
     height: 100%;
     width: 1px;
     background-color: $color-neutral-30;
+  }
+  .riwayat-pemasukan{
+    overflow-x: scroll;
+    height: 100%;
   }
 }
 .modal--transaksi{

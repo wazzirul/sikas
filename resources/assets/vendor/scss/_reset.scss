@@ -2,6 +2,22 @@
   $remValue: ($value / 16) + rem; 
   @return $remValue;
 }
+
+$grid-breakpoints: (
+  xs: 0,
+  xs-1: 320px,
+  // Custom Variable
+  xs-2: 375px,
+  xs-3: 480px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  lg-2: 1064px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxl-2: 1440px,
+);
+
 $color-white: #fff;
 $color-black: #000;
 $color-border: #D0D4E0;
@@ -105,5 +121,20 @@ input[type=number] {
     width: 1px;
     height: toRem(20);
     background-color: $color-neutral-50;
+  }
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl{
+  @include media-breakpoint-down(xxl) {
+    max-width: 100%;
+    width: 100%;
+    padding: toRem(32);
+  }
+  @include media-breakpoint-down(lg) {
+    padding: toRem(24);
   }
 }

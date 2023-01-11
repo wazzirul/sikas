@@ -1,0 +1,29 @@
+// * SIKAS Transaksi Pembayaran
+// *******************************************************************************
+
+@import '../_bootstrap-extended/include';
+@import '../_reset';
+
+.card--pengaturan{
+  padding: toRem(32);
+  .card-body{
+    padding: 0;
+  }
+}
+
+.modal--pengaturan{
+  .modal-dialog{
+    max-width: toRem(480);
+  }
+  .modal-body{
+    padding: toRem(32);
+  }
+  .icon{
+    width: toRem(24);
+    height: toRem(24);
+  }
+  .icon-success{
+    width: toRem(56);
+    height: toRem(56);
+  }
+}

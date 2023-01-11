@@ -25,7 +25,7 @@ Dashboard
 
 @section('content')
 <div class="row">
-  <div class="col-lg-3 col-md-6 col-6 mb-4">
+  <div class="col-xl-3 col-lg-6 col-6 mb-4">
     <div class="card">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
@@ -38,7 +38,7 @@ Dashboard
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6 col-6 mb-4">
+  <div class="col-xl-3 col-lg-6 col-6 mb-4">
     <div class="card">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
@@ -51,7 +51,7 @@ Dashboard
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6 col-6 mb-4">
+  <div class="col-xl-3 col-lg-6 col-6 mb-4">
     <div class="card">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
@@ -64,7 +64,7 @@ Dashboard
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6 col-6 mb-4">
+  <div class="col-xl-3 col-lg-6 col-6 mb-4">
     <div class="card">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
@@ -78,7 +78,7 @@ Dashboard
     </div>
   </div>
 </div>
-<div class="row mt-5">
+<div class="row row-2nd">
   <div class="col-md-6 col-12 mb-4">
     <div class="card">
       <div class="card-body">

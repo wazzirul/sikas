@@ -7,3 +7,9 @@
   width: toRem(32);
   height: toRem(32);
 }
+.row-2nd{
+  margin-top: toRem(32);
+  @include media-breakpoint-down(xl) {
+    margin-top: 0;
+  }
+}
