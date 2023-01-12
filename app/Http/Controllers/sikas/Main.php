@@ -10,6 +10,7 @@ use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
+use App\Models\StrukturSekolah;
 use App\Models\Transaksi;
 
 class Main extends Controller
@@ -70,8 +71,5 @@ class Main extends Controller
     if(Session::has('authenticated')) return redirect('/');
     return view('sikas.login');
   }
-  //Register
-  public function masterJabatan(){
-    return view('sikas.master-jabatan');
-  }
+  
 }

@@ -43,6 +43,8 @@
         </li>
       </ul> 
     </li>
+
+    @if(Session::get('tipe_user') == 1)
     <li class="menu-item {{ Route::is('sikas-karyawan') == true ? 'active' : '' }}">
       <a href="{{route('sikas-karyawan')}}" class="menu-link">
         <i class="fa-solid fa-user-tie menu-item__icon"></i>
@@ -61,12 +63,16 @@
         <p class="menu-item__text">teller</p>
       </a>
     </li>
+    @endif
+    
     <li class="menu-item {{ Route::is('sikas-laporan*') == true ? 'active' : '' }}">
       <a href="{{route('sikas-laporan')}}" class="menu-link">
         <i class="fa-regular fa-file-lines menu-item__icon"></i>
         <p class="menu-item__text">laporan</p>
       </a>
     </li>
+
+    @if(Session::get('tipe_user') == 1)
     <li class="menu-item {{ Route::is('sikas-jenis-pembayaran') == true ? 'active' : '' }}">
       <a href="{{route('sikas-jenis-pembayaran')}}" class="menu-link">
         <i class="fa-solid fa-cash-register menu-item__icon"></i>
@@ -79,13 +85,17 @@
         <p class="menu-item__text">Master Jabatan</p>
       </a>
     </li>
+    @endif
     <div class="menu-line my-4"></div>
+    @if(Session::get('tipe_user') == 1)
     <li class="menu-item {{ Route::is('sikas-pengaturan') == true ? 'active' : '' }}">
       <a href="{{route('sikas-pengaturan')}}" class="menu-link">
         <i class="fa-solid fa-gear menu-item__icon"></i>
         <p class="menu-item__text">pengaturan</p>
       </a>
     </li>
+    @endif
+
     <!--Logout OF MENU SIDEBAR (LAST ITEM)-->
     <li class="menu-item">
       <a href="{{url('/logout')}}" class="menu-link">

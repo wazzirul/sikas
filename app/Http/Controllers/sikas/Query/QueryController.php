@@ -11,6 +11,8 @@ use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
 use App\Models\Transaksi;
+use App\Models\StrukturSekolah;
+use App\Models\Tagihan;
 use Carbon\Carbon as Carbon;
 
 class QueryController extends Controller
@@ -67,6 +69,24 @@ class QueryController extends Controller
             ->first();
 
         return response($anggota, 200);
+    }
+
+    public function strukturSekolahById(Request $request)
+    {
+        $id = $request->input('id');
+        $struktur_sekolah = StrukturSekolah::where('id_struktur_sekolah', $id)
+            ->first();
+
+        return response($struktur_sekolah, 200);
+    }
+
+    public function jenisPembayaranById(Request $request)
+    {
+        $id = $request->input('id');
+        $tagihan = Tagihan::where('id_tagihan', $id)
+            ->first();
+
+        return response($tagihan, 200);
     }
 
     public function postPembayaranAkademik(Request $request)
@@ -650,5 +670,91 @@ class QueryController extends Controller
         $keuangan_anggota->save();
     
         return response($karyawan, 200);
+    }
+
+    public function updateSiswa(Request $request){
+        $id_anggota = $request->input('id_anggota');
+        $nama_siswa = $request->input('nama_siswa') ?? null;
+        $nisn = $request->input('nisn') ?? null;
+        $id_kelas = $request->input('id_kelas') ?? null;
+        $id_jurusan = $request->input('id_jurusan') ?? null;
+        $nomor_kelas = $request->input('nomor_kelas') ?? null;
+    
+        $siswa = Anggota::find($id_anggota);
+        $nama_siswa != null && $siswa->nama = $nama_siswa;
+        $nisn != null && $siswa->nisn = $nisn;
+        $id_kelas != null && $siswa->id_kelas = $id_kelas;
+        $id_jurusan != null && $siswa->id_jurusan = $id_jurusan;
+        $nomor_kelas != null && $siswa->nomor_kelas = $nomor_kelas;
+        $siswa->save();
+    
+        return response($siswa, 200);
+    }
+
+    public function deleteSiswa(Request $request){
+        $id_anggota = $request->input('id_anggota');
+    
+        $siswa = Anggota::find($id_anggota);
+        $siswa->soft_delete = 1;
+        $siswa->save();
+
+        $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)
+            ->first();
+        $keuangan_anggota->soft_delete = 1;
+        $keuangan_anggota->save();
+    
+        return response($siswa, 200);
+    }
+
+    public function updateJabatan(Request $request){
+        $id_struktur_sekolah = $request->input('id_struktur_sekolah');
+        $jabatan = $request->input('jabatan') ?? null;
+    
+        $struktur_sekolah = StrukturSekolah::find($id_struktur_sekolah);
+        $jabatan != null && $struktur_sekolah->jabatan = $jabatan;
+        $struktur_sekolah->save();
+    
+        return response($struktur_sekolah, 200);
+    }
+
+    public function deleteJabatan(Request $request){
+        $id_struktur_sekolah = $request->input('id_struktur_sekolah');
+    
+        $struktur_sekolah = StrukturSekolah::find($id_struktur_sekolah);
+        $struktur_sekolah->soft_delete = 1;
+        $struktur_sekolah->save();
+
+        return response($struktur_sekolah, 200);
+    }
+
+    public function updateJenisPembayaran(Request $request){
+        $id_tagihan = $request->input('id_tagihan');
+        $nama = $request->input('nama') ?? null;
+        $id_kelas = $request->input('id_kelas') ?? null;
+        $jumlah = $request->input('jumlah') ?? null;
+
+        if($jumlah){
+            $jumlah = str_replace('Rp', '', $jumlah);
+            $jumlah = str_replace('.', '', $jumlah);
+            $jumlah = str_replace(' ', '', $jumlah);
+        }
+    
+        $tagihan = Tagihan::find($id_tagihan);
+        $nama != null && $tagihan->nama = $nama;
+        $id_kelas != null && $tagihan->id_kelas = $id_kelas;
+        $jumlah != null && $tagihan->jumlah = $jumlah;
+        $tagihan->save();
+    
+        return response($tagihan, 200);
+    }
+
+    public function deleteJenisPembayaran(Request $request){
+        $id_tagihan = $request->input('id_tagihan');
+    
+        $tagihan = Tagihan::find($id_tagihan);
+        $tagihan->soft_delete = 1;
+        $tagihan->save();
+
+        return response($tagihan, 200);
     }
 }

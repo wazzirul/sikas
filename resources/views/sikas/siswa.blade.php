@@ -28,6 +28,7 @@
   <div class="siswa-wrapper">
     <h4 class="text-bold color-black mb-4">Data Siswa</h4>    
     <div class="d-flex align-items-end justify-content-between gap-4 mb-5">
+      <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       <form action="#" class="form-upload-siswa d-flex align-items-end gap-4">
         <div class="mt-3">
           <label for="kelas-filter" class="form-label text-bold color-black">Kelas</label>
@@ -60,8 +61,9 @@
         <button type="button" class="btn btn-outline-primary">Cari Data</button>
       </form>        
       <div class="d-flex align-items-center gap-4">
-        <form action="#" class="form-upload-siswa">
-          <input type="file" name="upload" id="siswa-upload-file" class="d-none">
+      <form action="/siswa/import" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+        {{ csrf_field() }}
+          <input type="file" name="file" id="siswa-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
           <label for="siswa-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center">
               Upload Siswa
               <i class="fa-solid fa-arrow-up-from-bracket"></i>

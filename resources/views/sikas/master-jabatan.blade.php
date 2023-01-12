@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/datatable-tables.js')}}"></script>
+<script src="{{asset('assets/js/jabatan.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -45,16 +45,17 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($jabatan as $j)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">1</p>
+              <p class="text-medium color-neutral-100">{{ $j->id_struktur_sekolah }}</p>
             </td>
             <td class="text-medium">
-              <p class="text-medium color-neutral-100">Kepala Sekolah</p>              
+              <p class="text-medium color-neutral-100">{{ $j->jabatan }}</p>              
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-primary" onClick="changeStrukturSekolah({{$j->id_struktur_sek}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
@@ -64,82 +65,7 @@
               </div>
             </td>
           </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">2</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Wakil Kepala Sekolah</p>              
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">3</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Guru</p>              
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">4</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Staff</p>              
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">5</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Satpam</p>              
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -157,14 +83,15 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
+        <form action="/master-jabatan/post" method="POST">
+          {{ csrf_field() }}
           <div class="mb-3">
             <label for="master_jabatan" class="form-label">Nama / Master Jabatan</label>
-            <input type="text" class="form-control" id="master_jabatan" placeholder="Nama / Master Jabatan..." value="">
+            <input type="text" class="form-control" name="jabatan" id="master_jabatan" placeholder="Nama / Master Jabatan..." >
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
+            <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+            <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
           </div>
         </form>
       </div>
@@ -179,20 +106,19 @@
       <div class="modal-body">
         <div class="d-flex justify-content-between align-items-center gap-3">
           <h4 class="color-black text-bold mb-4">Edit Master Jabatan</h4>
+          <input type="hidden" id="id_struktur_sekolah"/>
           <a href="#" data-bs-dismiss="modal" class="text-danger" aria-label="Close">
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
           <div class="mb-3">
-            <label for="master_jabatan" class="form-label">Nama / Master Jabatan</label>
-            <input type="text" class="form-control" id="master_jabatan" placeholder="Nama / Master Jabatan..." value="">
+            <label for="update_jabatan" class="form-label">Nama / Master Jabatan</label>
+            <input type="text" class="form-control" id="update_jabatan" placeholder="Nama / Master Jabatan..." value="">
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+            <button class="btn btn-primary w-100 update-jabatan-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
           </div>
-        </form>
       </div>
     </div>
   </div>
@@ -206,13 +132,13 @@
         <div class="d-flex justify-content-center align-items-center gap-3">
           <h4 class="color-black text-bold text-center">Hapus Data Master Jabatan</h4>
         </div>
-        <form action="#" class="mt-3">
-          <p class="color-neutral-100 text-center">Apakah anda yakin ingin menghapus data Master Jabatan ‘ <span class="text-bold">Satpam</span> ‘</p>
+        <div class="mt-3">
+          <p class="color-neutral-100 text-center">Apakah anda yakin ingin menghapus data Master Jabatan ‘ <span class="text-bold nama-delete-modal">Satpam</span> ‘</p>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+            <button class="btn btn-danger w-100 delete-jabatan-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

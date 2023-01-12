@@ -19,6 +19,7 @@ use App\Http\Controllers\sikas\KaryawanController;
 use App\Http\Controllers\sikas\JenisPembayaranController;
 use App\Http\Controllers\sikas\LaporanController;
 use App\Http\Controllers\sikas\TabunganController;
+use App\Http\Controllers\sikas\JabatanController;
 use App\Http\Controllers\sikas\Auth\AuthController;
 use App\Http\Controllers\sikas\Query\QueryController;
 
@@ -48,20 +49,6 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi/history-transaksi-siswa', [PembayaranController::class, 'historyTransaksiSiswa'])->name('sikas-transaksi--pembayaran-history-siswa');
     Route::get('/transaksi/history-transaksi-siswa/detail/{id}', [PembayaranController::class, 'historyTransaksiSiswaDetail'])->name('sikas-transaksi--pembayaran-history-siswa-detail');
 
-    //Teller Controller
-    Route::get('/teller', [TellerController::class, 'index'])->name('sikas-teller');
-
-    //Siswa Controller
-    Route::get('/siswa', [SiswaController::class, 'index'])->name('sikas-siswa');
-
-    //Karyawan Controller
-    Route::get('/karyawan', [KaryawanController::class, 'index'])->name('sikas-karyawan');
-    Route::post('/karyawan/post', [KaryawanController::class, 'postKaryawan'])->name('sikas-postkaryawan');
-    Route::post('/karyawan/import', [KaryawanController::class, 'importKaryawan'])->name('sikas-importkaryawan');
-
-    //Jenis Pembayaran Controller
-    Route::get('/jenis-pembayaran', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');
-
     //Laporan Controller
     Route::get('/laporan', [LaporanController::class, 'index'])->name('sikas-laporan');
     Route::get('/laporan-penggunaan-dana', [LaporanController::class, 'penggunaanDana'])->name('sikas-laporan--penggunaan-dana');
@@ -71,15 +58,40 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/laporan-pembayaran-tabungan', [LaporanController::class, 'pembayaranTabungan'])->name('sikas-laporan--pembayaran-tabungan');
 
 
-    //Other
-    Route::get('/master-jabatan', [Main::class, 'masterJabatan'])->name('sikas-master-jabatan');
-    Route::get('/pengaturan', [Main::class, 'index'])->name('sikas-pengaturan');
+    // ADMIN SESSION
+    Route::group(['middleware' => 'adminsession'], function () {
+
+        //Teller Controller
+        Route::get('/teller', [TellerController::class, 'index'])->name('sikas-teller');
+
+        //Siswa Controller
+        Route::get('/siswa', [SiswaController::class, 'index'])->name('sikas-siswa');
+
+        //Karyawan Controller
+        Route::get('/karyawan', [KaryawanController::class, 'index'])->name('sikas-karyawan');
+        Route::post('/karyawan/post', [KaryawanController::class, 'postKaryawan'])->name('sikas-postkaryawan');
+        Route::post('/karyawan/import', [KaryawanController::class, 'importKaryawan'])->name('sikas-importkaryawan');
+
+        //Jenis Pembayaran Controller
+        Route::get('/jenis-pembayaran', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');
+        Route::post('/jenis-pembayaran/post', [JenisPembayaranController::class, 'postJenisPembayaran'])->name('sikas-jenis-pembayaran-post');
+
+         // Jabatan Contoller
+        Route::get('/master-jabatan', [JabatanController::class, 'index'])->name('sikas-master-jabatan');
+        Route::post('/master-jabatan/post', [JabatanController::class, 'postJabatan'])->name('sikas-master-jabatan-post');
+
+        //Other
+        Route::get('/pengaturan', [Main::class, 'index'])->name('sikas-pengaturan');
+    });
+
 
     // Query
     Route::post('/query/dataSiswa', [QueryController::class, 'dataSiswa'])->name('sikas-query-datasiswa');
     Route::post('/query/dataGuru', [QueryController::class, 'dataGuru'])->name('sikas-query-dataguru');
     Route::post('/query/siswaById', [QueryController::class, 'siswaById'])->name('sikas-query-siswabyid');
     Route::post('/query/guruById', [QueryController::class, 'guruById'])->name('sikas-query-gurubyid');
+    Route::post('/query/strukturSekolahById', [QueryController::class, 'strukturSekolahById'])->name('sikas-query-struktursekolahbyid');
+    Route::post('/query/jenisPembayaranById', [QueryController::class, 'jenisPembayaranById'])->name('sikas-query-jenispembayaranbyid');
     Route::post('/query/setorTabunganSiswa', [QueryController::class, 'setorTabunganSiswa'])->name('sikas-query-setortabungansiswa');
     Route::post('/query/penarikanTabunganSiswa', [QueryController::class, 'penarikanTabunganSiswa'])->name('sikas-query-penarikantabungansiswa');
     Route::post('/query/riwayatTabungan', [QueryController::class, 'riwayatTabungan'])->name('sikas-query-riwayattabungan');
@@ -95,8 +107,14 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/deletePemasukan', [QueryController::class, 'deletePemasukan'])->name('sikas-query-deletepemasukan');
     Route::post('/query/updateKaryawan', [QueryController::class, 'updateKaryawan'])->name('sikas-query-updatekaryawan');
     Route::post('/query/deleteKaryawan', [QueryController::class, 'deleteKaryawan'])->name('sikas-query-deletekaryawan');
+    Route::post('/query/updateSiswa', [QueryController::class, 'updateSiswa'])->name('sikas-query-updatesiswa');
+    Route::post('/query/deleteSiswa', [QueryController::class, 'deleteSiswa'])->name('sikas-query-deletesiswa');
     Route::post('/query/postPembayaranAkademik', [QueryController::class, 'postPembayaranAkademik'])->name('sikas-query--post-pembayaran-akademik');
     Route::post('/query/postPengajuanKeringanan', [QueryController::class, 'postPengajuanKeringanan'])->name('sikas-query--post-pengajuan-keringanan');
+    Route::post('/query/updateJabatan', [QueryController::class, 'updateJabatan'])->name('sikas-query-updatejabatan');
+    Route::post('/query/deleteJabatan', [QueryController::class, 'deleteJabatan'])->name('sikas-query-deletejabatan');
+    Route::post('/query/updateJenisPembayaran', [QueryController::class, 'updateJenisPembayaran'])->name('sikas-query-updatejenispembayaran');
+    Route::post('/query/deleteJenisPembayaran', [QueryController::class, 'deleteJenisPembayaran'])->name('sikas-query-deletejenispembayaran');
 });
 
 // Don't uncomment
