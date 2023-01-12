@@ -13,6 +13,7 @@ use App\Models\PengajuanKeringanan;
 use App\Models\Transaksi;
 use App\Models\StrukturSekolah;
 use App\Models\Tagihan;
+use App\Models\User;
 use Carbon\Carbon as Carbon;
 
 class QueryController extends Controller
@@ -61,6 +62,22 @@ class QueryController extends Controller
         return response($anggota, 200);
     }
 
+    public function siswaByFilter(Request $request)
+    {
+        $id_kelas = $request->input('id_kelas');
+        $id_jurusan = $request->input('id_jurusan');
+        $nomor_kelas = $request->input('nomor_kelas');
+
+        $anggota = Anggota::where('tipe_anggota', 2)
+            ->where('id_kelas', $id_kelas)
+            ->where('id_jurusan', $id_jurusan)
+            ->where('nomor_kelas', $nomor_kelas)
+            ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
+            ->get();
+
+        return response($anggota, 200);
+    }
+
     public function guruById(Request $request)
     {
         $id = $request->input('id');
@@ -69,6 +86,15 @@ class QueryController extends Controller
             ->first();
 
         return response($anggota, 200);
+    }
+
+    public function tellerById(Request $request)
+    {
+        $id = $request->input('id');
+        $teller = User::where('id_user', $id)
+            ->first();
+
+        return response($teller, 200);
     }
 
     public function strukturSekolahById(Request $request)
@@ -704,6 +730,32 @@ class QueryController extends Controller
         $keuangan_anggota->save();
     
         return response($siswa, 200);
+    }
+
+    public function updateTeller(Request $request){
+        $id_user = $request->input('id_user');
+        $nama_teller = $request->input('nama_teller') ?? null;
+        $username = $request->input('username') ?? null;
+        $password = $request->input('password') ?? null;
+        $password != null && $password = Hash::make($password);
+    
+        $teller = User::find($id_user);
+        $nama_teller != null && $teller->nama = $nama_teller;
+        $username != null && $teller->username = $username;
+        $password != null && $teller->password = $password;
+        $teller->save();
+    
+        return response($teller, 200);
+    }
+
+    public function deleteTeller(Request $request){
+        $id_user = $request->input('id_user');
+    
+        $teller = User::find($id_user);
+        $teller->soft_delete = 1;
+        $teller->save();
+    
+        return response($teller, 200);
     }
 
     public function updateJabatan(Request $request){

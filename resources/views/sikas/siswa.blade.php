@@ -29,37 +29,33 @@
     <h4 class="text-bold color-black mb-4">Data Siswa</h4>    
     <div class="d-flex align-items-end justify-content-between gap-4 mb-5">
       <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
-      <form action="#" class="form-upload-siswa d-flex align-items-end gap-4">
+      <div class="form-upload-siswa d-flex align-items-end gap-4">
         <div class="mt-3">
-          <label for="kelas-filter" class="form-label text-bold color-black">Kelas</label>
-          <select id="kelas-filter" class="form-select">
-            <option value="10">X</option>
-            <option value="11">XI</option>
-            <option value="12">XII</option>
+          <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
+          <select id="filter_id_kelas" class="form-select">
+            @foreach($kelas as $k)
+              <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
+            @endforeach
           </select>
         </div>
         <div class="mt-3">
-          <label for="jurusan-filter" class="form-label text-bold color-black">Jurusan</label>
-          <select id="jurusan-filter" class="form-select">
-            <option value="TKJ">TKJ</option>
-            <option value="RPL">RPL</option>
-            <option value="TKR">TKR</option>
-            <option value="TSM">TSM</option>
-            <option value="Administrasi">Administrasi</option>
+          <label for="filter_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
+          <select id="filter_id_jurusan" class="form-select">
+            @foreach($jurusan as $j)
+              <option value="{{ $j->id_jurusan }}">{{ $j->nama }}</option>
+            @endforeach
           </select>
         </div>
         <div class="mt-3">
-          <label for="nomor-kelas" class="form-label text-bold color-black">Nomor Kelas</label>
-          <select id="nomor-kelas" class="form-select">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+          <label for="filter_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
+          <select id="filter_nomor_kelas" class="form-select">
+            @for($q = 1; $q <= $nomor_kelas + 1; $q++)
+              <option value="{{ $q }}">{{ $q }}</option>
+            @endfor
           </select>
         </div>
-        <button type="button" class="btn btn-outline-primary">Cari Data</button>
-      </form>        
+        <button type="button" class="btn btn-outline-primary cari-siswa-button">Cari Data</button>
+      </div>        
       <div class="d-flex align-items-center gap-4">
       <form action="/siswa/import" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
@@ -85,7 +81,7 @@
             <th></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody-data-siswa">
           @foreach($anggota as $a)
           <tr>
             <td>
