@@ -16,6 +16,7 @@
 @section('page-script')
 <script src="{{asset('assets/js/datatable-tables.js')}}"></script>
 <script src="{{asset('assets/js/pages/laporan.js')}}"></script>
+<script src="{{asset('assets/js/pages/laporan-penggunaan-dana.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -32,6 +33,7 @@
   <div class="laporan-wrapper">
     <h4 class="text-bold color-black mb-4">Data Laporan Penggunaan Dana</h4>    
     <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
+      <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       <div class="date-range">
         <div id="date-range-span" class="form-control">
           <span></span>
@@ -54,63 +56,23 @@
             <th>Jumlah Nominal</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody-penggunaan-dana">
+          @foreach($laporan as $l)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($l->tanggal)->format('d F Y') }}</p>
             </td>
             <td class="text-medium">
               <p class="text-medium color-neutral-100">Penggunaan Dana</p>              
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Operasional sekolah</p>
+              <p class="text-medium color-neutral-100">{{ $l->nama_transaksi }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $l->jumlah }}</p>
             </td>
           </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Penggunaan Dana</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Event Ulang Tahun Sekolah Ke 32</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 25.000.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Penggunaan Dana</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Gaji Staff Sekolah</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 18.575.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Penggunaan Dana</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Peralatan Lab Fisika</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 1.250.000</p>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>

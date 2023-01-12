@@ -5,25 +5,66 @@ namespace App\Http\Controllers\sikas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Transaksi;
+use App\Models\PengajuanKeringanan;
+
 class LaporanController extends Controller
 {
-    //
   public function index(){
     return view('sikas.laporan');
   }
+
   public function penggunaanDana(){
-    return view('sikas.laporan-penggunaan-dana');
+    $laporan = Transaksi::where('tipe_transaksi', 4)
+        ->where('soft_delete', 0)
+        ->get();
+
+    return view('sikas.laporan-penggunaan-dana', [
+      'laporan' => $laporan,
+    ]);
   }  
+
   public function pemasukanSumberLain(){
-    return view('sikas.laporan-pemasukan-sumber-lain');
-  }   
+    $laporan = Transaksi::where('tipe_transaksi', 5)
+        ->where('soft_delete', 0)
+        ->get();
+
+    return view('sikas.laporan-pemasukan-sumber-lain', [
+      'laporan' => $laporan,
+    ]);
+  }  
+
   public function pengajuanKeringanan(){
-    return view('sikas.laporan-pengajuan-keringanan');
+    $laporan = PengajuanKeringanan::where('soft_delete', 0)
+      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->get();
+
+    return view('sikas.laporan-pengajuan-keringanan', [
+      'laporan' => $laporan,
+    ]);
   }  
+
   public function pembayaranSPP(){
-    return view('sikas.laporan-pembayaran-spp');
+    $laporan = Transaksi::where('tipe_transaksi', 1)
+      ->where('soft_delete', 0)
+      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->get();
+
+    return view('sikas.laporan-pembayaran-spp', [
+      'laporan' => $laporan,
+    ]);
   }  
+
   public function pembayaranTabungan(){
-    return view('sikas.laporan-pembayaran-tabungan');
-  }  
+    $laporan = Transaksi::where('tipe_transaksi', '>=', 2)
+      ->where('tipe_transaksi', '<=', 3)
+      ->where('soft_delete', 0)
+      ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan')
+      ->get();
+
+    return view('sikas.laporan-pembayaran-tabungan', [
+      'laporan' => $laporan,
+    ]);
+  } 
+   
 }

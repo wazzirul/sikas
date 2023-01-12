@@ -1,6 +1,8 @@
 $(document).ready(function () {
   $('#transaksi-terakhir').DataTable();
 
+  $('.jumlah-transaksi-spp').text('Rp. ' + numberFormat($('.jumlah-transaksi-spp').text()) + ',00');
+  $('.jumlah-transaksi-lain').text('Rp. ' + numberFormat($('.jumlah-transaksi-lain').text()) + ',00');
   $('.jumlah-keringanan').text('Rp. ' + numberFormat($('.jumlah-keringanan').text()) + ',00');
   $('.jumlah-tabungan').text('Rp. ' + numberFormat($('.jumlah-tabungan').text()) + ',00');
 });

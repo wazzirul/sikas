@@ -16,6 +16,7 @@
 @section('page-script')
 <script src="{{asset('assets/js/datatable-tables.js')}}"></script>
 <script src="{{asset('assets/js/pages/laporan.js')}}"></script>
+<script src="{{asset('assets/js/pages/laporan-pengajuan-keringanan.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -32,6 +33,7 @@
   <div class="laporan-wrapper">
     <h4 class="text-bold color-black mb-4">Data Laporan Pengajuan Keringanan</h4>    
     <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
+      <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       <div class="date-range">
         <div id="date-range-span" class="form-control">
           <span></span>
@@ -54,35 +56,23 @@
             <th>Jumlah Nominal</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody-pengajuan-keringanan">
+          @foreach($laporan as $l)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($l->tanggal)->format('d F Y') }}</p>
             </td>
             <td class="text-medium">
               <p class="text-medium color-neutral-100">Pengajuan Keringanan</p>              
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Alfian yoga ‘kelas XI TKJ 2’</p>
+              <p class="text-medium color-neutral-100">{{ $l->Anggota->nama }} ‘kelas {{ $l->Anggota->Kelas->nama }} {{ $l->Anggota->Jurusan->nama }} {{ $l->Anggota->nomor_kelas }}’</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 500.000</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $l->jumlah }}</p>
             </td>
           </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pengajuan Keringanan</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Faisal Adi Prayugo ‘kelas XI RPL 3’</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 150.000</p>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>

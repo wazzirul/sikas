@@ -60,7 +60,7 @@ Dashboard
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">Jumlah Transaksi SPP</span>
-        <h3 class="card-title color-black mb-2">{{ $transaksi_spp }}</h3>
+        <h3 class="card-title color-black mb-2 jumlah-transaksi-spp">{{ $transaksi_spp }}</h3>
       </div>
     </div>
   </div>
@@ -72,8 +72,8 @@ Dashboard
             <i class="fa-solid fa-coins text-danger avatar-icon"></i>
           </div>
         </div>
-        <span class="fw-semibold d-block mb-1">Jumlah Transaksi Lain</span>
-        <h3 class="card-title color-black mb-2">{{ $transaksi_lain }}</h3>
+        <span class="fw-semibold d-block mb-1">Jumlah Pemasukan Transaksi Lain</span>
+        <h3 class="card-title color-black mb-2 jumlah-transaksi-lain">{{ $transaksi_lain }}</h3>
       </div>
     </div>
   </div>
