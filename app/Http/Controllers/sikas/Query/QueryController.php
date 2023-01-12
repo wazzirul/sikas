@@ -126,13 +126,15 @@ class QueryController extends Controller
         $anggota = Anggota::find($id_anggota);
         $tagihan = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
         $tanggungan = (int)$tagihan->tagihan;
+        $master_tagihan = Tagihan::where('id_kelas', $anggota->id_kelas)
+            ->first();
 
         if ((int)$nominal <= $tanggungan) {
             $transaksi = new Transaksi();
             $transaksi->id_admin = Session::get('id_user');
             $transaksi->nomor_transaksi = '001000' . date('dmY');
             $transaksi->kode_transaksi = 'AKDMK-' . $id_anggota . '-' . date('hi-dmY');
-            $transaksi->nama_transaksi = 'Pembayaran SPP';
+            $transaksi->nama_transaksi = $master_tagihan->nama;
             $transaksi->id_anggota = $id_anggota;
             $transaksi->tipe_transaksi = 1;
             $transaksi->jumlah = $nominal;
@@ -808,5 +810,78 @@ class QueryController extends Controller
         $tagihan->save();
 
         return response($tagihan, 200);
+    }
+
+    public function laporanPembayaranSpp(Request $request){
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+    
+        $laporan = Transaksi::where('tipe_transaksi', 1)
+            ->whereDate('tanggal', '>=', $tanggal_awal)
+            ->whereDate('tanggal', '<=', $tanggal_akhir)
+            ->where('soft_delete', 0)
+            ->orderBy('id_transaksi', 'DESC')
+            ->with('Anggota.Kelas', 'Anggota.Jurusan')
+            ->get();
+
+        return response($laporan, 200);
+    }
+
+    public function laporanPembayaranTabungan(Request $request){
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+    
+        $laporan = Transaksi::where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->whereDate('tanggal', '>=', $tanggal_awal)
+            ->whereDate('tanggal', '<=', $tanggal_akhir)
+            ->where('soft_delete', 0)
+            ->orderBy('id_transaksi', 'DESC')
+            ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan')
+            ->get();
+
+        return response($laporan, 200);
+    }
+
+    public function laporanPengajuanKeringanan(Request $request){
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+    
+        $laporan = PengajuanKeringanan::whereDate('tanggal', '>=', $tanggal_awal)
+            ->whereDate('tanggal', '<=', $tanggal_akhir)
+            ->where('soft_delete', 0)
+            ->orderBy('id_pengajuan_keringanan', 'DESC')
+            ->with('Anggota.Kelas', 'Anggota.Jurusan')
+            ->get();
+
+        return response($laporan, 200);
+    }
+
+    public function laporanPemasukanLain(Request $request){
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+    
+        $laporan = Transaksi::where('tipe_transaksi', 5)
+            ->whereDate('tanggal', '>=', $tanggal_awal)
+            ->whereDate('tanggal', '<=', $tanggal_akhir)
+            ->where('soft_delete', 0)
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+
+        return response($laporan, 200);
+    }
+
+    public function laporanPenggunaanDana(Request $request){
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+    
+        $laporan = Transaksi::where('tipe_transaksi', 4)
+            ->whereDate('tanggal', '>=', $tanggal_awal)
+            ->whereDate('tanggal', '<=', $tanggal_akhir)
+            ->where('soft_delete', 0)
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+
+        return response($laporan, 200);
     }
 }

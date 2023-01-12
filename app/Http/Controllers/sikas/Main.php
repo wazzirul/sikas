@@ -26,11 +26,13 @@ class Main extends Controller
 
     $transaksi_spp = Transaksi::where('tipe_transaksi', 1)
       ->where('soft_delete', 0)
-      ->count();
+      ->sum('jumlah');
 
     $transaksi_lain = Transaksi::where('tipe_transaksi', '!=', 1)
+      ->where('tipe_transaksi', '!=', 3)
+      ->where('tipe_transaksi', '!=', 4)
       ->where('soft_delete', 0)
-      ->count();
+      ->sum('jumlah');
 
     $keringanan = PengajuanKeringanan::where('soft_delete', 0)
       ->sum('jumlah');

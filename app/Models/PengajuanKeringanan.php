@@ -10,4 +10,9 @@ class PengajuanKeringanan extends Model
     protected $table = 'pengajuan_keringanan';
     protected $primaryKey = 'id_pengajuan_keringanan';
     protected $fillable = ['id_pengajuan_keringanan','id_anggota','jumlah','file','tanggal','soft_delete'];
+
+    public function Anggota()
+    {
+        return $this->hasOne('App\Models\Anggota','id_anggota','id_anggota');
+    }
 }

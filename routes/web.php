@@ -124,6 +124,12 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/deleteJabatan', [QueryController::class, 'deleteJabatan'])->name('sikas-query-deletejabatan');
     Route::post('/query/updateJenisPembayaran', [QueryController::class, 'updateJenisPembayaran'])->name('sikas-query-updatejenispembayaran');
     Route::post('/query/deleteJenisPembayaran', [QueryController::class, 'deleteJenisPembayaran'])->name('sikas-query-deletejenispembayaran');
+    Route::post('/query/laporanPembayaranSpp', [QueryController::class, 'laporanPembayaranSpp'])->name('sikas-query-laporanpembayaranspp');
+    Route::post('/query/laporanPembayaranTabungan', [QueryController::class, 'laporanPembayaranTabungan'])->name('sikas-query-laporanpembayarantabungan');
+    Route::post('/query/laporanPengajuanKeringanan', [QueryController::class, 'laporanPengajuanKeringanan'])->name('sikas-query-laporanpengajuankeringanan');
+    Route::post('/query/laporanPemasukanLain', [QueryController::class, 'laporanPemasukanLain'])->name('sikas-query-laporanpemasukanlain');
+    Route::post('/query/laporanPenggunaanDana', [QueryController::class, 'laporanPenggunaanDana'])->name('sikas-query-laporanpenggunaandana');
+    
 });
 
 // Don't uncomment
