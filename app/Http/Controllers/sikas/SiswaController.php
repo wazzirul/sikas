@@ -4,6 +4,8 @@ namespace App\Http\Controllers\sikas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ImportSiswa;
 
 use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
@@ -52,7 +54,6 @@ class SiswaController extends Controller
       $siswa->id_jurusan = $id_jurusan;
       $siswa->nomor_kelas = $nomor_kelas;
       $siswa->soft_delete = '0';
-      $siswa->save();
     }else{
       $siswa = new Anggota();
       $siswa->tipe_anggota = 2;
@@ -61,8 +62,8 @@ class SiswaController extends Controller
       $siswa->id_kelas = $id_kelas;
       $siswa->id_jurusan = $id_jurusan;
       $siswa->nomor_kelas = $nomor_kelas;
-      $siswa->save();
     }
+    $siswa->save();
 
     $tagihan = Tagihan::where('id_kelas', $id_kelas)
       ->first();
@@ -72,13 +73,18 @@ class SiswaController extends Controller
     if($keuangan_siswa){
       $keuangan_siswa->tagihan = $tagihan->jumlah;
       $keuangan_siswa->soft_delete = '0';
-      $keuangan_siswa->save();
     }else{
       $keuangan_siswa = new KeuanganAnggota();
       $keuangan_siswa->id_anggota = $siswa->id_anggota;
       $keuangan_siswa->tagihan = $tagihan->jumlah;
-      $keuangan_siswa->save();
     }
+    $keuangan_siswa->save();
+
+    return redirect('/siswa');
+  }
+
+  public function importSiswa(Request $request){
+    Excel::import(new ImportSiswa, $request->file('file')->store('files'));
 
     return redirect('/siswa');
   }

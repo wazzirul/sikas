@@ -65,11 +65,13 @@ Route::group(['middleware' => 'authsession'], function () {
 
         //Teller Controller
         Route::get('/teller', [TellerController::class, 'index'])->name('sikas-teller');
+        Route::post('/teller/post', [TellerController::class, 'postTeller'])->name('sikas-postteller');
 
         //Siswa Controller
         Route::get('/siswa', [SiswaController::class, 'index'])->name('sikas-siswa');
         Route::post('/siswa/post', [SiswaController::class, 'postSiswa'])->name('sikas-postsiswa');
         Route::post('/siswa/import', [SiswaController::class, 'importSiswa'])->name('sikas-importsiswa');
+
         //Karyawan Controller
         Route::get('/karyawan', [KaryawanController::class, 'index'])->name('sikas-karyawan');
         Route::post('/karyawan/post', [KaryawanController::class, 'postKaryawan'])->name('sikas-postkaryawan');
@@ -92,7 +94,9 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/dataSiswa', [QueryController::class, 'dataSiswa'])->name('sikas-query-datasiswa');
     Route::post('/query/dataGuru', [QueryController::class, 'dataGuru'])->name('sikas-query-dataguru');
     Route::post('/query/siswaById', [QueryController::class, 'siswaById'])->name('sikas-query-siswabyid');
+    Route::post('/query/siswaByFilter', [QueryController::class, 'siswaByFilter'])->name('sikas-query-siswabyfilter');
     Route::post('/query/guruById', [QueryController::class, 'guruById'])->name('sikas-query-gurubyid');
+    Route::post('/query/tellerById', [QueryController::class, 'tellerById'])->name('sikas-query-tellerbyid');
     Route::post('/query/strukturSekolahById', [QueryController::class, 'strukturSekolahById'])->name('sikas-query-struktursekolahbyid');
     Route::post('/query/jenisPembayaranById', [QueryController::class, 'jenisPembayaranById'])->name('sikas-query-jenispembayaranbyid');
     Route::post('/query/setorTabunganSiswa', [QueryController::class, 'setorTabunganSiswa'])->name('sikas-query-setortabungansiswa');
@@ -112,6 +116,8 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/deleteKaryawan', [QueryController::class, 'deleteKaryawan'])->name('sikas-query-deletekaryawan');
     Route::post('/query/updateSiswa', [QueryController::class, 'updateSiswa'])->name('sikas-query-updatesiswa');
     Route::post('/query/deleteSiswa', [QueryController::class, 'deleteSiswa'])->name('sikas-query-deletesiswa');
+    Route::post('/query/updateTeller', [QueryController::class, 'updateTeller'])->name('sikas-query-updateteller');
+    Route::post('/query/deleteTeller', [QueryController::class, 'deleteTeller'])->name('sikas-query-deleteteller');
     Route::post('/query/postPembayaranAkademik', [QueryController::class, 'postPembayaranAkademik'])->name('sikas-query--post-pembayaran-akademik');
     Route::post('/query/postPengajuanKeringanan', [QueryController::class, 'postPengajuanKeringanan'])->name('sikas-query--post-pengajuan-keringanan');
     Route::post('/query/updateJabatan', [QueryController::class, 'updateJabatan'])->name('sikas-query-updatejabatan');

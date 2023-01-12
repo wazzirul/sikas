@@ -40,25 +40,23 @@ class KaryawanController extends Controller
 
     if($karyawan){
       $karyawan->soft_delete = '0';
-      $karyawan->save();
     }else{
       $karyawan = new Anggota();
       $karyawan->tipe_anggota = 1;
       $karyawan->nama = $nama_karyawan;
       $karyawan->nip = $nip;
-      $karyawan->save();
     }
+    $karyawan->save();
 
     $keuangan_karyawan = KeuanganAnggota::where('id_anggota', $karyawan->id_anggota)
       ->first();
     if($keuangan_karyawan){
       $keuangan_karyawan->soft_delete = '0';
-      $keuangan_karyawan->save();
     }else{
       $keuangan_karyawan = new KeuanganAnggota();
       $keuangan_karyawan->id_anggota = $karyawan->id_anggota;
-      $keuangan_karyawan->save();
     }
+    $keuangan_karyawan->save();
 
     if($jabatan != null){
       $master_jabatan = StrukturSekolah::find($jabatan);
