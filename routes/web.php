@@ -83,7 +83,6 @@ Route::group(['middleware' => 'authsession'], function () {
         Route::post('/master-jabatan/post', [JabatanController::class, 'postJabatan'])->name('sikas-master-jabatan-post');
 
         //Other
-        Route::get('/master-jabatan', [Main::class, 'masterJabatan'])->name('sikas-master-jabatan');
         Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('sikas-pengaturan');
     });
 
