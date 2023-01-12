@@ -38,13 +38,13 @@ class SiswaController extends Controller
 
   public function postSiswa(Request $request){
     $nama_siswa = $request->input('nama_siswa');
-    $nisn = $request->input('nisn');
+    $nis = $request->input('nis');
     $id_kelas = $request->input('id_kelas');
     $id_jurusan = $request->input('id_jurusan');
     $nomor_kelas = $request->input('nomor_kelas');
 
     $siswa = Anggota::where('nama', $nama_siswa)
-      ->where('nisn', $nisn)
+      ->where('nis', $nis)
       ->first();
 
     if($siswa){
@@ -57,7 +57,7 @@ class SiswaController extends Controller
       $siswa = new Anggota();
       $siswa->tipe_anggota = 2;
       $siswa->nama = $nama_siswa;
-      $siswa->nisn = $nisn;
+      $siswa->nis = $nis;
       $siswa->id_kelas = $id_kelas;
       $siswa->id_jurusan = $id_jurusan;
       $siswa->nomor_kelas = $nomor_kelas;

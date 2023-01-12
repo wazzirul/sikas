@@ -8,7 +8,7 @@ $(document).ready(function () {
   $('.update-siswa-button').click(() => {
     let id_anggota = $('#id_anggota').val();
     let nama_siswa = $('#nama_siswa').val();
-    let nisn = $('#nisn').val();
+    let nis = $('#nis').val();
     let id_kelas = $('#id_kelas').val();
     let id_jurusan = $('#id_jurusan').val();
     let nomor_kelas = $('#nomor_kelas').val();
@@ -20,7 +20,7 @@ $(document).ready(function () {
         _token: $('#ctoken').val(),
         id_anggota: id_anggota,
         nama_siswa: nama_siswa,
-        nisn: nisn,
+        nis: nis,
         id_kelas: id_kelas,
         id_jurusan: id_jurusan,
         nomor_kelas: nomor_kelas,
@@ -74,7 +74,7 @@ function changeAnggota($id_anggota) {
     },
     success: (result) => {
       $('#update_nama_siswa').val(result.nama);
-      $('#update_nisn').val(result.nisn);
+      $('#update_nis').val(result.nis);
       $('#update_nomor_kelas').val(result.nomor_kelas);
       result.id_kelas !== null ? $('#update_id_kelas').val(result.kelas.id_kelas) : $('#update_id_kelas').val("")
       result.id_jurusan !== null ? $('#update_id_jurusan').val(result.kelas.id_jurusan) : $('#update_id_jurusan').val("")

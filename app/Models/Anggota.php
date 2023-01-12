@@ -9,7 +9,7 @@ class Anggota extends Model
 {
     protected $table = 'anggota';
     protected $primaryKey = 'id_anggota';
-    protected $fillable = ['id_anggota','tipe_anggota','nama','nisn','nip','id_kelas','id_jurusan','nomor_kelas','soft_delete'];
+    protected $fillable = ['id_anggota','tipe_anggota','nama','nis','nip','id_kelas','id_jurusan','nomor_kelas','soft_delete'];
 
     public function Kelas()
     {

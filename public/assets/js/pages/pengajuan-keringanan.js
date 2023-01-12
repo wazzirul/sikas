@@ -66,7 +66,7 @@ $(document).on('submit', 'form#form-pengajuan-keringanan', function (e) {
         let username = kasir,
           numberanddate = `${tanggal}`,
           removetransactionnumber = true,
-          numberandname = `${anggota.nisn} / ${anggota.nama}`,
+          numberandname = `${anggota.nis} / ${anggota.nama}`,
           classname = anggota.detail_kelas,
           transactiontype = 'Pengajuan Keringanan Uang Akademik',
           total = pengajuan.jumlah

@@ -38,7 +38,7 @@ Transaksi
       <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
       <div class="input-group input-group-merge">
         <span class="input-group-text" id="cari-siswa-icon"><i class="bx bx-search"></i></span>
-        <input type="text" id="cari-siswa" class="form-control" placeholder="Masukkan nama atau NISN" aria-label="Masukkan nama atau NISN" aria-describedby="cari-siswa-icon">
+        <input type="text" id="cari-siswa" class="form-control" placeholder="Masukkan nama atau NIS" aria-label="Masukkan nama atau NIS" aria-describedby="cari-siswa-icon">
         <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       </div>
       <div class="cari-siswa">
@@ -48,7 +48,7 @@ Transaksi
             <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
             <div class="d-flex flex-column gap-1">
               <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
-              <p class="nomor-siswa color-neutral-80">{{ $a->nisn }}</p>
+              <p class="nomor-siswa color-neutral-80">{{ $a->nis }}</p>
             </div>
           </div>
           <div class="d-flex flex-column gap-1">
@@ -71,7 +71,7 @@ Transaksi
             <i class="fa-regular fa-user detail-siswa__icon"></i>
             <div class="d-flex flex-column gap-1">
               <h5 class="text-bold color-neutral-100 detail-nama">Nama Siswa</h5>
-              <p class="nomor-siswa color-neutral-80 detail-nisn">-</p>
+              <p class="nomor-siswa color-neutral-80 detail-nis">-</p>
             </div>
           </div>
           <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-3">

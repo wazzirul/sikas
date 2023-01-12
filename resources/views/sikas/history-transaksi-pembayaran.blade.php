@@ -40,7 +40,7 @@ Transaksi
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
           <div class="d-flex flex-column gap-1">
             <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
-            <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn }}</p>
+            <p class="nomor-siswa color-neutral-80">{{ $anggota->nis }}</p>
           </div>
         </div>
         <div class="d-flex flex-column gap-1">
@@ -96,7 +96,7 @@ Transaksi
             <td class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail color-neutral-100" onClick="printReceipt(this)" data-username="{{ \Session::get('nama') }}" data-numberanddate="{{ $h->nomor_transaksi }} / {{ \Carbon\Carbon::parse($h->tanggal)->format('l, d F Y') }}" data-numberandname="{{ $anggota->nisn }} / {{ $anggota->nama }}" data-classname="{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}" data-transactiontype="{{ $h->nama_transaksi }}" data-total="{{ $h->jumlah }}" data-transactioncode="{{ $h->kode_transaksi }}">
+                <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail color-neutral-100" onClick="printReceipt(this)" data-username="{{ \Session::get('nama') }}" data-numberanddate="{{ $h->nomor_transaksi }} / {{ \Carbon\Carbon::parse($h->tanggal)->format('l, d F Y') }}" data-numberandname="{{ $anggota->nis }} / {{ $anggota->nama }}" data-classname="{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}" data-transactiontype="{{ $h->nama_transaksi }}" data-total="{{ $h->jumlah }}" data-transactioncode="{{ $h->kode_transaksi }}">
                   <i class="fa-solid fa-print"></i>
                 </a>
                 <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi({{ $h->id_transaksi }})" data-bs-toggle="modal" data-bs-target="#modalEditData">

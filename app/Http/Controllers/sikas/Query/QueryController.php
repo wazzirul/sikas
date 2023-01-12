@@ -22,7 +22,7 @@ class QueryController extends Controller
         $search = $request->input('search');
         $limit = $request->input('limit');
         $anggota = Anggota::where('nama', 'LIKE', '%' . $search . '%')
-            ->orWhere('nisn', 'LIKE', '%' . $search . '%')
+            ->orWhere('nis', 'LIKE', '%' . $search . '%')
             ->inRandomOrder()
             ->where('tipe_anggota', 2)
             ->where('soft_delete', 0)
@@ -675,14 +675,14 @@ class QueryController extends Controller
     public function updateSiswa(Request $request){
         $id_anggota = $request->input('id_anggota');
         $nama_siswa = $request->input('nama_siswa') ?? null;
-        $nisn = $request->input('nisn') ?? null;
+        $nis = $request->input('nis') ?? null;
         $id_kelas = $request->input('id_kelas') ?? null;
         $id_jurusan = $request->input('id_jurusan') ?? null;
         $nomor_kelas = $request->input('nomor_kelas') ?? null;
     
         $siswa = Anggota::find($id_anggota);
         $nama_siswa != null && $siswa->nama = $nama_siswa;
-        $nisn != null && $siswa->nisn = $nisn;
+        $nis != null && $siswa->nis = $nis;
         $id_kelas != null && $siswa->id_kelas = $id_kelas;
         $id_jurusan != null && $siswa->id_jurusan = $id_jurusan;
         $nomor_kelas != null && $siswa->nomor_kelas = $nomor_kelas;

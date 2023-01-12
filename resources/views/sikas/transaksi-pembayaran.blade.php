@@ -61,7 +61,7 @@
       <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Guru</h5>
     </div>
   </div>
-  <div class="card">
+  <!-- <div class="card">
     <div class="card-body">
       <a href="{{route('sikas-transaksi--pembayaran-history-siswa')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
         <div class="jenis-pembayaran__icon-wrap">
@@ -71,8 +71,8 @@
       </a>
       <h5 class="text-bold color-black mt-5">Histroy Transaksi Siswa</h5>
     </div>
-  </div>
-</div>
+  </div> -->
+</div> 
 <div class="card riwayat-transaksi mt-5">
   <h4 class="color-neutral-100 mb-5">Riwayat Transaksi</h4>
   <div class="nav-align-top mb-4">
@@ -94,7 +94,7 @@
               <thead>
                 <tr>
                   <th>Tanggal</th>
-                  <th>NISN/NIP</th>
+                  <th>NIS/NIP</th>
                   <th>Nama</th>
                   <th>Nominal</th>
                   <th>Actions</th>
@@ -106,7 +106,7 @@
                   <td>
                     <p>{{ \Carbon\Carbon::parse($ta->tanggal)->format('F, d Y') }}</p>
                   </td>
-                  <td class="text-medium color-neutral-100">{{ $ta->Anggota->nisn }}</td>
+                  <td class="text-medium color-neutral-100">{{ $ta->Anggota->nis }}</td>
                   <td>
                     <p class="text-medium text-black">{{ $ta->Anggota->nama }}</p>
                   </td>
@@ -133,7 +133,7 @@
               <thead>
                 <tr>
                   <th>Tanggal</th>
-                  <th>NISN/NIP</th>
+                  <th>NIS/NIP</th>
                   <th>Nama</th>
                   <th>Nominal</th>
                   <th>Jenis Transaksi</th>
@@ -146,7 +146,7 @@
                   <td>
                     <p>{{ \Carbon\Carbon::parse($tt->tanggal)->format('F, d Y') }}</p>
                   </td>
-                  <td class="text-medium color-neutral-100">{{ $tt->Anggota->nisn ?? $tt->Anggota->nip }}</td>
+                  <td class="text-medium color-neutral-100">{{ $tt->Anggota->nis ?? $tt->Anggota->nip }}</td>
                   <td>
                     <p class="text-medium text-black">{{ $tt->Anggota->nama }}</p>
                   </td>

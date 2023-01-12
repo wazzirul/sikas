@@ -21,7 +21,7 @@ $('#cari-siswa').keyup((e) => {
                         <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
                         <div class="d-flex flex-column gap-1">
                             <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">${value.nama}</p>
-                            <p class="nomor-siswa color-neutral-80">${value.nisn}</p>
+                            <p class="nomor-siswa color-neutral-80">${value.nis}</p>
                         </div>
                         </div>
                         <div class="d-flex flex-column gap-1">
@@ -64,7 +64,7 @@ function clickSiswa(e) {
         },
         success: (result) => {
             $('.detail-nama').text(result.nama);
-            $('.detail-nisn').text(result.nisn);
+            $('.detail-nis').text(result.nis);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
             $('.detail-tagihan').text(numberFormat(result.keuangan_anggota.tagihan));
         },
@@ -126,7 +126,7 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
 
                 let username = kasir,
                     numberanddate = `${transaksi.nomor_transaksi} / ${tanggal}`,
-                    numberandname = `${anggota.nisn} / ${anggota.nama}`,
+                    numberandname = `${anggota.nis} / ${anggota.nama}`,
                     classname = anggota.detail_kelas,
                     transactiontype = transaksi.nama_transaksi,
                     total = transaksi.jumlah,

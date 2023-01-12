@@ -80,7 +80,7 @@
         <thead>
           <tr>
             <th>Nama</th>
-            <th>NISN</th>
+            <th>NIS</th>
             <th>Kelas</th>
             <th></th>
           </tr>
@@ -92,7 +92,7 @@
               <p class="text-medium color-neutral-100">{{ $a->nama }}</p>              
             </td>
             <td>
-              <p class="text-medium color-neutral-100">{{ $a->nisn }}</p>
+              <p class="text-medium color-neutral-100">{{ $a->nis }}</p>
             </td>
             <td>
               <p class="text-medium color-neutral-100">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
@@ -134,8 +134,8 @@
             <input type="text" class="form-control" name="nama_siswa" id="nama_siswa" placeholder="Nama Siswa..." >
           </div>
           <div class="mb-3">
-            <label for="nisn" class="form-label">NISN</label>
-            <input type="text" class="form-control" name="nisn" id="nisn" placeholder="NISN..." >
+            <label for="nis" class="form-label">NIS</label>
+            <input type="text" class="form-control" name="nis" id="nis" placeholder="NIS..." >
           </div>
           <div class="mb-3">
             <label for="id_kelas" class="form-label text-bold color-black">Kelas</label>
@@ -184,8 +184,8 @@
             <input type="text" class="form-control" id="update_nama_siswa" placeholder="Nama Siswa..." >
           </div>
           <div class="mb-3">
-            <label for="update_nisn" class="form-label">NISN</label>
-            <input type="text" class="form-control" id="update_nisn" placeholder="NISN..." >
+            <label for="update_nis" class="form-label">NIS</label>
+            <input type="text" class="form-control" id="update_nis" placeholder="NIS..." >
           </div>
           <div class="mb-3">
             <label for="update_id_kelas" class="form-label text-bold color-black">Kelas</label>

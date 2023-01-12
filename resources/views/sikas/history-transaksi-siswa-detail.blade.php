@@ -36,7 +36,7 @@
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
           <div class="d-flex flex-column gap-1">
             <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
-            <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn ?? $anggota->nip }}</p>
+            <p class="nomor-siswa color-neutral-80">{{ $anggota->nis ?? $anggota->nip }}</p>
           </div>
         </div>
         <div class="d-flex flex-column gap-1">

@@ -38,7 +38,7 @@ Transaksi
         <i class="fa-regular fa-user detail-siswa__icon"></i>
         <div class="d-flex flex-column gap-1">
           <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
-          <p class="nomor-siswa color-neutral-80">{{ $anggota->nisn }}</p>
+          <p class="nomor-siswa color-neutral-80">{{ $anggota->nis }}</p>
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-3 detail-siswa-history__subs">

@@ -35,7 +35,7 @@
         <thead>
           <tr>
             <th class="text-bold">Nama</th>
-            <th class="text-bold">NISN</th>
+            <th class="text-bold">NIS</th>
             <th class="text-bold">Kelas</th>
             <th class="text-bold">Jurusan</th>
             <th></th>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id_anggota');
             $table->smallInteger('tipe_anggota');
             $table->string('nama');
-            $table->string('nisn')->nullable();
+            $table->string('nis')->nullable();
             $table->string('nip')->nullable();
             $table->unsignedInteger('id_kelas')->nullable();
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas');
