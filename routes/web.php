@@ -68,7 +68,8 @@ Route::group(['middleware' => 'authsession'], function () {
 
         //Siswa Controller
         Route::get('/siswa', [SiswaController::class, 'index'])->name('sikas-siswa');
-
+        Route::post('/siswa/post', [SiswaController::class, 'postSiswa'])->name('sikas-postsiswa');
+        Route::post('/siswa/import', [SiswaController::class, 'importSiswa'])->name('sikas-importsiswa');
         //Karyawan Controller
         Route::get('/karyawan', [KaryawanController::class, 'index'])->name('sikas-karyawan');
         Route::post('/karyawan/post', [KaryawanController::class, 'postKaryawan'])->name('sikas-postkaryawan');

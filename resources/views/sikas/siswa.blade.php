@@ -82,124 +82,34 @@
             <th>Nama</th>
             <th>NISN</th>
             <th>Kelas</th>
-            <th>Jurusan</th>
-            <th>Angkatan Tahun</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
+          @foreach($anggota as $a)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">Adi prahita</p>              
+              <p class="text-medium color-neutral-100">{{ $a->nama }}</p>              
             </td>
             <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
+              <p class="text-medium color-neutral-100">{{ $a->nisn }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">XI</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">TKJ 2</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">2021</p>
+              <p class="text-medium color-neutral-100">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-primary" onClick="changeAnggota({{ $a->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail text-primary" onClick="changeAnggota({{ $a->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
           </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">Widia Sari</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">XI</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">TKJ 2</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">2021</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">Shella Desi</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">XI</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">TKJ 2</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">2021</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">Nafi Gakatur</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">172410103026</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">XI</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">TKJ 2</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">2021</p>
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -217,46 +127,39 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
+        <form action="/siswa/post" method="POST">
+          {{ csrf_field() }}
           <div class="mb-3">
             <label for="nama_siswa" class="form-label">Nama Siswa</label>
-            <input type="text" class="form-control" id="nama_siswa" placeholder="Nama Siswa..." value="">
+            <input type="text" class="form-control" name="nama_siswa" id="nama_siswa" placeholder="Nama Siswa..." >
           </div>
           <div class="mb-3">
             <label for="nisn" class="form-label">NISN</label>
-            <input type="text" class="form-control" id="nisn" placeholder="NISN..." value="">
+            <input type="text" class="form-control" name="nisn" id="nisn" placeholder="NISN..." >
           </div>
           <div class="mb-3">
-            <label for="kelas-form" class="form-label text-bold color-black">Kelas</label>
-            <select id="kelas-form" class="form-select">
-              <option value="10">X</option>
-              <option value="11">XI</option>
-              <option value="12">XII</option>
+            <label for="id_kelas" class="form-label text-bold color-black">Kelas</label>
+            <select id="id_kelas" name="id_kelas" class="form-select">
+              @foreach($kelas as $k)
+              <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">
-            <label for="jurusan-form" class="form-label text-bold color-black">Jurusan</label>
-            <select id="jurusan-form" class="form-select">
-              <option value="TKJ">TKJ</option>
-              <option value="RPL">RPL</option>
-              <option value="TKR">TKR</option>
-              <option value="TSM">TSM</option>
-              <option value="Administrasi">Administrasi</option>
+            <label for="id_jurusan" class="form-label text-bold color-black">Jurusan</label>
+            <select id="id_jurusan" name="id_jurusan" class="form-select">
+              @foreach($jurusan as $j)
+              <option value="{{ $j->id_jurusan }}">{{ $j->nama }}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">
-            <label for="nomor-kelas-form" class="form-label text-bold color-black">Nomor Kelas</label>
-            <select id="nomor-kelas-form" class="form-select">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+            <label for="nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
+            <input type="number" class="form-control" id="nomor_kelas" name="nomor_kelas" placeholder="Nomor Kelas..." >
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
+            <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+            <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
           </div>
         </form>
       </div>
@@ -275,48 +178,39 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
           <div class="mb-3">
-            <label for="nama_siswa" class="form-label">Nama Siswa</label>
-            <input type="text" class="form-control" id="nama_siswa" placeholder="Nama Siswa..." value="">
+            <label for="update_nama_siswa" class="form-label">Nama Siswa</label>
+            <input type="hidden" id="id_anggota"/>
+            <input type="text" class="form-control" id="update_nama_siswa" placeholder="Nama Siswa..." >
           </div>
           <div class="mb-3">
-            <label for="nisn" class="form-label">NISN</label>
-            <input type="text" class="form-control" id="nisn" placeholder="NISN..." value="">
+            <label for="update_nisn" class="form-label">NISN</label>
+            <input type="text" class="form-control" id="update_nisn" placeholder="NISN..." >
           </div>
           <div class="mb-3">
-            <label for="kelas-form" class="form-label text-bold color-black">Kelas</label>
-            <select id="kelas-form" class="form-select">
-              <option value="10">X</option>
-              <option value="11">XI</option>
-              <option value="12">XII</option>
+            <label for="update_id_kelas" class="form-label text-bold color-black">Kelas</label>
+            <select id="update_id_kelas" class="form-select">
+              @foreach($kelas as $k)
+              <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">
-            <label for="jurusan-form" class="form-label text-bold color-black">Jurusan</label>
-            <select id="jurusan-form" class="form-select">
-              <option value="TKJ">TKJ</option>
-              <option value="RPL">RPL</option>
-              <option value="TKR">TKR</option>
-              <option value="TSM">TSM</option>
-              <option value="Administrasi">Administrasi</option>
+            <label for="update_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
+            <select id="update_id_jurusan" class="form-select">
+              @foreach($jurusan as $j)
+              <option value="{{ $j->id_jurusan }}">{{ $j->nama }}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">
-            <label for="nomor-kelas-form" class="form-label text-bold color-black">Nomor Kelas</label>
-            <select id="nomor-kelas-form" class="form-select">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+            <label for="update_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
+            <input type="number" class="form-control" id="update_nomor_kelas" placeholder="Nomor Kelas..." >
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+            <button class="btn btn-primary w-100 update-siswa-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
           </div>
-        </form>
       </div>
     </div>
   </div>
@@ -330,13 +224,13 @@
         <div class="d-flex justify-content-center align-items-center gap-3">
           <h4 class="color-black text-bold text-center">Hapus Data Siswa</h4>
         </div>
-        <form action="#" class="mt-3">
-          <p class="color-neutral-100 text-center">Apakah anda yakin ingin menghapus data Siswa ‘ <span class="text-bold">Adi Prahita</span> ‘</p>
+        <div class="mt-3">
+          <p class="color-neutral-100 text-center">Apakah anda yakin ingin menghapus data Siswa ‘ <span class="text-bold nama-delete-modal">-</span> ‘</p>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+            <button class="btn btn-danger w-100 delete-siswa-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
