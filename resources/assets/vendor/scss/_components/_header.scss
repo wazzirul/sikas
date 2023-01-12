@@ -31,12 +31,19 @@
       gap: .25rem;
     }
   }
+  .nav-item{
+    cursor: default;
+    .nav-link{
+      cursor: default;
+    }
+  }
   .avatar{
     display: flex;
     align-items: center;
     gap: 1rem;
     width: auto;
     height: auto;
+    cursor: default;
     .avatar-image{
       position: relative;
       &::after{

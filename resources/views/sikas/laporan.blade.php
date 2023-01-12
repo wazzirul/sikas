@@ -108,109 +108,133 @@ Laporan
       <table class="table table-striped" id="data-laporan">
         <thead>
           <tr>
-            <th>Tanggal</th>
-            <th>Jenis Transaksi</th>
-            <th>Keterangan</th>
-            <th>Jumlah Nominal</th>
+            <th rowspan="2" align="center">
+              <h6 class="text-bold color-black">Tanggal</h6>
+            </th>
+            <th rowspan="2" align="center" class="data-laporan__keterangan">
+              <h6 class="text-bold color-black">Keterangan</h6>
+            </th>
+            <th colspan="2">
+              <h6 class="text-bold color-black">Dana Penunjang Kegiatan Sekolah (BPP)</h6>
+            </th>
+            <th colspan="2">
+              <h6 class="text-bold color-black">Tabungan UMUM</h6>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-bold color-black">Debet</p>
+            </th>
+            <th>
+              <p class="text-bold color-black">Kredit</p>
+            </th>
+            <th>
+              <p class="text-bold color-black">Debet</p>
+            </th>
+            <th>
+              <p class="text-bold color-black">Kredit</p>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
+              <p class="text-bold text-primary">02 Januari 2023</p>
             </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pembayaran SPP</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Alfian yoga ‘kelas XI TKJ 2’</p>
+            <td class="data-laporan__keterangan">
+              <p class="text-bold text-primary">Saldo Januari 2023</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+              <p class="text-bold text-primary">Rp. 80.252.805</p>
+            </td>
+            <td>
+              <p class="text-bold text-primary">-</p>
+            </td>
+            <td>
+              <p class="text-bold text-primary">Rp. 37.837.510</p>
+            </td>
+            <td>
+              <p class="text-bold text-primary">-</p>
             </td>
           </tr>
           <tr>
             <td>
               <p class="text-medium color-neutral-100">02 Januari 2023</p>
             </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pemasukan dari Sumber Lain</p>
+            <td class="data-laporan__keterangan">
+              <p class="text-medium color-neutral-100">Pembayaran angsuran Luxio Januari 2023</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Dana Bos</p>
+              <p class="text-medium color-neutral-100">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+              <p class="text-medium color-neutral-100">Rp. 3.647.000</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">-</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">-</p>
             </td>
           </tr>
           <tr>
             <td>
               <p class="text-medium color-neutral-100">02 Januari 2023</p>
             </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Penggunaan Dana</p>
+            <td class="data-laporan__keterangan">
+              <p class="text-medium color-neutral-100">Penarikan tabungan (masjid)</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Operasional sekolah</p>
+              <p class="text-medium color-neutral-100">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+              <p class="text-medium color-neutral-100">-</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">-</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">Rp. 250.000</p>
             </td>
           </tr>
           <tr>
             <td>
               <p class="text-medium color-neutral-100">02 Januari 2023</p>
             </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pemasukan dari Sumber Lain</p>
+            <td class="data-laporan__keterangan">
+              <p class="text-medium color-neutral-100">Penerimaan BPP dan Tabungan</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Donatur Wali Murid</p>
+              <p class="text-medium color-neutral-100">Rp. 12.405.000</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
+              <p class="text-medium color-neutral-100">-</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">-</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">-</p>
             </td>
           </tr>
           <tr>
             <td>
               <p class="text-medium color-neutral-100">02 Januari 2023</p>
             </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pengajuan Keringanan</p>
+            <td class="data-laporan__keterangan">
+              <p class="text-medium color-neutral-100">Diterima dari bendahara BOS untuk pembayaran gaji GTT PTT Januari 2023</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Alfian yoga ‘kelas XI TKJ 2’</p>
+              <p class="text-medium color-neutral-100">Rp. 33.657.000</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 100.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pemasukan Tabungan</p>              
+              <p class="text-medium color-neutral-100">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Alfian yoga ‘kelas XI TKJ 2’</p>
+              <p class="text-medium color-neutral-100">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 25.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pencairan Tabungan</p>              
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Alfian yoga ‘kelas XI TKJ 2’</p>
-            </td>
-            <td>
-              <p class="text-medium color-neutral-100">Rp. 10.000</p>
+              <p class="text-medium color-neutral-100">-</p>
             </td>
           </tr>
         </tbody>

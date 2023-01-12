@@ -132,6 +132,15 @@ input[type=number] {
   }
 }
 
+.dataTables_wrapper {
+  padding-bottom: 1.5rem;
+}
+
+th[rowspan]:not([rowspan="1"]) {
+  vertical-align: middle;
+  text-align: center;
+}
+
 .jenis-laporan {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -191,6 +200,10 @@ input[type=number] {
 .table tr td:last-child, .table tr th:last-child {
   width: 1%;
   white-space: nowrap;
+}
+.table .data-laporan__keterangan {
+  word-break: break-all !important;
+  width: 100px;
 }
 
 .date-range {

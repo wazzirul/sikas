@@ -138,3 +138,12 @@ input[type=number] {
     padding: toRem(24);
   }
 }
+
+.dataTables_wrapper {
+  padding-bottom: toRem(24);
+}
+
+th[rowspan]:not([rowspan="1"]) {
+  vertical-align : middle;
+  text-align: center;
+}

@@ -70,6 +70,10 @@
     width: 1%;
     white-space: nowrap;
   }
+  .data-laporan__keterangan{
+    word-break: break-all !important;           
+    width: 100px;
+  }
 }
 .date-range{
   position: relative;

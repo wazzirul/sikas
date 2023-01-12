@@ -8654,6 +8654,15 @@ input[type=number] {
   }
 }
 
+.dataTables_wrapper {
+  padding-bottom: 1.5rem;
+}
+
+th[rowspan]:not([rowspan="1"]) {
+  vertical-align: middle;
+  text-align: center;
+}
+
 .align-baseline {
   vertical-align: baseline !important;
 }
@@ -18023,12 +18032,19 @@ html:not(.layout-footer-fixed) .content-wrapper {
   flex-direction: column;
   gap: 0.25rem;
 }
+.header .nav-item {
+  cursor: default;
+}
+.header .nav-item .nav-link {
+  cursor: default;
+}
 .header .avatar {
   display: flex;
   align-items: center;
   gap: 1rem;
   width: auto;
   height: auto;
+  cursor: default;
 }
 .header .avatar .avatar-image {
   position: relative;

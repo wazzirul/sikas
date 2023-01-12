@@ -132,6 +132,15 @@ input[type=number] {
   }
 }
 
+.dataTables_wrapper {
+  padding-bottom: 1.5rem;
+}
+
+th[rowspan]:not([rowspan="1"]) {
+  vertical-align: middle;
+  text-align: center;
+}
+
 .card--reset-tahun-ajar {
   padding: 2rem;
 }
