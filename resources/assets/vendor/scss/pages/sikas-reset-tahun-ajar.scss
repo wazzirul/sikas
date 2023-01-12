@@ -1,0 +1,33 @@
+// * SIKAS Transaksi Pembayaran
+// *******************************************************************************
+
+@import '../_bootstrap-extended/include';
+@import '../_reset';
+
+.card--reset-tahun-ajar{
+  padding: toRem(32);
+  .card-body{
+    padding: 0;
+  }
+  .reset-tahun-ajar__subtitle{
+    max-width: toRem(768);
+    margin: toRem(16) auto 0;
+  }
+}
+
+.modal--reset-tahun-ajar{
+  .modal-dialog{
+    max-width: toRem(480);
+  }
+  .modal-body{
+    padding: toRem(32);
+  }
+  .icon{
+    width: toRem(24);
+    height: toRem(24);
+  }
+  .icon-success{
+    width: toRem(56);
+    height: toRem(56);
+  }
+}

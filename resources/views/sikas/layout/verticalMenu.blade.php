@@ -85,6 +85,12 @@
         <p class="menu-item__text">Master Jabatan</p>
       </a>
     </li>
+    <li class="menu-item">
+      <a href="{{route('sikas-reset-tahun-ajar')}}" class="menu-link">
+        <i class="fa-solid fa-power-off menu-item__icon"></i>
+        <div>Reset Tahun Ajar</div>
+      </a>
+    </li>
     @endif
     <div class="menu-line my-4"></div>
     @if(Session::get('tipe_user') == 1)
@@ -98,8 +104,8 @@
 
     <!--Logout OF MENU SIDEBAR (LAST ITEM)-->
     <li class="menu-item">
-      <a href="{{url('/logout')}}" class="menu-link">
-        <i class="fa-solid fa-power-off menu-item__icon"></i>
+      <a href="{{route('sikas-logout')}}" class="menu-link">
+        <i class="fa-solid fa-right-from-bracket menu-item__icon"></i>
         <div>Logout</div>
       </a>
     </li>

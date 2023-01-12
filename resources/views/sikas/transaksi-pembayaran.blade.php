@@ -4,10 +4,13 @@
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.css')}}">
 @endsection
 
 @section('vendor-script')
+<script src="{{asset('assets/vendor/libs/daterangepicker/moment.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.js')}}"></script>
 @endsection
 
 @section('page-script')
@@ -89,6 +92,18 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade show active" id="navs-pills-pembayaran-akademik" role="tabpanel">
+          <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
+            <div class="date-range">
+              <div id="date-range-span" class="form-control">
+                <span></span>
+              </div>
+              <i class="fa-regular fa-calendar-days date-range-icon text-primary"></i>
+              <input type="hidden" name="date-range-input" value="" class="" id="date-range-input"/>
+            </div>
+            <button class="d-flex btn btn-primary gap-2 align-items-center" data-bs-toggle="modal" data-bs-target="#modalAddData">
+              Filter Data
+            </button>
+          </div>
           <div class="table-responsive text-nowrap">
             <table class="table table-striped" id="riwayat-transaksi">
               <thead>
@@ -128,6 +143,18 @@
           </div>
         </div>
         <div class="tab-pane fade" id="navs-pills-tabungan-sekolah" role="tabpanel">
+          <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
+            <div class="date-range">
+              <div id="date-range-span" class="form-control">
+                <span></span>
+              </div>
+              <i class="fa-regular fa-calendar-days date-range-icon text-primary"></i>
+              <input type="hidden" name="date-range-input" value="" class="" id="date-range-input"/>
+            </div>
+            <button class="d-flex btn btn-primary gap-2 align-items-center">
+              Filter Data
+            </button>
+          </div>
           <div class="table-responsive text-nowrap">
             <table class="table table-striped" id="riwayat-tabungan-sekolah">
               <thead>
