@@ -75,6 +75,7 @@ Route::group(['middleware' => 'authsession'], function () {
     //Other
     Route::get('/master-jabatan', [Main::class, 'masterJabatan'])->name('sikas-master-jabatan');
     Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('sikas-pengaturan');
+    Route::get('/reset-tahun-ajar', [PengaturanController::class, 'resetTahunAjar'])->name('sikas-reset-tahun-ajar');
 
     // Query
     Route::post('/query/dataSiswa', [QueryController::class, 'dataSiswa'])->name('sikas-query-datasiswa');

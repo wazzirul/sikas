@@ -173,6 +173,36 @@ input[type=number] {
   color: #696cff;
 }
 
+.date-range {
+  position: relative;
+}
+.date-range #date-range-span {
+  padding-right: 2.5rem;
+}
+.date-range .date-range-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
+  height: 1rem;
+  width: 1rem;
+  margin: auto 0;
+}
+
+.daterangepicker {
+  right: 1.5rem !important;
+}
+.daterangepicker .drp-buttons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: end;
+}
+.daterangepicker .drp-selected {
+  width: 100% !important;
+}
+
 .riwayat-transaksi {
   padding: 2rem;
 }

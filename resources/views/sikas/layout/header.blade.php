@@ -34,11 +34,15 @@
               <div class="d-flex">
                 <div class="flex-shrink-0 me-3">
                   <div class="avatar avatar-online">
-                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                    <div class="avatar-image">
+                      <div class="avatar-wrap">
+                        <p class="color-white">L</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="flex-grow-1">
-                  <span class="fw-semibold d-block">John Doe</span>
+                  <span class="fw-semibold d-block">Livityani</span>
                   <small class="text-muted">Admin</small>
                 </div>
               </div>
@@ -48,33 +52,18 @@
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="javascript:void(0);">
-              <i class="bx bx-user me-2"></i>
-              <span class="align-middle">My Profile</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="javascript:void(0);">
-              <i class='bx bx-cog me-2'></i>
-              <span class="align-middle">Settings</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="javascript:void(0);">
-              <span class="d-flex align-items-center align-middle">
-                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                <span class="flex-grow-1 align-middle">Billing</span>
-                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-              </span>
+            <a class="dropdown-item d-flex align-items-center gap-2" href="{{route('sikas-pengaturan')}}">
+              <i class="fa-solid fa-gear menu-item__icon"></i>
+              <span class="align-middle">Pengaturan</span>
             </a>
           </li>
           <li>
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="javascript:void(0);">
-              <i class='bx bx-power-off me-2'></i>
-              <span class="align-middle">Log Out</span>
+            <a class="dropdown-item d-flex align-items-center gap-2" href="{{route('sikas-logout')}}">
+              <i class="fa-solid fa-right-from-bracket menu-item__icon"></i>
+              <span class="align-middle">Logout</span>
             </a>
           </li>
         </ul>
