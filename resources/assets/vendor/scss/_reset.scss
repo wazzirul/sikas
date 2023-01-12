@@ -53,8 +53,30 @@ $colorsMap: (
 @include ColorClass;
 
 *{
+  scrollbar-color: $primary transparent;
+  scrollbar-width: thin;
   transition: all linear .2s;
 }
+
+*::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: unset;
+	background-color: transparent;
+}
+
+*::-webkit-scrollbar
+{
+	width: 4px;
+	height: 4px;
+	background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb
+{
+	background-color: $primary;
+	border: unset;
+}
+
 
 html{
   scroll-behavior: smooth;
@@ -146,4 +168,40 @@ input[type=number] {
 th[rowspan]:not([rowspan="1"]) {
   vertical-align : middle;
   text-align: center;
+}
+
+.table{
+  tr td:last-child,tr th:last-child {
+    width: 1%;
+    white-space: nowrap;
+  }
+}
+
+.date-range{
+  position: relative;
+  #date-range-span{
+    padding-right: toRem(40);
+  }
+  .date-range-icon{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: toRem(16);
+    height: toRem(16);
+    width: toRem(16);
+    margin: auto 0;
+  }
+}
+.daterangepicker{
+  right: toRem(24) !important;
+  .drp-buttons{
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: toRem(12);
+    align-items: center;
+    justify-content: end;
+  }
+  .drp-selected{
+    width: 100% !important;
+  }
 }

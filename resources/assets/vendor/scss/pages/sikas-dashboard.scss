@@ -7,9 +7,22 @@
   width: toRem(32);
   height: toRem(32);
 }
-.row-2nd{
-  margin-top: toRem(32);
+.row-card{
+  row-gap: toRem(32);
   @include media-breakpoint-down(xl) {
-    margin-top: 0;
+    row-gap: toRem(24);
   }
+}
+.riwayat-transaksi{
+  padding: toRem(32);
+}
+.nav__wrapper{
+  width: 100%;
+  overflow-x: scroll;
+  .nav{
+    width: max-content;
+  }
+}
+.table-responsive{
+  padding-bottom: toRem(16);
 }

@@ -39,7 +39,25 @@
 }
 
 * {
+  scrollbar-color: #696cff transparent;
+  scrollbar-width: thin;
   transition: all linear 0.2s;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: unset;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #696cff;
+  border: unset;
 }
 
 html {
@@ -139,6 +157,41 @@ input[type=number] {
 th[rowspan]:not([rowspan="1"]) {
   vertical-align: middle;
   text-align: center;
+}
+
+.table tr td:last-child, .table tr th:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.date-range {
+  position: relative;
+}
+.date-range #date-range-span {
+  padding-right: 2.5rem;
+}
+.date-range .date-range-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
+  height: 1rem;
+  width: 1rem;
+  margin: auto 0;
+}
+
+.daterangepicker {
+  right: 1.5rem !important;
+}
+.daterangepicker .drp-buttons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: end;
+}
+.daterangepicker .drp-selected {
+  width: 100% !important;
 }
 
 .card--teller {

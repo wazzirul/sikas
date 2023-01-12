@@ -12,10 +12,10 @@ let config = {
   colors: {
     primary: '#696cff',
     secondary: '#8592a3',
-    success: '#71dd37',
-    info: '#03c3ec',
+    success: '#02c39a',
+    info: '#2196f3',
     warning: '#ffab00',
-    danger: '#ff3e1d',
+    danger: '#ef233c',
     dark: '#233446',
     black: '#000',
     white: '#fff',
