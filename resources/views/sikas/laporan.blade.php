@@ -34,6 +34,7 @@ Laporan
 <div class="jenis-laporan mb-5">
   <div class="card">
     <div class="card-body">
+      <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       <a href="{{route('sikas-laporan--penggunaan-dana')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
         <div class="jenis-laporan__icon-wrap">
           <i class="fa-solid fa-school jenis-laporan__icon"></i>
@@ -136,107 +137,129 @@ Laporan
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody-laporan">
+          <!-- Saldo -->
           <tr>
             <td>
-              <p class="text-bold text-primary">02 Januari 2023</p>
+              <p class="text-bold text-primary">{{ \Carbon\Carbon::now()->format('d F Y') }}</p>
             </td>
             <td class="data-laporan__keterangan">
-              <p class="text-bold text-primary">Saldo Januari 2023</p>
+              <p class="text-bold text-primary">Saldo {{ \Carbon\Carbon::now()->format('F Y') }}</p>
             </td>
             <td>
-              <p class="text-bold text-primary">Rp. 80.252.805</p>
+              <p class="text-bold text-primary nominal-transaksi">{{ $bpp_sekolah }}</p>
             </td>
             <td>
-              <p class="text-bold text-primary">-</p>
+              <p class="text-bold text-primary nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-bold text-primary">Rp. 37.837.510</p>
+              <p class="text-bold text-primary nominal-transaksi">{{ $tabungan_sekolah }}</p>
             </td>
             <td>
-              <p class="text-bold text-primary">-</p>
+              <p class="text-bold text-primary nominal-transaksi">-</p>
             </td>
           </tr>
+
+          <!-- Penerimaan BPP -->
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
+              @if($data_spp_bulan_ini != null)
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_spp_bulan_ini->tanggal)->format('d F Y') }}</p>
+              @else
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+              @endif
             </td>
             <td class="data-laporan__keterangan">
-              <p class="text-medium color-neutral-100">Pembayaran angsuran Luxio Januari 2023</p>
+              <p class="text-medium color-neutral-100">Penerimaan BPP</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $spp_bulan_ini }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 3.647.000</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
           </tr>
+
+          <!-- Penerimaan Tabungan -->
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
+              @if($data_tabungan_bulan_ini != null)
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tabungan_bulan_ini->tanggal)->format('d F Y') }}</p>
+              @else
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+              @endif
             </td>
             <td class="data-laporan__keterangan">
-              <p class="text-medium color-neutral-100">Penarikan tabungan (masjid)</p>
+              <p class="text-medium color-neutral-100">Penerimaan Tabungan</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $tabungan_bulan_ini }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 250.000</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
           </tr>
+
+          <!-- Penarikan Tabungan -->
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
+              @if($data_tarik_tabungan_bulan_ini != null)
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tarik_tabungan_bulan_ini->tanggal)->format('d F Y') }}</p>
+              @else
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+              @endif
             </td>
             <td class="data-laporan__keterangan">
-              <p class="text-medium color-neutral-100">Penerimaan BPP dan Tabungan</p>
+              <p class="text-medium color-neutral-100">Penarikan Tabungan</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 12.405.000</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $tarik_tabungan_bulan_ini }}</p>
             </td>
           </tr>
+
+          @foreach($transaksi_lain_bulan_ini as $tlbi)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">02 Januari 2023</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($tlbi->tanggal)->format('d F Y') }}</p>
             </td>
             <td class="data-laporan__keterangan">
-              <p class="text-medium color-neutral-100">Diterima dari bendahara BOS untuk pembayaran gaji GTT PTT Januari 2023</p>
+              <p class="text-medium color-neutral-100">{{ $tlbi->nama_transaksi }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">Rp. 33.657.000</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $tlbi->tipe_transaksi == 5 ? $tlbi->jumlah : '-' }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $tlbi->tipe_transaksi == 4 ? $tlbi->jumlah : '-' }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
             </td>
           </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
