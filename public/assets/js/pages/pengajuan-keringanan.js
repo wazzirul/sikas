@@ -1,7 +1,7 @@
 $(document).ready(function () {
   $('.sisa-tanggungan').text(numberFormat($('.sisa-tanggungan').text()));
 
-  if($("#riwayat-pengajuan-keringanan").length == 1) {
+  if ($("#riwayat-pengajuan-keringanan").length == 1) {
     $('#riwayat-pengajuan-keringanan').DataTable();
   }
 
