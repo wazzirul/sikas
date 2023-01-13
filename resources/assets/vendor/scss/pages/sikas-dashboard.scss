@@ -3,6 +3,14 @@
 
 @import '../_bootstrap-extended/include';
 @import '../_reset';
+.badge-date{
+  width: max-content;
+  .badge-icon{
+    width: toRem(20);
+    height: toRem(20);
+  }
+  font-size: toRem(16);
+}
 .avatar-icon{
   width: toRem(32);
   height: toRem(32);

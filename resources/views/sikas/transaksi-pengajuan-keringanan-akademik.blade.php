@@ -3,11 +3,13 @@
 @section('title', 'Transaksi Pembayaran Akademik - Sikas')
 
 @section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
 <!-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}"> -->
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/printjs/print.min.css')}}">
 @endsection
 
 @section('vendor-script')
+<script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
 <!-- <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script> -->
 <script src="{{asset('assets/vendor/libs/printjs/print.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/terbilangjs/terbilang.min.js')}}"></script>
@@ -29,7 +31,7 @@ Transaksi
 
 @section('content')
 <p class="fw-bold mb-5">
-  <span class="text-muted fw-light">Transaksi / Pembayaran / Akademik /</span> Pengajuan Keringanan
+  <span class="text-muted fw-light">Transaksi / Pembayaran Akademik /</span> Pengajuan Keringanan
 </p>
 <div class="card pengajuan-keringanan">
   <div class="detail-siswa">
@@ -66,6 +68,7 @@ Transaksi
           <tr>
             <th>Tanggal</th>
             <th>Jumlah Keringanan</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -76,6 +79,14 @@ Transaksi
             </td>
             <td>
               <p class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</p>
+            </td>
+            <td>
+              <div class="d-flex align-items-center justify-content-start gap-3">
+                <a href="#!" class="table__link-detail d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringananDetail">
+                  Lihat Detail
+                  <i class="fa-solid fa-eye"></i>
+                </a>
+              </div>
             </td>
           </tr>
           @endforeach
@@ -92,7 +103,7 @@ Transaksi
       <div class="pengajuan-keringanan-form__input-wrapper">
         <div class="pengajuan-keringanan-form__input">
           <label for="upload-surat-pengajuan" class="form-label">Upload Surat Pengajuan </label>
-          <input class="form-control" type="file" name="file-pengajuan" id="upload-surat-pengajuan" accept="application/pdf">
+          <input class="form-control" type="file" name="file-pengajuan" id="upload-surat-pengajuan" autocomplete="off" accept="application/pdf">
         </div>
         <div class="pengajuan-keringanan-form__item-upload d-none">
           <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
@@ -120,6 +131,33 @@ Transaksi
           <i class="fa-solid fa-circle-check icon-success text-success"></i>
           <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Mengajukan Keringanan</h4>
           <p class="color-neutral-80">Lanjutkan untuk melakukan proses pembayaran pada halaman pembayaran</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--pengajuan-keringanan fade" id="modalPengajuanKeringananDetail" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+          <h4 class="color-black text-bold">Detail Pengajuan Keringanan</h4>
+          <a href="#" data-bs-dismiss="modal" class="text-danger" aria-label="Close">
+            <i class="fa-solid fa-xmark icon"></i>
+          </a>
+        </div>
+        <div class="pengajuan-keringanan-detail mt-5">
+          <div class="d-flex flex-column mb-5 align-items-center text-center">
+            <h4 class="color-black mb-3">Jumlah Keringanan</h4>
+            <h5 class="text-bold text-success">Rp. 50.000</h5>
+          </div>
+          <h6 class="text-bold mb-3">Surat Pengajuan</h6>
+          <a href="#" class="d-flex flex-row align-items-center pengajuan-keringanan-form__item-upload gap-3">
+            <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
+            <p class="color-neutral-100 file-name">Account-receible.pdf</p>
+          </a>
         </div>
       </div>
     </div>

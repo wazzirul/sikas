@@ -1,6 +1,10 @@
 let dataSiswa;
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+if($("#riwayat-tabungan").length == 1) {
+    $('#riwayat-tabungan').DataTable();
+}
+
 $('#cari-siswa').keyup((e) => {
     let search = e.currentTarget.value;
     $.ajax({

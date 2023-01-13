@@ -194,6 +194,10 @@ th[rowspan]:not([rowspan="1"]) {
   width: 100% !important;
 }
 
+.tab-content {
+  box-shadow: none;
+}
+
 .jenis-pembayaran {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -244,10 +248,12 @@ th[rowspan]:not([rowspan="1"]) {
 }
 .card--pembayaran .card-body {
   position: relative;
+  padding: 2rem;
+}
+.card--pembayaran .card-body__wrapper {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   gap: 2rem;
-  padding: 2rem;
 }
 .card--pembayaran .input-group.input-group-merge .input-group-text {
   border: 1px solid #E0E0E0;
@@ -320,9 +326,6 @@ th[rowspan]:not([rowspan="1"]) {
 .card--pembayaran .detail-siswa .detail-siswa__icon {
   width: 2.5rem;
   height: 2.5rem;
-}
-.card--pembayaran .detail-siswa__history-pembayaran {
-  text-decoration: underline;
 }
 .card--pembayaran .pembayaran-button {
   padding: 1rem 2rem;
@@ -446,9 +449,20 @@ th[rowspan]:not([rowspan="1"]) {
   color: #ef233c;
 }
 
+.card--riwayat-transaksi {
+  padding: 2rem;
+}
+.card--riwayat-transaksi .card-body {
+  padding: 0;
+}
+
 .card--riwayat-tabungan {
   padding: 2rem;
 }
 .card--riwayat-tabungan .card-body {
   padding: 0;
+}
+
+.modal--pengajuan-keringanan .modal-dialog {
+  max-width: 30rem;
 }

@@ -29,11 +29,13 @@ Transaksi
 
 @section('content')
 <p class="fw-bold mb-5">
-  <span class="text-muted fw-light">Transaksi / Pembayaran /</span> Tabungan Guru
+  <span class="text-muted fw-light">Transaksi / Tabungan /</span> Guru
 </p>
 
 <div class="card card--pembayaran">
   <div class="card-body">
+    <h3 class="text-bold mb-4">Form Pembayaran Tabungan Guru</h3>
+    <div class="card-body__wrapper">
     <div class="card-item card-item--cari-siswa">
       <label class="text-bold mb-3" for="cari-siswa">Cari Guru</label>
       <div class="input-group input-group-merge">
@@ -60,12 +62,16 @@ Transaksi
           </a>
         </div>
         @endforeach
+        <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+          <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
+          <h4 class="text-bold color-neutral-100">Belum Ada Pencarian</h4>
+          <p class="color-neutral-80">Masukkan nama lengkap Guru / Karyawan untuk melakukan pencarian.</p>
+        </div>
       </div>
     </div>
     <div class="horizontal-line"></div>
     <div class="card-item">
       <div class="card-item--detail-dan-form">
-        <h3 class="text-bold">Detail Karyawan</h3>
         <div class="detail-siswa">
           <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
             <i class="fa-regular fa-user detail-siswa__icon"></i>
@@ -96,6 +102,7 @@ Transaksi
           </button>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </div>

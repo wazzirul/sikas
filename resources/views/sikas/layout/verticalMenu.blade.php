@@ -2,8 +2,9 @@
 
   <!-- ! Hide app brand if navbar-full -->
   <div class="app-brand demo">
-    <a href="{{url('/')}}" class="app-brand-link">
-      <img src="{{asset('assets/img/sikas/logo.png')}}" class="app-brand-logo"></img>
+    <a href="{{url('/')}}" class="app-brand-link d-flex align-items-start justify-content-start flex-column gap-3">
+      <img src="{{asset('assets/img/sikas/logo-sikas.png')}}" class="app-brand-logo"></img>
+      <p class="color-neutral-80">Sistem pembayaran dan kas sekolah</p>
     </a>
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-autod-block d-xl-none">
       <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -26,9 +27,14 @@
         <p class="menu-item__text">Transaksi</p>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item {{ Route::is('sikas-transaksi--pembayaran*') == true ? 'active' : '' }}">
-          <a href="{{route('sikas-transaksi--pembayaran')}}" class="menu-link">
-            <div>Pembayaran</div>
+        <li class="menu-item {{ Route::is('sikas-transaksi--pembayaran-akademik*') == true ? 'active' : '' }}">
+          <a href="{{route('sikas-transaksi--pembayaran-akademik')}}" class="menu-link">
+            <div>Pembayaran Uang Akademik</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Route::is('sikas-transaksi--tabungan*') == true ? 'active' : '' }}">
+          <a href="{{route('sikas-transaksi--tabungan')}}" class="menu-link">
+            <div>Tabungan</div>
           </a>
         </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--pemasukan') == true ? 'active' : '' }}">
@@ -92,7 +98,9 @@
       </a>
     </li>
     @endif
-    <div class="menu-line my-4"></div>
+    <div class="menu-line my-4">
+      <div class="line"></div>
+    </div>
     @if(Session::get('tipe_user') == 1)
     <li class="menu-item {{ Route::is('sikas-pengaturan') == true ? 'active' : '' }}">
       <a href="{{route('sikas-pengaturan')}}" class="menu-link">

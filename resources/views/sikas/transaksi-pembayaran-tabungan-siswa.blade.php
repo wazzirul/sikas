@@ -29,71 +29,78 @@ Transaksi
 
 @section('content')
 <p class="fw-bold mb-5">
-  <span class="text-muted fw-light">Transaksi / Pembayaran /</span> Tabungan
+  <span class="text-muted fw-light">Transaksi / Tabungan /</span> Siswa
 </p>
 
 <div class="card card--pembayaran">
   <div class="card-body">
-    <div class="card-item card-item--cari-siswa">
-      <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
-      <div class="input-group input-group-merge">
-        <span class="input-group-text" id="cari-siswa-icon"><i class="bx bx-search"></i></span>
-        <input type="text" id="cari-siswa" class="form-control" placeholder="Masukkan nama atau NIS" aria-label="Masukkan nama atau NIS" aria-describedby="cari-siswa-icon">
-        <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
-      </div>
-      <div class="cari-siswa">
-        @foreach($anggota as $a)
-        <div class="cari-siswa__item" data-id="{{ $a->id_anggota }}">
-          <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-            <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-            <div class="d-flex flex-column gap-1">
-              <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
-              <p class="nomor-siswa color-neutral-80">{{ $a->nis }}</p>
-            </div>
-          </div>
-          <div class="d-flex flex-column gap-1">
-            <p class="text-bold color-neutral-100">Kelas</p>
-            <p class="kelas-siswa color-neutral-80">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
-          </div>
-          <a href="#" class="cari-siswa__item-detail">
-            <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-          </a>
+    <h3 class="text-bold mb-4">Form Pembayaran Tabungan Siswa</h3>
+    <div class="card-body__wrapper">
+      <div class="card-item card-item--cari-siswa">
+        <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
+        <div class="input-group input-group-merge">
+          <span class="input-group-text" id="cari-siswa-icon"><i class="bx bx-search"></i></span>
+          <input type="text" id="cari-siswa" class="form-control" placeholder="Masukkan nama atau NIS" aria-label="Masukkan nama atau NIS" aria-describedby="cari-siswa-icon">
+          <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
-        @endforeach
-      </div>
-    </div>
-    <div class="horizontal-line"></div>
-    <div class="card-item">
-      <div class="card-item--detail-dan-form">
-        <h3 class="text-bold">Detail Siswa</h3>
-        <div class="detail-siswa">
-          <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
-            <i class="fa-regular fa-user detail-siswa__icon"></i>
-            <div class="d-flex flex-column gap-1">
-              <h5 class="text-bold color-neutral-100 detail-nama">Nama Siswa</h5>
-              <p class="nomor-siswa color-neutral-80 detail-nis">-</p>
+        <div class="cari-siswa">
+          @foreach($anggota as $a)
+          <div class="cari-siswa__item" data-id="{{ $a->id_anggota }}">
+            <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
+              <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
+              <div class="d-flex flex-column gap-1">
+                <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
+                <p class="nomor-siswa color-neutral-80">{{ $a->nis }}</p>
+              </div>
             </div>
+            <div class="d-flex flex-column gap-1">
+              <p class="text-bold color-neutral-100">Kelas</p>
+              <p class="kelas-siswa color-neutral-80">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
+            </div>
+            <a href="#" class="cari-siswa__item-detail">
+              <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
+            </a>
           </div>
-          <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-3">
-            <div class="d-flex flex-column gap-1">
-              <p class="color-neutral-80">Kelas</p>
-              <p class="text-bold color-neutral-100 detail-kelas">-</p>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <p class="color-neutral-80">Total Tabungan</p>
-              <h5 class="text-bold text-primary detail-tabungan">0</h5>
-            </div>
+          @endforeach
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+            <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
+            <h4 class="text-bold color-neutral-100">Belum Ada Pencarian</h4>
+            <p class="color-neutral-80">Masukkan nama lengkap siswa / nis untuk melakukan pencarian.</p>
           </div>
         </div>
-        <div class="d-flex flex-row align-items-stretch gap-3">
-          <button class="btn btn-lg btn-outline-primary w-100 penarikan-button disabled" data-bs-toggle="modal" data-bs-target="#modalPenarikan">
-            Penarikan
-            <i class="fa-solid fa-money-bill"></i>
-          </button>
-          <button class="btn btn-lg btn-primary w-100 setoran-button disabled" data-bs-toggle="modal" data-bs-target="#modalSetoran">
-            Setor Tabungan
-            <i class="fa-solid fa-plus"></i>
-          </button>
+      </div>
+      <div class="horizontal-line"></div>
+      <div class="card-item">
+        <div class="card-item--detail-dan-form">
+          <div class="detail-siswa">
+            <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
+              <i class="fa-regular fa-user detail-siswa__icon"></i>
+              <div class="d-flex flex-column gap-1">
+                <h5 class="text-bold color-neutral-100 detail-nama">Nama Siswa</h5>
+                <p class="nomor-siswa color-neutral-80 detail-nis">-</p>
+              </div>
+            </div>
+            <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-3">
+              <div class="d-flex flex-column gap-1">
+                <p class="color-neutral-80">Kelas</p>
+                <p class="text-bold color-neutral-100 detail-kelas">-</p>
+              </div>
+              <div class="d-flex flex-column gap-1">
+                <p class="color-neutral-80">Total Tabungan</p>
+                <h5 class="text-bold text-primary detail-tabungan">0</h5>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-row align-items-stretch gap-3">
+            <button class="btn btn-lg btn-outline-primary w-100 penarikan-button disabled" data-bs-toggle="modal" data-bs-target="#modalPenarikan">
+              Penarikan
+              <i class="fa-solid fa-money-bill"></i>
+            </button>
+            <button class="btn btn-lg btn-primary w-100 setoran-button disabled" data-bs-toggle="modal" data-bs-target="#modalSetoran">
+              Setor Tabungan
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -27,6 +27,10 @@ Dashboard
 @endsection
 
 @section('content')
+<p class="badge bg-primary d-flex gap-2 align-items-center badge-date mb-4">
+  <i class="fa-regular fa-calendar badge-icon"></i>
+  19  Januari 2023
+</p>
 <div class="row row-card">
   <div class="col-xl-4 col-lg-6 col-6">
     <div class="card">

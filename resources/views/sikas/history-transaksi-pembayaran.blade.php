@@ -1,20 +1,23 @@
 @extends('sikas/layout/layout')
 
-@section('title', 'History Pembayaran - Sikas')
+@section('title', 'Detail Siswa - Sikas')
 
 @section('vendor-style')
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/printjs/print.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.css')}}">
 @endsection
 
 @section('vendor-script')
+<script src="{{asset('assets/vendor/libs/daterangepicker/moment.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/printjs/print.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/terbilangjs/terbilang.min.js')}}"></script>
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages/history-pembayaran.js')}}"></script>
+<script src="{{asset('assets/js/pages/pembayaran.js')}}"></script>
 <script src="{{asset('assets/js/print-receipt.js')}}"></script>
 @endsection
 
@@ -29,7 +32,7 @@ Transaksi
 
 @section('content')
 <p class="fw-bold mb-5">
-  <span class="text-muted fw-light">Transaksi / Pembayaran /</span> History Pembayaran
+  <span class="text-muted fw-light">Transaksi /</span> Detail Siswa
 </p>
 <div class="card card--history-pembayaran">
   <div class="card-body">
@@ -49,29 +52,37 @@ Transaksi
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-4 detail-siswa-history__subs">
-        <div class="d-flex flex-column gap-1">
-          <p class="color-neutral-80">Sisa Tanggungan</p>
-          <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
-        </div>
-        <div class="d-flex flex-column gap-1">
-          <p class="color-neutral-80">Total Keringanan</p>
-          <h5 class="text-bold text-info total-keringanan">{{ $total_keringanan }}</h5>
-        </div>
-        <div class="d-flex flex-column gap-1">
-          <p class="color-neutral-80">Total Tabungan</p>
-          <h5 class="text-bold text-success total-tabungan">{{ $anggota->KeuanganAnggota->tabungan }}</h5>
-        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center gap-5 ">
+          <div class="d-flex flex-column gap-1">
+            <p class="color-neutral-80">Sisa Tanggungan</p>
+            <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
+          </div>
+          <div class="d-flex flex-column gap-1">
+            <p class="color-neutral-80">Total Keringanan</p>
+            <h5 class="text-bold text-info total-keringanan">{{ $total_keringanan }}</h5>
+          </div>
+          <div class="d-flex flex-column gap-1">
+            <p class="color-neutral-80">Total Tabungan</p>
+            <h5 class="text-bold text-success total-tabungan">{{ $anggota->KeuanganAnggota->tabungan }}</h5>
+          </div>     
+        </div>   
+        <a href="#!" class="btn btn-outline-primary detail-siswa__history-pembayaran history-pembayaran-button">Ajukan Keringanan</a>
       </div>
     </div>
     <div class="border-line"></div>
     <div class="history-pembayaran-filter d-flex flex-row justify-content-between align-items-end">
-      <div class="tahun-ajaran">
-        <label for="tahunAjaran" class="form-label">Cari Berdasarkan Tahun Ajaran</label>
-        <div class="tahun-ajaran-input">
-          <input type="number" class="form-control" id="tahunAjaran" placeholder="2023">
-          <i class="fa-regular fa-calendar input-icon color-neutral-50"></i>
+    <div class="d-flex align-items-center justify-content-start gap-4">
+      <div class="date-range">
+        <div id="date-range-span" class="form-control">
+          <span></span>
         </div>
+        <i class="fa-regular fa-calendar-days date-range-icon text-primary"></i>
+        <input type="hidden" name="date-range-input" value="" class="" id="date-range-input"/>
       </div>
+      <button class="d-flex btn btn-primary gap-2 align-items-center">
+        Filter Data
+      </button>
+    </div>
       <a href="#" class="btn btn-outline-primary">
         Export
         <i class="fa-solid fa-print text-primary"></i>

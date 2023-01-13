@@ -1,5 +1,9 @@
 let dataSiswa;
 
+if($("#history-pembayaran").length == 1) {
+    $('#history-pembayaran').DataTable();
+}
+
 $('#cari-siswa').keyup((e) => {
     let search = e.currentTarget.value;
     $.ajax({

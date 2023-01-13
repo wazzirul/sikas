@@ -8716,6 +8716,10 @@ th[rowspan]:not([rowspan="1"]) {
   width: 100% !important;
 }
 
+.tab-content {
+  box-shadow: none;
+}
+
 .align-baseline {
   vertical-align: baseline !important;
 }
@@ -16947,14 +16951,22 @@ body {
 }
 .menu .app-brand {
   width: 100%;
-  height: 120px !important;
+  height: -moz-max-content !important;
+  height: max-content !important;
+}
+.menu .app-brand.demo {
+  margin-top: unset;
+  padding: 2rem 2rem 1.5rem;
+}
+.menu .app-brand.demo p {
+  font-size: 0.75rem;
 }
 .menu .app-brand-link {
   width: 100%;
-  justify-content: center;
 }
 .menu .app-brand-link .app-brand-logo {
-  width: 7rem;
+  max-width: 7.375rem;
+  width: auto;
 }
 .menu .ps__thumb-y,
 .menu .ps__rail-y {
@@ -17005,6 +17017,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
 }
 .menu-item .menu-item__text {
   text-transform: capitalize;
+  font-size: 0.875rem;
 }
 .menu-item .menu-item__icon {
   width: 1.5rem;
@@ -17152,9 +17165,9 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   height: 1px;
   background-color: #D0D4E0;
 }
-.menu-vertical .menu-line::after {
-  content: "";
+.menu-vertical .menu-line .line {
   position: relative;
+  display: block;
   height: 1px;
   background-color: #D0D4E0;
   width: calc(100% - 2rem);

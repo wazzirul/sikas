@@ -8,6 +8,12 @@ $(document).ready(function () {
   if($("#riwayat-tabungan-sekolah").length == 1) {
     $('#riwayat-tabungan-sekolah').DataTable();
   }
+  if($("#riwayat-tabungan-siswa").length == 1) {
+    $('#riwayat-tabungan-siswa').DataTable();
+  }
+  if($("#riwayat-tabungan-guru").length == 1) {
+    $('#riwayat-tabungan-guru').DataTable();
+  }
   if($("#riwayat-tabungan").length == 1) {
     $('#riwayat-tabungan').DataTable();
   }

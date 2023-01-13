@@ -57,10 +57,12 @@
   position: relative;
   .card-body{
     position: relative;
+    padding: 2rem;
+  }
+  .card-body__wrapper{
     display: grid;
     grid-template-columns: 1fr 1px 1fr;
     gap: toRem(32);
-    padding: 2rem;
   }
   .input-group.input-group-merge{
     .input-group-text{
@@ -137,9 +139,6 @@
       width: toRem(40);
       height: toRem(40);
     }
-  }
-  .detail-siswa__history-pembayaran{
-    text-decoration: underline;
   }
   .pembayaran-button{
     padding: 1rem 2rem;
@@ -267,9 +266,21 @@
   }
 }
 
+.card--riwayat-transaksi{
+  padding: toRem(32);
+  .card-body{
+    padding: 0;
+  }
+}
 .card--riwayat-tabungan{
   padding: toRem(32);
   .card-body{
     padding: 0;
+  }
+}
+
+.modal--pengajuan-keringanan{
+  .modal-dialog{
+    max-width: toRem(480);
   }
 }

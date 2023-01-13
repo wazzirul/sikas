@@ -194,6 +194,20 @@ th[rowspan]:not([rowspan="1"]) {
   width: 100% !important;
 }
 
+.tab-content {
+  box-shadow: none;
+}
+
+.badge-date {
+  width: -moz-max-content;
+  width: max-content;
+  font-size: 1rem;
+}
+.badge-date .badge-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 .avatar-icon {
   width: 2rem;
   height: 2rem;

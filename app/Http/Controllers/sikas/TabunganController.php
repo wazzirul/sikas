@@ -14,6 +14,10 @@ use App\Models\Transaksi;
 
 class TabunganController extends Controller
 {
+    public function tabungan(){
+        return view('sikas.transaksi-pembayaran-tabungan');
+    }
+
     public function siswa(){
         $anggota = Anggota::where('tipe_anggota', 2)
             ->where('soft_delete', 0)
