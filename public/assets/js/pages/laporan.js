@@ -121,7 +121,7 @@ $(document).ready(function () {
               <p class="text-medium color-neutral-100">${result.data_tarik_tabungan_bulan_ini != null ? moment(result.data_tarik_tabungan_bulan_ini.tanggal).format('DD MMMM YYYY') : moment(tanggal_akhir).format('DD MMMM YYYY')}</p>
             </td>
             <td class="data-laporan__keterangan">
-              <p class="text-medium color-neutral-100">Penerimaan Tabungan</p>
+              <p class="text-medium color-neutral-100">Penarikan Tabungan</p>
             </td>
             <td>
               <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
