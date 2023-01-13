@@ -50,13 +50,34 @@
           </a>
         </div>
         <form action="#">
+          <h5 class="text-bold text-primary mb-2">Kelas X</h5>
+          <div class="mb-3">
+            <label for="jenis_pembayaran" class="form-label">Nama / Jenis Pembayaran</label>
+            <input type="text" class="form-control" id="jenis_pembayaran" placeholder="Nama / Jenis Pembayaran..." value="">
+          </div>
+          <div class="">
+            <label for="nominal" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominal" placeholder="Nominal Pembayaran..." value="">
+          </div>
+          <div class="modal-line"></div>
+          <h5 class="text-bold text-primary mb-2">Kelas XI</h5>
+          <div class="mb-3">
+            <label for="jenis_pembayaran" class="form-label">Nama / Jenis Pembayaran</label>
+            <input type="text" class="form-control" id="jenis_pembayaran" placeholder="Nama / Jenis Pembayaran..." value="">
+          </div>
+          <div class="">
+            <label for="nominal" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominal" placeholder="Nominal Pembayaran..." value="">
+          </div>
+          <div class="modal-line"></div>
+          <h5 class="text-bold text-primary mb-2">Kelas XII</h5>
           <div class="mb-3">
             <label for="jenis_pembayaran" class="form-label">Nama / Jenis Pembayaran</label>
             <input type="text" class="form-control" id="jenis_pembayaran" placeholder="Nama / Jenis Pembayaran..." value="">
           </div>
           <div class="mb-3">
-            <label for="nominal" class="form-label">Nominal</label>
-            <input type="text" class="form-control" id="nominal" placeholder="Nominal..." value="">
+            <label for="nominal" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominal" placeholder="Nominal Pembayaran..." value="">
           </div>
           <div class="form-text"> <span class="text-primary text-bold">semua siswa dan siswi akan secara otomatis naik kelas</span>. Jika ada siswa / siswi yang tidak naik kelas, harap di ubah secara manual di menu siswa. </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">

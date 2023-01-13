@@ -17,7 +17,14 @@
 
 .modal--reset-tahun-ajar{
   .modal-dialog{
-    max-width: toRem(480);
+    max-width: toRem(640);
+  }
+  .modal-line{
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: $color-neutral-30;
+    margin: toRem(32) 0;
   }
   .modal-body{
     padding: toRem(32);

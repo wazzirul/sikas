@@ -210,7 +210,14 @@ th[rowspan]:not([rowspan="1"]) {
 }
 
 .modal--reset-tahun-ajar .modal-dialog {
-  max-width: 30rem;
+  max-width: 40rem;
+}
+.modal--reset-tahun-ajar .modal-line {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #EDEDED;
+  margin: 2rem 0;
 }
 .modal--reset-tahun-ajar .modal-body {
   padding: 2rem;
