@@ -129,6 +129,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/laporanPengajuanKeringanan', [QueryController::class, 'laporanPengajuanKeringanan'])->name('sikas-query-laporanpengajuankeringanan');
     Route::post('/query/laporanPemasukanLain', [QueryController::class, 'laporanPemasukanLain'])->name('sikas-query-laporanpemasukanlain');
     Route::post('/query/laporanPenggunaanDana', [QueryController::class, 'laporanPenggunaanDana'])->name('sikas-query-laporanpenggunaandana');
+    Route::post('/query/laporan', [QueryController::class, 'laporan'])->name('sikas-query-laporan');
     
 });
 

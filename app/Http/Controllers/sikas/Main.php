@@ -5,6 +5,7 @@ namespace App\Http\Controllers\sikas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use Carbon\Carbon;
 
 use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
@@ -16,37 +17,103 @@ use App\Models\Transaksi;
 class Main extends Controller
 {
   public function index(){
-    $siswa = Anggota::where('tipe_anggota', 2)
-      ->where('soft_delete', 0)
-      ->count();
-
-    $guru = Anggota::where('tipe_anggota', 1)
-      ->where('soft_delete', 0)
-      ->count();
+    $now = Carbon::now();
+    $hari_ini = $now->copy()->toDateString();
 
     $transaksi_spp = Transaksi::where('tipe_transaksi', 1)
+      ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
       ->sum('jumlah');
+    $data_transaksi_spp = Transaksi::where('tipe_transaksi', 1)
+      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->whereDate('tanggal', $hari_ini)
+      ->where('soft_delete', 0)
+      ->orderBy('id_transaksi', 'DESC')
+      ->get();
 
-    $transaksi_lain = Transaksi::where('tipe_transaksi', '!=', 1)
-      ->where('tipe_transaksi', '!=', 3)
-      ->where('tipe_transaksi', '!=', 4)
+    $tabungan_siswa = Transaksi::where('tipe_transaksi', 2)
+      ->with(['Anggota'])
+        ->whereHas('Anggota', function($q) {
+        $q->where('anggota.tipe_anggota', '=', 2); 
+      })
+      ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
       ->sum('jumlah');
+    $data_tabungan_siswa = Transaksi::where('tipe_transaksi', 2)
+      ->with(['Anggota'])
+        ->whereHas('Anggota', function($q) {
+        $q->where('anggota.tipe_anggota', '=', 2); 
+      })
+      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->whereDate('tanggal', $hari_ini)
+      ->where('soft_delete', 0)
+      ->orderBy('id_transaksi', 'DESC')
+      ->get();
+
+    $tabungan_guru = Transaksi::where('tipe_transaksi', 2)
+      ->with(['Anggota'])
+        ->whereHas('Anggota', function($q) {
+        $q->where('anggota.tipe_anggota', '=', 1); 
+      })
+      ->whereDate('tanggal', $hari_ini)
+      ->where('soft_delete', 0)
+      ->sum('jumlah');
+    $data_tabungan_guru = Transaksi::where('tipe_transaksi', 2)
+      ->with(['Anggota'])
+        ->whereHas('Anggota', function($q) {
+        $q->where('anggota.tipe_anggota', '=', 1); 
+      })
+      ->with('Anggota.Jabatan')
+      ->whereDate('tanggal', $hari_ini)
+      ->where('soft_delete', 0)
+      ->orderBy('id_transaksi', 'DESC')
+      ->get();
+
+    $transaksi_lain = Transaksi::where('tipe_transaksi', 5)
+      ->whereDate('tanggal', $hari_ini)
+      ->where('soft_delete', 0)
+      ->sum('jumlah');
+    $data_transaksi_lain = Transaksi::where('tipe_transaksi', 5)
+      ->whereDate('tanggal', $hari_ini)
+      ->where('soft_delete', 0)
+      ->orderBy('id_transaksi', 'DESC')
+      ->get();
 
     $keringanan = PengajuanKeringanan::where('soft_delete', 0)
+      ->whereDate('tanggal', $hari_ini)
       ->sum('jumlah');
+    $data_keringanan = PengajuanKeringanan::where('soft_delete', 0)
+      ->whereDate('tanggal', $hari_ini)
+      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->orderBy('id_pengajuan_keringanan', 'DESC')
+      ->get();
 
-    $tabungan = KeuanganAnggota::where('soft_delete', 0)
-      ->sum('tabungan');
+    $pengeluaran = Transaksi::where('tipe_transaksi', '>=', 3)
+      ->where('tipe_transaksi', '<=', 4)
+      ->whereDate('tanggal', $hari_ini)
+      ->where('soft_delete', 0)
+      ->sum('jumlah');
+    $data_pengeluaran = Transaksi::where('tipe_transaksi', '>=', 3)
+      ->where('tipe_transaksi', '<=', 4)
+      ->whereDate('tanggal', $hari_ini)
+      ->where('soft_delete', 0)
+      ->orderBy('id_transaksi', 'DESC')
+      ->get();
 
     return view('sikas.dashboard', [
-      'siswa' => $siswa,
-      'guru' => $guru,
       'transaksi_spp' => $transaksi_spp,
+      'tabungan_siswa' => $tabungan_siswa,
+      'tabungan_guru' => $tabungan_guru,
       'transaksi_lain' => $transaksi_lain,
       'keringanan' => $keringanan,
-      'tabungan' => $tabungan,
+      'pengeluaran' => $pengeluaran,
+
+      'data_transaksi_spp' => $data_transaksi_spp,
+      'data_tabungan_siswa' => $data_tabungan_siswa,
+      'data_tabungan_guru' => $data_tabungan_guru,
+      'data_transaksi_lain' => $data_transaksi_lain,
+      'data_keringanan' => $data_keringanan,
+      'data_pengeluaran' => $data_pengeluaran,
     ]);
   }
   public function TransaksiPemasukan(){
