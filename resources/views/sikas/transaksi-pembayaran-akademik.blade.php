@@ -4,11 +4,16 @@
 
 @section('vendor-style')
 <!-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}"> -->
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/printjs/print.min.css')}}">
 @endsection
 
 @section('vendor-script')
 <!-- <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script> -->
+<script src="{{asset('assets/vendor/libs/daterangepicker/moment.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/printjs/print.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/terbilangjs/terbilang.min.js')}}"></script>
 @endsection
@@ -80,18 +85,17 @@ Transaksi
                   <h5 class="text-bold color-neutral-100 detail-nama">Nama Siswa</h5>
                   <p class="nomor-siswa color-neutral-80 detail-nis">-</p>
                 </div>
-              </div>              
-              <div class="d-flex flex-column gap-1">
-                <p class="color-neutral-80">Sisa Tanggungan</p>
-                <h5 class="text-bold text-primary detail-tagihan">0</h5>
               </div>
             </div>
             <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-3">
               <div class="d-flex flex-column gap-1">
                 <p class="color-neutral-80">Kelas</p>
                 <p class="text-bold color-neutral-100 detail-kelas">-</p>
+              </div>              
+              <div class="d-flex flex-column gap-1">
+                <p class="color-neutral-80">Sisa Tanggungan</p>
+                <h5 class="text-bold text-primary detail-tagihan">0</h5>
               </div>
-              <a href="#!" class="btn btn-outline-primary history-pembayaran-button">Lihat Detail Siswa</a>
             </div>
           </div>
           <div class="">
@@ -108,6 +112,7 @@ Transaksi
 
 <div class="card card--riwayat-transaksi mt-5">
   <h4 class="color-neutral-100 mb-5">Riwayat Transaksi Pembayaran Akademik</h4>
+  <a href="#!" class="btn btn-outline-primary ajukan-keringanan">Ajukan Keringanan</a>
   <div class="card-body">
     <div class="table-responsive text-nowrap mt-4">
       <table class="table table-striped" id="history-pembayaran">
