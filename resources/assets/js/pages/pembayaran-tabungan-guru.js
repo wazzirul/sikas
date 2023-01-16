@@ -1,5 +1,5 @@
 let dataSiswa;
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
 if ($("#riwayat-tabungan").length == 1) {
     $('#riwayat-tabungan').DataTable();
@@ -72,7 +72,7 @@ function clickSiswa(e) {
             $('.detail-nama').text(result.nama);
             $('.detail-nip').text(result.nip);
             $('.detail-jabatan').text(`${result.jabatan != null ? result.jabatan.jabatan : 'Guru'}`);
-            $('.detail-tabungan').text(numberFormat(result.keuangan_anggota.tabungan));
+            $('.detail-tabungan').text('Rp. ' + numberFormat(result.keuangan_anggota.tabungan));
         },
         error: (err) => {
             console.log(err);

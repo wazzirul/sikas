@@ -71,7 +71,7 @@ function clickSiswa(e) {
             $('.detail-nama').text(result.nama);
             $('.detail-nis').text(result.nis);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
-            $('.detail-tabungan').text(numberFormat(result.keuangan_anggota.tabungan));
+            $('.detail-tabungan').text('Rp. ' + numberFormat(result.keuangan_anggota.tabungan));
         },
         error: (err) => {
             console.log(err);

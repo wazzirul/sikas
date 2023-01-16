@@ -1,5 +1,5 @@
 let dataSiswa;
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
 if ($("#history-pembayaran").length == 1) {
     $('#history-pembayaran').DataTable();
@@ -72,7 +72,7 @@ function clickSiswa(e) {
             $('.detail-nama').text(result.nama);
             $('.detail-nis').text(result.nis);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
-            $('.detail-tagihan').text(numberFormat(result.keuangan_anggota.tagihan));
+            $('.detail-tagihan').text('Rp. ' + numberFormat(result.keuangan_anggota.tagihan));
         },
         error: (err) => {
             console.log(err);

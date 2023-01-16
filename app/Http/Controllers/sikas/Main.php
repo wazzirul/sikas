@@ -119,6 +119,7 @@ class Main extends Controller
   public function TransaksiPemasukan(){
     $transaksi = Transaksi::where('tipe_transaksi', 5)
       ->where('soft_delete', 0)
+      ->orderBy('id_transaksi', 'DESC')
       ->get();
 
     return view('sikas.transaksi-pemasukan', [
@@ -128,6 +129,7 @@ class Main extends Controller
   public function TransaksiPengeluaran(){
     $transaksi = Transaksi::where('tipe_transaksi', 4)
       ->where('soft_delete', 0)
+      ->orderBy('id_transaksi', 'DESC')
       ->get();
 
     return view('sikas.transaksi-pengeluaran', [
