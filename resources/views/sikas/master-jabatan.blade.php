@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/jabatan.js')}}"></script>
+<script src="{{asset('assets/js/pages/jabatan.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -27,6 +27,7 @@
 <div class="card card--master-jabatan">
   <div class="jenis-pembayaran-wrapper">
     <h4 class="text-bold color-black mb-4">Data Master Jabatan</h4>    
+    <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
     <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
       <div class="d-flex align-items-center gap-4">
         <button class="d-flex btn btn-primary gap-2 align-items-center" data-bs-toggle="modal" data-bs-target="#modalAddData">
@@ -55,11 +56,11 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" onClick="changeStrukturSekolah({{$j->id_struktur_sek}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-primary" onClick="changeStrukturSekolah({{$j->id_struktur_sekolah}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail text-primary" onClick="changeStrukturSekolah({{$j->id_struktur_sekolah}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
@@ -113,7 +114,7 @@
         </div>
           <div class="mb-3">
             <label for="update_jabatan" class="form-label">Nama / Master Jabatan</label>
-            <input type="text" class="form-control" id="update_jabatan" placeholder="Nama / Master Jabatan..." value="">
+            <input type="text" class="form-control" id="update_jabatan" placeholder="Nama / Master Jabatan..." >
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>

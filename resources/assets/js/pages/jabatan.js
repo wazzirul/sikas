@@ -51,17 +51,18 @@ $(document).ready(function () {
 
 });
 
-function changeStrukturSekolah($id_struktur_sekolah) {
-  $('#id_struktur_sekolah').val($id_struktur_sekolah);
+function changeStrukturSekolah(id_struktur_sekolah) {
+  $('#id_struktur_sekolah').val(id_struktur_sekolah);
 
   $.ajax({
     url: '/query/strukturSekolahById',
     method: 'POST',
     data: {
       _token: $('#ctoken').val(),
-      id: $id_struktur_sekolah,
+      id: id_struktur_sekolah,
     },
     success: (result) => {
+      console.log(result);
       $('#update_jabatan').val(result.jabatan);
       $('.nama-delete-modal').text(result.jabatan);
     },

@@ -62,7 +62,7 @@ Laporan
           @foreach($laporan as $l)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($l->tanggal)->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($l->tanggal)->translatedFormat('d F Y') }}</p>
             </td>
             <td class="text-medium">
               <p class="text-medium color-neutral-100">Penggunaan Dana</p>

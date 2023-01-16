@@ -76,16 +76,16 @@ $(document).ready(function () {
               <p class="text-bold text-primary">Saldo ${moment(tanggal_akhir).format('MMMM YYYY')}</p>
             </td>
             <td>
-              <p class="text-bold text-primary nominal-transaksi">Rp. ${numberFormat(result.bpp_sekolah)}</p>
+              <p class="text-bold text-primary nominal-transaksi-laporan">Rp. ${numberFormat(result.bpp_sekolah)}</p>
             </td>
             <td>
-              <p class="text-bold text-primary nominal-transaksi">-</p>
+              <p class="text-bold text-primary nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-bold text-primary nominal-transaksi">Rp. ${numberFormat(result.tabungan_sekolah)}</p>
+              <p class="text-bold text-primary nominal-transaksi-laporan">Rp. ${numberFormat(result.tabungan_sekolah)}</p>
             </td>
             <td>
-              <p class="text-bold text-primary nominal-transaksi">-</p>
+              <p class="text-bold text-primary nominal-transaksi-laporan">-</p>
             </td>
           </tr>
         `);
@@ -100,16 +100,16 @@ $(document).ready(function () {
               <p class="text-medium color-neutral-100">Penerimaan BPP</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">Rp. ${numberFormat(result.spp_bulan_ini)}</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">Rp. ${numberFormat(result.spp_bulan_ini)}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
           </tr>
         `);
@@ -124,16 +124,16 @@ $(document).ready(function () {
               <p class="text-medium color-neutral-100">Penerimaan Tabungan</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">Rp. ${numberFormat(result.tabungan_bulan_ini)}</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">Rp. ${numberFormat(result.tabungan_bulan_ini)}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
           </tr>
         `);
@@ -148,16 +148,16 @@ $(document).ready(function () {
               <p class="text-medium color-neutral-100">Penarikan Tabungan</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">Rp. ${numberFormat(result.tarik_tabungan_bulan_ini)}</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">Rp. ${numberFormat(result.tarik_tabungan_bulan_ini)}</p>
             </td>
           </tr>
         `);
@@ -172,16 +172,16 @@ $(document).ready(function () {
                 <p class="text-medium color-neutral-100">${value.nama_transaksi}</p>
               </td>
               <td>
-                <p class="text-medium color-neutral-100 nominal-transaksi">${value.tipe_transaksi == 5 ? 'Rp. ' + numberFormat(value.jumlah) : '-'}</p>
+                <p class="text-medium color-neutral-100 nominal-transaksi-laporan">${value.tipe_transaksi == 5 ? 'Rp. ' + numberFormat(value.jumlah) : '-'}</p>
               </td>
               <td>
-                <p class="text-medium color-neutral-100 nominal-transaksi">${value.tipe_transaksi == 4 ? 'Rp. ' + numberFormat(value.jumlah) : '-'}</p>
+                <p class="text-medium color-neutral-100 nominal-transaksi-laporan">${value.tipe_transaksi == 4 ? 'Rp. ' + numberFormat(value.jumlah) : '-'}</p>
               </td>
               <td>
-                <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+                <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
               </td>
               <td>
-                <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+                <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
               </td>
             </tr>
           `);
@@ -194,7 +194,7 @@ $(document).ready(function () {
 
   })
 
-  $.each($('.nominal-transaksi'), (index, value) => {
+  $.each($('.nominal-transaksi-laporan'), (index, value) => {
     $(value).text() != "-" && $(value).text('Rp. ' + numberFormat($(value).text()))
   })
 })

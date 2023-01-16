@@ -18,7 +18,7 @@
           <div class="avatar avatar-online">
             <div class="avatar-image">
               <div class="avatar-wrap">
-                <p class="color-white">L</p>
+                <p class="color-white">{{ Session::get('nama')[0] }}</p>
               </div>
             </div>
             <div class="avatar-content">

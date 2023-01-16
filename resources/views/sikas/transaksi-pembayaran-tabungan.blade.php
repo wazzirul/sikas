@@ -67,7 +67,7 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade show active" id="navs-pills-tabungan-siswa" role="tabpanel">
-          @if(count($tabungan_siswa) !== 0)
+          @if(count($tabungan_siswa) != 0)
           <div class="table-responsive text-nowrap tabel-siswa">
             <table class="table table-striped" id="riwayat-tabungan-siswa">
               <thead>
@@ -83,7 +83,7 @@
                 @foreach($tabungan_siswa as $ts)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($ts->tanggal)->format('F, d Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($ts->tanggal)->translatedFormat('F, d Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $ts->Anggota->nis }}</td>
                   <td>
@@ -106,7 +106,7 @@
             </table>
           </div>
           @else
-          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state-siswa d-none">
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state-siswa">
             <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
             <h4 class="text-bold color-neutral-100">Data Tabungan Siswa Kosong</h4>
             <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan siswa.</p>
@@ -131,7 +131,7 @@
               @foreach($tabungan_guru as $tg)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($tg->tanggal)->format('F, d Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($tg->tanggal)->translatedFormat('F, d Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $tg->Anggota->nip }}</td>
                   <td>
