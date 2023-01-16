@@ -11,6 +11,7 @@
 <script src="{{asset('assets/vendor/libs/daterangepicker/moment.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/terbilangjs/terbilang.min.js')}}"></script>
 @endsection
 
 @section('page-script')
@@ -29,7 +30,8 @@ Dashboard
 @section('content')
 <p class="badge bg-primary d-flex gap-2 align-items-center badge-date mb-4">
   <i class="fa-regular fa-calendar badge-icon"></i>
-  {{ \Carbon\Carbon::now()->format('d F Y') }}
+  <span></span>
+  {{ \Carbon\Carbon::parse(now())->formatLocalized('%A, %d %B %Y') }}
 </p>
 <div class="row row-card">
   <div class="col-xl-4 col-lg-6 col-6">
@@ -154,7 +156,7 @@ Dashboard
                 @foreach($data_transaksi_spp as $dts)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dts->tanggal)->format('d F Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dts->tanggal)->formatLocalized('%d %B %Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $dts->nama_transaksi }}</td>
                   <td>
@@ -201,7 +203,7 @@ Dashboard
                 @foreach($data_tabungan_siswa as $dts)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dts->tanggal)->format('d F Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dts->tanggal)->formatLocalized('%d %B %Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $dts->Anggota->nis }}</td>
                   <td>
@@ -248,7 +250,7 @@ Dashboard
                 @foreach($data_tabungan_guru as $dtg)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dtg->tanggal)->format('d F Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dtg->tanggal)->formatLocalized('%d %B %Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $dtg->Anggota->nip }}</td>
                   <td>
@@ -295,7 +297,7 @@ Dashboard
                 @foreach($data_keringanan as $dk)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dk->tanggal)->format('d F Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dk->tanggal)->formatLocalized('%d %B %Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $dk->Anggota->nis }}</td>
                   <td>
@@ -341,7 +343,7 @@ Dashboard
                 @foreach($data_transaksi_lain as $dtl)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dtl->tanggal)->format('d F Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dtl->tanggal)->formatLocalized('%d %B %Y') }}</p>
                   </td>
                   <td>
                     <p class="text-medium text-black">{{ $dtl->nama_transaksi }}</p>
@@ -386,7 +388,7 @@ Dashboard
                 @foreach($data_pengeluaran as $dp)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dp->tanggal)->format('d F Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dp->tanggal)->formatLocalized('%d %B %Y') }}</p>
                   </td>
                   <td>
                     <p class="text-medium text-black">{{ $dp->nama_transaksi }}</p>
