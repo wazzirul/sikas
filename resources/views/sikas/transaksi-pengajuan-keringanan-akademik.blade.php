@@ -82,7 +82,7 @@ Transaksi
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-start gap-3">
-                <a href="#!" class="table__link-detail d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringananDetail">
+                <a href="#!" class="table__link-detail d-flex align-items-center gap-2 detail-pengajuan" data-file="{{ $h->file }}" data-jumlah="{{ $h->jumlah }}" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringananDetail">
                   Lihat Detail
                   <i class="fa-solid fa-eye"></i>
                 </a>
@@ -107,10 +107,7 @@ Transaksi
         </div>
         <div class="pengajuan-keringanan-form__item-upload d-none">
           <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
-          <p class="color-neutral-100 file-name">Account-receible.pdf</p>
-          <a href="#" class="delete-file">
-            <i class="fa-solid fa-xmark color-dark-subtle delete-file__icon"></i>
-          </a>
+          <p class="color-neutral-100 file-name">-</p>
         </div>
       </div>
       <div class="mt-3">
@@ -151,12 +148,12 @@ Transaksi
         <div class="pengajuan-keringanan-detail mt-5">
           <div class="d-flex flex-column mb-5 align-items-center text-center">
             <h4 class="color-black mb-3">Jumlah Keringanan</h4>
-            <h5 class="text-bold text-success">Rp. 50.000</h5>
+            <h5 class="text-bold text-success modal-jumlah">-</h5>
           </div>
           <h6 class="text-bold mb-3">Surat Pengajuan</h6>
-          <a href="#" class="d-flex flex-row align-items-center pengajuan-keringanan-form__item-upload gap-3">
+          <a href="#" download class="d-flex flex-row align-items-center pengajuan-keringanan-form__item-upload gap-3 modal-download">
             <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
-            <p class="color-neutral-100 file-name">Account-receible.pdf</p>
+            <p class="color-neutral-100 modal-file">Account-receible.pdf</p>
           </a>
         </div>
       </div>

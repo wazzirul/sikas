@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Session;
 
 use App\Models\User;
+use App\Models\Tagihan;
 
 class PengaturanController extends Controller
 {
@@ -18,6 +19,12 @@ class PengaturanController extends Controller
   }
 
   public function resetTahunAjar(){
-    return view('sikas.reset-tahun-ajar');
+    $tagihan = Tagihan::with('Kelas')
+      ->where('soft_delete', 0)
+      ->get();
+
+    return view('sikas.reset-tahun-ajar', [
+      'tagihan' => $tagihan,
+    ]);
   }
 }

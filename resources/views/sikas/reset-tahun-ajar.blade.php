@@ -11,7 +11,7 @@
 @endsection
 
 @section('page-script')
-<!-- <script src="{{asset('assets/js/datatable-tables.js')}}"></script> -->
+<script src="{{asset('assets/js/pages/reset-tahun-ajar.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -26,15 +26,13 @@
 @section('content')
 <div class="card card--reset-tahun-ajar">
   <div class="card-body">
-    <form action="#">
-      <div class="text-center reset-tahun-ajar__content">
-        <h4 class="text-bold text-danger reset-tahun-ajar__title">RESET TAHUN AJAR</h4>
-        <p class="color-black reset-tahun-ajar__subtitle">Memulai tahun ajaran baru, <span class="text-primary text-bold">semua siswa dan siswi akan secara otomatis naik kelas</span>. Jika ada siswa / siswi yang tidak naik kelas, harap di ubah secara manual di menu siswa.</p>
-      </div>
-      <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditData">Mulai Tahun Ajar Baru</button>
-      </div>
-    </form>
+    <div class="text-center reset-tahun-ajar__content">
+      <h4 class="text-bold text-danger reset-tahun-ajar__title">RESET TAHUN AJAR</h4>
+      <p class="color-black reset-tahun-ajar__subtitle">Memulai tahun ajaran baru, <span class="text-primary text-bold">semua siswa dan siswi akan secara otomatis naik kelas</span>. Jika ada siswa / siswi yang tidak naik kelas, harap di ubah secara manual di menu siswa.</p>
+    </div>
+    <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+      <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditData">Mulai Tahun Ajar Baru</button>
+    </div>
   </div>
 </div>
 
@@ -49,39 +47,24 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
-          <h5 class="text-bold text-primary mb-2">Kelas X</h5>
+        <form action="/query/resetTahunAjar" method="POST" id="myform">
+          {{ csrf_field() }}
+          @foreach($tagihan as $t)
+          <h5 class="text-bold text-primary mb-2">Kelas {{ $t->Kelas->nama }}</h5>
           <div class="mb-3">
-            <label for="jenis_pembayaran" class="form-label">Nama / Jenis Pembayaran</label>
-            <input type="text" class="form-control" id="jenis_pembayaran" placeholder="Nama / Jenis Pembayaran..." value="">
+            <label for="jenis_pembayaran{{$t->id_tagihan}}" class="form-label">Nama / Jenis Pembayaran</label>
+            <input type="text" class="form-control" id="jenis_pembayaran{{$t->id_tagihan}}" name="jenis_pembayaran{{$t->id_tagihan}}" placeholder="Nama / Jenis Pembayaran..." value="{{ $t->nama }}">
           </div>
           <div class="">
-            <label for="nominal" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control" id="nominal" placeholder="Nominal Pembayaran..." value="">
+            <label for="nominal{{$t->id_tagihan}}" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control nominal-pembayaran" id="nominal{{$t->id_tagihan}}" name="nominal{{$t->id_tagihan}}" placeholder="Nominal Pembayaran..." value="{{$t->jumlah}}">
           </div>
           <div class="modal-line"></div>
-          <h5 class="text-bold text-primary mb-2">Kelas XI</h5>
-          <div class="mb-3">
-            <label for="jenis_pembayaran" class="form-label">Nama / Jenis Pembayaran</label>
-            <input type="text" class="form-control" id="jenis_pembayaran" placeholder="Nama / Jenis Pembayaran..." value="">
-          </div>
-          <div class="">
-            <label for="nominal" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control" id="nominal" placeholder="Nominal Pembayaran..." value="">
-          </div>
-          <div class="modal-line"></div>
-          <h5 class="text-bold text-primary mb-2">Kelas XII</h5>
-          <div class="mb-3">
-            <label for="jenis_pembayaran" class="form-label">Nama / Jenis Pembayaran</label>
-            <input type="text" class="form-control" id="jenis_pembayaran" placeholder="Nama / Jenis Pembayaran..." value="">
-          </div>
-          <div class="mb-3">
-            <label for="nominal" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control" id="nominal" placeholder="Nominal Pembayaran..." value="">
-          </div>
+          @endforeach
           <div class="form-text"> <span class="text-primary text-bold">semua siswa dan siswi akan secara otomatis naik kelas</span>. Jika ada siswa / siswi yang tidak naik kelas, harap di ubah secara manual di menu siswa. </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Mulai Tahun Ajar Baru</button>
+            <button type="submit" class="btn btn-primary w-100">Mulai Tahun Ajar Baru</button>
+            <button type="button" class="success-button d-none" data-bs-toggle="modal" data-bs-target="#modalEditSuccess"></button>
           </div>
         </form>
       </div>

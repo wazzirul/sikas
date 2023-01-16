@@ -6,7 +6,7 @@ $(document).ready(function () {
   }
 
   $.each($('.nominal-transaksi'), (index, value) => {
-    $(value).text('+ Rp. ' + numberFormat($(value).text()))
+    $(value).text('Rp. ' + numberFormat($(value).text()))
   })
 
   $('#upload-surat-pengajuan').change(() => {
@@ -17,6 +17,16 @@ $(document).ready(function () {
   $('#nominalPembayaran').keyup((e) => {
     let input = e.currentTarget.value;
     $('#nominalPembayaran').val(formatRupiah(input, 'RP. '))
+  })
+
+  $('.detail-pengajuan').click((el) => {
+    let jumlah = numberFormat(el.currentTarget.dataset.jumlah);
+    let file = el.currentTarget.dataset.file;
+    file = file.split('/');
+
+    $('.modal-jumlah').text(jumlah);
+    $('.modal-file').text(file[file.length - 1]);
+    $('.modal-download').attr('href', '/' + el.currentTarget.dataset.file);
   })
 });
 

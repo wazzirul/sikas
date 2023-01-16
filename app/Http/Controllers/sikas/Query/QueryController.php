@@ -14,6 +14,7 @@ use App\Models\PengajuanKeringanan;
 use App\Models\Transaksi;
 use App\Models\StrukturSekolah;
 use App\Models\Tagihan;
+use App\Models\Kelas;
 use App\Models\User;
 use Carbon\Carbon as Carbon;
 
@@ -993,5 +994,54 @@ class QueryController extends Controller
         }else{
             return response(null, 406);
         }
+    }
+
+    public function resetTahunAjar(Request $request){
+        $kelas = Kelas::where('soft_delete', 0)
+            ->orderBy('id_kelas', 'DESC')
+            ->get();
+
+        foreach($kelas as $k){
+            $id_kelas = $k->id_kelas;
+            $jenis_pembayaran = $request->input('jenis_pembayaran'.$id_kelas);
+            $nominal = $request->input('nominal'.$id_kelas);
+            $nominal = str_replace('Rp', '', $nominal);
+            $nominal = str_replace('.', '', $nominal);
+            $nominal = str_replace(' ', '', $nominal);
+
+            $tagihan_siswa = Tagihan::where('id_kelas', $id_kelas)
+                ->where('soft_delete', 0)
+                ->first();
+            $tagihan_siswa->nama = $jenis_pembayaran;
+            $tagihan_siswa->jumlah = $nominal;
+            $tagihan_siswa->save();
+
+            $naik_kelas = (int)$id_kelas + 1;
+            if($id_kelas < 3){
+                $anggota = Anggota::where('tipe_anggota', 2)
+                ->where('id_kelas', $id_kelas)
+                ->get();
+
+                $jumlah_tagihan = $request->input('nominal'.$naik_kelas);
+                $jumlah_tagihan = str_replace('Rp', '', $jumlah_tagihan);
+                $jumlah_tagihan = str_replace('.', '', $jumlah_tagihan);
+                $jumlah_tagihan = str_replace(' ', '', $jumlah_tagihan);
+
+                foreach($anggota as $a){
+                    $a->id_kelas = $naik_kelas;
+                    $keuangan_anggota = KeuanganAnggota::where('id_anggota', $a->id_anggota)
+                        ->first();
+
+                    if($keuangan_anggota){
+                        $tagihan_lama = (int)$keuangan_anggota->tagihan;
+                        $keuangan_anggota->tagihan = (int)$tagihan_lama + (int)$jumlah_tagihan;
+                        $keuangan_anggota->save();
+                    }
+                    $a->save();
+                }
+            }
+        }
+    
+        return response('success', 200);
     }
 }

@@ -15,7 +15,34 @@ use App\Models\Transaksi;
 class TabunganController extends Controller
 {
     public function tabungan(){
-        return view('sikas.transaksi-pembayaran-tabungan');
+        $tabungan_siswa = Transaksi::where('soft_delete', 0)
+            ->with(['Anggota'])
+                ->whereHas('Anggota', function($q) {
+                $q->where('anggota.tipe_anggota', '=', 2); 
+            })
+            ->with('Anggota.Kelas', 'Anggota.Jurusan')
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->orderBy('id_transaksi', 'DESC')
+            ->limit(10)
+            ->get();
+
+        $tabungan_guru = Transaksi::where('soft_delete', 0)
+            ->with(['Anggota'])
+                ->whereHas('Anggota', function($q) {
+                $q->where('anggota.tipe_anggota', '=', 1); 
+            })
+            ->with('Anggota.Jabatan')
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->orderBy('id_transaksi', 'DESC')
+            ->limit(10)
+            ->get();
+
+        return view('sikas.transaksi-pembayaran-tabungan', [
+            'tabungan_siswa' => $tabungan_siswa,
+            'tabungan_guru' => $tabungan_guru,
+        ]);
     }
 
     public function siswa(){

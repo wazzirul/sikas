@@ -133,7 +133,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/laporanPenggunaanDana', [QueryController::class, 'laporanPenggunaanDana'])->name('sikas-query-laporanpenggunaandana');
     Route::post('/query/laporan', [QueryController::class, 'laporan'])->name('sikas-query-laporan');
     Route::post('/query/changePassword', [QueryController::class, 'changePassword'])->name('sikas-query-changepassword');
-    
+    Route::post('/query/resetTahunAjar', [QueryController::class, 'resetTahunAjar'])->name('sikas-query-resettahunajar');
 });
 
 // Don't uncomment

@@ -14,7 +14,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/pages/pembayaran.js')}}"></script>
+<script src="{{asset('assets/js/pages/pembayaran-tabungan.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -64,115 +64,102 @@
         <li class="nav-item">
           <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-guru" aria-controls="navs-pills-tabungan-guru" aria-selected="false">Tabungan Guru</button>
         </li>
-        <li class="nav-item">
-          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-empty-state" aria-controls="navs-pills-empty-state" aria-selected="false">Empty State</button>
-        </li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade show active" id="navs-pills-tabungan-siswa" role="tabpanel">
-          <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
-            <div class="date-range">
-              <div id="date-range-span" class="form-control">
-                <span></span>
-              </div>
-              <i class="fa-regular fa-calendar-days date-range-icon text-primary"></i>
-              <input type="hidden" name="date-range-input" value="" class="" id="date-range-input"/>
-            </div>
-            <button class="d-flex btn btn-primary gap-2 align-items-center" data-bs-toggle="modal" data-bs-target="#modalAddData">
-              Filter Data
-            </button>
-          </div>
-          <div class="table-responsive text-nowrap">
+          @if(count($tabungan_siswa) !== 0)
+          <div class="table-responsive text-nowrap tabel-siswa">
             <table class="table table-striped" id="riwayat-tabungan-siswa">
               <thead>
                 <tr>
                   <th>Tanggal</th>
-                  <th>NIS/NIP</th>
+                  <th>NIS</th>
                   <th>Nama</th>
                   <th>Nominal</th>
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="tbody-tabungan-siswa">
+                @foreach($tabungan_siswa as $ts)
                 <tr>
                   <td>
-                    <p>2/1/2022</p>
+                    <p>{{ \Carbon\Carbon::parse($ts->tanggal)->format('F, d Y') }}</p>
                   </td>
-                  <td class="text-medium color-neutral-100">1234123123123123</td>
+                  <td class="text-medium color-neutral-100">{{ $ts->Anggota->nis }}</td>
                   <td>
-                    <p class="text-medium text-black">Faisal Adi 'Kelas X TKJ 2'</p>
+                    <p class="text-medium text-black">{{ $ts->Anggota->nama }} 'Kelas {{ $ts->Anggota->Kelas->nama }} {{ $ts->Anggota->Jurusan->nama }} {{ $ts->Anggota->nomor_kelas }}'</p>
                   </td>
                   <td>
-                    <p class="text-bold text-black jumlah-pembayaran">Rp. 150.000</p>
+                    <p class="text-bold text-black jumlah-pembayaran">{{ $ts->jumlah }}</p>
                   </td>
                   <td>
                     <div class="d-flex align-items-center justify-content-start gap-3">
-                      <a href="/transaksi/history-transaksi-siswa/detail/1" class="table__link-detail d-flex align-items-center gap-2">
+                      <a href="/transaksi/history-transaksi-siswa/detail/{{ $ts->Anggota->id_anggota }}" class="table__link-detail d-flex align-items-center gap-2">
                         Lihat Detail
                         <i class="fa-solid fa-eye"></i>
                       </a>
                     </div>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
-        </div>
-        <div class="tab-pane fade" id="navs-pills-tabungan-guru" role="tabpanel">
-          <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
-            <div class="date-range">
-              <div id="date-range-span" class="form-control">
-                <span></span>
-              </div>
-              <i class="fa-regular fa-calendar-days date-range-icon text-primary"></i>
-              <input type="hidden" name="date-range-input" value="" class="" id="date-range-input"/>
-            </div>
-            <button class="d-flex btn btn-primary gap-2 align-items-center">
-              Filter Data
-            </button>
-          </div>
-          <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-tabungan-guru">
-              <thead>
-                <tr>
-                  <th>Tanggal</th>
-                  <th>NIS/NIP</th>
-                  <th>Nama</th>
-                  <th>Nominal</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <p>2/1/2022</p>
-                  </td>
-                  <td class="text-medium color-neutral-100">1234123123123123</td>
-                  <td>
-                    <p class="text-medium text-black">Ibnu Suhaemy 'Kepala Sekolah'</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black jumlah-pembayaran">Rp. 200.000</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-start gap-3">
-                      <a href="/transaksi/history-transaksi-siswa/detail/1" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="navs-pills-empty-state" role="tabpanel">
-          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+          @else
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state-siswa d-none">
             <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
             <h4 class="text-bold color-neutral-100">Data Tabungan Siswa Kosong</h4>
             <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan siswa.</p>
           </div>
+          @endif
+        </div>
+
+        <div class="tab-pane fade" id="navs-pills-tabungan-guru" role="tabpanel">
+          @if(count($tabungan_guru) != 0)
+          <div class="table-responsive text-nowrap tabel-guru">
+            <table class="table table-striped" id="riwayat-tabungan-guru">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>NIP</th>
+                  <th>Nama</th>
+                  <th>Nominal</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-tabungan-guru">
+              @foreach($tabungan_guru as $tg)
+                <tr>
+                  <td>
+                    <p>{{ \Carbon\Carbon::parse($tg->tanggal)->format('F, d Y') }}</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">{{ $tg->Anggota->nip }}</td>
+                  <td>
+                    <p class="text-medium text-black">{{ $tg->Anggota->nama }} 'Jabatan {{ $tg->Anggota->Jabatan != null ? $tg->Anggota->Jabatan->nama : "Guru" }}'</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black jumlah-pembayaran">{{ $tg->jumlah }}</p>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center justify-content-start gap-3">
+                      <a href="/transaksi/history-transaksi-siswa/detail/{{ $tg->Anggota->id_anggota }}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          @else
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state-guru">
+            <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
+            <h4 class="text-bold color-neutral-100">Data Tabungan Guru Kosong</h4>
+            <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan guru.</p>
+          </div>
+          @endif
         </div>
       </div>
     </div>

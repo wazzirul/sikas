@@ -1,7 +1,7 @@
 let dataSiswa;
 const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-if ($("#riwayat-tabungan").length == 1) {
+if($("#riwayat-tabungan").length == 1) {
     $('#riwayat-tabungan').DataTable();
 }
 
