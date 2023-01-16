@@ -60,7 +60,7 @@
         @foreach($transaksi as $t)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($t->tanggal)->format('F, d Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($t->tanggal)->translatedFormat('F, d Y') }}</p>
             </td>
             <td class="text-medium">
               <p class="text-medium color-neutral-100">{{ $t->nama_transaksi }}</p>              

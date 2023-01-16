@@ -141,22 +141,22 @@ Laporan
           <!-- Saldo -->
           <tr>
             <td>
-              <p class="text-bold text-primary">{{ \Carbon\Carbon::now()->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-bold text-primary">{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
             </td>
             <td class="data-laporan__keterangan">
-              <p class="text-bold text-primary">Saldo {{ \Carbon\Carbon::now()->format('F Y') }}</p>
+              <p class="text-bold text-primary">Saldo {{ \Carbon\Carbon::now()->translatedFormat('F Y') }}</p>
             </td>
             <td>
-              <p class="text-bold text-primary nominal-transaksi">{{ $bpp_sekolah }}</p>
+              <p class="text-bold text-primary nominal-transaksi-laporan">{{ $bpp_sekolah }}</p>
             </td>
             <td>
-              <p class="text-bold text-primary nominal-transaksi">-</p>
+              <p class="text-bold text-primary nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-bold text-primary nominal-transaksi">{{ $tabungan_sekolah }}</p>
+              <p class="text-bold text-primary nominal-transaksi-laporan">{{ $tabungan_sekolah }}</p>
             </td>
             <td>
-              <p class="text-bold text-primary nominal-transaksi">-</p>
+              <p class="text-bold text-primary nominal-transaksi-laporan">-</p>
             </td>
           </tr>
 
@@ -164,25 +164,25 @@ Laporan
           <tr>
             <td>
               @if($data_spp_bulan_ini != null)
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_spp_bulan_ini->tanggal)->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_spp_bulan_ini->tanggal)->translatedFormat('d F Y') }}</p>
               @else
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
               @endif
             </td>
             <td class="data-laporan__keterangan">
               <p class="text-medium color-neutral-100">Penerimaan BPP</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $spp_bulan_ini }}</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">{{ $spp_bulan_ini }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
           </tr>
 
@@ -190,25 +190,25 @@ Laporan
           <tr>
             <td>
               @if($data_tabungan_bulan_ini != null)
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tabungan_bulan_ini->tanggal)->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tabungan_bulan_ini->tanggal)->translatedFormat('d F Y') }}</p>
               @else
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
               @endif
             </td>
             <td class="data-laporan__keterangan">
               <p class="text-medium color-neutral-100">Penerimaan Tabungan</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $tabungan_bulan_ini }}</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">{{ $tabungan_bulan_ini }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
           </tr>
 
@@ -216,47 +216,47 @@ Laporan
           <tr>
             <td>
               @if($data_tarik_tabungan_bulan_ini != null)
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tarik_tabungan_bulan_ini->tanggal)->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tarik_tabungan_bulan_ini->tanggal)->translatedFormat('d F Y') }}</p>
               @else
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
               @endif
             </td>
             <td class="data-laporan__keterangan">
               <p class="text-medium color-neutral-100">Penarikan Tabungan</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $tarik_tabungan_bulan_ini }}</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">{{ $tarik_tabungan_bulan_ini }}</p>
             </td>
           </tr>
 
           @foreach($transaksi_lain_bulan_ini as $tlbi)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($tlbi->tanggal)->formatLocalized('%d %B %Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($tlbi->tanggal)->translatedFormat('d F Y') }}</p>
             </td>
             <td class="data-laporan__keterangan">
               <p class="text-medium color-neutral-100">{{ $tlbi->nama_transaksi }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $tlbi->tipe_transaksi == 5 ? $tlbi->jumlah : '-' }}</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">{{ $tlbi->tipe_transaksi == 5 ? $tlbi->jumlah : '-' }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">{{ $tlbi->tipe_transaksi == 4 ? $tlbi->jumlah : '-' }}</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">{{ $tlbi->tipe_transaksi == 4 ? $tlbi->jumlah : '-' }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100 nominal-transaksi">-</p>
+              <p class="text-medium color-neutral-100 nominal-transaksi-laporan">-</p>
             </td>
           </tr>
           @endforeach

@@ -31,7 +31,7 @@ Dashboard
 <p class="badge bg-primary d-flex gap-2 align-items-center badge-date mb-4">
   <i class="fa-regular fa-calendar badge-icon"></i>
   <span></span>
-  {{ \Carbon\Carbon::parse(now())->formatLocalized('%A, %d %B %Y') }}
+  {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
 </p>
 <div class="row row-card">
   <div class="col-xl-4 col-lg-6 col-6">
@@ -139,8 +139,8 @@ Dashboard
         </ul>
       </div>
       <div class="tab-content">
-        @if(count($data_transaksi_spp) != 0)
         <div class="tab-pane fade show active" id="navs-pills-pembayaran-spp" role="tabpanel">
+          @if(count($data_transaksi_spp) != 0)
           <div class="table-responsive text-nowrap">
             <table class="table table-striped" id="riwayat-transaksi">
               <thead>
@@ -156,7 +156,7 @@ Dashboard
                 @foreach($data_transaksi_spp as $dts)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dts->tanggal)->formatLocalized('%d %B %Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dts->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $dts->nama_transaksi }}</td>
                   <td>
@@ -203,7 +203,7 @@ Dashboard
                 @foreach($data_tabungan_siswa as $dts)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dts->tanggal)->formatLocalized('%d %B %Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dts->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $dts->Anggota->nis }}</td>
                   <td>
@@ -250,7 +250,7 @@ Dashboard
                 @foreach($data_tabungan_guru as $dtg)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dtg->tanggal)->formatLocalized('%d %B %Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dtg->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $dtg->Anggota->nip }}</td>
                   <td>
@@ -297,7 +297,7 @@ Dashboard
                 @foreach($data_keringanan as $dk)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dk->tanggal)->formatLocalized('%d %B %Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dk->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $dk->Anggota->nis }}</td>
                   <td>
@@ -343,7 +343,7 @@ Dashboard
                 @foreach($data_transaksi_lain as $dtl)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dtl->tanggal)->formatLocalized('%d %B %Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dtl->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
                   <td>
                     <p class="text-medium text-black">{{ $dtl->nama_transaksi }}</p>
@@ -388,7 +388,7 @@ Dashboard
                 @foreach($data_pengeluaran as $dp)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dp->tanggal)->formatLocalized('%d %B %Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dp->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
                   <td>
                     <p class="text-medium text-black">{{ $dp->nama_transaksi }}</p>

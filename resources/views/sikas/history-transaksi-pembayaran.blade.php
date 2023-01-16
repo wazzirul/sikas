@@ -103,11 +103,11 @@ Transaksi
           @foreach($history as $h)
           <tr>
             <td class="color-neutral-100">Uang SPP</td>
-            <td class="color-neutral-100">{{ \Carbon\Carbon::parse($h->tanggal)->format('F, d Y') }}</td>
+            <td class="color-neutral-100">{{ \Carbon\Carbon::parse($h->tanggal)->translatedFormat('F, d Y') }}</td>
             <td class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail color-neutral-100" onClick="printReceipt(this)" data-username="{{ \Session::get('nama') }}" data-numberanddate="{{ $h->nomor_transaksi }} / {{ \Carbon\Carbon::parse($h->tanggal)->format('l, d F Y') }}" data-numberandname="{{ $anggota->nis }} / {{ $anggota->nama }}" data-classname="{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}" data-transactiontype="{{ $h->nama_transaksi }}" data-total="{{ $h->jumlah }}" data-transactioncode="{{ $h->kode_transaksi }}">
+                <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail color-neutral-100" onClick="printReceipt(this)" data-username="{{ \Session::get('nama') }}" data-numberanddate="{{ $h->nomor_transaksi }} / {{ \Carbon\Carbon::parse($h->tanggal)->translatedFormat('l, d F Y') }}" data-numberandname="{{ $anggota->nis }} / {{ $anggota->nama }}" data-classname="{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}" data-transactiontype="{{ $h->nama_transaksi }}" data-total="{{ $h->jumlah }}" data-transactioncode="{{ $h->kode_transaksi }}">
                   <i class="fa-solid fa-print"></i>
                 </a>
                 <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi({{ $h->id_transaksi }})" data-bs-toggle="modal" data-bs-target="#modalEditData">

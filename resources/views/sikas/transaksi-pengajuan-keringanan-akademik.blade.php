@@ -75,7 +75,7 @@ Transaksi
           @foreach($history as $h)
           <tr>
             <td>
-              <p class="color-neutral-100">{{ \Carbon\Carbon::parse($h->tanggal)->format('F, d Y') }}</p>
+              <p class="color-neutral-100">{{ \Carbon\Carbon::parse($h->tanggal)->translatedFormat('F, d Y') }}</p>
             </td>
             <td>
               <p class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</p>

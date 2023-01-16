@@ -95,7 +95,7 @@
         <tbody>
           @foreach($transaksi as $t)
           <tr>
-            <td class="color-neutral-100">{{ \Carbon\Carbon::parse($t->tanggal)->format('F, d Y') }}</td>
+            <td class="color-neutral-100">{{ \Carbon\Carbon::parse($t->tanggal)->translatedFormat('F, d Y') }}</td>
             <td class="color-neutral-100">{{ $t->tipe_transaksi == 1 ? 'Uang SPP' : 'Tabungan' }}</td>
             @if($t->tipe_transaksi == 1)
             <td class="color-neutral-100">Pembayaran</td>

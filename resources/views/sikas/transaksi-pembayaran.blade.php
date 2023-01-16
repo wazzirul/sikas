@@ -119,7 +119,7 @@
                 @foreach($transaksi_akademik as $ta)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($ta->tanggal)->format('F, d Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($ta->tanggal)->translatedFormat('F, d Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $ta->Anggota->nis }}</td>
                   <td>
@@ -171,7 +171,7 @@
                 @foreach($transaksi_tabungan as $tt)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($tt->tanggal)->format('F, d Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($tt->tanggal)->translatedFormat('F, d Y') }}</p>
                   </td>
                   <td class="text-medium color-neutral-100">{{ $tt->Anggota->nis ?? $tt->Anggota->nip }}</td>
                   <td>

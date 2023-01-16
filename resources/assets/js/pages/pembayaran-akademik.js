@@ -1,5 +1,5 @@
 let dataSiswa;
-const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+let validateDelete = true;
 
 if ($("#history-pembayaran").length == 1) {
     $('#history-pembayaran').DataTable();
@@ -103,7 +103,7 @@ function clickSiswa(e) {
                 $('.list-riwayat-pembayaran-spp').append(`
                     <tr>
                         <td class="color-neutral-100">${value.nama_transaksi}</td>
-                        <td class="color-neutral-100">${MONTHS[bulan]}, ${date} ${tahun}</td>
+                        <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
                         <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
@@ -191,25 +191,28 @@ function updateTransaksi() {
 
 function deleteTransaksi() {
     let id_transaksi = $('#id_transaksi').val();
-    let id_anggota = $('#id_anggota_setoran').val();
 
-    $.ajax({
-        url: '/query/deleteHistoryPembayaran',
-        method: 'POST',
-        data: {
-            _token: $('#ctoken').val(),
-            id_transaksi: id_transaksi,
-            id_anggota: id_anggota,
-        },
-        success: () => {
-            setTimeout(() => {
-                location.reload()
-            }, 2000);
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    })
+    if (validateDelete) {
+        validateDelete = false;
+        $.ajax({
+            url: '/query/deleteHistoryPembayaran',
+            method: 'POST',
+            data: {
+                _token: $('#ctoken').val(),
+                id_transaksi: id_transaksi,
+            },
+            success: () => {
+                setTimeout(() => {
+                    validateDelete = true;
+                    location.reload()
+                }, 2000);
+            },
+            error: (err) => {
+                validateDelete = true;
+                console.log(err);
+            }
+        })
+    }
 }
 
 function formatRupiah(angka, prefix) {
