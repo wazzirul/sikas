@@ -1,6 +1,7 @@
 let dataSiswa;
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-if($("#history-pembayaran").length == 1) {
+if ($("#history-pembayaran").length == 1) {
     $('#history-pembayaran').DataTable();
 }
 
@@ -56,8 +57,9 @@ $('.cari-siswa__item').click((e) => {
 function clickSiswa(e) {
     $('.pembayaran-button').removeClass('disabled');
     $('#id_anggota').val(e.currentTarget.dataset.id);
-    $('.ajukan-keringanan-button').attr('href', `/transaksi/pengajuan-keringanan/${e.currentTarget.dataset.id}`);
     $('.history-pembayaran-button').attr('href', `/transaksi/history-pembayaran/${e.currentTarget.dataset.id}`);
+    $('.ajukan-keringanan-button').attr('href', `/transaksi/pengajuan-keringanan/${e.currentTarget.dataset.id}`);
+    $('.card--riwayat-transaksi').removeClass('d-none');
 
     $.ajax({
         url: '/query/siswaById',
@@ -76,6 +78,68 @@ function clickSiswa(e) {
             console.log(err);
         }
     })
+
+    $.ajax({
+        url: '/query/riwayatPembayaranSpp',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_anggota: e.currentTarget.dataset.id
+        },
+        success: (result) => {
+            $('.list-riwayat-pembayaran-spp').empty();
+            $.each(result, (index, value) => {
+                let tanggal = new Date(Date.parse(value.tanggal));
+                let bulan = tanggal.getMonth();
+                let date = tanggal.getDate();
+                let tahun = tanggal.getFullYear();
+
+                $('.list-riwayat-pembayaran-spp').append(`
+                    <tr>
+                        <td class="color-neutral-100">${value.nama_transaksi}</td>
+                        <td class="color-neutral-100">${MONTHS[bulan]}, ${date} ${tahun}</td>
+                        <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
+                        <td>
+                        <div class="d-flex align-items-center justify-content-end gap-3">
+                            <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail color-neutral-100">
+                            <i class="fa-solid fa-print"></i>
+                            </a>
+                            <a href="#" class="table__link-detail color-neutral-100 update-transaksi-button" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                            <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <a href="#" class="table__link-detail color-neutral-100 delete-transaksi-button" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                            <i class="fa-regular fa-trash-can"></i>
+                            </a>
+                        </div>
+                    </td>
+                `);
+
+            })
+
+            if (result.length == 0) {
+                $('.table-responsive').addClass('d-none');
+                $('.history-empty').removeClass('d-none');
+            } else {
+                $('.table-responsive').removeClass('d-none');
+                $('.history-empty').addClass('d-none');
+            }
+
+            $('.update-transaksi-button').click(() => {
+                updateTransaksi();
+            })
+
+            $('.delete-transaksi-button').click(() => {
+                deleteTransaksi();
+            })
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+function changeTransaksi($id_transaksi) {
+    $('#id_transaksi').val($id_transaksi);
 }
 
 function numberFormat(x) {
@@ -88,6 +152,59 @@ $('#nominalPembayaran').keyup((e) => {
     let input = e.currentTarget.value;
     $('#nominalPembayaran').val(formatRupiah(input, 'RP. '))
 })
+
+$('#jumlah-pembayaran').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
+})
+
+function updateTransaksi() {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+    $('#update-result').text(numberFormat($('#jumlah-pembayaran').val()));
+
+    $.ajax({
+        url: '/query/updateHistoryPembayaran',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_transaksi: id_transaksi,
+            id_anggota: id_anggota,
+            nominal: $('#jumlah-pembayaran').val(),
+        },
+        success: () => {
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+function deleteTransaksi() {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+
+    $.ajax({
+        url: '/query/deleteHistoryPembayaran',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_transaksi: id_transaksi,
+            id_anggota: id_anggota,
+        },
+        success: () => {
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
 
 function formatRupiah(angka, prefix) {
     var number_string = angka.replace(/[^,\d]/g, '').toString(),

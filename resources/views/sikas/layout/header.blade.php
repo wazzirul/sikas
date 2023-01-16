@@ -23,7 +23,7 @@
             </div>
             <div class="avatar-content">
               <p class="text-primary">Selamat Datang</p>
-              <p class="text-black text-bold">Livityani</p>
+              <p class="text-black text-bold">{{ Session::get('nama') }}</p>
             </div>
           </div>
         </div>

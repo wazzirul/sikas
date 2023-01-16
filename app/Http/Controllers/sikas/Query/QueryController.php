@@ -4,6 +4,7 @@ namespace App\Http\Controllers\sikas\Query;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Session;
 
 use App\Models\Anggota;
@@ -22,8 +23,10 @@ class QueryController extends Controller
     {
         $search = $request->input('search');
         $limit = $request->input('limit');
-        $anggota = Anggota::where('nama', 'LIKE', '%' . $search . '%')
-            ->orWhere('nis', 'LIKE', '%' . $search . '%')
+        $anggota = Anggota::where(function ($query) use ($search) {
+            $query->where('nama', 'LIKE', '%' . $search . '%');
+            $query->orWhere('nis', 'LIKE', '%' . $search . '%');
+        })
             ->inRandomOrder()
             ->where('tipe_anggota', 2)
             ->where('soft_delete', 0)
@@ -324,6 +327,18 @@ class QueryController extends Controller
         $data['kasir'] = Session::get('nama');
 
         return response($data, 200);
+    }
+
+    public function riwayatPembayaranSpp(Request $request)
+    {
+        $id_anggota = $request->input('id_anggota');
+        $transaksi = Transaksi::where('id_anggota', $id_anggota)
+            ->where('soft_delete', 0)
+            ->where('tipe_transaksi', 1)
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+
+        return response($transaksi, 200);
     }
 
     public function riwayatTabungan(Request $request)
@@ -961,5 +976,22 @@ class QueryController extends Controller
         $data['data_spp_bulan_ini'] = $data_spp_bulan_ini;
 
         return response($data, 200);
+    }
+
+    public function changePassword(Request $request){
+        $update_password_lama = $request->input('update_password_lama');
+        $update_password = $request->input('update_password');
+    
+        $user = User::find(Session::get('id_user'));
+        $password = Hash::check($update_password_lama, $user->password);
+        if($password){
+            $new_password = Hash::make($update_password);
+            $user->password = $new_password;
+            $user->save();
+            
+            return response($user, 200);
+        }else{
+            return response(null, 406);
+        }
     }
 }

@@ -1,7 +1,7 @@
 let dataSiswa;
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-if($("#riwayat-tabungan").length == 1) {
+if ($("#riwayat-tabungan").length == 1) {
     $('#riwayat-tabungan').DataTable();
 }
 
@@ -121,6 +121,14 @@ function clickSiswa(e) {
                     </tr>
                 `);
             })
+
+            if (result.length == 0) {
+                $('.table-responsive').addClass('d-none');
+                $('.history-empty').removeClass('d-none');
+            } else {
+                $('.table-responsive').removeClass('d-none');
+                $('.history-empty').addClass('d-none');
+            }
 
             $('.update-transaksi-button').click(() => {
                 updateTransaksi();

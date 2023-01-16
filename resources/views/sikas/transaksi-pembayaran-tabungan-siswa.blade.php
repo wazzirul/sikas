@@ -44,24 +44,6 @@ Transaksi
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
         <div class="cari-siswa">
-          @foreach($anggota as $a)
-          <div class="cari-siswa__item" data-id="{{ $a->id_anggota }}">
-            <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-              <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-              <div class="d-flex flex-column gap-1">
-                <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
-                <p class="nomor-siswa color-neutral-80">{{ $a->nis }}</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <p class="text-bold color-neutral-100">Kelas</p>
-              <p class="kelas-siswa color-neutral-80">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
-            </div>
-            <a href="#" class="cari-siswa__item-detail">
-              <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-            </a>
-          </div>
-          @endforeach
           <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
             <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
             <h4 class="text-bold color-neutral-100">Belum Ada Pencarian</h4>
@@ -122,9 +104,13 @@ Transaksi
           </tr>
         </thead>
         <tbody class="list-riwayat-tabungan">
-
         </tbody>
       </table>
+    </div>
+    <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state history-empty d-none">
+      <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
+      <h4 class="text-bold color-neutral-100">Data Tabungan Kosong</h4>
+      <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan.</p>
     </div>
   </div>
 </div>

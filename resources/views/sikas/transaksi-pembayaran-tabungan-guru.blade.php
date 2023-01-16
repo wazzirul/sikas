@@ -44,24 +44,6 @@ Transaksi
         <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       </div>
       <div class="cari-siswa">
-        @foreach($anggota as $a)
-        <div class="cari-siswa__item" data-id="{{ $a->id_anggota }}">
-          <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-            <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-            <div class="d-flex flex-column gap-1">
-              <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
-              <p class="nomor-siswa color-neutral-80">{{ $a->nama }}</p>
-            </div>
-          </div>
-          <div class="d-flex flex-column gap-1">
-            <p class="text-bold color-neutral-100">Jabatan</p>
-            <p class="kelas-siswa color-neutral-80">{{ $a->Jabatan->jabatan ?? 'Guru' }}</p>
-          </div>
-          <a href="#" class="cari-siswa__item-detail">
-            <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-          </a>
-        </div>
-        @endforeach
         <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
           <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
           <h4 class="text-bold color-neutral-100">Belum Ada Pencarian</h4>
@@ -122,9 +104,38 @@ Transaksi
           </tr>
         </thead>
         <tbody class="list-riwayat-tabungan">
-
         </tbody>
       </table>
+    </div>
+    <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state history-empty d-none">
+      <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
+      <h4 class="text-bold color-neutral-100">Data Tabungan Kosong</h4>
+      <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalEditData" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+          <h4 class="color-black text-bold">Edit Transaksi Pembayaran</h4>
+          <a href="#" data-bs-dismiss="modal" class="text-danger" aria-label="Close">
+            <i class="fa-solid fa-xmark icon"></i>
+          </a>
+        </div>
+        <div class="mt-5">
+          <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
+          <input type="hidden" id="id_transaksi" />
+          <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+          <button class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
