@@ -141,7 +141,7 @@ Laporan
           <!-- Saldo -->
           <tr>
             <td>
-              <p class="text-bold text-primary">{{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+              <p class="text-bold text-primary">{{ \Carbon\Carbon::now()->formatLocalized('%d %B %Y') }}</p>
             </td>
             <td class="data-laporan__keterangan">
               <p class="text-bold text-primary">Saldo {{ \Carbon\Carbon::now()->format('F Y') }}</p>
@@ -164,9 +164,9 @@ Laporan
           <tr>
             <td>
               @if($data_spp_bulan_ini != null)
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_spp_bulan_ini->tanggal)->format('d F Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_spp_bulan_ini->tanggal)->formatLocalized('%d %B %Y') }}</p>
               @else
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->formatLocalized('%d %B %Y') }}</p>
               @endif
             </td>
             <td class="data-laporan__keterangan">
@@ -190,9 +190,9 @@ Laporan
           <tr>
             <td>
               @if($data_tabungan_bulan_ini != null)
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tabungan_bulan_ini->tanggal)->format('d F Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tabungan_bulan_ini->tanggal)->formatLocalized('%d %B %Y') }}</p>
               @else
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->formatLocalized('%d %B %Y') }}</p>
               @endif
             </td>
             <td class="data-laporan__keterangan">
@@ -216,9 +216,9 @@ Laporan
           <tr>
             <td>
               @if($data_tarik_tabungan_bulan_ini != null)
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tarik_tabungan_bulan_ini->tanggal)->format('d F Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($data_tarik_tabungan_bulan_ini->tanggal)->formatLocalized('%d %B %Y') }}</p>
               @else
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::now()->formatLocalized('%d %B %Y') }}</p>
               @endif
             </td>
             <td class="data-laporan__keterangan">
@@ -241,7 +241,7 @@ Laporan
           @foreach($transaksi_lain_bulan_ini as $tlbi)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($tlbi->tanggal)->format('d F Y') }}</p>
+              <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($tlbi->tanggal)->formatLocalized('%d %B %Y') }}</p>
             </td>
             <td class="data-laporan__keterangan">
               <p class="text-medium color-neutral-100">{{ $tlbi->nama_transaksi }}</p>
