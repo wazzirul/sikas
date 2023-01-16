@@ -111,7 +111,7 @@
               <input type="text" id="re_password" class="form-control" name="re_password" placeholder="············" aria-describedby="re_password">
               <span class="input-group-text cursor-pointer"><i class="bx bx-show"></i></span>
             </div>
-            <p class="color-neutral-80 mt-1 password-alert"><span class="text-danger">Password tidak sama</span>, pastikan kembali bahwa anda memasukkan password yang sama.</p>
+            <p class="color-neutral-80 mt-1 password-alert d-none"><span class="text-danger">Password tidak sama</span>, pastikan kembali bahwa anda memasukkan password yang sama.</p>
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>

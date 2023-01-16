@@ -40,6 +40,9 @@ $(document).on('submit', 'form#myform', function (e) {
         data,
         success: (result) => {
             $('.success-button').click()
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
         },
         error: (err) => {
             $('.error-button').click()

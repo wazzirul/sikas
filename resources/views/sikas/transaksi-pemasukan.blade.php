@@ -34,11 +34,11 @@
     <div class="pengajuan-pemasukan-form">
       <div class="mt-3">
         <label for="nominalPemasukan" class="form-label text-bold color-black">Nominal Pemasukan</label>
-        <input type="text" min="0" class="form-control" id="nominalPemasukan" placeholder="0.00">
+        <input type="text" min="0" autocomplete="off" class="form-control" id="nominalPemasukan" placeholder="0.00">
       </div>
       <div class="mt-3">
         <label for="keterangan" class="form-label text-bold color-black">Keterangan</label>
-        <textarea class="form-control" id="keterangan" rows="6" placeholder="Masukan keterangan pemasukan"></textarea>
+        <textarea class="form-control" autocomplete="off" id="keterangan" rows="6" placeholder="Masukan keterangan pemasukan"></textarea>
       </div>
       <button class="btn btn-primary pengajuan-pemasukan-button mt-5" data-bs-toggle="modal" data-bs-target="#modalPengajuanPemasukan">Setor Pemasukan</button>
     </div>

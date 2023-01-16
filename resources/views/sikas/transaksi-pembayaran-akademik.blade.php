@@ -37,14 +37,14 @@ Transaksi
   <span class="text-muted fw-light">Transaksi / </span> Pembayaran Akademik
 </p>
 <div class="card card--pembayaran">
-  <div class="card-body">    
+  <div class="card-body">
     <h3 class="text-bold mb-4">Form Pembayaran Uang Akademik</h3>
     <div class="card-body__wrapper">
       <div class="card-item card-item--cari-siswa">
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
         <div class="input-group input-group-merge">
           <span class="input-group-text" id="cari-siswa-icon"><i class="bx bx-search"></i></span>
-          <input type="text" id="cari-siswa" class="form-control" placeholder="Masukkan nama atau NIS" aria-label="Masukkan nama atau NIS" aria-describedby="cari-siswa-icon">
+          <input type="text" id="cari-siswa" class="form-control" autocomplete="off" placeholder="Masukkan nama atau NIS" aria-label="Masukkan nama atau NIS" aria-describedby="cari-siswa-icon">
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
         <div class="cari-siswa">
@@ -73,7 +73,7 @@ Transaksi
               <div class="d-flex flex-column gap-1">
                 <p class="color-neutral-80">Kelas</p>
                 <p class="text-bold color-neutral-100 detail-kelas">-</p>
-              </div>              
+              </div>
               <div class="d-flex flex-column gap-1">
                 <p class="color-neutral-80">Sisa Tanggungan</p>
                 <h5 class="text-bold text-primary detail-tagihan">0</h5>
@@ -97,7 +97,7 @@ Transaksi
   <a href="#!" class="btn btn-outline-primary ajukan-keringanan ajukan-keringanan-button">Ajukan Keringanan</a>
   <div class="card-body">
     <div class="table-responsive text-nowrap mt-4">
-      <table class="table table-striped" id="history-pembayaran">
+      <table class="table table-striped" id="history-pembayaran" data-username="{{ \Session::get('nama') }}">
         <thead>
           <tr>
             <th class="text-bold">Jenis Pembayaran</th>

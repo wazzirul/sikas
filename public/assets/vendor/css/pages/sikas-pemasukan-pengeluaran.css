@@ -229,7 +229,7 @@ th[rowspan]:not([rowspan="1"]) {
 }
 
 .modal--transaksi .modal-dialog {
-  max-width: 23.75rem;
+  max-width: 30rem;
 }
 .modal--transaksi .modal-body {
   padding: 2rem;

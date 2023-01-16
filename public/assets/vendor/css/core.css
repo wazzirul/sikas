@@ -17840,6 +17840,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
 }
 .avatar .avatar-wrap p {
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .pull-up {

@@ -7,8 +7,9 @@ $(document).ready(function () {
 
   $('.update-karyawan-button').click(() => {
     let id_anggota = $('#id_anggota').val();
-    let nama_karyawan = $('#nama_karyawan').val();
-    let nip = $('#nip').val();
+    let nama_karyawan = $('#update_nama_karyawan').val();
+    let nip = $('#update_nip').val();
+    let jabatan = $('#update_jabatan').val();
 
     $.ajax({
       url: '/query/updateKaryawan',
@@ -18,6 +19,7 @@ $(document).ready(function () {
         id_anggota: id_anggota,
         nama_karyawan: nama_karyawan,
         nip: nip,
+        jabatan: jabatan,
       },
       success: () => {
         setTimeout(() => {
