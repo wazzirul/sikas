@@ -366,21 +366,27 @@ class QueryController extends Controller
         $transaksi = Transaksi::find($id_transaksi);
         $nominal_awal = $transaksi->jumlah;
         $keuangan_anggota = KeuanganAnggota::where('id_anggota', $transaksi->id_anggota)->first();
+        $keuangan_sekolah = KeuanganSekolah::first();
 
         if ((int)$nominal_awal >= (int)$nominal) {
             $selisih_nominal = (int)$nominal_awal - (int)$nominal;
             $tagihan_awal = $keuangan_anggota->tagihan;
             $keuangan_anggota->tagihan = (int)$tagihan_awal + (int)$selisih_nominal;
             $transaksi->jumlah = $nominal;
+            $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan - (int)$selisih_nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
         } else {
             $selisih_nominal = (int)$nominal - (int)$nominal_awal;
             $tagihan_awal = $keuangan_anggota->tagihan;
             $keuangan_anggota->tagihan = (int)$tagihan_awal - (int)$selisih_nominal;
             $transaksi->jumlah = $nominal;
+            $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan + (int)$selisih_nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
         }
 
         $transaksi->save();
         $keuangan_anggota->save();
+        $keuangan_sekolah->save();
 
         return response($transaksi, 200);
     }
@@ -390,14 +396,18 @@ class QueryController extends Controller
         $id_transaksi = $request->input('id_transaksi');
         $transaksi = Transaksi::find($id_transaksi);
         $keuangan_anggota = KeuanganAnggota::where('id_anggota', $transaksi->id_anggota)->first();
+        $keuangan_sekolah = KeuanganSekolah::first();
 
         $nominal_awal = $transaksi->jumlah;
         $tagihan_awal = $keuangan_anggota->tagihan;
         $keuangan_anggota->tagihan = (int)$tagihan_awal + (int)$nominal_awal;
         $transaksi->soft_delete = 1;
+        $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan - (int)$nominal_awal;
+        $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal_awal;
 
         $transaksi->save();
         $keuangan_anggota->save();
+        $keuangan_sekolah->save();
 
         return response($transaksi, 200);
     }
