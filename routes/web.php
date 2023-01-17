@@ -40,8 +40,9 @@ Route::group(['middleware' => 'authsession'], function () {
     // Transaksi
     Route::get('/transaksi', [Main::class, 'index'])->name('sikas-transaksi');
     Route::get('/transaksi/pembayaran', [PembayaranController::class, 'transaksiPembayaran'])->name('sikas-transaksi--pembayaran');
-    Route::get('/transaksi/pembayaran/akademik', [PembayaranController::class, 'PembayaranAkademik'])->name('sikas-transaksi--pembayaran-akademik');
+    Route::get('/transaksi/biaya-penunjang-pendidikan', [PembayaranController::class, 'PembayaranAkademik'])->name('sikas-transaksi--biaya-penunjang-pendidikan');
     Route::get('/transaksi/history-pembayaran/{id}', [PembayaranController::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
+    Route::get('/transaksi/pengajuan-penambahan', [PembayaranController::class, 'pengajuanPenambahanPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-penambahan');
     Route::get('/transaksi/pengajuan-keringanan/{id}', [PembayaranController::class, 'pengajuanKeringananPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-keringanan');
     Route::get('/transaksi/tabungan', [TabunganController::class, 'tabungan'])->name('sikas-transaksi--tabungan');
     Route::get('/transaksi/tabungan/siswa', [TabunganController::class, 'siswa'])->name('sikas-transaksi--tabungan-siswa');
@@ -56,7 +57,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/laporan-penggunaan-dana', [LaporanController::class, 'penggunaanDana'])->name('sikas-laporan--penggunaan-dana');
     Route::get('/laporan-pemasukan-dari-sumber-lain', [LaporanController::class, 'pemasukanSumberLain'])->name('sikas-laporan--pemasukan-dari-sumber-lain');
     Route::get('/laporan-pengajuan-keringanan', [LaporanController::class, 'pengajuanKeringanan'])->name('sikas-laporan--pengajuan-keringanan');
-    Route::get('/laporan-pembayaran-spp', [LaporanController::class, 'pembayaranSPP'])->name('sikas-laporan--pembayaran-spp');
+    Route::get('/laporan-biaya-penunjang-pendidikan', [LaporanController::class, 'pembayaranSPP'])->name('sikas-laporan--biaya-penunjang-pendidikan');
     Route::get('/laporan-pembayaran-tabungan', [LaporanController::class, 'pembayaranTabungan'])->name('sikas-laporan--pembayaran-tabungan');
 
 

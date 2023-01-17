@@ -52,7 +52,7 @@
       <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-4 detail-siswa-history__subs">
         @if($anggota->tipe_anggota == 2)
         <div class="d-flex flex-column gap-1">
-          <p class="color-neutral-80">Sisa Tanggungan</p>
+          <p class="color-neutral-80">Sisa Partisipasi BPP</p>
           <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
         </div>
         <div class="d-flex flex-column gap-1">

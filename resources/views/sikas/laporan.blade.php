@@ -68,13 +68,13 @@ Laporan
   </div>
   <div class="card">
     <div class="card-body">
-      <a href="{{route('sikas-laporan--pembayaran-spp')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
+      <a href="{{route('sikas-laporan--biaya-penunjang-pendidikan')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
         <div class="jenis-laporan__icon-wrap">
           <i class="fa-solid fa-graduation-cap jenis-laporan__icon"></i>
         </div>
         <i class="fa-solid fa-chevron-right jenis-laporan__icon jenis-laporan__icon--link"></i>
       </a>
-      <h5 class="text-bold color-black mt-5 jenis-laporan__name">Laporan Pembayaran SPP</h5>
+      <h5 class="text-bold color-black mt-5 jenis-laporan__name">Laporan Biaya Penunjang Pendidikan</h5>
     </div>
   </div>
   <div class="card">

@@ -42,7 +42,7 @@ Dashboard
             <i class="fa-solid fa-graduation-cap text-primary avatar-icon"></i>
           </div>
         </div>
-        <span class="fw-semibold d-block mb-1">Transaksi Pembayaran SPP Hari ini</span>
+        <span class="fw-semibold d-block mb-1">Transaksi Biaya Penunjang Pendidikan Hari ini</span>
         <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $transaksi_spp }}</h3>
       </div>
     </div>
@@ -119,7 +119,7 @@ Dashboard
       <div class="nav__wrapper">
         <ul class="nav nav-pills mb-3" role="tablist">
           <li class="nav-item">
-            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pembayaran-spp" aria-controls="navs-pills-pembayaran-spp" aria-selected="true">Pembayaran SPP</button>
+            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pembayaran-spp" aria-controls="navs-pills-pembayaran-spp" aria-selected="true">Biaya Penunjang Pendidikan</button>
           </li>
           <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-siswa" aria-controls="navs-pills-tabungan-siswa" aria-selected="false">Tabungan Siswa</button>
@@ -181,8 +181,8 @@ Dashboard
           @else
           <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
             <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
-            <h4 class="text-bold color-neutral-100">Data Pembayaran SPP Kosong</h4>
-            <p class="color-neutral-80">Silahkan tambahkan data pembayaran terlebih dulu untuk melihat data pembayaran spp.</p>
+            <h4 class="text-bold color-neutral-100">Data Biaya Penunjang Pendidikan Kosong</h4>
+            <p class="color-neutral-80">Silahkan tambahkan data pembayaran terlebih dulu untuk melihat data Biaya Penunjang Pendidikan.</p>
           </div>
           @endif
         </div>

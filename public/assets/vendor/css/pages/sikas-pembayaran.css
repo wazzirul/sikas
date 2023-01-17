@@ -198,6 +198,11 @@ th[rowspan]:not([rowspan="1"]) {
   box-shadow: none;
 }
 
+.w-max-content {
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .jenis-pembayaran {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -451,11 +456,6 @@ th[rowspan]:not([rowspan="1"]) {
 
 .card--riwayat-transaksi {
   padding: 2rem;
-}
-.card--riwayat-transaksi .ajukan-keringanan {
-  width: -moz-max-content;
-  width: max-content;
-  margin-left: auto;
 }
 .card--riwayat-transaksi .card-body {
   padding: 0;

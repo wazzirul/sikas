@@ -1,6 +1,6 @@
 @extends('sikas/layout/layout')
 
-@section('title', 'Transaksi Pembayaran Akademik - Sikas')
+@section('title', 'Transaksi Biaya Penunjang Pendidikan - Sikas')
 
 @section('vendor-style')
 <!-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}"> -->
@@ -34,11 +34,11 @@ Transaksi
 
 @section('content')
 <p class="fw-bold mb-5">
-  <span class="text-muted fw-light">Transaksi / </span> Pembayaran Akademik
+  <span class="text-muted fw-light">Transaksi / </span> Biaya Penunjang Pendidikan
 </p>
 <div class="card card--pembayaran">
   <div class="card-body">
-    <h3 class="text-bold mb-4">Form Pembayaran Uang Akademik</h3>
+    <h3 class="text-bold mb-4">Form Biaya Penunjang Pendidikan</h3>
     <div class="card-body__wrapper">
       <div class="card-item card-item--cari-siswa">
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
@@ -75,7 +75,7 @@ Transaksi
                 <p class="text-bold color-neutral-100 detail-kelas">-</p>
               </div>
               <div class="d-flex flex-column gap-1">
-                <p class="color-neutral-80">Sisa Tanggungan</p>
+                <p class="color-neutral-80">Sisa Partisipasi BPP</p>
                 <h5 class="text-bold text-primary detail-tagihan">0</h5>
               </div>
             </div>
@@ -93,8 +93,11 @@ Transaksi
 </div>
 
 <div class="card card--riwayat-transaksi mt-5 d-none">
-  <h4 class="color-neutral-100 mb-5">Riwayat Transaksi Pembayaran Akademik</h4>
-  <a href="#!" class="btn btn-outline-primary ajukan-keringanan ajukan-keringanan-button">Ajukan Keringanan</a>
+  <h4 class="color-neutral-100 mb-5">Riwayat Transaksi Biaya Penunjang Pendidikan</h4>
+  <div class="d-flex align-items-center justify-content-end gap-3">
+    <a href="{{route('sikas-transaksi--pembayaran-pengajuan-penambahan')}}" class="btn btn-primary w-max-content ajukan-penambahan ajukan-penambahan-button">Ajukan Penambahan</a>
+    <a href="#!" class="btn btn-outline-primary w-max-content ajukan-keringanan ajukan-keringanan-button">Ajukan Keringanan</a>
+  </div>
   <div class="card-body">
     <div class="table-responsive text-nowrap mt-4">
       <table class="table table-striped" id="history-pembayaran" data-username="{{ \Session::get('nama') }}">

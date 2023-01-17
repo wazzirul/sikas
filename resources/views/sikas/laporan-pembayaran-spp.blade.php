@@ -1,6 +1,6 @@
 @extends('sikas/layout/layout')
 
-@section('title', 'Laporan Pembayaran SPP - Sikas')
+@section('title', 'Laporan Biaya Penunjang Pendidikan - Sikas')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
@@ -33,7 +33,7 @@ Laporan
 @section('content')
 <div class="card card--laporan">
   <div class="laporan-wrapper">
-    <h4 class="text-bold color-black mb-4">Data Laporan Pembayaran SPP</h4>
+    <h4 class="text-bold color-black mb-4">Data Laporan Biaya Penunjang Pendidikan</h4>
     <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
       <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       <div class="date-range">

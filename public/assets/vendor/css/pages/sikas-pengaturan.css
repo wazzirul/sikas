@@ -198,6 +198,11 @@ th[rowspan]:not([rowspan="1"]) {
   box-shadow: none;
 }
 
+.w-max-content {
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .card--pengaturan {
   padding: 2rem;
 }

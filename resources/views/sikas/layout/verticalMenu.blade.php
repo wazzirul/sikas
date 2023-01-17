@@ -27,9 +27,9 @@
         <p class="menu-item__text">Transaksi</p>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item {{ Route::is('sikas-transaksi--pembayaran-akademik*') == true ? 'active' : '' }}">
-          <a href="{{route('sikas-transaksi--pembayaran-akademik')}}" class="menu-link">
-            <div>Pembayaran Uang Akademik</div>
+        <li class="menu-item {{ Route::is('sikas-transaksi--biaya-penunjang-pendidikan*') == true ? 'active' : '' }}">
+          <a href="{{route('sikas-transaksi--biaya-penunjang-pendidikan')}}" class="menu-link">
+            <div>Biaya Penunjang Pendidikan</div>
           </a>
         </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--tabungan*') == true ? 'active' : '' }}">

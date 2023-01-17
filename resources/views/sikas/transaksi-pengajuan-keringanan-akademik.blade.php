@@ -1,6 +1,6 @@
 @extends('sikas/layout/layout')
 
-@section('title', 'Transaksi Pembayaran Akademik - Sikas')
+@section('title', 'Pengajuan Keringanan - Sikas')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
@@ -31,7 +31,7 @@ Transaksi
 
 @section('content')
 <p class="fw-bold mb-5">
-  <span class="text-muted fw-light">Transaksi / Pembayaran Akademik /</span> Pengajuan Keringanan
+  <span class="text-muted fw-light">Transaksi / Biaya Penunjang Pendidikan /</span> Pengajuan Keringanan
 </p>
 <div class="card pengajuan-keringanan">
   <div class="detail-siswa">
@@ -49,7 +49,7 @@ Transaksi
           <p class="text-bold color-neutral-100">{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}</p>
         </div>
         <div class="d-flex flex-column gap-1">
-          <p class="color-neutral-80">Sisa Tanggungan</p>
+          <p class="color-neutral-80">Sisa Partisipasi BPP</p>
           <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
         </div>
       </div>

@@ -33,13 +33,13 @@
 <div class="jenis-pembayaran">
   <div class="card">
     <div class="card-body">
-      <a href="{{route('sikas-transaksi--pembayaran-akademik')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
+      <a href="{{route('sikas-transaksi--biaya-penunjang-pendidikan')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
         <div class="jenis-pembayaran__icon-wrap">
           <i class="fa-solid fa-graduation-cap jenis-pembayaran__icon"></i>
         </div>
         <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
       </a>
-      <h5 class="text-bold color-black mt-5">Pembayaran Uang Akademik</h5>
+      <h5 class="text-bold color-black mt-5">Biaya Penunjang Pendidikan</h5>
     </div>
   </div>
   <div class="card">
@@ -81,7 +81,7 @@
   <div class="nav-align-top mb-4">
       <ul class="nav nav-pills mb-3" role="tablist">
         <li class="nav-item">
-          <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pembayaran-akademik" aria-controls="navs-pills-pembayaran-akademik" aria-selected="true">Pembayaran Akademik</button>
+          <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pembayaran-akademik" aria-controls="navs-pills-pembayaran-akademik" aria-selected="true">Biaya Penunjang Pendidikan</button>
         </li>
         <li class="nav-item">
           <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-sekolah" aria-controls="navs-pills-tabungan-sekolah" aria-selected="false">Tabungan Sekolah</button>
