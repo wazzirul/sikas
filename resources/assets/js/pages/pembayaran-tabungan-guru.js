@@ -112,11 +112,17 @@ function clickSiswa(e) {
                             <p class="text-bold color-neutral-100">Rp. ${numberFormat(value.mutasi)}</p>
                         </td>
                         <td>
+                        <p class="text-bold color-neutral-100">Butuh Konfrimasi Admin</p>
+                        </td>
+                        <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
-                            <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                            <a href="#" class="table__link-detail text-success" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                            <i class="fa-solid fa-check table-icon__link"></i>
+                            </a>
+                            <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                             <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a href="#" class="table__link-detail color-neutral-100" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                            <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                             <i class="fa-regular fa-trash-can"></i>
                             </a>
                         </div>

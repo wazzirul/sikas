@@ -203,6 +203,11 @@ th[rowspan]:not([rowspan="1"]) {
   width: max-content;
 }
 
+.form-select {
+  padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+  background-position: right 0.5rem center;
+}
+
 .card--jenis-pembayaran {
   padding: 2rem;
 }

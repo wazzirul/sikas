@@ -41,6 +41,36 @@ Transaksi
     <h3 class="text-bold mb-4">Form Biaya Penunjang Pendidikan</h3>
     <div class="card-body__wrapper">
       <div class="card-item card-item--cari-siswa">
+        <div class="filter-siswa d-flex align-items-end gap-3 mb-3">
+          <div class="mt-3">
+            <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
+            <select id="filter_id_kelas" autocomplete="off" class="form-select">
+              <option value="all">Semua</option>
+              <option value="1">X</option>
+              <option value="2">XI</option>
+              <option value="3">XII</option>
+            </select>
+          </div>
+          <div class="mt-3">
+            <label for="filter_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
+            <select id="filter_id_jurusan" autocomplete="off" class="form-select">
+              <option value="all">Semua</option>
+              <option value="1">TKJ</option>
+              <option value="2">RPL</option>
+              <option value="3">Multimedia</option>
+            </select>
+          </div>
+          <div class="mt-3">
+            <label for="filter_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
+            <select id="filter_nomor_kelas" autocomplete="off" class="form-select">
+              <option value="all">Semua</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+          <!-- <button type="button" class="btn btn-outline-primary cari-siswa-button">Filter Data</button> -->
+        </div>
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
         <div class="input-group input-group-merge">
           <span class="input-group-text" id="cari-siswa-icon"><i class="bx bx-search"></i></span>

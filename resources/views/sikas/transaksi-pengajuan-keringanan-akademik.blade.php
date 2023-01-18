@@ -102,8 +102,8 @@ Transaksi
       <input type="hidden" name="id_anggota" value="{{ $anggota->id_anggota }}" />
       <div class="pengajuan-keringanan-form__input-wrapper">
         <div class="pengajuan-keringanan-form__input">
-          <label for="upload-surat-pengajuan" class="form-label">Upload Surat Pengajuan </label>
-          <input class="form-control" type="file" name="file-pengajuan" id="upload-surat-pengajuan" autocomplete="off" accept="application/pdf">
+          <label for="upload-surat-pengajuan" class="form-label">Upload Surat Pengajuan / Required</label>
+          <input class="form-control" type="file" required name="file-pengajuan" id="upload-surat-pengajuan" autocomplete="off" accept="application/pdf">
         </div>
         <div class="pengajuan-keringanan-form__item-upload d-none">
           <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
@@ -112,7 +112,7 @@ Transaksi
       </div>
       <div class="mt-3">
         <label for="nominalPembayaran" class="form-label text-bold color-black">Nominal Keringanan</label>
-        <input type="text" min="0" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+        <input type="text" min="0" class="form-control" required id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
       </div>
       <button class="btn btn-primary pengajuan-keringanan-button mt-4" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringanan">Ajukan Keringanan</button>
     </form>

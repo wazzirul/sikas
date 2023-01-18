@@ -203,29 +203,28 @@ th[rowspan]:not([rowspan="1"]) {
   width: max-content;
 }
 
+.form-select {
+  padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+  background-position: right 0.5rem center;
+}
+
 .card--pemasukan-pengeluaran {
   padding: 2rem;
   display: grid;
-  grid-template-columns: max-content 1px 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 .card--pemasukan-pengeluaran .pemasukan-pengeluaran__form {
-  width: 27.375rem;
-}
-@media (max-width: 1399.98px) {
-  .card--pemasukan-pengeluaran .pemasukan-pengeluaran__form {
-    width: 21.875rem;
-  }
+  width: 100%;
 }
 @media (max-width: 1199.98px) {
   .card--pemasukan-pengeluaran .pemasukan-pengeluaran__form {
-    width: 18.75rem;
     gap: 1.5rem;
   }
 }
 .card--pemasukan-pengeluaran .border-line {
-  height: 100%;
-  width: 1px;
+  height: 1.5px;
+  width: 100%;
   background-color: #EDEDED;
 }
 .card--pemasukan-pengeluaran .riwayat-pemasukan {

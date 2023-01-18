@@ -61,7 +61,7 @@
         {{ csrf_field() }}
           <input type="file" name="file" id="siswa-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
           <label for="siswa-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center">
-              Upload Siswa
+              Import Siswa
               <i class="fa-solid fa-arrow-up-from-bracket"></i>
           </label>
         </form>
@@ -95,6 +95,11 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
+                <a href="/transaksi/history-transaksi-siswa/detail/1" class="table__link-detail d-flex align-items-center gap-2">
+                  Detail
+                  <i class="fa-solid fa-eye"></i>
+                </a>
+                <div class="table-link-border"></div>
                 <a href="#" class="table__link-detail text-primary" onClick="changeAnggota({{ $a->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>

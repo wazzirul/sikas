@@ -54,6 +54,7 @@
             <th>Nama Teller</th>
             <th>Keterangan</th>
             <th>Nominal Pengeluaran</th>
+            <th>Status</th>
             <th></th>
           </tr>
         </thead>
@@ -73,13 +74,18 @@
               <p class="text-medium color-neutral-100 nominal-transaksi">{{ $t->jumlah }}</p>
             </td>
             <td>
+            <p class="text-bold color-neutral-100">Butuh Konfrimasi Admin</p>
+            </td>
+            <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-success" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                  <i class="fa-solid fa-check"></i>
                 </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
+                <a href="#" class="table__link-detail text-info gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="#" class="table__link-detail text-danger gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
@@ -87,6 +93,25 @@
           @endforeach
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalConfrimData" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column text-center justify-content-center align-items-center gap-3">
+          <h4 class="color-black text-bold text-center">Konfrimasi Transaksi Pengeluaran</h4>
+          <p class="">Apakah anda yakin akan melakukan pengeluaran sejumlah <br> 
+          " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> "</p>
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+          <button class="btn btn-success w-100 confrim-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfrimSuccess">Konfrimasi</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -127,6 +152,21 @@
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
           <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalConfrimSuccess" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-check icon-success text-success"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Konfrimasi Data Pengeluaran</h4>
+          <p class="color-neutral-80">Transaksi pengeluaran berhasil dikonfrimasi</p>
         </div>
       </div>
     </div>
