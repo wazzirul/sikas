@@ -1,7 +1,7 @@
 let dataSiswa;
 const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-if($("#riwayat-tabungan").length == 1) {
+if ($("#riwayat-tabungan").length == 1) {
     $('#riwayat-tabungan').DataTable();
 }
 
@@ -96,16 +96,19 @@ function clickSiswa(e) {
                 $('.list-riwayat-tabungan').append(`
                     <tr>
                         <td>
-                        <p class="text-medium color-neutral-100">${MONTHS[bulan]}, ${date} ${tahun}</p>
+                            <p class="text-medium color-neutral-100">${MONTHS[bulan]}, ${date} ${tahun}</p>
                         </td>
                         <td class="text-medium">
-                        <p class="text-medium color-neutral-100">${value.tipe_transaksi == 2 ? 'Setor' : 'Tarik'}</p>              
+                            <p class="text-medium color-neutral-100">${value.tipe_transaksi == 2 ? 'Setor' : 'Tarik'}</p>              
                         </td>
                         <td>
-                        <p class="text-medium color-neutral-100">Rp. ${numberFormat(value.jumlah)}</p>
+                            <p class="text-medium color-neutral-100">${value.admin.nama}</p>
                         </td>
                         <td>
-                        <p class="text-bold color-neutral-100">Rp. ${numberFormat(value.mutasi)}</p>
+                            <p class="text-medium color-neutral-100">Rp. ${numberFormat(value.jumlah)}</p>
+                        </td>
+                        <td>
+                            <p class="text-bold color-neutral-100">Rp. ${numberFormat(value.mutasi)}</p>
                         </td>
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">

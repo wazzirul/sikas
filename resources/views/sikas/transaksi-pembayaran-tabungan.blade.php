@@ -73,8 +73,9 @@
               <thead>
                 <tr>
                   <th>Tanggal</th>
+                  <th>Nama Teller</th>
                   <th>NIS</th>
-                  <th>Nama</th>
+                  <th>Nama Siswa</th>
                   <th>Nominal</th>
                   <th>Actions</th>
                 </tr>
@@ -85,6 +86,7 @@
                   <td>
                     <p>{{ \Carbon\Carbon::parse($ts->tanggal)->translatedFormat('F, d Y') }}</p>
                   </td>
+                  <td class="text-medium color-neutral-100">{{ $ts->Admin->nama }}</td>
                   <td class="text-medium color-neutral-100">{{ $ts->Anggota->nis }}</td>
                   <td>
                     <p class="text-medium text-black">{{ $ts->Anggota->nama }} 'Kelas {{ $ts->Anggota->Kelas->nama }} {{ $ts->Anggota->Jurusan->nama }} {{ $ts->Anggota->nomor_kelas }}'</p>
@@ -121,8 +123,9 @@
               <thead>
                 <tr>
                   <th>Tanggal</th>
+                  <th>Nama Teller</th>
                   <th>NIP</th>
-                  <th>Nama</th>
+                  <th>Nama Guru</th>
                   <th>Nominal</th>
                   <th>Actions</th>
                 </tr>
@@ -133,6 +136,7 @@
                   <td>
                     <p>{{ \Carbon\Carbon::parse($tg->tanggal)->translatedFormat('F, d Y') }}</p>
                   </td>
+                  <td class="text-medium color-neutral-100">{{ $tg->Admin->nama }}</td>
                   <td class="text-medium color-neutral-100">{{ $tg->Anggota->nip }}</td>
                   <td>
                     <p class="text-medium text-black">{{ $tg->Anggota->nama }} 'Jabatan {{ $tg->Anggota->Jabatan != null ? $tg->Anggota->Jabatan->nama : "Guru" }}'</p>

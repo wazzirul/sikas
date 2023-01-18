@@ -53,6 +53,7 @@ Laporan
         <thead>
           <tr>
             <th>Tanggal</th>
+            <th>Nama Teller</th>
             <th>Jenis Transaksi</th>
             <th>Keterangan</th>
             <th>Jumlah Nominal</th>
@@ -63,6 +64,9 @@ Laporan
           <tr>
             <td>
               <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($l->tanggal)->translatedFormat('d F Y') }}</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">{{ $l->Admin->nama }}</p>
             </td>
             <td class="text-medium">
               <p class="text-medium color-neutral-100">{{ $l->tipe_transaksi == 2 ? 'Setor Tabungan' : 'Tarik Tabungan' }}</p>

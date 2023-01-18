@@ -146,8 +146,9 @@ Dashboard
               <thead>
                 <tr>
                   <th>Tanggal</th>
+                  <th>Nama Teller</th>
                   <th>NIS/NIP</th>
-                  <th>Nama</th>
+                  <th>Nama Siswa</th>
                   <th>Nominal</th>
                   <th>Actions</th>
                 </tr>
@@ -158,6 +159,7 @@ Dashboard
                   <td>
                     <p>{{ \Carbon\Carbon::parse($dts->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
+                  <td class="text-medium color-neutral-100">{{ $dts->Admin->nama }}</td>
                   <td class="text-medium color-neutral-100">{{ $dts->nama_transaksi }}</td>
                   <td>
                     <p class="text-medium text-black">{{ $dts->Anggota->nama }} ‘kelas {{ $dts->Anggota->Kelas->nama }} {{ $dts->Anggota->Jurusan->nama }} {{ $dts->Anggota->nomor_kelas }}’</p>
@@ -193,8 +195,9 @@ Dashboard
               <thead>
                 <tr>
                   <th>Tanggal</th>
-                  <th>NIS/NIP</th>
-                  <th>Nama</th>
+                  <th>Nama Teller</th>
+                  <th>NIS</th>
+                  <th>Nama Siswa</th>
                   <th>Nominal</th>
                   <th>Actions</th>
                 </tr>
@@ -205,6 +208,7 @@ Dashboard
                   <td>
                     <p>{{ \Carbon\Carbon::parse($dts->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
+                  <td class="text-medium color-neutral-100">{{ $dts->Admin->nama }}</td>
                   <td class="text-medium color-neutral-100">{{ $dts->Anggota->nis }}</td>
                   <td>
                     <p class="text-medium text-black">{{ $dts->Anggota->nama }} ‘kelas {{ $dts->Anggota->Kelas->nama }} {{ $dts->Anggota->Jurusan->nama }} {{ $dts->Anggota->nomor_kelas }}’</p>
@@ -240,8 +244,9 @@ Dashboard
               <thead>
                 <tr>
                   <th>Tanggal</th>
-                  <th>NIS/NIP</th>
-                  <th>Nama</th>
+                  <th>Nama Teller</th>
+                  <th>NIP</th>
+                  <th>Nama Guru</th>
                   <th>Nominal</th>
                   <th>Actions</th>
                 </tr>
@@ -252,6 +257,7 @@ Dashboard
                   <td>
                     <p>{{ \Carbon\Carbon::parse($dtg->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
+                  <td class="text-medium color-neutral-100">{{ $dtg->Admin->nama }}</td>
                   <td class="text-medium color-neutral-100">{{ $dtg->Anggota->nip }}</td>
                   <td>
                     <p class="text-medium text-black">{{ $dtg->Anggota->nama }} '{{ $dtg->Anggota->Jabatan != null ? $dtg->Anggota->Jabatan->nama : 'Guru' }}'</p>
@@ -334,6 +340,7 @@ Dashboard
               <thead>
                 <tr>
                   <th>Tanggal</th>
+                  <th>Nama Teller</th>
                   <th>Keterangan</th>
                   <th>Nominal</th>
                   <th>Actions</th>
@@ -344,6 +351,9 @@ Dashboard
                 <tr>
                   <td>
                     <p>{{ \Carbon\Carbon::parse($dtl->tanggal)->translatedFormat('d F Y') }}</p>
+                  </td>
+                  <td>
+                    <p class="text-medium text-black">{{ $dtl->Admin->nama }}</p>
                   </td>
                   <td>
                     <p class="text-medium text-black">{{ $dtl->nama_transaksi }}</p>
@@ -379,6 +389,7 @@ Dashboard
               <thead>
                 <tr>
                   <th>Tanggal</th>
+                  <th>Nama Teller</th>
                   <th>Keterangan</th>
                   <th>Nominal</th>
                   <th>Actions</th>
@@ -389,6 +400,9 @@ Dashboard
                 <tr>
                   <td>
                     <p>{{ \Carbon\Carbon::parse($dp->tanggal)->translatedFormat('d F Y') }}</p>
+                  </td>
+                  <td>
+                    <p class="text-medium text-black">{{ $dp->Admin->nama }}</p>
                   </td>
                   <td>
                     <p class="text-medium text-black">{{ $dp->nama_transaksi }}</p>

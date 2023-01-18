@@ -98,6 +98,7 @@ Transaksi
           <tr>
             <th>Tanggal</th>
             <th>Jenis Transaksi</th>
+            <th>Nama Teller</th>
             <th>Jumlah Nominal</th>
             <th>Mutasi</th>
             <th></th>

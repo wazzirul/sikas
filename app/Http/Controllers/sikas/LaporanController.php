@@ -93,8 +93,9 @@ class LaporanController extends Controller
 
   public function penggunaanDana(){
     $laporan = Transaksi::where('tipe_transaksi', 4)
-        ->where('soft_delete', 0)
-        ->get();
+      ->with('Admin')
+      ->where('soft_delete', 0)
+      ->get();
 
     return view('sikas.laporan-penggunaan-dana', [
       'laporan' => $laporan,
@@ -103,8 +104,9 @@ class LaporanController extends Controller
 
   public function pemasukanSumberLain(){
     $laporan = Transaksi::where('tipe_transaksi', 5)
-        ->where('soft_delete', 0)
-        ->get();
+      ->with('Admin')
+      ->where('soft_delete', 0)
+      ->get();
 
     return view('sikas.laporan-pemasukan-sumber-lain', [
       'laporan' => $laporan,
@@ -124,7 +126,7 @@ class LaporanController extends Controller
   public function pembayaranSPP(){
     $laporan = Transaksi::where('tipe_transaksi', 1)
       ->where('soft_delete', 0)
-      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
       ->get();
 
     return view('sikas.laporan-pembayaran-spp', [
@@ -136,7 +138,7 @@ class LaporanController extends Controller
     $laporan = Transaksi::where('tipe_transaksi', '>=', 2)
       ->where('tipe_transaksi', '<=', 3)
       ->where('soft_delete', 0)
-      ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan')
+      ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan', 'Admin')
       ->get();
 
     return view('sikas.laporan-pembayaran-tabungan', [

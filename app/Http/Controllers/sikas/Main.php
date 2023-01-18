@@ -25,7 +25,7 @@ class Main extends Controller
       ->where('soft_delete', 0)
       ->sum('jumlah');
     $data_transaksi_spp = Transaksi::where('tipe_transaksi', 1)
-      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
       ->orderBy('id_transaksi', 'DESC')
@@ -44,7 +44,7 @@ class Main extends Controller
         ->whereHas('Anggota', function($q) {
         $q->where('anggota.tipe_anggota', '=', 2); 
       })
-      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
       ->orderBy('id_transaksi', 'DESC')
@@ -63,7 +63,7 @@ class Main extends Controller
         ->whereHas('Anggota', function($q) {
         $q->where('anggota.tipe_anggota', '=', 1); 
       })
-      ->with('Anggota.Jabatan')
+      ->with('Anggota.Jabatan', 'Admin')
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
       ->orderBy('id_transaksi', 'DESC')
@@ -76,6 +76,7 @@ class Main extends Controller
     $data_transaksi_lain = Transaksi::where('tipe_transaksi', 5)
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->with('Admin')
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
@@ -97,6 +98,7 @@ class Main extends Controller
       ->where('tipe_transaksi', '<=', 4)
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->with('Admin')
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
@@ -119,6 +121,7 @@ class Main extends Controller
   public function TransaksiPemasukan(){
     $transaksi = Transaksi::where('tipe_transaksi', 5)
       ->where('soft_delete', 0)
+      ->with('Admin')
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
@@ -129,6 +132,7 @@ class Main extends Controller
   public function TransaksiPengeluaran(){
     $transaksi = Transaksi::where('tipe_transaksi', 4)
       ->where('soft_delete', 0)
+      ->with('Admin')
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
