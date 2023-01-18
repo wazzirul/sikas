@@ -1,0 +1,48 @@
+// * SIKAS Transaksi Pembayaran
+// *******************************************************************************
+
+@import '../_bootstrap-extended/include';
+@import '../_reset';
+
+.card--master-jurusan{
+  padding: toRem(32);
+}
+
+.table{
+  .table__link-detail{
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    &:hover{
+      color: $color-black !important;
+    }
+  }
+}
+
+.table{
+  tr td:first-child,tr th:first-child {
+    width: 1%;
+    white-space: nowrap;
+  }
+  tr td:last-child,tr th:last-child {
+    width: 1%;
+    white-space: nowrap;
+  }
+}
+
+.modal--master-jurusan{
+  .modal-dialog{
+    max-width: toRem(480);
+  }
+  .modal-body{
+    padding: toRem(32);
+  }
+  .icon{
+    width: toRem(24);
+    height: toRem(24);
+  }
+  .icon-success{
+    width: toRem(56);
+    height: toRem(56);
+  }
+}
