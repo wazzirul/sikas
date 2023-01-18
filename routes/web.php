@@ -21,6 +21,7 @@ use App\Http\Controllers\sikas\LaporanController;
 use App\Http\Controllers\sikas\TabunganController;
 use App\Http\Controllers\sikas\PengaturanController;
 use App\Http\Controllers\sikas\JabatanController;
+use App\Http\Controllers\sikas\JurusanController;
 use App\Http\Controllers\sikas\Auth\AuthController;
 use App\Http\Controllers\sikas\Query\QueryController;
 
@@ -86,6 +87,9 @@ Route::group(['middleware' => 'authsession'], function () {
          // Jabatan Contoller
         Route::get('/master-jabatan', [JabatanController::class, 'index'])->name('sikas-master-jabatan');
         Route::post('/master-jabatan/post', [JabatanController::class, 'postJabatan'])->name('sikas-master-jabatan-post');
+
+        // jurusan Contoller
+       Route::get('/master-jurusan', [JurusanController::class, 'index'])->name('sikas-master-jurusan');
 
         //Other
         Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('sikas-pengaturan');
