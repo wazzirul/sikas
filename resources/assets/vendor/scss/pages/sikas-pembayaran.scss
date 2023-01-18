@@ -91,10 +91,11 @@
     display: flex;
     flex-direction: column;
     gap: toRem(16);
+    max-height: toRem(282.59);
+    overflow-y: auto;
     .cari-siswa__item{
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: toRem(16);
       padding: toRem(16);
       background-color: $color-white;
@@ -120,6 +121,7 @@
       height: toRem(32);
     }
     .cari-siswa__item-detail{
+      margin-left: auto;
       .cari-siswa__item-detail__icon{
         width: toRem(20);
         height: toRem(20);
@@ -276,6 +278,11 @@
   padding: toRem(32);
   .card-body{
     padding: 0;
+  }
+  .table-icon__link{
+    margin: 2px 0;
+    width: toRem(18);
+    height: toRem(18);
   }
 }
 

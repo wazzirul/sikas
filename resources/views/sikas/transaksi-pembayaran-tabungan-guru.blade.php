@@ -100,6 +100,7 @@ Transaksi
             <th>Jenis Transaksi</th>
             <th>Jumlah Nominal</th>
             <th>Mutasi</th>
+            <th>Status</th>
             <th></th>
           </tr>
         </thead>
@@ -111,6 +112,25 @@ Transaksi
       <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
       <h4 class="text-bold color-neutral-100">Data Tabungan Kosong</h4>
       <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalConfrimData" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column text-center justify-content-center align-items-center gap-3">
+          <h4 class="color-black text-bold text-center">Konfrimasi Transaksi Penarikan</h4>
+          <p class="">Apakah anda yakin akan melakukan penarikan sejumlah <br> 
+          " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> "</p>
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+          <button class="btn btn-success w-100 confrim-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfrimSuccess">Konfrimasi</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -207,6 +227,21 @@ Transaksi
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
           <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalConfrimSuccess" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-check icon-success text-success"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Konfrimasi Transaksi Data</h4>
+          <p class="color-neutral-80">Transaksi berhasil dikonfrimasi</p>
         </div>
       </div>
     </div>

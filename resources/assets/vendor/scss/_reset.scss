@@ -213,3 +213,8 @@ th[rowspan]:not([rowspan="1"]) {
 .w-max-content{
   width: max-content;
 }
+
+.form-select{
+  padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+  background-position: right .5rem center;
+}

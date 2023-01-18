@@ -33,7 +33,7 @@
         {{ csrf_field() }}
         <input type="file" name="file" id="karyawan-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
         <label for="karyawan-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center">
-            Upload Karyawan
+            Import Karyawan
             <i class="fa-solid fa-arrow-up-from-bracket"></i>
         </label>
       </form>

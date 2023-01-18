@@ -203,6 +203,11 @@ th[rowspan]:not([rowspan="1"]) {
   width: max-content;
 }
 
+.form-select {
+  padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+  background-position: right 0.5rem center;
+}
+
 .jenis-pembayaran {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -285,11 +290,12 @@ th[rowspan]:not([rowspan="1"]) {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-height: 17.661875rem;
+  overflow-y: auto;
 }
 .card--pembayaran .cari-siswa .cari-siswa__item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
   background-color: #fff;
@@ -313,6 +319,9 @@ th[rowspan]:not([rowspan="1"]) {
 .card--pembayaran .cari-siswa .cari-siswa__icon {
   width: 2rem;
   height: 2rem;
+}
+.card--pembayaran .cari-siswa .cari-siswa__item-detail {
+  margin-left: auto;
 }
 .card--pembayaran .cari-siswa .cari-siswa__item-detail .cari-siswa__item-detail__icon {
   width: 1.25rem;
@@ -466,6 +475,11 @@ th[rowspan]:not([rowspan="1"]) {
 }
 .card--riwayat-tabungan .card-body {
   padding: 0;
+}
+.card--riwayat-tabungan .table-icon__link {
+  margin: 2px 0;
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .modal--pengajuan-keringanan .modal-dialog {

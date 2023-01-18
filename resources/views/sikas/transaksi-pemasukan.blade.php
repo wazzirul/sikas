@@ -70,12 +70,11 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
+                <a href="#" class="table__link-detail text-info gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <i class="fa-solid fa-pen"></i>
                 </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
+                <a href="#" class="table__link-detail text-danger gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>

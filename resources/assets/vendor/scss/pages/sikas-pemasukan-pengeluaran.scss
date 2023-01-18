@@ -8,21 +8,17 @@
 .card--pemasukan-pengeluaran{
   padding: toRem(32);
   display: grid;
-  grid-template-columns: max-content 1px 1fr;
+  grid-template-columns: 1fr;
   gap: toRem(32);
   .pemasukan-pengeluaran__form{
-    width: toRem(438);
-    @include media-breakpoint-down(xxl) {
-      width: toRem(350);
-    }
+    width: 100%;
     @include media-breakpoint-down(xl) {
-      width: toRem(300);
       gap: toRem(24);
     }
   }
   .border-line{
-    height: 100%;
-    width: 1px;
+    height: 1.5px;
+    width: 100%;
     background-color: $color-neutral-30;
   }
   .riwayat-pemasukan{
