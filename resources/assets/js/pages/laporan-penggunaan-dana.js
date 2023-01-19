@@ -27,6 +27,7 @@ $(document).ready(function () {
     $('.applyBtn').click(() => {
         let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
         let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
+        moment().locale('id');
 
         $.ajax({
             url: '/query/laporanPenggunaanDana',
@@ -43,6 +44,9 @@ $(document).ready(function () {
                         <tr>
                             <td>
                             <p class="text-medium color-neutral-100">${moment(value.tanggal).format('DD MMMM YYYY')}</p>
+                            </td>
+                            <td class="text-medium">
+                            <p class="text-medium color-neutral-100">${value.admin.nama}</p>              
                             </td>
                             <td class="text-medium">
                             <p class="text-medium color-neutral-100">Penggunaan Dana</p>              

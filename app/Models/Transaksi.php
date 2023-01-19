@@ -16,4 +16,9 @@ class Transaksi extends Model
     {
         return $this->hasOne('App\Models\Anggota','id_anggota','id_anggota');
     }
+
+    public function Admin()
+    {
+        return $this->hasOne('App\Models\User','id_user','id_admin');
+    }
 }

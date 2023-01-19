@@ -53,6 +53,9 @@ $(document).ready(function () {
                             <p class="text-medium color-neutral-100">${moment(value.tanggal).format('DD MMMM YYYY')}</p>
                             </td>
                             <td class="text-medium">
+                            <p class="text-medium color-neutral-100">${value.admin.nama}</p>              
+                            </td>
+                            <td class="text-medium">
                             <p class="text-medium color-neutral-100">${value.nama_transaksi}</p>              
                             </td>
                             <td>

@@ -336,6 +336,7 @@ class QueryController extends Controller
         $transaksi = Transaksi::where('id_anggota', $id_anggota)
             ->where('soft_delete', 0)
             ->where('tipe_transaksi', 1)
+            ->with('Admin')
             ->orderBy('id_transaksi', 'DESC')
             ->get();
 
@@ -349,6 +350,7 @@ class QueryController extends Controller
             ->where('soft_delete', 0)
             ->where('tipe_transaksi', '>=', 2)
             ->where('tipe_transaksi', '<=', 3)
+            ->with('Admin')
             ->orderBy('id_transaksi', 'DESC')
             ->get();
 
@@ -847,7 +849,7 @@ class QueryController extends Controller
             ->whereDate('tanggal', '<=', $tanggal_akhir)
             ->where('soft_delete', 0)
             ->orderBy('id_transaksi', 'DESC')
-            ->with('Anggota.Kelas', 'Anggota.Jurusan')
+            ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
             ->get();
 
         return response($laporan, 200);
@@ -863,7 +865,7 @@ class QueryController extends Controller
             ->whereDate('tanggal', '<=', $tanggal_akhir)
             ->where('soft_delete', 0)
             ->orderBy('id_transaksi', 'DESC')
-            ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan')
+            ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan', 'Admin')
             ->get();
 
         return response($laporan, 200);
@@ -891,6 +893,7 @@ class QueryController extends Controller
             ->whereDate('tanggal', '>=', $tanggal_awal)
             ->whereDate('tanggal', '<=', $tanggal_akhir)
             ->where('soft_delete', 0)
+            ->with('Admin')
             ->orderBy('id_transaksi', 'DESC')
             ->get();
 
@@ -904,6 +907,7 @@ class QueryController extends Controller
         $laporan = Transaksi::where('tipe_transaksi', 4)
             ->whereDate('tanggal', '>=', $tanggal_awal)
             ->whereDate('tanggal', '<=', $tanggal_akhir)
+            ->with('Admin')
             ->where('soft_delete', 0)
             ->orderBy('id_transaksi', 'DESC')
             ->get();

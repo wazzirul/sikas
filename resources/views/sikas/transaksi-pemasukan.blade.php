@@ -51,6 +51,7 @@
         <thead>
           <tr>
             <th>Tanggal</th>
+            <th>Nama Teller</th>
             <th>Keterangan</th>
             <th>Nominal Pemasukan</th>
             <th></th>
@@ -61,6 +62,9 @@
           <tr>
             <td>
               <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($t->tanggal)->translatedFormat('F, d Y') }}</p>
+            </td>
+            <td class="text-medium">
+              <p class="text-medium color-neutral-100">{{ $t->Admin->nama }}</p>              
             </td>
             <td class="text-medium">
               <p class="text-medium color-neutral-100">{{ $t->nama_transaksi }}</p>              

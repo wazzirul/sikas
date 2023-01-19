@@ -104,6 +104,7 @@ function clickSiswa(e) {
                     <tr>
                         <td class="color-neutral-100">${value.nama_transaksi}</td>
                         <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
+                        <td class="color-neutral-100">${value.admin.nama}</td>
                         <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">

@@ -23,6 +23,7 @@ class TabunganController extends Controller
             ->with('Anggota.Kelas', 'Anggota.Jurusan')
             ->where('tipe_transaksi', '>=', 2)
             ->where('tipe_transaksi', '<=', 3)
+            ->with('Admin')
             ->orderBy('id_transaksi', 'DESC')
             ->limit(10)
             ->get();
@@ -35,6 +36,7 @@ class TabunganController extends Controller
             ->with('Anggota.Jabatan')
             ->where('tipe_transaksi', '>=', 2)
             ->where('tipe_transaksi', '<=', 3)
+            ->with('Admin')
             ->orderBy('id_transaksi', 'DESC')
             ->limit(10)
             ->get();

@@ -135,6 +135,7 @@ Transaksi
           <tr>
             <th class="text-bold">Jenis Pembayaran</th>
             <th class="text-bold">Tanggal</th>
+            <th class="text-bold">Nama Teller</th>
             <th class="text-bold">Jumlah Pembayaran</th>
             <th></th>
           </tr>
