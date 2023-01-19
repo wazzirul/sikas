@@ -100,7 +100,7 @@ Laporan
         <i class="fa-regular fa-calendar-days date-range-icon text-primary"></i>
         <input type="hidden" name="date-range-input" value="" class="" id="date-range-input" />
       </div>
-      <button class="d-flex btn btn-primary gap-2 align-items-center" id="button-cetak-laporan">
+      <button class="d-flex btn btn-primary gap-2 align-items-center btn-cetak-laporan" id="button-cetak-laporan">
         Cetak Laporan
         <i class="fa-solid fa-plus"></i>
       </button>

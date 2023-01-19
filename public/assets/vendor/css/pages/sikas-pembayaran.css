@@ -265,6 +265,11 @@ th[rowspan]:not([rowspan="1"]) {
   grid-template-columns: 1fr 1px 1fr;
   gap: 2rem;
 }
+@media (max-width: 991.98px) {
+  .card--pembayaran .card-body__wrapper {
+    grid-template-columns: 1fr;
+  }
+}
 .card--pembayaran .input-group.input-group-merge .input-group-text {
   border: 1px solid #E0E0E0;
   border-right: 0;
@@ -284,6 +289,12 @@ th[rowspan]:not([rowspan="1"]) {
   background: #EDEDED;
   height: 100%;
   width: 1px;
+}
+@media (max-width: 991.98px) {
+  .card--pembayaran .horizontal-line {
+    height: 1.5px;
+    width: 100%;
+  }
 }
 .card--pembayaran .cari-siswa {
   margin-top: 1.5rem;
@@ -427,6 +438,11 @@ th[rowspan]:not([rowspan="1"]) {
   grid-template-columns: 1fr 1px max-content;
   gap: 2rem;
 }
+@media (max-width: 991.98px) {
+  .pengajuan-keringanan {
+    grid-template-columns: 1fr;
+  }
+}
 .pengajuan-keringanan .detail-siswa .horizontal-line {
   height: 1px;
   width: 100%;
@@ -437,8 +453,21 @@ th[rowspan]:not([rowspan="1"]) {
   width: 1px;
   background-color: #EDEDED;
 }
+@media (max-width: 991.98px) {
+  .pengajuan-keringanan .border-line {
+    width: 100%;
+    height: 1.5px;
+    grid-row: 2/3;
+  }
+}
 .pengajuan-keringanan .pengajuan-keringanan__form {
   width: 27.375rem;
+}
+@media (max-width: 991.98px) {
+  .pengajuan-keringanan .pengajuan-keringanan__form {
+    width: 100%;
+    grid-row: 1/2;
+  }
 }
 .pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload {
   display: flex;

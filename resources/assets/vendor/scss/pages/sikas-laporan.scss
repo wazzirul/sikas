@@ -9,6 +9,12 @@
   display: grid;
   grid-template-columns: repeat(3,1fr);
   gap: toRem(16);
+  @include media-breakpoint-down(lg-2) {
+    grid-template-columns: repeat(2,1fr);
+  }
+  @include media-breakpoint-down(md) {
+    grid-template-columns: 1fr;
+  }
   .card{
     background-color: $color-white;
     padding: toRem(32);
@@ -51,6 +57,10 @@
       }
     }
   }
+}
+
+.btn-cetak-laporan{
+  width: max-content;
 }
 
 .card--laporan{

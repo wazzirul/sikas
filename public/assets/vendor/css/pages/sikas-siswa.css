@@ -211,6 +211,22 @@ th[rowspan]:not([rowspan="1"]) {
 .card--siswa {
   padding: 2rem;
 }
+.card--siswa .siswa-header {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+@media (max-width: 991.98px) {
+  .card--siswa .siswa-header {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+  .card--siswa .siswa-header > div {
+    width: 100%;
+  }
+}
 
 .table .table__link-detail {
   display: flex;
