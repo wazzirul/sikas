@@ -35,7 +35,7 @@
     <div class="card-body">
       <a href="{{route('sikas-transaksi--tabungan-siswa')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
         <div class="jenis-pembayaran__icon-wrap">
-          <i class="fa-regular fa-credit-card jenis-pembayaran__icon"></i>
+          <i class="fa-solid fa-piggy-bank jenis-pembayaran__icon"></i>
         </div>
         <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
       </a>
@@ -46,7 +46,7 @@
     <div class="card-body">
       <a href="{{route('sikas-transaksi--tabungan-guru')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
         <div class="jenis-pembayaran__icon-wrap">
-          <i class="fa-solid fa-credit-card jenis-pembayaran__icon"></i>
+          <i class="fa-solid fa-coins jenis-pembayaran__icon"></i>
         </div>
         <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
       </a>

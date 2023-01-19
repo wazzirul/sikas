@@ -56,11 +56,11 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-primary" onClick="changeStrukturSekolah({{$j->id_struktur_sekolah}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-info" onClick="changeStrukturSekolah({{$j->id_struktur_sekolah}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" onClick="changeStrukturSekolah({{$j->id_struktur_sekolah}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail text-danger" onClick="changeStrukturSekolah({{$j->id_struktur_sekolah}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>

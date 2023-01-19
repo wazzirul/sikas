@@ -61,7 +61,7 @@
           </div>
           <div class="modal-line"></div>
           @endforeach
-          <div class="form-text"> <span class="text-primary text-bold">semua siswa dan siswi akan secara otomatis naik kelas</span>. Jika ada siswa / siswi yang tidak naik kelas, harap di ubah secara manual di menu siswa. </div>
+          <div class="form-text"> <span class="text-primary text-extra-bold">semua siswa dan siswi akan secara otomatis naik kelas</span>. Jika ada siswa / siswi yang tidak naik kelas, harap di ubah secara manual di menu siswa. </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button type="submit" class="btn btn-primary w-100">Mulai Tahun Ajar Baru</button>
             <button type="button" class="success-button d-none" data-bs-toggle="modal" data-bs-target="#modalEditSuccess"></button>
@@ -80,7 +80,7 @@
         <div class="d-flex flex-column justify-content-center align-items-center text-center">
           <i class="fa-solid fa-circle-check icon-success text-success"></i>
           <h4 class="color-neutral-100 mt-3 my-2">Selamat! Berhasil Memulai Tahun Ajar Baru</h4>
-          <p class="color-neutral-80">Tahun Ajar Baru Berhasil dimulai, <span class="text-primary text-bold">semua siswa dan siswi akan secara otomatis naik kelas</span>. Jika ada siswa / siswi yang tidak naik kelas, harap di ubah secara manual di menu siswa. </p>
+          <p class="color-neutral-80">Tahun Ajar Baru Berhasil dimulai, <span class="text-primary text-extra-bold">semua siswa dan siswi akan secara otomatis naik kelas</span>. Jika ada siswa / siswi yang tidak naik kelas, harap di ubah secara manual di menu siswa. </p>
         </div>
       </div>
     </div>

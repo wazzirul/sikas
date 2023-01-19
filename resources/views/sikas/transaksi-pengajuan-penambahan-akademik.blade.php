@@ -100,8 +100,9 @@ Transaksi
       <input type="hidden" name="id_anggota" value="" />
       <div class="pengajuan-keringanan-form__input-wrapper">
         <div class="pengajuan-keringanan-form__input">
-          <label for="upload-surat-pengajuan" class="form-label">Upload Surat Pengajuan / Optional</label>
+          <label for="upload-surat-pengajuan" class="form-label color-black">Upload Surat Pengajuan <span class="text-secondary text-extra-bold">*Optional</span></label>
           <input class="form-control" type="file" name="file-pengajuan" id="upload-surat-pengajuan" autocomplete="off" accept="application/pdf">
+          <small class="text-bold color-black">Siswa / Siswi Tidak Wajib memberikan surat / file pengajuan berupa pdf</small>
         </div>
         <div class="pengajuan-keringanan-form__item-upload d-none">
           <i class="fa-solid fa-file-pdf text-primary file-icon"></i>

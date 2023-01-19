@@ -273,6 +273,11 @@
   .card-body{
     padding: 0;
   }
+  .table-icon__link{
+    margin: 2px 0;
+    width: toRem(18);
+    height: toRem(18);
+  }
 }
 .card--riwayat-tabungan{
   padding: toRem(32);

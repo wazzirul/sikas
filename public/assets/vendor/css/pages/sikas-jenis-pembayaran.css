@@ -221,7 +221,8 @@ th[rowspan]:not([rowspan="1"]) {
   color: #000 !important;
 }
 
-.table tr td:last-child, .table tr th:last-child {
+.table tr td:last-child, .table tr th:last-child,
+.table tr td:first-child, .table tr th:first-child {
   width: 1%;
   white-space: nowrap;
 }

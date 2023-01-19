@@ -91,6 +91,12 @@
         <p class="menu-item__text">Master Jabatan</p>
       </a>
     </li>
+    <li class="menu-item {{ Route::is('sikas-master-jurusan') == true ? 'active' : '' }}">
+      <a href="{{route('sikas-master-jurusan')}}" class="menu-link">
+        <i class="fa-regular fa-address-book menu-item__icon"></i>
+        <p class="menu-item__text">Master Jurusan</p>
+      </a>
+    </li>
     <li class="menu-item">
       <a href="{{route('sikas-reset-tahun-ajar')}}" class="menu-link">
         <i class="fa-solid fa-power-off menu-item__icon"></i>

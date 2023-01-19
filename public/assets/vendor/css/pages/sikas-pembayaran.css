@@ -469,6 +469,11 @@ th[rowspan]:not([rowspan="1"]) {
 .card--riwayat-transaksi .card-body {
   padding: 0;
 }
+.card--riwayat-transaksi .table-icon__link {
+  margin: 2px 0;
+  width: 1.125rem;
+  height: 1.125rem;
+}
 
 .card--riwayat-tabungan {
   padding: 2rem;

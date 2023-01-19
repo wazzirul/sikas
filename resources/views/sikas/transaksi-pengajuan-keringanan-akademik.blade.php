@@ -56,7 +56,7 @@ Transaksi
     </div>
     <div class="horizontal-line my-5"></div>
     <div class="tahun-ajaran">
-      <label for="tahunAjaran" class="form-label">Cari Berdasarkan Tahun Ajaran</label>
+      <label for="tahunAjaran" class="form-label color-black">Cari Berdasarkan Tahun Ajaran</label>
       <div class="tahun-ajaran-input">
         <input type="number" class="form-control" id="tahunAjaran" placeholder="2023">
         <i class="fa-regular fa-calendar input-icon color-neutral-50"></i>
@@ -102,8 +102,9 @@ Transaksi
       <input type="hidden" name="id_anggota" value="{{ $anggota->id_anggota }}" />
       <div class="pengajuan-keringanan-form__input-wrapper">
         <div class="pengajuan-keringanan-form__input">
-          <label for="upload-surat-pengajuan" class="form-label">Upload Surat Pengajuan / Required</label>
+          <label for="upload-surat-pengajuan" class="form-label color-black">Upload Surat Pengajuan <span class="text-danger text-extra-bold">*Required</span></label>
           <input class="form-control" type="file" required name="file-pengajuan" id="upload-surat-pengajuan" autocomplete="off" accept="application/pdf">
+          <small class="text-bold color-black">Siswa / Siswi Wajib memberikan surat / file pengajuan berupa pdf</small>
         </div>
         <div class="pengajuan-keringanan-form__item-upload d-none">
           <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
