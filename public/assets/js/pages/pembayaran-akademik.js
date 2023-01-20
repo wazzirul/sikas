@@ -253,10 +253,10 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
         data,
         success: (result) => {
             try {
-                let { day, date, bulan, tahun, anggota, transaksi, kasir } = result
+                let { tanggal, anggota, transaksi, kasir } = result
 
                 let username = kasir,
-                    numberanddate = `${transaksi.nomor_transaksi} / ${day}, ${date} ${bulan}, ${tahun}`,
+                    numberanddate = `${transaksi.nomor_transaksi} / ${tanggal}`,
                     numberandname = `${anggota.nis} / ${anggota.nama}`,
                     classname = anggota.detail_kelas,
                     transactiontype = transaksi.nama_transaksi,

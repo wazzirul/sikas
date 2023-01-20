@@ -249,14 +249,9 @@ $(document).on('submit', 'form#form-setor-tabungan', function (e) {
         success: (result) => {
             try {
                 let { tanggal, anggota, kasir, transaksi } = result
-                let tgl = new Date(Date.parse(tanggal));
-                let day = tgl.toLocaleDateString('id', { weekday: 'long' });
-                let bulan = tgl.getMonth();
-                let date = tgl.getDate();
-                let tahun = tgl.getFullYear();
 
                 let username = kasir,
-                    numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
+                    numberanddate = `${tanggal}`,
                     removetransactionnumber = true,
                     numberandname = `${anggota.nip} / ${anggota.nama}`,
                     classname = anggota.detail_kelas,
@@ -303,14 +298,9 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
         success: (result) => {
             try {
                 let { tanggal, anggota, kasir, transaksi } = result
-                let tgl = new Date(Date.parse(tanggal));
-                let day = tgl.toLocaleDateString('id', { weekday: 'long' });
-                let bulan = tgl.getMonth();
-                let date = tgl.getDate();
-                let tahun = tgl.getFullYear();
 
                 let username = kasir,
-                    numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
+                    numberanddate = `${tanggal}`,
                     removetransactionnumber = true,
                     numberandname = `${anggota.nip} / ${anggota.nama}`,
                     classname = anggota.detail_kelas,
