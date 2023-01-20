@@ -81,7 +81,7 @@ Dashboard
             <i class="fa-solid fa-money-bill-transfer text-warning avatar-icon"></i>
           </div>
         </div>
-        <span class="fw-semibold d-block mb-1">Transaksi Pengajuan Keringanan Hari ini</span>
+        <span class="fw-semibold d-block mb-1">Transaksi Pengajuan Keringanan & Penambahan Hari ini</span>
         <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $keringanan }}</h3>
       </div>
     </div>
@@ -128,7 +128,7 @@ Dashboard
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-guru" aria-controls="navs-pills-tabungan-guru" aria-selected="false">Tabungan Guru</button>
           </li>
           <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pengajuan-keringanan" aria-controls="navs-pills-pengajuan-keringanan" aria-selected="false">Pengajuan Keringanan</button>
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pengajuan-keringanan" aria-controls="navs-pills-pengajuan-keringanan" aria-selected="false">Pengajuan Keringanan & Penambahan</button>
           </li>
           <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pemasukan-sumber-lain" aria-controls="navs-pills-pemasukan-sumber-lain" aria-selected="false">Pemasukan</button>
