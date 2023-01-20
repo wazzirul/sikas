@@ -20,7 +20,8 @@
 }
 
 .table{
-  tr td:last-child,tr th:last-child {
+  tr td:last-child,tr th:last-child,
+  tr td:first-child,tr th:first-child {
     width: 1%;
     white-space: nowrap;
   }

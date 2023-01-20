@@ -213,6 +213,16 @@ th[rowspan]:not([rowspan="1"]) {
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
+@media (max-width: 1063.98px) {
+  .jenis-laporan {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767.98px) {
+  .jenis-laporan {
+    grid-template-columns: 1fr;
+  }
+}
 .jenis-laporan .card {
   background-color: #fff;
   padding: 2rem;
@@ -250,6 +260,11 @@ th[rowspan]:not([rowspan="1"]) {
 }
 .jenis-laporan .jenis-laporan__link:hover .jenis-laporan__icon--link {
   color: #696cff;
+}
+
+.btn-cetak-laporan {
+  width: -moz-max-content;
+  width: max-content;
 }
 
 .card--laporan {

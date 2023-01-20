@@ -27,7 +27,7 @@
 <div class="card card--siswa">
   <div class="siswa-wrapper">
     <h4 class="text-bold color-black mb-4">Data Siswa</h4>    
-    <div class="d-flex align-items-end justify-content-between gap-4 mb-5">
+    <div class="siswa-header mb-5">
       <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       <div class="form-upload-siswa d-flex align-items-end gap-4">
         <div class="mt-3">
@@ -56,8 +56,8 @@
         </div>
         <button type="button" class="btn btn-outline-primary cari-siswa-button">Cari Data</button>
       </div>        
-      <div class="d-flex align-items-center gap-4">
-      <form action="/siswa/import" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+      <div class="d-flex align-items-end justify-content-end gap-4">
+        <form action="/siswa/import" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
           <input type="file" name="file" id="siswa-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
           <label for="siswa-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center">
@@ -100,11 +100,11 @@
                   <i class="fa-solid fa-eye"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" onClick="changeAnggota({{ $a->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-info" onClick="changeAnggota({{ $a->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-primary" onClick="changeAnggota({{ $a->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail text-danger" onClick="changeAnggota({{ $a->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>

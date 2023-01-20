@@ -18144,6 +18144,10 @@ html:not(.layout-footer-fixed) .content-wrapper {
   color: #696cff;
 }
 
+.text-extra-bold {
+  font-weight: 700;
+}
+
 .text-bold {
   font-weight: 600;
 }

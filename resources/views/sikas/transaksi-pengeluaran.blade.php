@@ -29,7 +29,7 @@
 </p>
 <div class="card card--pemasukan-pengeluaran">
   <div class="pemasukan-pengeluaran__form">
-    <h4 class="text-bold color-black mb-4">Pengeluaran</h4>
+    <h4 class="text-bold color-black mb-4">Form Pengeluaran</h4>
     <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
     <div class="pengajuan-pengeluaran-form">
       <div class="mt-3">

@@ -39,4 +39,9 @@ $(document).ready(function () {
       "aaSorting": [],
     });
   }
+  if ($("#data-laporan-pembayaran-spp-perkelas").length == 1) {
+    $('#data-laporan-pembayaran-spp-perkelas').DataTable({
+      "aaSorting": [],
+    });
+  }
 });

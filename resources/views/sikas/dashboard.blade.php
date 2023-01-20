@@ -34,8 +34,8 @@ Dashboard
   {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
 </p>
 <div class="row row-card">
-  <div class="col-xl-4 col-lg-6 col-6">
-    <div class="card">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-12 d-flex">
+    <div class="card flex-fill">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">
@@ -47,8 +47,8 @@ Dashboard
       </div>
     </div>
   </div>
-  <div class="col-xl-4 col-lg-6 col-6">
-    <div class="card">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-12 d-flex">
+    <div class="card flex-fill">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">
@@ -60,8 +60,8 @@ Dashboard
       </div>
     </div>
   </div>
-  <div class="col-xl-4 col-lg-6 col-6">
-    <div class="card">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-12 d-flex">
+    <div class="card flex-fill">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">
@@ -73,8 +73,8 @@ Dashboard
       </div>
     </div>
   </div>
-  <div class="col-xl-4 col-lg-6 col-6">
-    <div class="card">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-12 d-flex">
+    <div class="card flex-fill">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">
@@ -86,8 +86,8 @@ Dashboard
       </div>
     </div>
   </div>
-  <div class="col-xl-4 col-lg-6 col-6">
-    <div class="card">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-12 d-flex">
+    <div class="card flex-fill">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">
@@ -99,8 +99,8 @@ Dashboard
       </div>
     </div>
   </div>
-  <div class="col-xl-4 col-lg-6 col-6">
-    <div class="card">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-12 d-flex">
+    <div class="card flex-fill">
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">
