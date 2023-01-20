@@ -100,8 +100,7 @@ function clickSiswa(e) {
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
-                let tahun = tanggal.getFullYear();
-                console.log(value);
+                let tahun = tanggal.getFullYear();                
 
                 $('.list-riwayat-pembayaran-spp').append(`
                     <tr>
