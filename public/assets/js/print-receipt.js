@@ -1,7 +1,7 @@
 'use strict';
 
 function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
-  let { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, removetransactionnumber, savingsFund, notClassname } = el?.dataset || raw
+  let { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, removetransactionnumber, savingsFund, remainingBill, notClassname } = el?.dataset || raw
   let formattedTotal = `${new Intl.NumberFormat('id').format(total)},-`
 
   if (!numberandname) return
@@ -54,6 +54,9 @@ function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
           </div>
           ${savingsFund ? `<div class="row savings-fund">
             <div class="nominal-pronouncing uppercase">DANA TABUNGAN SAAT INI : Rp ${new Intl.NumberFormat('id').format(savingsFund)},-</div>
+          </div>` : ''}
+          ${remainingBill ? `<div class="row savings-fund">
+            <div class="nominal-pronouncing uppercase">SISA PARTISIPASI : Rp ${new Intl.NumberFormat('id').format(remainingBill)},-</div>
           </div>` : ''}
         </div>
         <div class="page-footer">
