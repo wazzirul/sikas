@@ -1,4 +1,5 @@
 let dataSiswa;
+let validateDelete = true;
 const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
 if ($("#riwayat-tabungan").length == 1) {
@@ -182,23 +183,28 @@ function deleteTransaksi() {
     let id_transaksi = $('#id_transaksi').val();
     let id_anggota = $('#id_anggota_setoran').val();
 
-    $.ajax({
-        url: '/query/deleteHistoryTabungan',
-        method: 'POST',
-        data: {
-            _token: $('#ctoken').val(),
-            id_transaksi: id_transaksi,
-            id_anggota: id_anggota,
-        },
-        success: () => {
-            setTimeout(() => {
-                location.reload()
-            }, 2000);
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    })
+    if (validateDelete) {
+        validateDelete = false;
+        $.ajax({
+            url: '/query/deleteHistoryTabungan',
+            method: 'POST',
+            data: {
+                _token: $('#ctoken').val(),
+                id_transaksi: id_transaksi,
+                id_anggota: id_anggota,
+            },
+            success: () => {
+                setTimeout(() => {
+                    validateDelete = true;
+                    location.reload()
+                }, 2000);
+            },
+            error: (err) => {
+                validateDelete = true;
+                console.log(err);
+            }
+        })
+    }
 }
 
 function changeTransaksi($id_transaksi) {

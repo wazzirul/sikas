@@ -29,6 +29,7 @@ return new class extends Migration
             $table->bigInteger('mutasi')->nullable();
             $table->unsignedInteger('id_kelas')->nullable();
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas');
+            $table->smallInteger('approved')->default(0);
             $table->timestamp('tanggal')->useCurrent();
 
             $table->smallInteger('soft_delete')->default(0);

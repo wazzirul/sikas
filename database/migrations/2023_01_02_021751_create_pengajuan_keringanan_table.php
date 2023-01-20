@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('pengajuan_keringanan', function (Blueprint $table) {
             $table->increments('id_pengajuan_keringanan');
+            $table->unsignedInteger('id_admin')->nullable();
+            $table->foreign('id_admin')->references('id_user')->on('user');
             $table->unsignedInteger('id_anggota');
             $table->foreign('id_anggota')->references('id_anggota')->on('anggota');
             $table->bigInteger('jumlah');

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('id_anggota')->references('id_anggota')->on('anggota');
             $table->bigInteger('tabungan')->default(0);
             $table->bigInteger('tagihan')->default(0);
+            $table->bigInteger('tagihan_pertama')->default(0);
             $table->smallInteger('status_tagihan')->default(0);
 
             $table->smallInteger('soft_delete')->default(0);
