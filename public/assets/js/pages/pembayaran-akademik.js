@@ -74,10 +74,12 @@ function clickSiswa(e) {
             id: e.currentTarget.dataset.id
         },
         success: (result) => {
+            let jumlahTagihan
             $('.detail-nama').text(result.nama);
             $('.detail-nis').text(result.nis);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
             $('.detail-tagihan').text('Rp. ' + numberFormat(result.keuangan_anggota.tagihan));
+            return jumlahTagihan = result.keuangan_anggota.tagihan;
         },
         error: (err) => {
             console.log(err);
@@ -99,6 +101,7 @@ function clickSiswa(e) {
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
                 let tahun = tanggal.getFullYear();
+                console.log(value);
 
                 $('.list-riwayat-pembayaran-spp').append(`
                     <tr>
@@ -245,8 +248,7 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
     form.find('input:not([type="hidden"])').each((_, el) => {
         if (!$(el).val()) dontSubmit = true
     })
-    if (dontSubmit) return
-
+    if (dontSubmit) return    
     $.ajax({
         url,
         method,
@@ -254,16 +256,38 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
         success: (result) => {
             try {
                 let { tanggal, anggota, transaksi, kasir } = result
-
+                let tgl = new Date(Date.parse(tanggal));
+                let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+                let bulan = tgl.toLocaleDateString('id', { month: 'long' });
+                let date = tgl.getDate();
+                let tahun = tgl.getFullYear();
+                
                 let username = kasir,
-                    numberanddate = `${transaksi.nomor_transaksi} / ${tanggal}`,
-                    numberandname = `${anggota.nis} / ${anggota.nama}`,
-                    classname = anggota.detail_kelas,
-                    transactiontype = transaksi.nama_transaksi,
-                    total = transaksi.jumlah,
-                    transactioncode = transaksi.kode_transaksi
+                numberanddate = `${transaksi.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}`,
+                numberandname = `${anggota.nis} / ${anggota.nama}`,
+                classname = anggota.detail_kelas,
+                transactiontype = transaksi.nama_transaksi,
+                total = transaksi.jumlah,
+                transactioncode = transaksi.kode_transaksi              
+                
+                $.ajax({
+                    url: '/query/siswaById',
+                    method: 'POST',
+                    data: {
+                        _token: $('#ctoken').val(),
+                        id: anggota.id_anggota
+                    },
+                    success: (hasil) => {                        
+                        remainingBill = hasil.keuangan_anggota.tagihan;                        
+                        printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingBill })
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                })
+                
 
-                printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode })
+                
             } catch (error) {
                 console.error(error);
             }
