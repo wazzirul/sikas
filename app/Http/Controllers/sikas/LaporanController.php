@@ -123,6 +123,16 @@ class LaporanController extends Controller
     ]);
   }  
 
+  public function pengajuanPenambahan(){
+    $laporan = PengajuanKeringanan::where('soft_delete', 0)
+      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->get();
+
+    return view('sikas.laporan-pengajuan-penambahan', [
+      'laporan' => $laporan,
+    ]);
+  }  
+
   public function pembayaranSPP(){
     $laporan = Transaksi::where('tipe_transaksi', 1)
       ->where('soft_delete', 0)

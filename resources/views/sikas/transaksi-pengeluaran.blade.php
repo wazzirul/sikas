@@ -55,6 +55,7 @@
             <th>Keterangan</th>
             <th>Nominal Pengeluaran</th>
             <th>Status</th>
+            <th>Konfrimasi</th>
             <th></th>
           </tr>
         </thead>
@@ -77,10 +78,12 @@
             <p class="text-bold color-neutral-100">Butuh Konfrimasi Admin</p>
             </td>
             <td>
+              <a href="#" class="btn btn-success" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                Konfrimasi
+              </a>
+            </td>
+            <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-success" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
-                  <i class="fa-solid fa-check"></i>
-                </a>
                 <a href="#" class="table__link-detail text-info gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   <i class="fa-solid fa-pen"></i>
                 </a>

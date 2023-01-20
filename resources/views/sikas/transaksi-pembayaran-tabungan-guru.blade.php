@@ -102,6 +102,7 @@ Transaksi
             <th>Jumlah Nominal</th>
             <th>Mutasi</th>
             <th>Status</th>
+            <th>Konfrimasi</th>
             <th></th>
           </tr>
         </thead>
