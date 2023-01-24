@@ -45,7 +45,7 @@ Laporan
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade show active" id="navs-histori-laporan" role="tabpanel">
-          <div class="d-flex justify-content-between align-items-end mb-5 gap-3">
+          <div class="d-flex justify-content-between align-items-end mb-5 gap-3 flex-wrap">
             <div class="filter-siswa d-flex align-items-end gap-3">
               <div class="mt-3">
                 <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
@@ -131,7 +131,7 @@ Laporan
           </div>
         </div>
         <div class="tab-pane fade" id="navs-laporan-per-kelas" role="tabpanel">
-          <div class="d-flex justify-content-between align-items-end mb-5 gap-3">
+          <div class="d-flex justify-content-between align-items-end mb-5 gap-3 flex-wrap">
             <div class="filter-siswa d-flex align-items-end gap-3">
               <div class="mt-3">
                 <label for="filter_id_kelas_kelas" class="form-label text-bold color-black">Kelas</label>
@@ -180,7 +180,7 @@ Laporan
                   <th>Kelas</th>
                   <th>L/P</th>
                   <th>Kesanggupan Partisipasi</th>
-                  <th>Nominal Partisipasi</th>
+                  <th>Partisipasi Terbayar</th>
                   <th>Sisa Partisipasi</th>
                 </tr>
               </thead>

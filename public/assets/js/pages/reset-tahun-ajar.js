@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     $.each($('.nominal-pembayaran'), (index, value) => {
-        $(value).val('Rp. ' + numberFormat($(value).val()))
+        $(value).val('Rp. ' + numberFormat($(value).data('value')))
     })
 
     $('.nominal-pembayaran').keyup((e) => {

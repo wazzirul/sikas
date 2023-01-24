@@ -118,8 +118,8 @@ function clickSiswa(e) {
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
                         ${value.approved == 0 && value.tipe_transaksi != 2 && document.getElementById('session_admin').value == 1 ? `
-                            <a href="#" class="table__link-detail text-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
-                                <i class="fa-solid fa-check table-icon__link"></i>
+                            <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                                Konfrimasi
                             </a>` : ''
                     }
                           ${document.getElementById('session_admin').value == 1 || value.approved == 0 || value.tipe_transaksi == 2 ? `

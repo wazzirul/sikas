@@ -55,6 +55,7 @@
             <th>Keterangan</th>
             <th>Nominal Pengeluaran</th>
             <th>Status</th>
+            <th>Konfrimasi</th>
             <th></th>
           </tr>
         </thead>
@@ -75,6 +76,11 @@
             </td>
             <td>
             <p class="text-bold color-neutral-100">{{ $t->approved == 1 ? 'Sudah Dikonfirmasi' : 'Butuh Konfirmasi Admin' }}</p>
+            </td>
+            <td>
+              <a href="#" class="btn btn-success" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                Konfrimasi
+              </a>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
@@ -107,7 +113,9 @@
         <div class="d-flex flex-column text-center justify-content-center align-items-center gap-3">
           <h4 class="color-black text-bold text-center">Konfrimasi Transaksi Pengeluaran</h4>
           <p class="">Apakah anda yakin akan melakukan pengeluaran sejumlah <br> 
-          " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> "</p>
+            " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> " <br>
+            <small class="text-danger text-extra-bold font-half">*Pengeluaran yang telah dikonfrimasi tidak bisa diubah / dihapus datanya, pastikan data pengeluaran sudah benar!</small>
+          </p>
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
