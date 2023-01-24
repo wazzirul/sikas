@@ -58,6 +58,7 @@ function clickSiswa(e) {
     $('.pembayaran-button').removeClass('disabled');
     $('#id_anggota').val(e.currentTarget.dataset.id);
     $('.history-pembayaran-button').attr('href', `/transaksi/history-pembayaran/${e.currentTarget.dataset.id}`);
+    $('.ajukan-penambahan-button').attr('href', `/transaksi/pengajuan-penambahan/${e.currentTarget.dataset.id}`);
     $('.ajukan-keringanan-button').attr('href', `/transaksi/pengajuan-keringanan/${e.currentTarget.dataset.id}`);
     $('.card--riwayat-transaksi').removeClass('d-none');
 

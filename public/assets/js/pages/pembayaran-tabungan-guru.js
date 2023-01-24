@@ -113,13 +113,15 @@ function clickSiswa(e) {
                             <p class="text-bold color-neutral-100">Rp. ${numberFormat(value.mutasi)}</p>
                         </td>
                         <td>
-                        <p class="text-bold color-neutral-100">Butuh Konfrimasi Admin</p>
+                            <p class="text-bold color-neutral-100">${value.approved == 0 && value.tipe_transaksi != 2 ? 'Butuh Konfirmasi Admin' : 'Sudah Dikonfirmasi'}</p>
                         </td>
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
-                            <a href="#" class="table__link-detail text-success" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                        ${value.approved == 0 && value.tipe_transaksi != 2 && document.getElementById('session_admin').value == 1 ? `
+                        <a href="#" class="table__link-detail text-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
                             <i class="fa-solid fa-check table-icon__link"></i>
-                            </a>
+                        </a>` : ''
+                    }
                             <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                             <i class="fa-solid fa-pen"></i>
                             </a>
@@ -146,6 +148,10 @@ function clickSiswa(e) {
 
             $('.delete-transaksi-button').click(() => {
                 deleteTransaksi();
+            })
+
+            $('.approve-button').click((e) => {
+                $('.modal--transaksi__nominal-penarikan').text(e.currentTarget.dataset.jumlah);
             })
         },
         error: (err) => {
@@ -206,6 +212,29 @@ function deleteTransaksi() {
         })
     }
 }
+
+$('.confirm-transaksi-button').click(() => {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+
+    $.ajax({
+        url: '/query/approvePenarikanTabunganSiswa',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_transaksi: id_transaksi,
+            id_anggota: id_anggota,
+        },
+        success: () => {
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+})
 
 function changeTransaksi($id_transaksi) {
     $('#id_transaksi').val($id_transaksi);

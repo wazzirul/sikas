@@ -33,6 +33,7 @@
         <div class="mt-3">
           <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
           <select id="filter_id_kelas" class="form-select">
+            <option value="">Semua</option>
             @foreach($kelas as $k)
               <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
             @endforeach
@@ -41,6 +42,7 @@
         <div class="mt-3">
           <label for="filter_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
           <select id="filter_id_jurusan" class="form-select">
+            <option value="">Semua</option>
             @foreach($jurusan as $j)
               <option value="{{ $j->id_jurusan }}">{{ $j->nama }}</option>
             @endforeach
@@ -49,6 +51,7 @@
         <div class="mt-3">
           <label for="filter_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
           <select id="filter_nomor_kelas" class="form-select">
+            <option value="">Semua</option>
             @for($q = 1; $q <= $nomor_kelas + 1; $q++)
               <option value="{{ $q }}">{{ $q }}</option>
             @endfor
@@ -77,6 +80,7 @@
           <tr>
             <th>Nama</th>
             <th>NIS</th>
+            <th>L/P</th>
             <th>Kelas</th>
             <th></th>
           </tr>
@@ -91,11 +95,14 @@
               <p class="text-medium color-neutral-100">{{ $a->nis }}</p>
             </td>
             <td>
+              <p class="text-medium color-neutral-100">{{ $a->jenis_kelamin }}</p>
+            </td>
+            <td>
               <p class="text-medium color-neutral-100">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="/transaksi/history-transaksi-siswa/detail/1" class="table__link-detail d-flex align-items-center gap-2">
+                <a href="/transaksi/history-transaksi-siswa/detail/{{ $a->id_anggota }}" class="table__link-detail d-flex align-items-center gap-2">
                   Detail
                   <i class="fa-solid fa-eye"></i>
                 </a>
@@ -137,6 +144,13 @@
           <div class="mb-3">
             <label for="nis" class="form-label">NIS</label>
             <input type="text" class="form-control" name="nis" id="nis" placeholder="NIS..." >
+          </div>
+          <div class="mb-3">
+            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+            <select id="jenis_kelamin" name="jenis_kelamin" class="form-select">
+              <option value="L">Laki-laki</option>
+              <option value="P">Perempuan</option>
+            </select>
           </div>
           <div class="mb-3">
             <label for="id_kelas" class="form-label text-bold color-black">Kelas</label>
@@ -187,6 +201,13 @@
           <div class="mb-3">
             <label for="update_nis" class="form-label">NIS</label>
             <input type="text" class="form-control" id="update_nis" placeholder="NIS..." >
+          </div>
+          <div class="mb-3">
+            <label for="update_jenis_kelamin" class="form-label">Jenis Kelamin</label>
+            <select id="update_jenis_kelamin" name="update_jenis_kelamin" class="form-select">
+              <option value="L">Laki-laki</option>
+              <option value="P">Perempuan</option>
+            </select>
           </div>
           <div class="mb-3">
             <label for="update_id_kelas" class="form-label text-bold color-black">Kelas</label>

@@ -41,6 +41,7 @@ class SiswaController extends Controller
   public function postSiswa(Request $request){
     $nama_siswa = $request->input('nama_siswa');
     $nis = $request->input('nis');
+    $jenis_kelamin = $request->input('jenis_kelamin');
     $id_kelas = $request->input('id_kelas');
     $id_jurusan = $request->input('id_jurusan');
     $nomor_kelas = $request->input('nomor_kelas');
@@ -50,6 +51,7 @@ class SiswaController extends Controller
       ->first();
 
     if($siswa){
+      $siswa->jenis_kelamin = $jenis_kelamin;
       $siswa->id_kelas = $id_kelas;
       $siswa->id_jurusan = $id_jurusan;
       $siswa->nomor_kelas = $nomor_kelas;
@@ -59,6 +61,7 @@ class SiswaController extends Controller
       $siswa->tipe_anggota = 2;
       $siswa->nama = $nama_siswa;
       $siswa->nis = $nis;
+      $siswa->jenis_kelamin = $jenis_kelamin;
       $siswa->id_kelas = $id_kelas;
       $siswa->id_jurusan = $id_jurusan;
       $siswa->nomor_kelas = $nomor_kelas;
@@ -72,11 +75,13 @@ class SiswaController extends Controller
       ->first();
     if($keuangan_siswa){
       $keuangan_siswa->tagihan = $tagihan->jumlah;
+      $keuangan_siswa->tagihan_pertama = $tagihan->jumlah;
       $keuangan_siswa->soft_delete = '0';
     }else{
       $keuangan_siswa = new KeuanganAnggota();
       $keuangan_siswa->id_anggota = $siswa->id_anggota;
       $keuangan_siswa->tagihan = $tagihan->jumlah;
+      $keuangan_siswa->tagihan_pertama = $tagihan->jumlah;
     }
     $keuangan_siswa->save();
 

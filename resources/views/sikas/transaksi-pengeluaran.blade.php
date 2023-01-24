@@ -74,13 +74,15 @@
               <p class="text-medium color-neutral-100 nominal-transaksi">{{ $t->jumlah }}</p>
             </td>
             <td>
-            <p class="text-bold color-neutral-100">Butuh Konfrimasi Admin</p>
+            <p class="text-bold color-neutral-100">{{ $t->approved == 1 ? 'Sudah Dikonfirmasi' : 'Butuh Konfirmasi Admin' }}</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-success" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                @if(Session::get('tipe_user') == 1 && $t->approved == 0)
+                <a href="#" class="table__link-detail approve-button text-success" data-jumlah="{{ $t->jumlah }}" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
                   <i class="fa-solid fa-check"></i>
                 </a>
+                @endif
                 <a href="#" class="table__link-detail text-info gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   <i class="fa-solid fa-pen"></i>
                 </a>
@@ -109,7 +111,7 @@
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
-          <button class="btn btn-success w-100 confrim-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfrimSuccess">Konfrimasi</button>
+          <button class="btn btn-success w-100 confirm-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfrimSuccess">Konfrimasi</button>
         </div>
       </div>
     </div>

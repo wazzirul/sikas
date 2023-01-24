@@ -11,6 +11,7 @@ use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
+use App\Models\PengajuanPenambahan;
 use App\Models\Transaksi;
 use App\Models\StrukturSekolah;
 use App\Models\Tagihan;
@@ -73,9 +74,11 @@ class QueryController extends Controller
         $nomor_kelas = $request->input('nomor_kelas');
 
         $anggota = Anggota::where('tipe_anggota', 2)
-            ->where('id_kelas', $id_kelas)
-            ->where('id_jurusan', $id_jurusan)
-            ->where('nomor_kelas', $nomor_kelas)
+            ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
+                $id_kelas && $q->where('id_kelas', $id_kelas);
+                $id_jurusan && $q->where('id_jurusan', $id_jurusan);
+                $nomor_kelas && $q->where('nomor_kelas', $nomor_kelas);
+            })
             ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
             ->get();
 
@@ -220,6 +223,54 @@ class QueryController extends Controller
         return response($data, 200);
     }
 
+    public function postPengajuanPenambahan(Request $request)
+    {
+        $id_anggota = $request->input('id_anggota');
+        $nominal = $request->input('nominalPembayaran');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $pengajuan = new PengajuanPenambahan();
+        $pengajuan->id_anggota = $id_anggota;
+        $pengajuan->jumlah = $nominal;
+
+        //menyimpan data file yang diupload ke variabel $file
+        $file_pengajuan = $request->file('file-pengajuan');
+
+        if($file_pengajuan){
+            $nama_file = time() . "_" . $file_pengajuan->getClientOriginalName();
+    
+            //isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = 'uploads/file_pengajuan/';
+            //upload file
+            $file_pengajuan->move($tujuan_upload, $nama_file);
+            
+            $pengajuan->file = $tujuan_upload . $nama_file;
+        }
+        
+        $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
+        $tanggungan = $keuangan_anggota->tagihan;
+        $keuangan_anggota->tagihan = (int)$tanggungan + (int)$nominal;
+
+        $pengajuan->save();
+        $keuangan_anggota->save();
+
+        $res_anggota = Anggota::where('id_anggota', $id_anggota)
+            ->with('Kelas', 'Jurusan')
+            ->first();
+
+        $res_anggota['detail_kelas'] = $res_anggota->Kelas->nama . ' ' . $res_anggota->Jurusan->nama
+            . ' ' . $res_anggota->nomor_kelas;
+
+        $data['tanggal'] = Carbon::now()->format('l, d F Y');
+        $data['anggota'] = $res_anggota;
+        $data['pengajuan'] = $pengajuan;
+        $data['kasir'] = Session::get('nama');
+
+        return response($data, 200);
+    }
+
     public function setorTabunganSiswa(Request $request)
     {
         $id_anggota = $request->input('id_anggota');
@@ -293,23 +344,33 @@ class QueryController extends Controller
         $transaksi->tipe_transaksi = 3;
         $transaksi->jumlah = (int)$nominal;
 
-        $keuangan_sekolah = KeuanganSekolah::first();
-        if (!$keuangan_sekolah) {
-            $keuangan_sekolah = new KeuanganSekolah();
-            $keuangan_sekolah->pengeluaran = $nominal;
-            $keuangan_sekolah->total = 0 - $nominal;
-        } else {
-            $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$nominal;
-            $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal;
+        if(Session::get('tipe_user') == 1){
+            $keuangan_sekolah = KeuanganSekolah::first();
+            if (!$keuangan_sekolah) {
+                $keuangan_sekolah = new KeuanganSekolah();
+                $keuangan_sekolah->pengeluaran = $nominal;
+                $keuangan_sekolah->total = 0 - $nominal;
+            } else {
+                $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal;
+            }
+    
+            $tabungan_anggota = $keuangan_anggota->tabungan ?? 0;
+            $keuangan_anggota->tabungan = (int)$tabungan_anggota - (int)$nominal;
+            $transaksi->mutasi = (int)$tabungan_anggota - (int)$nominal;
+
+            $transaksi->approved = 1;
+
+            $keuangan_sekolah->save();
+            $keuangan_anggota->save();
+        }else{
+            $tabungan_anggota = $keuangan_anggota->tabungan ?? 0;
+            $transaksi->mutasi = (int)$tabungan_anggota - (int)$nominal;
+
+            $transaksi->approved = 0;
         }
 
-        $tabungan_anggota = $keuangan_anggota->tabungan ?? 0;
-        $keuangan_anggota->tabungan = (int)$tabungan_anggota - (int)$nominal;
-        $transaksi->mutasi = (int)$tabungan_anggota - (int)$nominal;
-
         $transaksi->save();
-        $keuangan_sekolah->save();
-        $keuangan_anggota->save();
 
         $res_anggota = Anggota::where('id_anggota', $id_anggota)
             ->with('Kelas', 'Jurusan', 'Jabatan')
@@ -328,6 +389,50 @@ class QueryController extends Controller
         $data['kasir'] = Session::get('nama');
 
         return response($data, 200);
+    }
+
+    public function approvePenarikanTabunganSiswa(Request $request)
+    {
+        $id_transaksi = $request->input('id_transaksi');
+        $id_anggota = $request->input('id_anggota');
+        $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
+        $transaksi = Transaksi::find($id_transaksi);
+        $nominal = (int)$transaksi->jumlah;
+        
+        $keuangan_sekolah = KeuanganSekolah::first();
+        if (!$keuangan_sekolah) {
+            $keuangan_sekolah = new KeuanganSekolah();
+            $keuangan_sekolah->pengeluaran = $nominal;
+            $keuangan_sekolah->total = 0 - $nominal;
+        } else {
+            $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal;
+        }
+
+        $tabungan_anggota = $keuangan_anggota->tabungan ?? 0;
+        $keuangan_anggota->tabungan = (int)$tabungan_anggota - (int)$nominal;
+
+        $transaksi->approved = 1;
+
+        $keuangan_sekolah->save();
+        $keuangan_anggota->save();
+        $transaksi->save();
+
+        // HISTORY
+        $history = Transaksi::where('id_anggota', $id_anggota)
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->where('id_transaksi', '>', $id_transaksi)
+            ->where('soft_delete', 0)
+            ->get();
+
+        foreach ($history as $h) {
+            $mutasi_lama = $h->mutasi;
+            $h->mutasi = (int)$mutasi_lama - (int)$nominal;
+            $h->save();
+        }
+
+        return response($transaksi, 200);
     }
 
     public function riwayatPembayaranSpp(Request $request)
@@ -425,6 +530,7 @@ class QueryController extends Controller
 
         $transaksi = Transaksi::find($id_transaksi);
         $nominal_awal = $transaksi->jumlah;
+        $keuangan_sekolah = KeuanganSekolah::first();
         $keuangan_anggota = KeuanganAnggota::where('id_anggota', $transaksi->id_anggota)->first();
         $selisih_nominal = 0;
         $validasi_nominal;
@@ -437,9 +543,18 @@ class QueryController extends Controller
             if ((int)$transaksi->tipe_transaksi == 2) {
                 $keuangan_anggota->tabungan = (int)$tabungan_awal - (int)$selisih_nominal;
                 $transaksi->mutasi = (int)$mutasi_awal - (int)$selisih_nominal;
+                $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan - (int)$selisih_nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
             } else {
-                $keuangan_anggota->tabungan = (int)$tabungan_awal + (int)$selisih_nominal;
                 $transaksi->mutasi = (int)$mutasi_awal + (int)$selisih_nominal;
+                if(Session::get('tipe_user') == 1){
+                    $keuangan_anggota->tabungan = (int)$tabungan_awal + (int)$selisih_nominal;
+                    $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$selisih_nominal;
+                    $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
+                    $transaksi->approved = 1;
+                }else{
+                    $transaksi->approved = 0;
+                }
             }
             $validasi_nominal = 'besar';
         } else {
@@ -450,9 +565,18 @@ class QueryController extends Controller
             if ((int)$transaksi->tipe_transaksi == 2) {
                 $keuangan_anggota->tabungan = (int)$tabungan_awal + (int)$selisih_nominal;
                 $transaksi->mutasi = (int)$mutasi_awal + (int)$selisih_nominal;
+                $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan + (int)$selisih_nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
             } else {
-                $keuangan_anggota->tabungan = (int)$tabungan_awal - (int)$selisih_nominal;
                 $transaksi->mutasi = (int)$mutasi_awal - (int)$selisih_nominal;
+                if(Session::get('tipe_user') == 1){
+                    $keuangan_anggota->tabungan = (int)$tabungan_awal - (int)$selisih_nominal;
+                    $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran - (int)$selisih_nominal;
+                    $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
+                    $transaksi->approved = 1;
+                }else{
+                    $transaksi->approved = 0;
+                }
             }
             $validasi_nominal = 'kecil';
         }
@@ -501,7 +625,7 @@ class QueryController extends Controller
         if ((int)$transaksi->tipe_transaksi == 2) {
             $keuangan_anggota->tabungan = (int)$tabungan_awal - (int)$nominal_awal;
         } else {
-            $keuangan_anggota->tabungan = (int)$tabungan_awal + (int)$nominal_awal;
+            if($transaksi->approved == 1) $keuangan_anggota->tabungan = (int)$tabungan_awal + (int)$nominal_awal;
         }
         $transaksi->soft_delete = 1;
 
@@ -546,6 +670,34 @@ class QueryController extends Controller
         $transaksi->jumlah = (int)$nominal;
 
         $keuangan_sekolah = KeuanganSekolah::first();
+        if(Session::get('tipe_user') == 1){
+            if (!$keuangan_sekolah) {
+                $keuangan_sekolah = new KeuanganSekolah();
+                $keuangan_sekolah->pengeluaran = $nominal;
+                $keuangan_sekolah->total = $nominal;
+            } else {
+                $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal;
+            }
+
+            $transaksi->approved = 1;
+        }else{
+            $transaksi->approved = 0;
+        }
+
+        $transaksi->save();
+        $keuangan_sekolah->save();
+
+        return response($keuangan_sekolah, 200);
+    }
+
+    public function approvePengeluaran(Request $request)
+    {
+        $id_transaksi = $request->input('id_transaksi');
+        $transaksi = Transaksi::find($id_transaksi);
+        $nominal = (int)$transaksi->jumlah;
+        
+        $keuangan_sekolah = KeuanganSekolah::first();
         if (!$keuangan_sekolah) {
             $keuangan_sekolah = new KeuanganSekolah();
             $keuangan_sekolah->pengeluaran = $nominal;
@@ -554,6 +706,8 @@ class QueryController extends Controller
             $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$nominal;
             $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal;
         }
+
+        $transaksi->approved = 1;
 
         $transaksi->save();
         $keuangan_sekolah->save();
@@ -578,14 +732,24 @@ class QueryController extends Controller
             $selisih_nominal = (int)$nominal_awal - (int)$nominal;
             $pengeluaran_awal = $keuangan_sekolah->pengeluaran;
             $transaksi->jumlah = $nominal;
-            $keuangan_sekolah->pengeluaran = (int)$pengeluaran_awal - (int)$selisih_nominal;
-            $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
+            if(Session::get('tipe_user') == 1){
+                $keuangan_sekolah->pengeluaran = (int)$pengeluaran_awal - (int)$selisih_nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
+                $transaksi->approved = 1;
+            }else{
+                $transaksi->approved = 0;
+            }
         } else {
             $selisih_nominal = (int)$nominal - (int)$nominal_awal;
             $pengeluaran_awal = $keuangan_sekolah->pengeluaran;
             $transaksi->jumlah = $nominal;
-            $keuangan_sekolah->pengeluaran = (int)$pengeluaran_awal + (int)$selisih_nominal;
-            $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
+            if(Session::get('tipe_user') == 1){
+                $keuangan_sekolah->pengeluaran = (int)$pengeluaran_awal + (int)$selisih_nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
+                $transaksi->approved = 1;
+            }else{
+                $transaksi->approved = 0;
+            }
         }
 
         $transaksi->save();
@@ -601,8 +765,10 @@ class QueryController extends Controller
         $transaksi = Transaksi::find($id_transaksi);
         $keuangan_sekolah = KeuanganSekolah::first();
         $nominal_awal = $transaksi->jumlah;
-        $keuangan_sekolah->pengeluaran -= (int)$nominal_awal;
-        $keuangan_sekolah->total += (int)$nominal_awal;
+        if($transaksi->approved == 1){
+            $keuangan_sekolah->pengeluaran -= (int)$nominal_awal;
+            $keuangan_sekolah->total += (int)$nominal_awal;
+        }
         $transaksi->soft_delete = 1;
 
         $transaksi->save();
@@ -732,6 +898,7 @@ class QueryController extends Controller
         $id_anggota = $request->input('id_anggota');
         $nama_siswa = $request->input('nama_siswa') ?? null;
         $nis = $request->input('nis') ?? null;
+        $jenis_kelamin = $request->input('jenis_kelamin') ?? null;
         $id_kelas = $request->input('id_kelas') ?? null;
         $id_jurusan = $request->input('id_jurusan') ?? null;
         $nomor_kelas = $request->input('nomor_kelas') ?? null;
@@ -739,6 +906,7 @@ class QueryController extends Controller
         $siswa = Anggota::find($id_anggota);
         $nama_siswa != null && $siswa->nama = $nama_siswa;
         $nis != null && $siswa->nis = $nis;
+        $jenis_kelamin != null && $siswa->jenis_kelamin = $jenis_kelamin;
         $id_kelas != null && $siswa->id_kelas = $id_kelas;
         $id_jurusan != null && $siswa->id_jurusan = $id_jurusan;
         $nomor_kelas != null && $siswa->nomor_kelas = $nomor_kelas;
@@ -843,16 +1011,53 @@ class QueryController extends Controller
     public function laporanPembayaranSpp(Request $request){
         $tanggal_awal = $request->input('tanggal_awal');
         $tanggal_akhir = $request->input('tanggal_akhir');
+        $id_kelas = $request->input('id_kelas') ?? null;
+        $id_jurusan = $request->input('id_jurusan') ?? null;
+        $nomor_kelas = $request->input('nomor_kelas') ?? null;
     
         $laporan = Transaksi::where('tipe_transaksi', 1)
             ->whereDate('tanggal', '>=', $tanggal_awal)
             ->whereDate('tanggal', '<=', $tanggal_akhir)
+            ->with('Anggota', 'Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
+            ->whereHas('Anggota', function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
+                $id_kelas && $q->where('anggota.id_kelas', $id_kelas);
+                $id_jurusan && $q->where('anggota.id_jurusan', $id_jurusan);
+                $nomor_kelas && $q->where('anggota.nomor_kelas', $nomor_kelas);
+            })
             ->where('soft_delete', 0)
             ->orderBy('id_transaksi', 'DESC')
-            ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
             ->get();
 
         return response($laporan, 200);
+    }
+
+    public function laporanPembayaranSppKelas(Request $request){
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+        $id_kelas = $request->input('id_kelas');
+        $id_jurusan = $request->input('id_jurusan');
+        $nomor_kelas = $request->input('nomor_kelas');
+
+        $anggota = Anggota::where('id_kelas', $id_kelas)
+            ->where('id_jurusan', $id_jurusan)
+            ->where('nomor_kelas', $nomor_kelas)
+            ->where('soft_delete', 0)
+            ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
+            ->orderBy('nama', 'ASC')
+            ->get();
+
+        foreach($anggota as $a){
+            $transaksi = Transaksi::where('tipe_transaksi', 1)
+                ->whereDate('tanggal', '>=', $tanggal_awal)
+                ->whereDate('tanggal', '<=', $tanggal_akhir)
+                ->where('id_anggota', $a->id_anggota)
+                ->where('soft_delete', 0)
+                ->sum('jumlah');
+
+            $a['total_pembayaran'] = $transaksi;
+        }
+
+        return response($anggota, 200);
     }
 
     public function laporanPembayaranTabungan(Request $request){

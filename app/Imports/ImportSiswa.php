@@ -31,22 +31,24 @@ class ImportSiswa implements ToModel, WithStartRow
                 ->where('nis', $row[0])
                 ->first();
 
-            $kelas = Kelas::where('nama', $row[2])
+            $kelas = Kelas::where('nama', $row[3])
                 ->first();
 
-            $jurusan = Jurusan::where('nama', $row[3])
+            $jurusan = Jurusan::where('nama', $row[4])
                 ->first();
     
             if($siswa){
+                $siswa->jenis_kelamin = $row[2];
                 $siswa->tipe_anggota = 2;
-                $siswa->nomor_kelas = $row[4];
+                $siswa->nomor_kelas = $row[5];
                 $siswa->soft_delete = '0';
             }else{
                 $siswa = new Anggota();
+                $siswa->jenis_kelamin = $row[2];
                 $siswa->tipe_anggota = 2;
                 $siswa->nama = $row[1];
                 $siswa->nis = $row[0];
-                $siswa->nomor_kelas = $row[4];
+                $siswa->nomor_kelas = $row[5];
             }
 
             if($kelas){
@@ -77,6 +79,8 @@ class ImportSiswa implements ToModel, WithStartRow
                 $keuangan_siswa = new KeuanganAnggota();
                 $keuangan_siswa->id_anggota = $id_anggota;
                 $keuangan_siswa->tagihan = $tagihan->jumlah;
+                $keuangan_siswa->tagihan = $tagihan->jumlah;
+                $keuangan_siswa->tagihan_pertama = $tagihan->jumlah;
                 $keuangan_siswa->save();
             }
     

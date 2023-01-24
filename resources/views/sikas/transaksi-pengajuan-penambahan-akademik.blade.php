@@ -17,7 +17,7 @@
 
 @section('page-script')
 <script src="{{asset('assets/js/print-receipt.js')}}"></script>
-<script src="{{asset('assets/js/pages/pengajuan-keringanan.js')}}"></script>
+<script src="{{asset('assets/js/pages/pengajuan-penambahan.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -39,18 +39,18 @@ Transaksi
       <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
         <i class="fa-regular fa-user detail-siswa__icon"></i>
         <div class="d-flex flex-column gap-1">
-          <h5 class="text-bold color-neutral-100">Faisal Adi</h5>
-          <p class="nomor-siswa color-neutral-80">123412341234</p>
+          <h5 class="text-bold color-neutral-100">{{ $anggota->nama }}</h5>
+          <p class="nomor-siswa color-neutral-80">{{ $anggota->nis }}</p>
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center gap-3 mt-3 detail-siswa-history__subs">
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Kelas</p>
-          <p class="text-bold color-neutral-100">X TKJ 2</p>
+          <p class="text-bold color-neutral-100">{{ $anggota->Kelas->nama }} {{ $anggota->Jurusan->nama }} {{ $anggota->nomor_kelas }}</p>
         </div>
         <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Sisa Partisipasi BPP</p>
-          <h5 class="text-bold text-primary sisa-tanggungan">675000</h5>
+          <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
         </div>
       </div>
     </div>
@@ -72,22 +72,24 @@ Transaksi
           </tr>
         </thead>
         <tbody>
+          @foreach($history as $h)
           <tr>
             <td>
-              <p class="color-neutral-100">Januari, 13 2023</p>
+              <p class="color-neutral-100">{{ \Carbon\Carbon::parse($h->tanggal)->translatedFormat('F, d Y') }}</p>
             </td>
             <td>
-              <p class="color-neutral-100 nominal-transaksi">50000</p>
+              <p class="color-neutral-100 nominal-transaksi">{{ $h->jumlah }}</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-start gap-3">
-                <a href="#!" class="table__link-detail d-flex align-items-center gap-2 detail-pengajuan" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringananDetail">
+                <a href="#!" class="table__link-detail d-flex align-items-center gap-2 detail-pengajuan" data-file="{{ $h->file }}" data-jumlah="{{ $h->jumlah }}" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringananDetail">
                   Lihat Detail
                   <i class="fa-solid fa-eye"></i>
                 </a>
               </div>
             </td>
           </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -95,13 +97,13 @@ Transaksi
   <div class="border-line"></div>
   <div class="pengajuan-keringanan__form">
     <h4 class="text-bold color-black mb-4">Form Pengajuan Penambahan</h4>
-    <form id="form-pengajuan-keringanan" action="/query/postPengajuanKeringanan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
+    <form id="form-pengajuan-penambahan" action="/query/postPengajuanPenambahan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
       {{ csrf_field() }}
-      <input type="hidden" name="id_anggota" value="" />
+      <input type="hidden" name="id_anggota" value="{{ $anggota->id_anggota }}" />
       <div class="pengajuan-keringanan-form__input-wrapper">
         <div class="pengajuan-keringanan-form__input">
           <label for="upload-surat-pengajuan" class="form-label color-black">Upload Surat Pengajuan <span class="text-secondary text-extra-bold">*Optional</span></label>
-          <input class="form-control" type="file" name="file-pengajuan" id="upload-surat-pengajuan" autocomplete="off" accept="application/pdf">
+          <input class="form-control" type="file" name="file-pengajuan" id="upload-surat-pengajuan" accept="application/pdf">
           <small class="text-bold color-black">Siswa / Siswi Tidak Wajib memberikan surat / file pengajuan berupa pdf</small>
         </div>
         <div class="pengajuan-keringanan-form__item-upload d-none">
@@ -113,7 +115,7 @@ Transaksi
         <label for="nominalPembayaran" class="form-label text-bold color-black">Nominal Penambahan</label>
         <input type="text" min="0" class="form-control" required id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
       </div>
-      <button class="btn btn-primary pengajuan-keringanan-button mt-4" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringanan">Ajukan Penambahan</button>
+      <button type="submit" class="btn btn-primary pengajuan-keringanan-button mt-4" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringanan">Ajukan Penambahan</button>
     </form>
   </div>
 </div>

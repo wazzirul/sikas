@@ -9,6 +9,7 @@ $(document).ready(function () {
     let id_anggota = $('#id_anggota').val();
     let nama_siswa = $('#update_nama_siswa').val();
     let nis = $('#update_nis').val();
+    let jenis_kelamin = $('#update_jenis_kelamin').val();
     let id_kelas = $('#update_id_kelas').val();
     let id_jurusan = $('#update_id_jurusan').val();
     let nomor_kelas = $('#update_nomor_kelas').val();
@@ -21,6 +22,7 @@ $(document).ready(function () {
         id_anggota: id_anggota,
         nama_siswa: nama_siswa,
         nis: nis,
+        jenis_kelamin: jenis_kelamin,
         id_kelas: id_kelas,
         id_jurusan: id_jurusan,
         nomor_kelas: nomor_kelas,
@@ -83,6 +85,9 @@ $(document).ready(function () {
                 <p class="text-medium color-neutral-100">${value.nis}</p>
               </td>
               <td>
+                <p class="text-medium color-neutral-100">${value.jenis_kelamin}</p>
+              </td>
+              <td>
                 <p class="text-medium color-neutral-100">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
               </td>
               <td>
@@ -124,6 +129,7 @@ function changeAnggota($id_anggota) {
     success: (result) => {
       $('#update_nama_siswa').val(result.nama);
       $('#update_nis').val(result.nis);
+      $('#update_jenis_kelamin').val(result.jenis_kelamin);
       $('#update_nomor_kelas').val(result.nomor_kelas);
       result.id_kelas !== null ? $('#update_id_kelas').val(result.kelas.id_kelas) : $('#update_id_kelas').val("")
       result.id_jurusan !== null ? $('#update_id_jurusan').val(result.jurusan.id_jurusan) : $('#update_id_jurusan').val("")

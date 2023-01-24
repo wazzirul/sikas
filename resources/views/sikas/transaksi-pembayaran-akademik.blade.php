@@ -125,7 +125,7 @@ Transaksi
 <div class="card card--riwayat-transaksi mt-5 d-none">
   <h4 class="color-neutral-100 mb-5">Riwayat Transaksi Biaya Penunjang Pendidikan</h4>
   <div class="d-flex align-items-center justify-content-end gap-3">
-    <a href="{{route('sikas-transaksi--pembayaran-pengajuan-penambahan')}}" class="btn btn-primary w-max-content ajukan-penambahan ajukan-penambahan-button">Ajukan Penambahan</a>
+    <a href="#!" class="btn btn-primary w-max-content ajukan-penambahan ajukan-penambahan-button">Ajukan Penambahan</a>
     <a href="#!" class="btn btn-outline-primary w-max-content ajukan-keringanan ajukan-keringanan-button">Ajukan Keringanan</a>
   </div>
   <div class="card-body">

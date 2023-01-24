@@ -23,6 +23,11 @@ $(document).ready(function () {
     deleteTransaksi();
   })
 
+  $('.approve-button').click((e) => {
+    console.log(e);
+    $('.modal--transaksi__nominal-penarikan').text(`Rp. ${numberFormat(e.currentTarget.dataset.jumlah)}`);
+  })
+
   $('.pengajuan-pemasukan-button').click((e) => {
     $.ajax({
       url: '/query/pengeluaran',
@@ -43,6 +48,27 @@ $(document).ready(function () {
     })
   })
 });
+
+$('.confirm-transaksi-button').click(() => {
+  let id_transaksi = $('#id_transaksi').val();
+
+  $.ajax({
+    url: '/query/approvePengeluaran',
+    method: 'POST',
+    data: {
+      _token: $('#ctoken').val(),
+      id_transaksi: id_transaksi,
+    },
+    success: () => {
+      setTimeout(() => {
+        location.reload()
+      }, 2000);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+})
 
 function updateTransaksi() {
   let id_transaksi = $('#id_transaksi').val();

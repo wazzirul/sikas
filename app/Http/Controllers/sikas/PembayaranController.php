@@ -10,6 +10,7 @@ use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
+use App\Models\PengajuanPenambahan;
 use App\Models\Transaksi;
 
 class PembayaranController extends Controller
@@ -75,13 +76,25 @@ class PembayaranController extends Controller
 				->get();
 
 		return view('sikas.transaksi-pengajuan-keringanan-akademik', [
-				'anggota' => $anggota,
-				'history' => $history,
+			'anggota' => $anggota,
+			'history' => $history,
 		]);
 	}
 	
-	public function pengajuanPenambahanPembayaran(){
-		return view('sikas.transaksi-pengajuan-penambahan-akademik');
+	public function pengajuanPenambahanPembayaran($id){
+		$anggota = $anggota = Anggota::where('id_anggota', $id)
+				->with('Kelas', 'Jurusan', 'KeuanganAnggota')
+				->first();
+
+		$history = PengajuanPenambahan::where('id_anggota', $id)
+				->where('soft_delete', 0)
+				->orderBy('id_pengajuan_penambahan', 'DESC')
+				->get();
+
+		return view('sikas.transaksi-pengajuan-penambahan-akademik', [
+			'anggota' => $anggota,
+			'history' => $history,
+		]);
 	}
 
 	public function PembayaranAkademik()

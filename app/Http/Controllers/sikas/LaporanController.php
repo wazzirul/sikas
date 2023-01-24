@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+use App\Models\Anggota;
+use App\Models\Kelas;
+use App\Models\Jurusan;
 use App\Models\Transaksi;
 use App\Models\PengajuanKeringanan;
 use App\Models\KeuanganSekolah;
@@ -129,8 +132,23 @@ class LaporanController extends Controller
       ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
       ->get();
 
+    $kelas = Kelas::where('soft_delete', 0)
+      ->orderBy('nama', 'ASC')
+      ->get();
+
+    $jurusan = Jurusan::where('soft_delete', 0)
+      ->orderBy('nama', 'ASC')
+      ->get();
+
+    $nomor_kelas = Anggota::where('tipe_anggota', 2)
+      ->where('soft_delete', 0)
+      ->max('nomor_kelas');
+
     return view('sikas.laporan-pembayaran-spp', [
       'laporan' => $laporan,
+      'kelas' => $kelas,
+      'jurusan' => $jurusan,
+      'nomor_kelas' => $nomor_kelas,
     ]);
   }  
 

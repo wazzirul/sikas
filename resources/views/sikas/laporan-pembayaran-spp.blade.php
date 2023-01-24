@@ -50,28 +50,28 @@ Laporan
               <div class="mt-3">
                 <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
                 <select id="filter_id_kelas" autocomplete="off" class="form-select">
-                  <option value="all">Semua</option>
-                  <option value="1">X</option>
-                  <option value="2">XI</option>
-                  <option value="3">XII</option>
+                  <option value="" selected>Semua</option>
+                  @foreach($kelas as $k)
+                  <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
+                  @endforeach
                 </select>
               </div>
               <div class="mt-3">
                 <label for="filter_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
                 <select id="filter_id_jurusan" autocomplete="off" class="form-select">
-                  <option value="all">Semua</option>
-                  <option value="1">TKJ</option>
-                  <option value="2">RPL</option>
-                  <option value="3">Multimedia</option>
+                  <option value="" selected>Semua</option>
+                  @foreach($jurusan as $j)
+                  <option value="{{ $j->id_jurusan }}">{{ $j->nama }}</option>
+                  @endforeach
                 </select>
               </div>
               <div class="mt-3">
                 <label for="filter_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
                 <select id="filter_nomor_kelas" autocomplete="off" class="form-select">
-                  <option value="all">Semua</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option value="" selected>Semua</option>
+                  @for($q = 1; $q <= $nomor_kelas; $q++)
+                  <option value="{{ $q }}">{{ $q }}</option>
+                  @endfor
                 </select>
               </div>
               <!-- <button type="button" class="btn btn-outline-primary cari-siswa-button">Filter Data</button> -->
@@ -134,30 +134,30 @@ Laporan
           <div class="d-flex justify-content-between align-items-end mb-5 gap-3">
             <div class="filter-siswa d-flex align-items-end gap-3">
               <div class="mt-3">
-                <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
-                <select id="filter_id_kelas" autocomplete="off" class="form-select">
-                  <option value="all">Semua</option>
-                  <option value="1">X</option>
-                  <option value="2">XI</option>
-                  <option value="3">XII</option>
+                <label for="filter_id_kelas_kelas" class="form-label text-bold color-black">Kelas</label>
+                <select id="filter_id_kelas_kelas" autocomplete="off" class="form-select">
+                  <option value="" disabled selected>Pilih Kelas</option>
+                  @foreach($kelas as $k)
+                  <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
+                  @endforeach
                 </select>
               </div>
               <div class="mt-3">
-                <label for="filter_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
-                <select id="filter_id_jurusan" autocomplete="off" class="form-select">
-                  <option value="all">Semua</option>
-                  <option value="1">TKJ</option>
-                  <option value="2">RPL</option>
-                  <option value="3">Multimedia</option>
+                <label for="filter_id_jurusan_kelas" class="form-label text-bold color-black">Jurusan</label>
+                <select id="filter_id_jurusan_kelas" autocomplete="off" class="form-select">
+                  <option value="" disabled selected>Pilih Jurusan</option>
+                  @foreach($jurusan as $j)
+                  <option value="{{ $j->id_jurusan }}">{{ $j->nama }}</option>
+                  @endforeach
                 </select>
               </div>
               <div class="mt-3">
-                <label for="filter_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
-                <select id="filter_nomor_kelas" autocomplete="off" class="form-select">
-                  <option value="all">Semua</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                <label for="filter_nomor_kelas_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
+                <select id="filter_nomor_kelas_kelas" autocomplete="off" class="form-select">
+                  <option value="" disabled selected>Pilih Nomor Kelas</option>
+                  @for($q = 1; $q <= $nomor_kelas; $q++)
+                  <option value="{{ $q }}">{{ $q }}</option>
+                  @endfor
                 </select>
               </div>
               <!-- <button type="button" class="btn btn-outline-primary cari-siswa-button">Filter Data</button> -->
@@ -184,38 +184,7 @@ Laporan
                   <th>Sisa Partisipasi</th>
                 </tr>
               </thead>
-              <tbody id="tbody-laporan-spp">
-                <?php
-                  $no_siswa=1;
-                ?>
-                @foreach($laporan as $l)
-                <tr>
-                  <td>
-                    <p class="text-medium color-neutral-100">{{ $no_siswa++ }}</p>
-                  </td>
-                  <td>
-                    <p class="text-medium color-neutral-100">8179/2082.040</p>
-                  </td>
-                  <td class="text-medium">
-                    <p class="text-medium color-neutral-100">{{ $l->Anggota->nama }} </p>
-                  </td>
-                  <td>
-                    <p class="text-medium color-neutral-100">{{ $l->Anggota->Kelas->nama }} {{ $l->Anggota->Jurusan->nama }} {{ $l->Anggota->nomor_kelas }}</p>
-                  </td>
-                  <td class="text-medium">
-                    <p class="text-medium color-neutral-100">L</p>
-                  </td>
-                  <td>
-                    <p class="text-medium color-neutral-100 nominal-transaksi">1.000.000</p>
-                  </td>
-                  <td>
-                    <p class="text-medium color-neutral-100 nominal-transaksi">{{ $l->jumlah }}</p>
-                  </td>
-                  <td>
-                    <p class="text-medium color-neutral-100 nominal-transaksi">500.000</p>
-                  </td>
-                </tr>
-                @endforeach
+              <tbody id="tbody-laporan-spp-kelas">
               </tbody>
             </table>
           </div>
