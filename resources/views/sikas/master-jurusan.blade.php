@@ -46,63 +46,27 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($jurusan as $key => $j)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">1</p>
+              <p class="text-medium color-neutral-100">{{ ($key + 1) }}</p>
             </td>
             <td class="text-medium">
-              <p class="text-medium color-neutral-100">RPL</p>              
+              <p class="text-medium color-neutral-100">{{ $j->nama }}</p>              
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-info" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-info" onClick="changeJurusan({{$j->id_jurusan}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail text-danger" onClick="changeJurusan({{$j->id_jurusan}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
             </td>
           </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">2</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">TKJ</p>              
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-info" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-medium color-neutral-100">3</p>
-            </td>
-            <td class="text-medium">
-              <p class="text-medium color-neutral-100">Akutansi</p>              
-            </td>
-            <td>
-              <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-info" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                  Edit <i class="fa-solid fa-pen"></i>
-                </a>
-                <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                  Hapus <i class="fa-regular fa-trash-can"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -120,10 +84,11 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="#">
+        <form action="/master-jurusan/post" method="POST">
+          {{ csrf_field() }}
           <div class="mb-3">
-            <label for="master_jurusan" class="form-label">Nama / Master Jurusan</label>
-            <input type="text" class="form-control" name="jurusan" id="master_jurusan" placeholder="Nama / Master Jurusan..." >
+            <label for="jurusan" class="form-label">Nama / Master Jurusan</label>
+            <input type="text" class="form-control" name="jurusan" id="jurusan" placeholder="Nama / Master Jurusan..." >
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
@@ -142,7 +107,7 @@
       <div class="modal-body">
         <div class="d-flex justify-content-between align-items-center gap-3">
           <h4 class="color-black text-bold mb-4">Edit Master Jurusan</h4>
-          <input type="hidden" id="id_struktur_sekolah"/>
+          <input type="hidden" id="id_jurusan"/>
           <a href="#" data-bs-dismiss="modal" class="text-danger" aria-label="Close">
             <i class="fa-solid fa-xmark icon"></i>
           </a>
@@ -169,7 +134,7 @@
           <h4 class="color-black text-bold text-center">Hapus Data Master Jurusan</h4>
         </div>
         <div class="mt-3">
-          <p class="color-neutral-100 text-center">Apakah anda yakin ingin menghapus data Master Jurusan ‘ <span class="text-bold nama-delete-modal">RPL</span> ‘</p>
+          <p class="color-neutral-100 text-center">Apakah anda yakin ingin menghapus data Master Jurusan ‘ <span class="text-bold nama-delete-modal">-</span> ‘</p>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
             <button class="btn btn-danger w-100 delete-jurusan-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>

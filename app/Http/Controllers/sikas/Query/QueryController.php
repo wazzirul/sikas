@@ -14,6 +14,7 @@ use App\Models\PengajuanKeringanan;
 use App\Models\PengajuanPenambahan;
 use App\Models\Transaksi;
 use App\Models\StrukturSekolah;
+use App\Models\Jurusan;
 use App\Models\Tagihan;
 use App\Models\Kelas;
 use App\Models\User;
@@ -111,6 +112,15 @@ class QueryController extends Controller
             ->first();
 
         return response($struktur_sekolah, 200);
+    }
+
+    public function jurusanById(Request $request)
+    {
+        $id = $request->input('id');
+        $jurusan = Jurusan::where('id_jurusan', $id)
+            ->first();
+
+        return response($jurusan, 200);
     }
 
     public function jenisPembayaranById(Request $request)
@@ -975,6 +985,27 @@ class QueryController extends Controller
         $struktur_sekolah->save();
 
         return response($struktur_sekolah, 200);
+    }
+
+    public function updateJurusan(Request $request){
+        $id_jurusan = $request->input('id_jurusan');
+        $nama = $request->input('nama') ?? null;
+    
+        $jurusan = Jurusan::find($id_jurusan);
+        $nama != null && $jurusan->nama = $nama;
+        $jurusan->save();
+    
+        return response($jurusan, 200);
+    }
+
+    public function deleteJurusan(Request $request){
+        $id_jurusan = $request->input('id_jurusan');
+    
+        $jurusan = Jurusan::find($id_jurusan);
+        $jurusan->soft_delete = 1;
+        $jurusan->save();
+
+        return response($jurusan, 200);
     }
 
     public function updateJenisPembayaran(Request $request){

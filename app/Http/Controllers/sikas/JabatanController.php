@@ -35,5 +35,5 @@ class JabatanController extends Controller
         }
     
         return redirect('/master-jabatan');
-      }
+    }
 }
