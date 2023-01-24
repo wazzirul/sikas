@@ -33,9 +33,19 @@ Transaksi
 @endsection
 
 @section('content')
-<p class="fw-bold mb-5">
-  <span class="text-muted fw-light">Transaksi / </span> Biaya Penunjang Pendidikan
-</p>
+<div class="card-body__header d-flex flex-row justify-content-between align-items-start gap-1 mb-5">
+  <p class="fw-bold">
+    <span class="text-muted fw-light">Transaksi / </span> Biaya Penunjang Pendidikan
+  </p>
+  <form action="/siswa/import" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+  {{ csrf_field() }}
+    <input type="file" name="file" id="siswa-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+    <label for="siswa-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center w-max-content ml-auto">
+        Import Transaksi BPP
+        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+    </label>
+  </form>
+</div>
 <div class="card card--pembayaran">
   <div class="card-body">
     <h3 class="text-bold mb-4">Form Biaya Penunjang Pendidikan</h3>
