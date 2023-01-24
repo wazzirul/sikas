@@ -108,7 +108,9 @@
         <div class="d-flex flex-column text-center justify-content-center align-items-center gap-3">
           <h4 class="color-black text-bold text-center">Konfrimasi Transaksi Pengeluaran</h4>
           <p class="">Apakah anda yakin akan melakukan pengeluaran sejumlah <br> 
-          " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> "</p>
+            " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> " <br>
+            <small class="text-danger text-extra-bold font-half">*Pengeluaran yang telah dikonfrimasi tidak bisa diubah / dihapus datanya, pastikan data pengeluaran sudah benar!</small>
+          </p>
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
