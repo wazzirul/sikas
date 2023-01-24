@@ -20,7 +20,7 @@
 @endsection
 
 @section('current-pages-title')
-  Reset Tahun Ajar
+Reset Tahun Ajar
 @endsection
 
 @section('content')
@@ -57,7 +57,7 @@
           </div>
           <div class="">
             <label for="nominal{{$t->id_tagihan}}" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control nominal-pembayaran" id="nominal{{$t->id_tagihan}}" name="nominal{{$t->id_tagihan}}" placeholder="Nominal Pembayaran..." value="{{$t->jumlah}}">
+            <input type="text" class="form-control nominal-pembayaran" id="nominal{{$t->id_tagihan}}" name="nominal{{$t->id_tagihan}}" placeholder="Nominal Pembayaran..." data-value="{{$t->jumlah}}">
           </div>
           <div class="modal-line"></div>
           @endforeach
