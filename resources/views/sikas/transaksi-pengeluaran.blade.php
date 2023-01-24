@@ -78,17 +78,14 @@
             <p class="text-bold color-neutral-100">{{ $t->approved == 1 ? 'Sudah Dikonfirmasi' : 'Butuh Konfirmasi Admin' }}</p>
             </td>
             <td>
-              <a href="#" class="btn btn-success" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
-                Konfrimasi
-              </a>
+              @if(Session::get('tipe_user') == 1 && $t->approved == 0)
+                <a href="#" class="btn btn-success approve-button" data-jumlah="{{ $t->jumlah }}" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                  Konfrimasi
+                </a>
+              @endif
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                @if(Session::get('tipe_user') == 1 && $t->approved == 0)
-                <a href="#" class="table__link-detail approve-button text-success" data-jumlah="{{ $t->jumlah }}" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
-                  <i class="fa-solid fa-check"></i>
-                </a>
-                @endif
                 <a href="#" class="table__link-detail text-info gap-1" onClick="changeTransaksi({{$t->id_transaksi}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   <i class="fa-solid fa-pen"></i>
                 </a>

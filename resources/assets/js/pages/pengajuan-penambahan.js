@@ -101,7 +101,6 @@ $(document).on('submit', 'form#form-pengajuan-penambahan', function (e) {
       console.log(err);
     },
     complete: () => {
-      console.log('DONEEE');
       form.trigger('reset')
       $('.pengajuan-keringanan-form__item-upload').addClass('d-none');
     }
