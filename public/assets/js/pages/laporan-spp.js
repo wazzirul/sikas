@@ -7,7 +7,7 @@ $(document).ready(function () {
             printable: `
           <div>
             <div class="page-header">
-              <h2 class="page-header-title">Laporan Pembayaran Siswa</h2>
+              <h2 class="page-header-title">Laporan Pembayaran Partisipasi</h2>
               <div class="page-header">${date}</div>
             </div>
             <div class="page-content">
@@ -20,7 +20,32 @@ $(document).ready(function () {
             header: null,
             style: '@media print { @page { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; } table { border: 1px solid #E0E0E0; border-collapse: collapse; } table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important; } table thead th, table thead td { text-align: left; white-space: nowrap; }',
             gridStyle: 'padding: 2px;',
-            documentTitle: 'Laporan Pembayaran Siswa'
+            documentTitle: 'Laporan Pembayaran Partisipasi'
+        })
+    })
+
+    $(document).on('click', 'button#button-cetak-laporan-kelas', function () {
+        let tableInnerHTML = $(document).find('table#data-laporan-pembayaran-spp-perkelas').html()
+        let date = `${$('#date-range-span').data('daterangepicker').startDate.format('D MMMM YYYY')} - ${$('#date-range-span').data('daterangepicker').endDate.format('D MMMM YYYY')}`
+
+        printJS({
+            printable: `
+          <div>
+            <div class="page-header">
+              <h2 class="page-header-title">Laporan Pembayaran Partisipasi Per Kelas</h2>
+              <div class="page-header">${date}</div>
+            </div>
+            <div class="page-content">
+              <table>
+                ${tableInnerHTML}
+              </table>
+            </div>
+          </div>`,
+            type: 'raw-html',
+            header: null,
+            style: '@media print { @page { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; } table { border: 1px solid #E0E0E0; border-collapse: collapse; } table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important; } table thead th, table thead td { text-align: left; white-space: nowrap; }',
+            gridStyle: 'padding: 2px;',
+            documentTitle: 'Laporan Pembayaran Partisipasi'
         })
     })
 
