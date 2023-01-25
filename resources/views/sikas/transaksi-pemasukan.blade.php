@@ -31,7 +31,7 @@
   <form action="/transaksi/importPemasukan" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
   {{ csrf_field() }}
     <input type="file" name="file" id="pemasukan-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-    <label for="pemasukan-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center w-max-content ml-auto">
+    <label for="pemasukan-upload-file" class="btn bg-lg btn-outline-primary btn-import-transaksi d-flex gap-2 align-items-center w-max-content ml-auto">
         Import Transaksi Pemasukan
         <i class="fa-solid fa-arrow-up-from-bracket"></i>
     </label>
