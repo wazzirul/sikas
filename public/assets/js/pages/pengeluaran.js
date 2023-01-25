@@ -47,6 +47,10 @@ $(document).ready(function () {
       }
     })
   })
+
+  $('#pengeluaran-upload-file').change(() => {
+    $('#importForm').submit();
+  })
 });
 
 $('.confirm-transaksi-button').click(() => {

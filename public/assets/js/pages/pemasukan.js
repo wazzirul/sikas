@@ -44,6 +44,10 @@ $(document).ready(function () {
       }
     })
   })
+
+  $('#pemasukan-upload-file').change(() => {
+    $('#importForm').submit();
+  })
 });
 
 function updateTransaksi() {

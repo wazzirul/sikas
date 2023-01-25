@@ -28,10 +28,10 @@
   <p class="fw-bold mb-5">
     <span class="text-muted fw-light">Transaksi /</span> Pengeluaran
   </p>
-  <form action="/siswa/import" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+  <form action="/transaksi/importPengeluaran" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
   {{ csrf_field() }}
-    <input type="file" name="file" id="siswa-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-    <label for="siswa-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center w-max-content ml-auto">
+    <input type="file" name="file" id="pengeluaran-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+    <label for="pengeluaran-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center w-max-content ml-auto">
         Import Transaksi Pengeluaran
         <i class="fa-solid fa-arrow-up-from-bracket"></i>
     </label>

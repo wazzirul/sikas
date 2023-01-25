@@ -42,6 +42,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi', [Main::class, 'index'])->name('sikas-transaksi');
     Route::get('/transaksi/pembayaran', [PembayaranController::class, 'transaksiPembayaran'])->name('sikas-transaksi--pembayaran');
     Route::get('/transaksi/biaya-penunjang-pendidikan', [PembayaranController::class, 'PembayaranAkademik'])->name('sikas-transaksi--biaya-penunjang-pendidikan');
+    Route::post('/transaksi/importBpp', [PembayaranController::class, 'importBpp'])->name('sikas-transaksi--importbpp');
     Route::get('/transaksi/history-pembayaran/{id}', [PembayaranController::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
     Route::get('/transaksi/pengajuan-penambahan/{id}', [PembayaranController::class, 'pengajuanPenambahanPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-penambahan');
     Route::get('/transaksi/pengajuan-keringanan/{id}', [PembayaranController::class, 'pengajuanKeringananPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-keringanan');
@@ -49,7 +50,9 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi/tabungan/siswa', [TabunganController::class, 'siswa'])->name('sikas-transaksi--tabungan-siswa');
     Route::get('/transaksi/tabungan/guru', [TabunganController::class, 'guru'])->name('sikas-transaksi--tabungan-guru');
     Route::get('/transaksi/pemasukan', [Main::class, 'TransaksiPemasukan'])->name('sikas-transaksi--pemasukan');
+    Route::post('/transaksi/importPemasukan', [Main::class, 'importPemasukan'])->name('sikas-transaksi--importpemasukan');
     Route::get('/transaksi/pengeluaran', [Main::class, 'TransaksiPengeluaran'])->name('sikas-transaksi--pengeluaran');
+    Route::post('/transaksi/importPengeluaran', [Main::class, 'importPengeluaran'])->name('sikas-transaksi--importpengeluaran');
     Route::get('/transaksi/history-transaksi-siswa', [PembayaranController::class, 'historyTransaksiSiswa'])->name('sikas-transaksi--pembayaran-history-siswa');
     Route::get('/transaksi/history-transaksi-siswa/detail/{id}', [PembayaranController::class, 'historyTransaksiSiswaDetail'])->name('sikas-transaksi--pembayaran-history-siswa-detail');
 

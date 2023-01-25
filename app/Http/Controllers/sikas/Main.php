@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ImportPemasukan;
+use App\Imports\ImportPengeluaran;
 
 use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
@@ -146,5 +149,17 @@ class Main extends Controller
     if(Session::has('authenticated')) return redirect('/');
     return view('sikas.login');
   }
+
+  public function importPemasukan(Request $request){
+		Excel::import(new ImportPemasukan, $request->file('file')->store('files'));
+	
+		return redirect('/transaksi/pemasukan');
+	}
+
+  public function importPengeluaran(Request $request){
+		Excel::import(new ImportPengeluaran, $request->file('file')->store('files'));
+	
+		return redirect('/transaksi/pengeluaran');
+	}
   
 }

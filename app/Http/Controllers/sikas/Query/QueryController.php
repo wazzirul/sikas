@@ -347,7 +347,7 @@ class QueryController extends Controller
 
         $transaksi = new Transaksi();
         $transaksi->id_admin = Session::get('id_user');
-        $transaksi->nomor_transaksi = '002000' . date('dmY');
+        $transaksi->nomor_transaksi = '003000' . date('dmY');
         $transaksi->kode_transaksi = 'TBNGN-' . $id_anggota . '-' . date('hi-dmY');
         $transaksi->nama_transaksi = 'Penarikan Tabungan';
         $transaksi->id_anggota = $id_anggota;
@@ -673,7 +673,7 @@ class QueryController extends Controller
 
         $transaksi = new Transaksi();
         $transaksi->id_admin = Session::get('id_user');
-        $transaksi->nomor_transaksi = '002000' . date('dmY');
+        $transaksi->nomor_transaksi = '004000' . date('dmY');
         $transaksi->kode_transaksi = 'PNGLRN' . date('hi-dmY');
         $transaksi->nama_transaksi = $keterangan;
         $transaksi->tipe_transaksi = 4;
@@ -797,7 +797,7 @@ class QueryController extends Controller
 
         $transaksi = new Transaksi();
         $transaksi->id_admin = Session::get('id_user');
-        $transaksi->nomor_transaksi = '002000' . date('dmY');
+        $transaksi->nomor_transaksi = '005000' . date('dmY');
         $transaksi->kode_transaksi = 'PMSKN' . date('hi-dmY');
         $transaksi->nama_transaksi = $keterangan;
         $transaksi->tipe_transaksi = 5;

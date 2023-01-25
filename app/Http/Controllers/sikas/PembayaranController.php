@@ -5,6 +5,8 @@ namespace App\Http\Controllers\sikas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ImportBPP;
 
 use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
@@ -142,5 +144,11 @@ class PembayaranController extends Controller
 				'transaksi' => $transaksi,
 				'total_keringanan' => $total_keringanan,
 		]);
+	}
+
+	public function importBpp(Request $request){
+		Excel::import(new ImportBPP, $request->file('file')->store('files'));
+	
+		return redirect('/transaksi/biaya-penunjang-pendidikan');
 	}
 }

@@ -37,10 +37,10 @@ Transaksi
   <p class="fw-bold">
     <span class="text-muted fw-light">Transaksi / </span> Biaya Penunjang Pendidikan
   </p>
-  <form action="/siswa/import" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+  <form action="/transaksi/importBpp" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
   {{ csrf_field() }}
-    <input type="file" name="file" id="siswa-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-    <label for="siswa-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center w-max-content ml-auto">
+    <input type="file" name="file" id="bpp-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+    <label for="bpp-upload-file" class="btn btn-outline-primary d-flex gap-2 align-items-center w-max-content ml-auto">
         Import Transaksi BPP
         <i class="fa-solid fa-arrow-up-from-bracket"></i>
     </label>

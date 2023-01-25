@@ -148,6 +148,10 @@ function clickSiswa(e) {
     })
 }
 
+$('#bpp-upload-file').change(() => {
+    $('#importForm').submit();
+})
+
 function changeTransaksi($id_transaksi) {
     $('#id_transaksi').val($id_transaksi);
 }
@@ -261,15 +265,15 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                 let day = tgl.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tgl.toLocaleDateString('id', { month: 'long' });
                 let date = tgl.getDate();
-                let tahun = tgl.getFullYear(); 
+                let tahun = tgl.getFullYear();
 
                 let username = kasir,
-                numberanddate = `${transaksi.nomor_transaksi} / ${day}, ${date} ${bulan}, ${tahun}`,
-                numberandname = `${anggota.nis} / ${anggota.nama}`,
-                classname = anggota.detail_kelas,
-                transactiontype = transaksi.nama_transaksi,
-                total = transaksi.jumlah,
-                transactioncode = transaksi.kode_transaksi
+                    numberanddate = `${transaksi.nomor_transaksi} / ${day}, ${date} ${bulan}, ${tahun}`,
+                    numberandname = `${anggota.nis} / ${anggota.nama}`,
+                    classname = anggota.detail_kelas,
+                    transactiontype = transaksi.nama_transaksi,
+                    total = transaksi.jumlah,
+                    transactioncode = transaksi.kode_transaksi
 
                 $.ajax({
                     url: '/query/siswaById',
@@ -278,14 +282,14 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                         _token: $('#ctoken').val(),
                         id: anggota.id_anggota
                     },
-                    success: (hasil) => {                        
-                        remainingBill = hasil.keuangan_anggota.tagihan;                        
+                    success: (hasil) => {
+                        remainingBill = hasil.keuangan_anggota.tagihan;
                         printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingBill })
                     },
                     error: (err) => {
                         console.log(err);
                     }
-                })                
+                })
             } catch (error) {
                 console.error(error);
             }
