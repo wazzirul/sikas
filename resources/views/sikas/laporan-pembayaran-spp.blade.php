@@ -164,7 +164,7 @@ Laporan
             </div>
             <div class="d-flex align-items-center justify-content-end gap-4">
               <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
-              <button class="d-flex btn btn-primary gap-2 align-items-center btn-cetak-laporan" id="button-cetak-laporan">
+              <button class="d-flex btn btn-primary gap-2 align-items-center btn-cetak-laporan" id="button-cetak-laporan-kelas">
                 Cetak Laporan
                 <i class="fa-solid fa-plus"></i>
               </button>

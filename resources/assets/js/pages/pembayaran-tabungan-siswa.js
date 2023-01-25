@@ -91,6 +91,7 @@ function clickSiswa(e) {
             $('.list-riwayat-tabungan').empty();
             $.each(result, (index, value) => {
                 let tanggal = new Date(Date.parse(value.tanggal));
+                let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tanggal.getMonth();
                 let date = tanggal.getDate();
                 let tahun = tanggal.getFullYear();
@@ -285,9 +286,14 @@ $(document).on('submit', 'form#form-setor-tabungan', function (e) {
         success: (result) => {
             try {
                 let { tanggal, anggota, kasir, transaksi } = result
+                let tgl = new Date(Date.parse(tanggal));
+                let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+                let bulan = tgl.getMonth();
+                let date = tgl.getDate();
+                let tahun = tgl.getFullYear();
 
                 let username = kasir,
-                    numberanddate = `${tanggal}`,
+                    numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
                     removetransactionnumber = true,
                     numberandname = `${anggota.nis} / ${anggota.nama}`,
                     classname = anggota.detail_kelas,
@@ -333,9 +339,14 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
         success: (result) => {
             try {
                 let { tanggal, anggota, kasir, transaksi } = result
+                let tgl = new Date(Date.parse(tanggal));
+                let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+                let bulan = tgl.getMonth();
+                let date = tgl.getDate();
+                let tahun = tgl.getFullYear();
 
                 let username = kasir,
-                    numberanddate = `${tanggal}`,
+                    numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
                     removetransactionnumber = true,
                     numberandname = `${anggota.nis} / ${anggota.nama}`,
                     classname = anggota.detail_kelas,

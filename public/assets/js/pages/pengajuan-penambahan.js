@@ -83,9 +83,14 @@ $(document).on('submit', 'form#form-pengajuan-penambahan', function (e) {
     success: (result) => {
       try {
         let { tanggal, anggota, pengajuan, kasir } = result
+        let tgl = new Date(Date.parse(tanggal));
+        let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+        let bulan = tgl.toLocaleDateString('id', { month: 'long' });
+        let date = tgl.getDate();
+        let tahun = tgl.getFullYear(); 
 
         let username = kasir,
-          numberanddate = `${tanggal}`,
+          numberanddate = `${day}, ${date} ${bulan} ${tahun}`,  
           removetransactionnumber = true,
           numberandname = `${anggota.nis} / ${anggota.nama}`,
           classname = anggota.detail_kelas,
