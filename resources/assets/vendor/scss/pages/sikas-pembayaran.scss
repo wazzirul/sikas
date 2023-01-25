@@ -4,6 +4,11 @@
 @import '../_bootstrap-extended/include';
 @import '../_reset';
 
+.btn-import-transaksi{
+  background: $color-white;
+  padding: toRem(12) toRem(24);
+}
+
 .jenis-pembayaran{
   display: grid;
   grid-template-columns: repeat(2,1fr);

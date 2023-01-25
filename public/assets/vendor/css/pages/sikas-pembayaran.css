@@ -220,6 +220,11 @@ th[rowspan]:not([rowspan="1"]) {
   background-position: right 0.5rem center;
 }
 
+.btn-import-transaksi {
+  background: #fff;
+  padding: 0.75rem 1.5rem;
+}
+
 .jenis-pembayaran {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
