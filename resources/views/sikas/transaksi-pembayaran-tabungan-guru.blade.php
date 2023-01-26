@@ -279,6 +279,21 @@ Transaksi
 </div>
 
 <!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalPenarikanGagal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-xmark icon-success text-danger"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Error! Anda Gagal Melakukan Penarikan</h4>
+          <p class="color-neutral-80">Saldo Tabungan anda tidak cukup untuk melakukan penarikan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
 <div class="modal modal--transaksi fade" id="modalSetoranSuccess" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
