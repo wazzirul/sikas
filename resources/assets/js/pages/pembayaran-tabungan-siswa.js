@@ -8,12 +8,19 @@ if ($("#riwayat-tabungan").length == 1) {
 
 $('#cari-siswa').keyup((e) => {
     let search = e.currentTarget.value;
+    let id_kelas = $('#filter_id_kelas').val();
+    let id_jurusan = $('#filter_id_jurusan').val();
+    let nomor_kelas = $('#filter_nomor_kelas').val();
+
     $.ajax({
         url: '/query/dataSiswa',
         method: 'POST',
         data: {
             _token: $('#ctoken').val(),
             search: search,
+            id_kelas: id_kelas,
+            id_jurusan: id_jurusan,
+            nomor_kelas: nomor_kelas,
             limit: 2,
         },
         success: (result) => {
@@ -240,6 +247,10 @@ $('.confirm-transaksi-button').click(() => {
             console.log(err);
         }
     })
+})
+
+$('#tabungan-upload-file').change(() => {
+    $('#importForm').submit();
 })
 
 function changeTransaksi($id_transaksi) {

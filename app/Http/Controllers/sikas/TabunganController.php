@@ -5,8 +5,13 @@ namespace App\Http\Controllers\sikas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ImportTabunganSiswa;
+use App\Imports\ImportTabunganGuru;
 
 use App\Models\Anggota;
+use App\Models\Kelas;
+use App\Models\Jurusan;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
@@ -55,8 +60,23 @@ class TabunganController extends Controller
             ->with('Kelas', 'Jurusan')
             ->get();
 
+        $kelas = Kelas::where('soft_delete', 0)
+			->orderBy('nama', 'ASC')
+			->get();
+		
+		$jurusan = Jurusan::where('soft_delete', 0)
+			->orderBy('nama', 'ASC')
+			->get();
+		
+		$nomor_kelas = Anggota::where('tipe_anggota', 2)
+			->where('soft_delete', 0)
+			->max('nomor_kelas');
+
         return view('sikas.transaksi-pembayaran-tabungan-siswa', [
             'anggota' => $anggota,
+            'kelas' => $kelas,
+            'jurusan' => $jurusan,
+            'nomor_kelas' => $nomor_kelas,
         ]);
     }
 
@@ -73,4 +93,16 @@ class TabunganController extends Controller
             'anggota' => $anggota,
         ]);
     }
+
+    public function importTabunganSiswa(Request $request){
+		Excel::import(new ImportTabunganSiswa, $request->file('file')->store('files'));
+	
+		return redirect('/transaksi/tabungan/siswa');
+	}
+
+    public function importTabunganGuru(Request $request){
+		Excel::import(new ImportTabunganGuru, $request->file('file')->store('files'));
+	
+		return redirect('/transaksi/tabungan/guru');
+	}
 }

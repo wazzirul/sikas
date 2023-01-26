@@ -54,6 +54,7 @@ Laporan
                   @foreach($kelas as $k)
                   <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
                   @endforeach
+                  <option value="0">Alumni</option>
                 </select>
               </div>
               <div class="mt-3">

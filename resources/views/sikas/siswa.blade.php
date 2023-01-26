@@ -37,6 +37,7 @@
             @foreach($kelas as $k)
               <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
             @endforeach
+            <option value="0">Alumni</option>
           </select>
         </div>
         <div class="mt-3">
@@ -82,6 +83,7 @@
             <th>NIS</th>
             <th>L/P</th>
             <th>Kelas</th>
+            <th>Status</th>
             <th></th>
           </tr>
         </thead>
@@ -99,6 +101,9 @@
             </td>
             <td>
               <p class="text-medium color-neutral-100">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">{{ $a->alumni == 0 ? 'Siswa Aktif' : 'Alumni' }}</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">

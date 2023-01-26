@@ -26,10 +26,25 @@ class QueryController extends Controller
     {
         $search = $request->input('search');
         $limit = $request->input('limit');
+        $id_kelas = $request->input('id_kelas') ?? null;
+        $id_jurusan = $request->input('id_jurusan');
+        $nomor_kelas = $request->input('nomor_kelas');
+
         $anggota = Anggota::where(function ($query) use ($search) {
             $query->where('nama', 'LIKE', '%' . $search . '%');
             $query->orWhere('nis', 'LIKE', '%' . $search . '%');
         })
+            ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
+                if($id_kelas != null){
+                    if($id_kelas == 0){
+                        $q->where('alumni', '=', 1);
+                    }else{
+                        $q->where('id_kelas', $id_kelas);
+                    }
+                }
+                $id_jurusan && $q->where('id_jurusan', $id_jurusan);
+                $nomor_kelas && $q->where('nomor_kelas', $nomor_kelas);
+            })
             ->inRandomOrder()
             ->where('tipe_anggota', 2)
             ->where('soft_delete', 0)
@@ -70,13 +85,19 @@ class QueryController extends Controller
 
     public function siswaByFilter(Request $request)
     {
-        $id_kelas = $request->input('id_kelas');
+        $id_kelas = $request->input('id_kelas') ?? null;
         $id_jurusan = $request->input('id_jurusan');
         $nomor_kelas = $request->input('nomor_kelas');
 
         $anggota = Anggota::where('tipe_anggota', 2)
             ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
-                $id_kelas && $q->where('id_kelas', $id_kelas);
+                if($id_kelas != null){
+                    if($id_kelas == 0){
+                        $q->where('alumni', '=', 1);
+                    }else{
+                        $q->where('id_kelas', $id_kelas);
+                    }
+                }
                 $id_jurusan && $q->where('id_jurusan', $id_jurusan);
                 $nomor_kelas && $q->where('nomor_kelas', $nomor_kelas);
             })
@@ -1051,7 +1072,13 @@ class QueryController extends Controller
             ->whereDate('tanggal', '<=', $tanggal_akhir)
             ->with('Anggota', 'Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
             ->whereHas('Anggota', function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
-                $id_kelas && $q->where('anggota.id_kelas', $id_kelas);
+                if($id_kelas != null){
+                    if($id_kelas == 0){
+                        $q->where('alumni', '=', 1);
+                    }else{
+                        $q->where('id_kelas', $id_kelas);
+                    }
+                }
                 $id_jurusan && $q->where('anggota.id_jurusan', $id_jurusan);
                 $nomor_kelas && $q->where('anggota.nomor_kelas', $nomor_kelas);
             })

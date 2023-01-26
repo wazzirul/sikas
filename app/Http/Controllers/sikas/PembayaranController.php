@@ -9,6 +9,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ImportBPP;
 
 use App\Models\Anggota;
+use App\Models\Kelas;
+use App\Models\Jurusan;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
@@ -108,8 +110,23 @@ class PembayaranController extends Controller
 				->with('Kelas', 'Jurusan')
 				->get();
 
+		$kelas = Kelas::where('soft_delete', 0)
+			->orderBy('nama', 'ASC')
+			->get();
+		
+		$jurusan = Jurusan::where('soft_delete', 0)
+			->orderBy('nama', 'ASC')
+			->get();
+		
+		$nomor_kelas = Anggota::where('tipe_anggota', 2)
+			->where('soft_delete', 0)
+			->max('nomor_kelas');
+
 		return view('sikas.transaksi-pembayaran-akademik', [
-				'anggota' => $anggota,
+			'anggota' => $anggota,
+			'kelas' => $kelas,
+			'jurusan' => $jurusan,
+			'nomor_kelas' => $nomor_kelas,
 		]);
 	}
 

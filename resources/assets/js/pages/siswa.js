@@ -91,12 +91,20 @@ $(document).ready(function () {
                 <p class="text-medium color-neutral-100">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
               </td>
               <td>
+                <p class="text-medium color-neutral-100">${value.alumni == 0 ? 'Siswa Aktif' : 'Alumni'}</p>
+              </td>
+              <td>
                 <div class="d-flex align-items-center justify-content-end gap-3">
-                  <a href="#" class="table__link-detail text-primary" onClick="changeAnggota(${value.id_anggota})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                  <a href="/transaksi/history-transaksi-siswa/detail/${value.id_anggota}" class="table__link-detail d-flex align-items-center gap-2">
+                    Detail
+                    <i class="fa-solid fa-eye"></i>
+                  </a>
+                  <div class="table-link-border"></div>
+                  <a href="#" class="table__link-detail text-info" onClick="changeAnggota(${value.id_anggota})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                     Edit <i class="fa-solid fa-pen"></i>
                   </a>
                   <div class="table-link-border"></div>
-                  <a href="#" class="table__link-detail text-primary" onClick="changeAnggota(${value.id_anggota})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                  <a href="#" class="table__link-detail text-danger" onClick="changeAnggota(${value.id_anggota})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                     Hapus <i class="fa-regular fa-trash-can"></i>
                   </a>
                 </div>

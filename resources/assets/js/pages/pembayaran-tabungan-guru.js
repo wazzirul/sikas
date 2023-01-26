@@ -240,6 +240,10 @@ $('.confirm-transaksi-button').click(() => {
     })
 })
 
+$('#tabungan-upload-file').change(() => {
+    $('#importForm').submit();
+})
+
 function changeTransaksi($id_transaksi) {
     $('#id_transaksi').val($id_transaksi);
 }

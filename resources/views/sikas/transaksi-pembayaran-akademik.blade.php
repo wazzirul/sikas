@@ -55,28 +55,29 @@ Transaksi
           <div class="mt-3">
             <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
             <select id="filter_id_kelas" autocomplete="off" class="form-select">
-              <option value="all">Semua</option>
-              <option value="1">X</option>
-              <option value="2">XI</option>
-              <option value="3">XII</option>
+              <option value="" selected>Semua</option>
+              @foreach($kelas as $k)
+              <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
+              @endforeach
+              <option value="0">Alumni</option>
             </select>
           </div>
           <div class="mt-3">
             <label for="filter_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
             <select id="filter_id_jurusan" autocomplete="off" class="form-select">
-              <option value="all">Semua</option>
-              <option value="1">TKJ</option>
-              <option value="2">RPL</option>
-              <option value="3">Multimedia</option>
+              <option value="" selected>Semua</option>
+              @foreach($jurusan as $j)
+              <option value="{{ $j->id_jurusan }}">{{ $j->nama }}</option>
+              @endforeach
             </select>
           </div>
           <div class="mt-3">
             <label for="filter_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
             <select id="filter_nomor_kelas" autocomplete="off" class="form-select">
-              <option value="all">Semua</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
+              <option value="" selected>Semua</option>
+              @for($q = 1; $q <= $nomor_kelas; $q++)
+              <option value="{{ $q }}">{{ $q }}</option>
+              @endfor
             </select>
           </div>
           <!-- <button type="button" class="btn btn-outline-primary cari-siswa-button">Filter Data</button> -->

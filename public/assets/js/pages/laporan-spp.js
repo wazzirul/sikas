@@ -76,9 +76,9 @@ function fetchDataPembayaran() {
     let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
     let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
 
-    let id_kelas = $('#filter_id_kelas').val() ?? null;
-    let id_jurusan = $('#filter_id_jurusan').val() ?? null;
-    let nomor_kelas = $('#filter_nomor_kelas').val() ?? null;
+    let id_kelas = $('#filter_id_kelas').val();
+    let id_jurusan = $('#filter_id_jurusan').val();
+    let nomor_kelas = $('#filter_nomor_kelas').val();
 
     $.ajax({
         url: '/query/laporanPembayaranSpp',
