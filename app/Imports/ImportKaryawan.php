@@ -23,9 +23,9 @@ class ImportKaryawan implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[0] && $row[1]){
-            $karyawan = Anggota::where('nama', $row[1])
-                ->where('nip', $row[0])
+        if($row[1] && $row[2]){
+            $karyawan = Anggota::where('nama', $row[2])
+                ->where('nip', $row[1])
                 ->first();
     
             if($karyawan){
@@ -34,8 +34,8 @@ class ImportKaryawan implements ToModel, WithStartRow
             }else{
                 $karyawan = new Anggota();
                 $karyawan->tipe_anggota = 1;
-                $karyawan->nama = $row[1];
-                $karyawan->nip = $row[0];
+                $karyawan->nama = $row[2];
+                $karyawan->nip = $row[1];
                 $karyawan->save();
             }
     
@@ -51,8 +51,8 @@ class ImportKaryawan implements ToModel, WithStartRow
                 $keuangan_karyawan->save();
             }
     
-            if($row[2] != ""){
-                $master_jabatan = StrukturSekolah::where('jabatan', $row[2])
+            if($row[3] != ""){
+                $master_jabatan = StrukturSekolah::where('jabatan', $row[3])
                     ->first();
 
                 if($master_jabatan){

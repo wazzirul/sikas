@@ -22,19 +22,25 @@ class ImportPengeluaran implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[0] && $row[1] && $row[2]){
+        if($row[1] && $row[2] && $row[3]){
+            $nominal_jumlah = $row[3];
+            $nominal_jumlah = str_replace('Rp', '', $nominal_jumlah);
+            $nominal_jumlah = str_replace('rp', '', $nominal_jumlah);
+            $nominal_jumlah = str_replace('.', '', $nominal_jumlah);
+            $nominal_jumlah = str_replace(' ', '', $nominal_jumlah);
+
             $transaksi = new Transaksi();
             $transaksi->id_admin = Session::get('id_user');
             $transaksi->nomor_transaksi = '004000' . date('dmY');
             $transaksi->kode_transaksi = 'PNGLRN' . date('hi-dmY');
-            $transaksi->nama_transaksi = $row[0];
+            $transaksi->nama_transaksi = $row[1];
             $transaksi->tipe_transaksi = 4;
-            $transaksi->tanggal = $row[1];
-            $transaksi->jumlah = (int)$row[2];
+            $transaksi->tanggal = $row[2];
+            $transaksi->jumlah = (int)$nominal_jumlah;
 
             $keuangan_sekolah = KeuanganSekolah::first();
-            $keuangan_sekolah->pengeluaran += (int)$row[2];
-            $keuangan_sekolah->total -= (int)$row[2];
+            $keuangan_sekolah->pengeluaran += (int)$nominal_jumlah;
+            $keuangan_sekolah->total -= (int)$nominal_jumlah;
 
             $transaksi->save();
             $keuangan_sekolah->save();

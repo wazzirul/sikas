@@ -35,6 +35,14 @@ $(document).ready(function () {
       $('.modal-download').removeAttr('download');
     }
   })
+
+  $('#tahunAjaran').keyup((e) => {
+    console.log($('.form-control.form-control-sm').find('input[type=search]'));
+    $('.form-control.form-control-sm').find('input[type=search]').prevObject.each((index, value) => {
+      $(value).val(e.currentTarget.value);
+      $(value).keyup();
+    });
+  })
 });
 
 function numberFormat(x) {
@@ -87,10 +95,10 @@ $(document).on('submit', 'form#form-pengajuan-penambahan', function (e) {
         let day = tgl.toLocaleDateString('id', { weekday: 'long' });
         let bulan = tgl.toLocaleDateString('id', { month: 'long' });
         let date = tgl.getDate();
-        let tahun = tgl.getFullYear(); 
+        let tahun = tgl.getFullYear();
 
         let username = kasir,
-          numberanddate = `${day}, ${date} ${bulan} ${tahun}`,  
+          numberanddate = `${day}, ${date} ${bulan} ${tahun}`,
           removetransactionnumber = true,
           numberandname = `${anggota.nis} / ${anggota.nama}`,
           classname = anggota.detail_kelas,

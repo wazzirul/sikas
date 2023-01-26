@@ -22,9 +22,9 @@ class ImportTabunganGuru implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[0] && $row[1] && $row[2]){
-            $anggota = Anggota::where('nip', $row[0])
-                ->where('nama', $row[1])
+        if($row[1] && $row[2] && $row[3]){
+            $anggota = Anggota::where('nip', $row[1])
+                ->where('nama', $row[2])
                 ->where('tipe_anggota', 1)
                 ->where('soft_delete', 0)
                 ->first();
@@ -35,7 +35,12 @@ class ImportTabunganGuru implements ToModel, WithStartRow
                     ->first();
 
                 $tabungan_lama = (int)$keuangan_anggota->tabungan;
-                $tabungan_baru = (int)$row[2];
+                $tabungan_baru = $row[3];
+                $tabungan_baru = str_replace('Rp', '', $tabungan_baru);
+                $tabungan_baru = str_replace('rp', '', $tabungan_baru);
+                $tabungan_baru = str_replace('.', '', $tabungan_baru);
+                $tabungan_baru = str_replace(' ', '', $tabungan_baru);
+                $tabungan_baru = (int)$tabungan_baru;
 
                 $keuangan_anggota->tabungan = $tabungan_baru;
 

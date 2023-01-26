@@ -26,29 +26,29 @@ class ImportSiswa implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[0] && $row[1]){
-            $siswa = Anggota::where('nama', $row[1])
-                ->where('nis', $row[0])
+        if($row[1] && $row[2]){
+            $siswa = Anggota::where('nama', $row[2])
+                ->where('nis', $row[1])
                 ->first();
 
-            $kelas = Kelas::where('nama', $row[3])
+            $kelas = Kelas::where('nama', $row[4])
                 ->first();
 
-            $jurusan = Jurusan::where('nama', $row[4])
+            $jurusan = Jurusan::where('nama', $row[5])
                 ->first();
     
             if($siswa){
-                $siswa->jenis_kelamin = $row[2];
+                $siswa->jenis_kelamin = $row[3];
                 $siswa->tipe_anggota = 2;
-                $siswa->nomor_kelas = $row[5];
+                $siswa->nomor_kelas = $row[6];
                 $siswa->soft_delete = '0';
             }else{
                 $siswa = new Anggota();
-                $siswa->jenis_kelamin = $row[2];
+                $siswa->jenis_kelamin = $row[3];
                 $siswa->tipe_anggota = 2;
-                $siswa->nama = $row[1];
-                $siswa->nis = $row[0];
-                $siswa->nomor_kelas = $row[5];
+                $siswa->nama = $row[2];
+                $siswa->nis = $row[1];
+                $siswa->nomor_kelas = $row[6];
             }
 
             if($kelas){
@@ -59,7 +59,7 @@ class ImportSiswa implements ToModel, WithStartRow
                 $siswa->id_jurusan = $jurusan->id_jurusan;
             }else{
                 $new_jurusan = new Jurusan();
-                $new_jurusan->nama = $row[3];
+                $new_jurusan->nama = $row[4];
                 $new_jurusan->save();
 
                 $siswa->id_jurusan = $new_jurusan->id_jurusan;

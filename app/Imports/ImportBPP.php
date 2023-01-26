@@ -24,22 +24,22 @@ class ImportBPP implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[0] && $row[1] && $row[2]){
-            $anggota = Anggota::where('nis', $row[0])
-                ->where('nama', $row[1])
+        if($row[1] && $row[2] && $row[3]){
+            $anggota = Anggota::where('nis', $row[1])
+                ->where('nama', $row[2])
                 ->first();
 
             if($anggota){
                 $anggota->soft_delete = 0;
             }else{
                 $anggota = new Anggota();
-                $anggota->nis = $row[0];
-                $anggota->nama = $row[1];
+                $anggota->nis = $row[1];
+                $anggota->nama = $row[2];
             }
 
             $anggota->tipe_anggota = 2;
 
-            $get_kelas = explode("-", $row[2]);
+            $get_kelas = explode("-", $row[3]);
             $kelas = Kelas::where('nama', $get_kelas[0])
                 ->first();
             
@@ -55,9 +55,9 @@ class ImportBPP implements ToModel, WithStartRow
             $anggota->id_kelas = $id_kelas;
             $anggota->id_jurusan = $id_jurusan;
             $anggota->nomor_kelas = $nomor_kelas;
-            $anggota->jenis_kelamin = $row[3];
+            $anggota->jenis_kelamin = $row[4];
 
-            $status_siswa = strtolower($row[4]);
+            $status_siswa = strtolower($row[5]);
             if($status_siswa == "aktif"){
                 $anggota->alumni = 0;
             }else{
@@ -72,7 +72,6 @@ class ImportBPP implements ToModel, WithStartRow
                 $keuangan_anggota->soft_delete = 0;
                 $data_keuangan = 'lama';
                 $tagihan_lama = (int)$keuangan_anggota->tagihan;
-                $tabungan_lama = (int)$keuangan_anggota->tabungan;
                 
             }else{
                 $keuangan_anggota = new KeuanganAnggota();
@@ -80,34 +79,35 @@ class ImportBPP implements ToModel, WithStartRow
             }
 
             $keuangan_anggota->id_anggota = $anggota->id_anggota;
-            $pembayaran_total = (int)$row[5] + (int)$row[6];
-            $keuangan_anggota->tagihan = (int)$row[5];
+            $nominal_partisipasi = $row[6];
+            $nominal_bayar = $row[7];
+
+            $nominal_partisipasi = str_replace('Rp', '', $nominal_partisipasi);
+            $nominal_partisipasi = str_replace('rp', '', $nominal_partisipasi);
+            $nominal_partisipasi = str_replace('.', '', $nominal_partisipasi);
+            $nominal_partisipasi = str_replace(' ', '', $nominal_partisipasi);
+
+            $nominal_bayar = str_replace('Rp', '', $nominal_bayar);
+            $nominal_bayar = str_replace('rp', '', $nominal_bayar);
+            $nominal_bayar = str_replace('.', '', $nominal_bayar);
+            $nominal_bayar = str_replace(' ', '', $nominal_bayar);
+
+            $pembayaran_total = (int)$nominal_partisipasi + (int)$nominal_bayar;
+            $keuangan_anggota->tagihan = (int)$nominal_partisipasi;
             $keuangan_anggota->tagihan_pertama = (int)$pembayaran_total;
-            $keuangan_anggota->tabungan = (int)$row[7];
 
             $keuangan_sekolah = KeuanganSekolah::first();
             if($data_keuangan == 'lama'){
-                if((int)$tagihan_lama > (int)$row[5]){
-                    $keuangan_sekolah->pemasukan -= ((int)$tagihan_lama - (int)$row[5]);
-                    $keuangan_sekolah->total -= ((int)$tagihan_lama - (int)$row[5]);
+                if((int)$tagihan_lama > (int)$nominal_partisipasi){
+                    $keuangan_sekolah->pemasukan -= ((int)$tagihan_lama - (int)$nominal_partisipasi);
+                    $keuangan_sekolah->total -= ((int)$tagihan_lama - (int)$nominal_partisipasi);
                 }else{
-                    $keuangan_sekolah->pemasukan += ((int)$row[5] - (int)$tagihan_lama);
-                    $keuangan_sekolah->total += ((int)$row[5] - (int)$tagihan_lama);
-                }
-
-                if((int)$tabungan_lama > (int)$row[7]){
-                    $keuangan_sekolah->pemasukan -= ((int)$tabungan_lama - (int)$row[7]);
-                    $keuangan_sekolah->total -= ((int)$tabungan_lama - (int)$row[7]);
-                }else{
-                    $keuangan_sekolah->pemasukan += ((int)$row[7] - (int)$tabungan_lama);
-                    $keuangan_sekolah->total += ((int)$row[7] - (int)$tabungan_lama);
+                    $keuangan_sekolah->pemasukan += ((int)$nominal_partisipasi - (int)$tagihan_lama);
+                    $keuangan_sekolah->total += ((int)$nominal_partisipasi - (int)$tagihan_lama);
                 }
             }else{
-                $keuangan_sekolah->pemasukan += (int)$row[5];
-                $keuangan_sekolah->total += (int)$row[5];
-
-                $keuangan_sekolah->pemasukan += (int)$row[7];
-                $keuangan_sekolah->total += (int)$row[7];
+                $keuangan_sekolah->pemasukan += (int)$nominal_partisipasi;
+                $keuangan_sekolah->total += (int)$nominal_partisipasi;
             }
 
             $keuangan_anggota->save();
