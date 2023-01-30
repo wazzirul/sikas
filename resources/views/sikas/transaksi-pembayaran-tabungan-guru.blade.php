@@ -194,8 +194,9 @@ Transaksi
             <input type="text" class="form-control" name="nominal" id="nominalPenarikan" placeholder="Rp. 0.00">
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
-            <button class="btn btn-primary w-100 post-penarikan-tabungan-button" data-bs-toggle="modal" data-bs-target="#modalPenarikanSuccess">Tarik Sekarang</button>
+            <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+            <button type="hidden" class="d-none" id="button_penarikan_sukses" data-bs-toggle="modal" data-bs-target="#modalPenarikanSuccess"></button>
+            <button type="submit" class="btn btn-primary w-100 post-penarikan-tabungan-button">Tarik Sekarang</button>
           </div>
         </form>
       </div>
@@ -279,6 +280,7 @@ Transaksi
 </div>
 
 <!-- Modal -->
+<button type="hidden" class="d-none" id="button_penarikan_gagal" data-bs-toggle="modal" data-bs-target="#modalPenarikanGagal"></button>
 <div class="modal modal--transaksi fade" id="modalPenarikanGagal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">

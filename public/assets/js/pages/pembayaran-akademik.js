@@ -10,7 +10,7 @@ $('#cari-siswa').keyup((e) => {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
-    
+
     $.ajax({
         url: '/query/dataSiswa',
         method: 'POST',
@@ -261,6 +261,23 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
     })
     if (dontSubmit) return
 
+    let total_tagihan = $('.detail-tagihan')[0].innerHTML;
+    let nominal_pembayaran = $('#nominalPembayaran').val();
+
+    total_tagihan = total_tagihan.replaceAll('Rp', '');
+    total_tagihan = total_tagihan.replaceAll('.', '');
+    total_tagihan = total_tagihan.replaceAll(' ', '');
+
+    nominal_pembayaran = nominal_pembayaran.replaceAll('Rp', '');
+    nominal_pembayaran = nominal_pembayaran.replaceAll('.', '');
+    nominal_pembayaran = nominal_pembayaran.replaceAll(' ', '');
+
+    if (parseInt(total_tagihan) < parseInt(nominal_pembayaran)) {
+        $('.sisa-partisipasi').text('Rp. ' + formatRupiah(total_tagihan));
+        $('#button_pembayaran_gagal').click();
+        return
+    }
+
     $.ajax({
         url,
         method,
@@ -290,8 +307,9 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                         id: anggota.id_anggota
                     },
                     success: (hasil) => {
+                        $('#button_pembayaran_sukses').click();
                         remainingBill = hasil.keuangan_anggota.tagihan;
-                        printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingBill })
+                        printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingBill });
                     },
                     error: (err) => {
                         console.log(err);

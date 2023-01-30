@@ -933,6 +933,7 @@ class QueryController extends Controller
         $id_kelas = $request->input('id_kelas') ?? null;
         $id_jurusan = $request->input('id_jurusan') ?? null;
         $nomor_kelas = $request->input('nomor_kelas') ?? null;
+        $status_siswa = $request->input('status_siswa') ?? null;
     
         $siswa = Anggota::find($id_anggota);
         $nama_siswa != null && $siswa->nama = $nama_siswa;
@@ -941,6 +942,7 @@ class QueryController extends Controller
         $id_kelas != null && $siswa->id_kelas = $id_kelas;
         $id_jurusan != null && $siswa->id_jurusan = $id_jurusan;
         $nomor_kelas != null && $siswa->nomor_kelas = $nomor_kelas;
+        $status_siswa != null && $siswa->alumni = $status_siswa;
         $siswa->save();
     
         return response($siswa, 200);

@@ -103,7 +103,7 @@
               <p class="text-medium color-neutral-100">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">{{ $a->alumni == 0 ? 'Siswa Aktif' : 'Alumni' }}</p>
+              <p class="text-medium color-neutral-100">{{ $a->alumni == 0 ? 'Siswa Aktif' : $a->alumni == 0 ? 'Alumni' : 'Keluar' }}</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
@@ -177,6 +177,13 @@
             <label for="nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
             <input type="number" class="form-control" id="nomor_kelas" name="nomor_kelas" placeholder="Nomor Kelas..." >
           </div>
+          <div class="mb-3">
+            <label for="status_siswa" class="form-label">Status Siswa</label>
+            <select id="status_siswa" name="status_siswa" class="form-select">
+              <option value="0">Siswa Aktif</option>
+              <option value="1">Alumni</option>
+            </select>
+          </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
             <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
@@ -233,6 +240,14 @@
           <div class="mb-3">
             <label for="update_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
             <input type="number" class="form-control" id="update_nomor_kelas" placeholder="Nomor Kelas..." >
+          </div>
+          <div class="mb-3">
+            <label for="update_status_siswa" class="form-label">Jenis Kelamin</label>
+            <select id="update_status_siswa" name="update_status_siswa" class="form-select">
+              <option value="0">Siswa Aktif</option>
+              <option value="1">Alumni</option>
+              <option value="2">Keluar</option>
+            </select>
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>

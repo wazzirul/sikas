@@ -60,8 +60,10 @@ class ImportBPP implements ToModel, WithStartRow
             $status_siswa = strtolower($row[5]);
             if($status_siswa == "aktif"){
                 $anggota->alumni = 0;
-            }else{
+            }elseif($status_siswa == "alumni"){
                 $anggota->alumni = 1;
+            }else{
+                $anggota->alumni = 2;
             }
 
             $anggota->save();
@@ -91,6 +93,12 @@ class ImportBPP implements ToModel, WithStartRow
             $nominal_bayar = str_replace('rp', '', $nominal_bayar);
             $nominal_bayar = str_replace('.', '', $nominal_bayar);
             $nominal_bayar = str_replace(' ', '', $nominal_bayar);
+
+            if($nominal_partisipasi == '-') $nominal_partisipasi = 0;
+            if($nominal_bayar == '-') $nominal_bayar = 0;
+
+            if((int)$nominal_partisipasi < 0) $nominal_partisipasi = 0;
+            if((int)$nominal_bayar < 0) $nominal_bayar = 0;
 
             $pembayaran_total = (int)$nominal_partisipasi + (int)$nominal_bayar;
             $keuangan_anggota->tagihan = (int)$nominal_partisipasi;

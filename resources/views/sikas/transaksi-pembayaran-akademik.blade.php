@@ -126,7 +126,8 @@ Transaksi
             <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
             <input type="hidden" id="id_anggota" name="id_anggota" />
           </div>
-          <button class="btn btn-primary pembayaran-button disabled" data-bs-toggle="modal" data-bs-target="#modalPembayaran">Bayar Sekarang</button>
+          <button type="hidden" class="d-none" id="button_pembayaran_sukses" data-bs-toggle="modal" data-bs-target="#modalPembayaran"></button>
+          <button class="btn btn-primary pembayaran-button disabled">Bayar Sekarang</button>
         </form>
       </div>
     </div>
@@ -251,6 +252,7 @@ Transaksi
 </div>
 
 <!-- Modal -->
+<button type="hidden" class="d-none" id="button_pembayaran_gagal" data-bs-toggle="modal" data-bs-target="#modalPembayaranGagal"></button>
 <div class="modal modal--transaksi fade" id="modalPembayaranGagal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -258,7 +260,7 @@ Transaksi
         <div class="d-flex flex-column justify-content-center align-items-center text-center">
           <i class="fa-solid fa-circle-xmark icon-success text-danger"></i>
           <h4 class="color-neutral-100 mt-3 my-2">Error! Anda Gagal Melakukan Pembayaran</h4>
-          <p class="color-neutral-80">Nominal Pembayaran melebihi sisa partisipasi anda, sisa partisipasi anda<br> "<span class="text-primary text-bold">Rp. 655.000</span>"</p>
+          <p class="color-neutral-80">Nominal Pembayaran melebihi sisa partisipasi anda, sisa partisipasi anda<br> "<span class="text-primary text-bold sisa-partisipasi">-</span>"</p>
         </div>
       </div>
     </div>

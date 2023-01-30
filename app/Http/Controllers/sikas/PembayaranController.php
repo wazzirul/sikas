@@ -152,14 +152,26 @@ class PembayaranController extends Controller
 				->where('soft_delete', 0)
 				->get();
 
+		$total_penambahan = 0;
+		$penambahan = PengajuanPenambahan::where('id_anggota', $id)
+				->where('soft_delete', 0)
+				->get();
+
 		foreach ($keringanan as $k) {
 				$total_keringanan += (int)$k->jumlah;
+		}
+
+		foreach ($penambahan as $p) {
+			$total_penambahan += (int)$p->jumlah;
 		}
 
 		return view('sikas.history-transaksi-siswa-detail', [
 				'anggota' => $anggota,
 				'transaksi' => $transaksi,
+				'keringanan' => $keringanan,
+				'penambahan' => $penambahan,
 				'total_keringanan' => $total_keringanan,
+				'total_penambahan' => $total_penambahan,
 		]);
 	}
 

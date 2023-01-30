@@ -56,6 +56,10 @@
           <h5 class="text-bold text-primary sisa-tanggungan">{{ $anggota->KeuanganAnggota->tagihan }}</h5>
         </div>
         <div class="d-flex flex-column gap-1">
+          <p class="color-neutral-80">Total Pengajuan Penambahan</p>
+          <h5 class="text-bold text-info total-penambahan">{{ $total_penambahan }}</h5>
+        </div>
+        <div class="d-flex flex-column gap-1">
           <p class="color-neutral-80">Total Keringanan</p>
           <h5 class="text-bold text-info total-keringanan">{{ $total_keringanan }}</h5>
         </div>
@@ -114,6 +118,24 @@
                 </a>
               </div>
             </td>
+          </tr>
+          @endforeach
+          @foreach($keringanan as $k)
+          <tr>
+            <td class="color-neutral-100">{{ \Carbon\Carbon::parse($k->tanggal)->translatedFormat('F, d Y') }}</td>
+            <td class="color-neutral-100">Uang SPP</td>
+            <td class="color-neutral-100">Pengajuan Keringanan</td>
+            <td class="color-neutral-100 nominal-transaksi">{{ $k->jumlah }}</td>
+            <td></td>
+          </tr>
+          @endforeach
+          @foreach($penambahan as $p)
+          <tr>
+            <td class="color-neutral-100">{{ \Carbon\Carbon::parse($p->tanggal)->translatedFormat('F, d Y') }}</td>
+            <td class="color-neutral-100">Uang SPP</td>
+            <td class="color-neutral-100">Pengajuan Penambahan</td>
+            <td class="color-neutral-100 nominal-transaksi">{{ $p->jumlah }}</td>
+            <td></td>
           </tr>
           @endforeach
         </tbody>

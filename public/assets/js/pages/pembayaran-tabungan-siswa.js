@@ -1,5 +1,6 @@
 let dataSiswa;
 let validateDelete = true;
+let validatePenarikan = true;
 const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
 if ($("#riwayat-tabungan").length == 1) {
@@ -345,43 +346,67 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
     })
     if (dontSubmit) return
 
-    $.ajax({
-        url,
-        method,
-        data,
-        success: (result) => {
-            try {
-                let { tanggal, anggota, kasir, transaksi } = result
-                let tgl = new Date(Date.parse(tanggal));
-                let day = tgl.toLocaleDateString('id', { weekday: 'long' });
-                let bulan = tgl.getMonth();
-                let date = tgl.getDate();
-                let tahun = tgl.getFullYear();
+    let total_tabungan = $('.detail-tabungan')[0].innerHTML;
+    let nominal_penarikan = $('#nominalPenarikan').val();
 
-                let username = kasir,
-                    numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
-                    removetransactionnumber = true,
-                    numberandname = `${anggota.nis} / ${anggota.nama}`,
-                    classname = anggota.detail_kelas,
-                    transactiontype = 'Penarikan Dana Tabungan',
-                    total = transaksi.jumlah,
-                    savingsFund = transaksi.mutasi
+    total_tabungan = total_tabungan.replaceAll('Rp', '');
+    total_tabungan = total_tabungan.replaceAll('.', '');
+    total_tabungan = total_tabungan.replaceAll(' ', '');
 
-                printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsFund })
-            } catch (error) {
-                console.error(error);
+    nominal_penarikan = nominal_penarikan.replaceAll('Rp', '');
+    nominal_penarikan = nominal_penarikan.replaceAll('.', '');
+    nominal_penarikan = nominal_penarikan.replaceAll(' ', '');
+
+    if (parseInt(total_tabungan) < parseInt(nominal_penarikan)) {
+        $('#button_penarikan_gagal').click();
+        return
+    }
+
+    if (validatePenarikan) {
+        validatePenarikan = false;
+
+        $.ajax({
+            url,
+            method,
+            data,
+            success: (result) => {
+                try {
+                    let { tanggal, anggota, kasir, transaksi } = result
+                    let tgl = new Date(Date.parse(tanggal));
+                    let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+                    let bulan = tgl.getMonth();
+                    let date = tgl.getDate();
+                    let tahun = tgl.getFullYear();
+
+                    let username = kasir,
+                        numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
+                        removetransactionnumber = true,
+                        numberandname = `${anggota.nis} / ${anggota.nama}`,
+                        classname = anggota.detail_kelas,
+                        transactiontype = 'Penarikan Dana Tabungan',
+                        total = transaksi.jumlah,
+                        savingsFund = transaksi.mutasi
+
+                    $('#button_penarikan_sukses').click();
+                    printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsFund })
+                } catch (error) {
+                    console.error(error);
+                }
+                validatePenarikan = true;
+            },
+            error: (err) => {
+                console.log(err);
+                validatePenarikan = true;
+            },
+            complete: () => {
+                $('#nominalPenarikan').val('')
+
+                let id = $('.id_anggota_input').val()
+                $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
+                validatePenarikan = true;
             }
-        },
-        error: (err) => {
-            console.log(err);
-        },
-        complete: () => {
-            $('#nominalPenarikan').val('')
-
-            let id = $('.id_anggota_input').val()
-            $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
-        }
-    })
+        })
+    }
 })
 
 function formatRupiah(angka, prefix) {

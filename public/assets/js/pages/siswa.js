@@ -13,6 +13,7 @@ $(document).ready(function () {
     let id_kelas = $('#update_id_kelas').val();
     let id_jurusan = $('#update_id_jurusan').val();
     let nomor_kelas = $('#update_nomor_kelas').val();
+    let status_siswa = $('#update_status_siswa').val();
 
     $.ajax({
       url: '/query/updateSiswa',
@@ -26,6 +27,7 @@ $(document).ready(function () {
         id_kelas: id_kelas,
         id_jurusan: id_jurusan,
         nomor_kelas: nomor_kelas,
+        status_siswa: status_siswa,
       },
       success: () => {
         setTimeout(() => {
@@ -91,7 +93,7 @@ $(document).ready(function () {
                 <p class="text-medium color-neutral-100">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
               </td>
               <td>
-                <p class="text-medium color-neutral-100">${value.alumni == 0 ? 'Siswa Aktif' : 'Alumni'}</p>
+                <p class="text-medium color-neutral-100">${value.alumni == 0 ? 'Siswa Aktif' : value.alumni == 1 ? 'Alumni' : 'Keluar'}</p>
               </td>
               <td>
                 <div class="d-flex align-items-center justify-content-end gap-3">
@@ -139,6 +141,7 @@ function changeAnggota($id_anggota) {
       $('#update_nis').val(result.nis);
       $('#update_jenis_kelamin').val(result.jenis_kelamin);
       $('#update_nomor_kelas').val(result.nomor_kelas);
+      $('#update_status_siswa').val(result.alumni);
       result.id_kelas !== null ? $('#update_id_kelas').val(result.kelas.id_kelas) : $('#update_id_kelas').val("")
       result.id_jurusan !== null ? $('#update_id_jurusan').val(result.jurusan.id_jurusan) : $('#update_id_jurusan').val("")
       $('.nama-delete-modal').text(result.nama);

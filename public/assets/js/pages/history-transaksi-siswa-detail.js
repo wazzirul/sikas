@@ -1,7 +1,7 @@
 $(document).ready(function () {
   if ($("#history-pembayaran").length == 1) {
     $('#history-pembayaran').DataTable({
-      "aaSorting": [],
+      "aaSorting": [[0, 'DESC']],
     });
   }
 
@@ -14,6 +14,7 @@ $(document).ready(function () {
   }
 
   $('.sisa-tanggungan').text('Rp. ' + numberFormat($('.sisa-tanggungan').text()));
+  $('.total-penambahan').text('Rp. ' + numberFormat($('.total-penambahan').text()));
   $('.total-keringanan').text('Rp. ' + numberFormat($('.total-keringanan').text()));
   $('.total-tabungan').text('Rp. ' + numberFormat($('.total-tabungan').text()));
 
@@ -114,7 +115,22 @@ $(document).ready(function () {
         }
       })
     }
+  })
 
+  $('#history-pembayaran').on('page.dt', function () {
+    setTimeout(() => {
+      $.each($('.nominal-transaksi'), (index, value) => {
+        $(value).text('Rp. ' + numberFormat($(value).text().replaceAll('Rp', '').replaceAll('.', '').replaceAll(' ', '')))
+      })
+    }, 100);
+  });
+
+  $('#tahunAjaran').keyup((e) => {
+    console.log($('.form-control.form-control-sm').find('input[type=search]'));
+    $('.form-control.form-control-sm').find('input[type=search]').prevObject.each((index, value) => {
+      $(value).val(e.currentTarget.value);
+      $(value).keyup();
+    });
   })
 });
 

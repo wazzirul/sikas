@@ -45,6 +45,7 @@ class SiswaController extends Controller
     $id_kelas = $request->input('id_kelas');
     $id_jurusan = $request->input('id_jurusan');
     $nomor_kelas = $request->input('nomor_kelas');
+    $status_siswa = $request->input('status_siswa');
 
     $siswa = Anggota::where('nama', $nama_siswa)
       ->where('nis', $nis)
@@ -55,6 +56,7 @@ class SiswaController extends Controller
       $siswa->id_kelas = $id_kelas;
       $siswa->id_jurusan = $id_jurusan;
       $siswa->nomor_kelas = $nomor_kelas;
+      $siswa->alumni = $status_siswa;
       $siswa->soft_delete = '0';
     }else{
       $siswa = new Anggota();
@@ -65,6 +67,7 @@ class SiswaController extends Controller
       $siswa->id_kelas = $id_kelas;
       $siswa->id_jurusan = $id_jurusan;
       $siswa->nomor_kelas = $nomor_kelas;
+      $siswa->alumni = $status_siswa;
     }
     $siswa->save();
 
