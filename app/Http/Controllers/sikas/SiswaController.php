@@ -17,6 +17,7 @@ class SiswaController extends Controller
 {
   public function index(){
     $anggota = Anggota::where('tipe_anggota', 2)
+      ->where('alumni', 0)
       ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
       ->where('soft_delete', 0)
       ->get();
