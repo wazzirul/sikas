@@ -98,8 +98,9 @@ class QueryController extends Controller
                         $q->where('id_kelas', $id_kelas);
                     }
                 }
-                $id_jurusan && $q->where('id_jurusan', $id_jurusan);
-                $nomor_kelas && $q->where('nomor_kelas', $nomor_kelas);
+                
+                $id_jurusan && $q->where('id_jurusan', '=', $id_jurusan);
+                $nomor_kelas && $q->where('nomor_kelas', '=', $nomor_kelas);
             })
             ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
             ->get();

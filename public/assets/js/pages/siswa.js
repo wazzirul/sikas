@@ -77,6 +77,8 @@ $(document).ready(function () {
       },
       success: (result) => {
         $('#tbody-data-siswa').empty();
+        $('#data-siswa').DataTable().clear().destroy();
+
         $.each(result, (index, value) => {
           $('#tbody-data-siswa').append(`
             <tr>
@@ -113,7 +115,19 @@ $(document).ready(function () {
               </td>
             </tr>
           `);
+
+          if (index == (result.length - 1)) {
+            $('#data-siswa').DataTable({
+              "aaSorting": [],
+            });
+          }
         })
+
+        if (result.length == 0) {
+          $('#data-siswa').DataTable({
+            "aaSorting": [],
+          });
+        }
       },
       error: (err) => {
         console.log(err);

@@ -24,7 +24,8 @@ class ImportBPP implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[1] && $row[2] && $row[3]){
+        if($row[2] && $row[3]){
+            if($row[1] == "" || $row[1] == "0") $row[1] = "-"; 
             $anggota = Anggota::where('nis', $row[1])
                 ->where('nama', $row[2])
                 ->first();
@@ -48,13 +49,23 @@ class ImportBPP implements ToModel, WithStartRow
             $jurusan = Jurusan::where('nama', $get_kelas[1])
                 ->first();
 
-            $jurusan != null ? $id_jurusan = $jurusan->id_jurusan : $id_jurusan = 1;
+            if($jurusan){
+                $id_jurusan = $jurusan->id_jurusan;
+            }else{
+                $jurusan = new Jurusan();
+                $jurusan->nama = $get_kelas[1];
+                $jurusan->save();
+
+                $id_jurusan = $jurusan->id_jurusan;
+            }
 
             $nomor_kelas = $get_kelas[2];
 
             $anggota->id_kelas = $id_kelas;
             $anggota->id_jurusan = $id_jurusan;
             $anggota->nomor_kelas = $nomor_kelas;
+
+            if($row[4] == "") $row[4] = "-";
             $anggota->jenis_kelamin = $row[4];
 
             $status_siswa = strtolower($row[5]);
@@ -94,8 +105,8 @@ class ImportBPP implements ToModel, WithStartRow
             $nominal_bayar = str_replace('.', '', $nominal_bayar);
             $nominal_bayar = str_replace(' ', '', $nominal_bayar);
 
-            if($nominal_partisipasi == '-') $nominal_partisipasi = 0;
-            if($nominal_bayar == '-') $nominal_bayar = 0;
+            if($nominal_partisipasi == '-' || $nominal_partisipasi == '') $nominal_partisipasi = 0;
+            if($nominal_bayar == '-' || $nominal_bayar == '') $nominal_bayar = 0;
 
             if((int)$nominal_partisipasi < 0) $nominal_partisipasi = 0;
             if((int)$nominal_bayar < 0) $nominal_bayar = 0;

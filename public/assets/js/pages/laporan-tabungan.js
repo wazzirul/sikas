@@ -39,6 +39,8 @@ $(document).ready(function () {
             },
             success: (result) => {
                 $('#tbody-laporan-tabungan').empty();
+                $('#data-laporan-pembayaran-tabungan').DataTable().clear().destroy();
+
                 $.each(result, (index, value) => {
                     let keterangan
                     if (value.anggota.tipe_anggota == 1) {
@@ -66,7 +68,19 @@ $(document).ready(function () {
                             </td>
                         </tr>
                     `);
+
+                    if (index == (result.length - 1)) {
+                        $('#data-laporan-pembayaran-tabungan').DataTable({
+                            "aaSorting": [],
+                        });
+                    }
                 })
+
+                if (result.length == 0) {
+                    $('#data-laporan-pembayaran-tabungan').DataTable({
+                        "aaSorting": [],
+                    });
+                }
             },
             error: (err) => {
                 console.log(err);

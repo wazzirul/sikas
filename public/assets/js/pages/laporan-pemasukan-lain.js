@@ -38,6 +38,8 @@ $(document).ready(function () {
             },
             success: (result) => {
                 $('#tbody-pemasukan-lain').empty();
+                $('#data-laporan-pemasukan-sumber-lain').DataTable().clear().destroy();
+
                 $.each(result, (index, value) => {
                     $('#tbody-pemasukan-lain').append(`
                         <tr>
@@ -58,7 +60,19 @@ $(document).ready(function () {
                             </td>
                         </tr>
                     `);
+
+                    if (index == (result.length - 1)) {
+                        $('#data-laporan-pemasukan-sumber-lain').DataTable({
+                            "aaSorting": [],
+                        });
+                    }
                 })
+
+                if (result.length == 0) {
+                    $('#data-laporan-pemasukan-sumber-lain').DataTable({
+                        "aaSorting": [],
+                    });
+                }
             },
             error: (err) => {
                 console.log(err);

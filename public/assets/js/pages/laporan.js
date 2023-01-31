@@ -65,6 +65,9 @@ $(document).ready(function () {
       },
       success: (result) => {
         $('#tbody-laporan').empty();
+        if ($("#data-laporan").length == 1) {
+          $('#data-laporan').DataTable().clear().destroy();
+        }
 
         // Saldo
         $('#tbody-laporan').append(`
@@ -185,7 +188,23 @@ $(document).ready(function () {
               </td>
             </tr>
           `);
+
+          if ($("#data-laporan").length == 1) {
+            if (index == (result.transaksi_lain_bulan_ini.length - 1)) {
+              $('#data-laporan').DataTable({
+                "aaSorting": [],
+              });
+            }
+          }
         })
+
+        if ($("#data-laporan").length == 1) {
+          if (result.transaksi_lain_bulan_ini.length == 0) {
+            $('#data-laporan').DataTable({
+              "aaSorting": [],
+            });
+          }
+        }
       },
       error: (err) => {
         console.log(err);

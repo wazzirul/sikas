@@ -38,6 +38,8 @@ $(document).ready(function () {
             },
             success: (result) => {
                 $('#tbody-pengajuan-keringanan').empty();
+                $('#data-laporan-pengajuan-keringanan').DataTable().clear().destroy();
+
                 $.each(result, (index, value) => {
                     $('#tbody-pengajuan-keringanan').append(`
                         <tr>
@@ -55,7 +57,19 @@ $(document).ready(function () {
                             </td>
                         </tr>
                     `);
+
+                    if (index == (result.length - 1)) {
+                        $('#data-laporan-pengajuan-keringanan').DataTable({
+                            "aaSorting": [],
+                        });
+                    }
                 })
+
+                if (result.length == 0) {
+                    $('#data-laporan-pengajuan-keringanan').DataTable({
+                        "aaSorting": [],
+                    });
+                }
             },
             error: (err) => {
                 console.log(err);

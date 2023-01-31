@@ -39,6 +39,8 @@ $(document).ready(function () {
             },
             success: (result) => {
                 $('#tbody-penggunaan-dana').empty();
+                $('#data-laporan-penggunaan-dana').DataTable().clear().destroy();
+
                 $.each(result, (index, value) => {
                     $('#tbody-penggunaan-dana').append(`
                         <tr>
@@ -59,7 +61,19 @@ $(document).ready(function () {
                             </td>
                         </tr>
                     `);
+
+                    if (index == (result.length - 1)) {
+                        $('#data-laporan-penggunaan-dana').DataTable({
+                            "aaSorting": [],
+                        });
+                    }
                 })
+
+                if (result.length == 0) {
+                    $('#data-laporan-penggunaan-dana').DataTable({
+                        "aaSorting": [],
+                    });
+                }
             },
             error: (err) => {
                 console.log(err);

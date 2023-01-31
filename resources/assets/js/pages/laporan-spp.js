@@ -50,7 +50,7 @@ $(document).ready(function () {
     })
 
     $('.applyBtn').click(() => {
-
+        fetchDataPembayaran();
     })
 
     $('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas').change(() => {
@@ -93,6 +93,8 @@ function fetchDataPembayaran() {
         },
         success: (result) => {
             $('#tbody-laporan-spp').empty();
+            $('#data-laporan-pembayaran-spp').DataTable().clear().destroy();
+
             $.each(result, (index, value) => {
                 $('#tbody-laporan-spp').append(`
                     <tr>
@@ -116,7 +118,19 @@ function fetchDataPembayaran() {
                         </td>
                     </tr>
                 `);
+
+                if (index == (result.length - 1)) {
+                    $('#data-laporan-pembayaran-spp').DataTable({
+                        "aaSorting": [],
+                    });
+                }
             })
+
+            if (result.length == 0) {
+                $('#data-laporan-pembayaran-spp').DataTable({
+                    "aaSorting": [],
+                });
+            }
         },
         error: (err) => {
             console.log(err);
@@ -141,6 +155,8 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
         },
         success: (result) => {
             $('#tbody-laporan-spp-kelas').empty();
+            $('#data-laporan-pembayaran-spp-perkelas').DataTable().clear().destroy();
+
             $.each(result, (index, value) => {
                 $('#tbody-laporan-spp-kelas').append(`
                     <tr>
@@ -170,7 +186,19 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                         </td>
                     </tr>
                 `);
+
+                if (index == (result.length - 1)) {
+                    $('#data-laporan-pembayaran-spp-perkelas').DataTable({
+                        "aaSorting": [],
+                    });
+                }
             })
+
+            if (result.length == 0) {
+                $('#data-laporan-pembayaran-spp-perkelas').DataTable({
+                    "aaSorting": [],
+                });
+            }
         },
         error: (err) => {
             console.log(err);

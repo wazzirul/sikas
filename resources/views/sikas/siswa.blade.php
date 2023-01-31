@@ -103,7 +103,7 @@
               <p class="text-medium color-neutral-100">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">{{ $a->alumni == 0 ? 'Siswa Aktif' : $a->alumni == 0 ? 'Alumni' : 'Keluar' }}</p>
+              <p class="text-medium color-neutral-100">{{ $a->alumni == 0 ? 'Siswa Aktif' : ($a->alumni == 1 ? 'Alumni' : 'Keluar') }}</p>
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
