@@ -18,7 +18,7 @@ $(document).ready(function () {
           </div>`,
             type: 'raw-html',
             header: null,
-            style: '@media print { @page { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; } table { border: 1px solid #E0E0E0; border-collapse: collapse; } table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important; } table thead th, table thead td { text-align: left; white-space: nowrap; }',
+            style: '@media print { @page { margin-top: 48px; margin-bottom: 48px; } @page:first { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; page-break-before: auto; } table { border: 1px solid #E0E0E0; border-collapse: collapse;} table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important;} table thead th, table thead td { text-align: left; white-space: nowrap; border: 1px solid #E0E0E0} p.kelas { width:64px !important }',
             gridStyle: 'padding: 2px;',
             documentTitle: 'Laporan Pembayaran Partisipasi'
         })
@@ -43,7 +43,7 @@ $(document).ready(function () {
           </div>`,
             type: 'raw-html',
             header: null,
-            style: '@media print { @page { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; } table { border: 1px solid #E0E0E0; border-collapse: collapse; } table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important; } table thead th, table thead td { text-align: left; white-space: nowrap; }',
+            style: '@media print { @page { margin-top: 48px; margin-bottom: 48px; } @page:first { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; } table { border: 1px solid #E0E0E0; border-collapse: collapse; } table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important; } table thead th, table thead td { text-align: left; white-space: nowrap; } p.kelas { width:64px !important }',
             gridStyle: 'padding: 2px;',
             documentTitle: 'Laporan Pembayaran Partisipasi'
         })
@@ -108,7 +108,7 @@ function fetchDataPembayaran() {
                             <p class="text-medium color-neutral-100">${value.anggota.nama}</p>              
                         </td>
                         <td>
-                            <p class="text-medium color-neutral-100">${value.anggota.kelas.nama} ${value.anggota.jurusan.nama} ${value.anggota.nomor_kelas}</p>
+                            <p class="text-medium color-neutral-100 kelas">${value.anggota.kelas.nama} ${value.anggota.jurusan.nama} ${value.anggota.nomor_kelas}</p>
                         </td>
                         <td class="text-medium">
                             <p class="text-medium color-neutral-100">${value.nama_transaksi}</p>              
@@ -170,7 +170,7 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                             <p class="text-medium color-neutral-100">${value.nama}</p>              
                         </td>
                         <td class="text-medium">
-                            <p class="text-medium color-neutral-100">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>              
+                            <p class="text-medium color-neutral-100 kelas">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>              
                         </td>
                         <td class="text-medium">
                             <p class="text-medium color-neutral-100">${value.jenis_kelamin ?? 'L'}</p>              

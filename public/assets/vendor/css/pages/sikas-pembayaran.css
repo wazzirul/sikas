@@ -394,6 +394,10 @@ th[rowspan]:not([rowspan="1"]) {
   max-width: 30rem;
 }
 
+.modal--transaksi-form .modal-dialog {
+  max-width: 36.25rem;
+}
+
 .card--history-pembayaran,
 .card--history-transaksi-siswa {
   padding: 2rem;

@@ -117,7 +117,7 @@ Laporan
                     <p class="text-medium color-neutral-100">{{ $l->Anggota->nama }} </p>
                   </td>
                   <td>
-                    <p class="text-medium color-neutral-100">{{ $l->Anggota->Kelas->nama }} {{ $l->Anggota->Jurusan->nama }} {{ $l->Anggota->nomor_kelas }}</p>
+                    <p class="text-medium color-neutral-100 kelas">{{ $l->Anggota->Kelas->nama }} {{ $l->Anggota->Jurusan->nama }} {{ $l->Anggota->nomor_kelas }}</p>
                   </td>
                   <td class="text-medium">
                     <p class="text-medium color-neutral-100">{{ $l->nama_transaksi }}</p>

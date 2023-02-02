@@ -183,6 +183,12 @@
   }
 }
 
+.modal--transaksi-form{
+  .modal-dialog{
+    max-width: toRem(580);
+  }
+}
+
 .card--history-pembayaran,
 .card--history-transaksi-siswa{
   padding: toRem(32);

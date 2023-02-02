@@ -134,6 +134,30 @@ $(document).ready(function () {
   })
 });
 
+$(document).on('click', 'button#button-cetak-laporan', function () {
+  let tableInnerHTML = $(document).find('table#history-pembayaran').html()
+  let namaSiswa = $(document).find('#detail-siswa-history__nama').text()
+
+  printJS({
+    printable: `
+    <div>
+      <div class="page-header">
+        <h2 class="page-header-title">Riwayat Transaksi ${namaSiswa}</h2>
+      </div>
+      <div class="page-content">
+        <table>
+          ${tableInnerHTML}
+        </table>
+      </div>
+    </div>`,
+    type: 'raw-html',
+    header: null,
+    style: '@media print { @page { margin-top: 48px; margin-bottom: 48px; } @page:first { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; } table { border: 1px solid #E0E0E0; border-collapse: collapse; } table th, table td { border: 1px solid #E0E0E0; padding: 8px 16px !important; } table thead th, table thead td { text-align: left; white-space: nowrap; } table tr td:last-child,tr th:last-child { display:none; } caption { display:none; }',
+    gridStyle: 'padding: 2px;',
+    documentTitle: 'Data Laporan'
+  })
+})
+
 function numberFormat(x) {
   var parts = x.toString().split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");

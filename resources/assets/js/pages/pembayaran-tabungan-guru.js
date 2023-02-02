@@ -24,7 +24,7 @@ $('#cari-siswa').keyup((e) => {
             $('.cari-siswa').empty();
             $.each(result, (index, value) => {
                 $('.cari-siswa').append(`
-                    <div class="cari-siswa__item" data-id="${value.id_anggota}">
+                    <a href="#" class="cari-siswa__item" data-id="${value.id_anggota}">
                         <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
                             <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
                             <div class="d-flex flex-column gap-1">
@@ -36,10 +36,10 @@ $('#cari-siswa').keyup((e) => {
                             <p class="text-bold color-neutral-100">Jabatan</p>
                             <p class="kelas-siswa color-neutral-80">${value.jabatan != null ? value.jabatan.jabatan : 'Guru'}</p>
                         </div>
-                        <a href="#" class="cari-siswa__item-detail">
+                        <div class="cari-siswa__item-detail">
                             <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 `);
             })
 
