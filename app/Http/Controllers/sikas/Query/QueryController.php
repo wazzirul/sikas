@@ -1299,8 +1299,9 @@ class QueryController extends Controller
             $naik_kelas = (int)$id_kelas + 1;
             if($id_kelas < 3){
                 $anggota = Anggota::where('tipe_anggota', 2)
-                ->where('id_kelas', $id_kelas)
-                ->get();
+                    ->where('id_kelas', $id_kelas)
+                    ->where('alumni', 0)
+                    ->get();
 
                 $jumlah_tagihan = $request->input('nominal'.$naik_kelas);
                 $jumlah_tagihan = str_replace('Rp', '', $jumlah_tagihan);
@@ -1319,7 +1320,15 @@ class QueryController extends Controller
                     }
                     $a->save();
                 }
+            }else if($id_kelas == 3){
+                $anggota = Anggota::where('tipe_anggota', 2)
+                    ->where('id_kelas', $id_kelas)
+                    ->where('alumni', 0)
+                    ->update([
+                        'alumni' => 1,
+                    ]);
             }
+
         }
     
         return response('success', 200);

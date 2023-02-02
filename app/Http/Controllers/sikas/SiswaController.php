@@ -20,6 +20,7 @@ class SiswaController extends Controller
       ->where('alumni', 0)
       ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
       ->where('soft_delete', 0)
+      ->limit(100)
       ->get();
 
     $nomor_kelas = Anggota::where('soft_delete', 0)

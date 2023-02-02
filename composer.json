@@ -16,6 +16,7 @@
     "laravel/tinker": "^2.7",
     "maatwebsite/excel": "^3.1",
     "psr/simple-cache": "^2.0",
+    "spatie/laravel-backup": "^8.1",
     "yajra/laravel-datatables": "9.0"
   },
   "require-dev": {
