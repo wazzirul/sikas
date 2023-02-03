@@ -27,6 +27,16 @@ $(document).ready(function () {
     $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
   })
 
+  $('#nominalKeringanan').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominalKeringanan').val(formatRupiah(input, 'RP. '))
+  })
+
+  $('#nominalPenambahan').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominalPenambahan').val(formatRupiah(input, 'RP. '))
+  })
+
   $('.update-transaksi-button').click(() => {
     let id_transaksi = $('#id_transaksi').val();
     let tipe_transaksi = $('#tipe_transaksi').val();
@@ -117,6 +127,48 @@ $(document).ready(function () {
     }
   })
 
+  $('.delete-keringanan-button').click(() => {
+    let id_pengajuan_keringanan = $('#id_pengajuan_keringanan').val();
+
+    $.ajax({
+      url: '/query/deletePengajuanKeringanan',
+      method: 'POST',
+      data: {
+        _token: $('#ctoken').val(),
+        id_pengajuan_keringanan: id_pengajuan_keringanan,
+      },
+      success: () => {
+        setTimeout(() => {
+          location.reload()
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  })
+
+  $('.delete-penambahan-button').click(() => {
+    let id_pengajuan_penambahan = $('#id_pengajuan_penambahan').val();
+
+    $.ajax({
+      url: '/query/deletePengajuanPenambahan',
+      method: 'POST',
+      data: {
+        _token: $('#ctoken').val(),
+        id_pengajuan_penambahan: id_pengajuan_penambahan,
+      },
+      success: () => {
+        setTimeout(() => {
+          location.reload()
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  })
+
   $('#history-pembayaran').on('page.dt', function () {
     setTimeout(() => {
       $.each($('.nominal-transaksi'), (index, value) => {
@@ -185,4 +237,105 @@ function changeTransaksi($id_transaksi, $tipe_transaksi, $id_anggota) {
   $('#id_transaksi').val($id_transaksi);
   $('#tipe_transaksi').val($tipe_transaksi);
   $('#id_anggota').val($id_anggota);
+
+  if ($tipe_transaksi == 6) {
+    $('#id_pengajuan_keringanan').val($id_transaksi)
+  } else if ($tipe_transaksi == 7) {
+    $('#id_pengajuan_penambahan').val($id_transaksi)
+  }
 }
+
+function detailKeringanan($jumlah, $file = null) {
+  $('.modal-jumlah-keringanan').text('Rp. ' + numberFormat($jumlah))
+
+  if ($file != null) {
+    var nama_file = $file.split('/');
+    $('.modal-file-keringanan').text(nama_file[nama_file.length - 1]);
+    $('.modal-download-keringanan').attr('download');
+    $('.modal-download-keringanan').attr('href', '/' + $file);
+  } else {
+    $('.modal-file-keringanan').text('Tidak ada file.');
+    $('.modal-download-keringanan').attr('href', '#!');
+    $('.modal-download-keringanan').removeAttr('download');
+  }
+}
+
+function detailPenambahan($jumlah, $file = null) {
+  $('.modal-jumlah-penambahan').text('Rp. ' + numberFormat($jumlah))
+
+  if ($file != null && $file != '') {
+    var nama_file = $file.split('/');
+    $('.modal-file-penambahan').text(nama_file[nama_file.length - 1]);
+    $('.modal-download-penambahan').attr('download');
+    $('.modal-download-penambahan').attr('href', '/' + $file);
+  } else {
+    $('.modal-file-penambahan').text('Tidak ada file.');
+    $('.modal-download-penambahan').attr('href', '#!');
+    $('.modal-download-penambahan').removeAttr('download');
+  }
+}
+
+
+$(document).on('submit', 'form#form-update-pengajuan-keringanan', function (e) {
+  e.preventDefault()
+
+  let form = $(this),
+    url = form.attr('action'),
+    method = form.attr('method'),
+    data = new FormData(this)
+
+  let dontSubmit = false
+  form.find('input:not([type="hidden"])').each((_, el) => {
+    if (!$(el).val()) dontSubmit = true
+  })
+  if (dontSubmit) return
+
+  $.ajax({
+    url,
+    method,
+    data,
+    processData: false,
+    contentType: false,
+    success: (result) => {
+      $('#successPengajuanKeringanan').click()
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    },
+    error: (err) => {
+      console.log(err);
+    },
+  })
+})
+
+$(document).on('submit', 'form#form-update-pengajuan-penambahan', function (e) {
+  e.preventDefault()
+
+  let form = $(this),
+    url = form.attr('action'),
+    method = form.attr('method'),
+    data = new FormData(this)
+
+  // let dontSubmit = false
+  // form.find('input:not([type="hidden"])').each((_, el) => {
+  //   if (!$(el).val()) dontSubmit = true
+  // })
+  // if (dontSubmit) return
+
+  $.ajax({
+    url,
+    method,
+    data,
+    processData: false,
+    contentType: false,
+    success: (result) => {
+      $('#successPengajuanPenambahan').click()
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    },
+    error: (err) => {
+      console.log(err);
+    },
+  })
+})

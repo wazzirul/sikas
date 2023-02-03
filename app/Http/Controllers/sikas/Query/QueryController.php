@@ -5,6 +5,7 @@ namespace App\Http\Controllers\sikas\Query;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 use Session;
 
 use App\Models\Anggota;
@@ -301,6 +302,171 @@ class QueryController extends Controller
         $data['kasir'] = Session::get('nama');
 
         return response($data, 200);
+    }
+
+    public function updatePengajuanKeringanan(Request $request)
+    {
+        $id_pengajuan_keringanan = $request->input('id_pengajuan_keringanan');
+        $nominal = $request->input('nominalKeringanan');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $pengajuan = PengajuanKeringanan::find($id_pengajuan_keringanan);
+        if($pengajuan){
+            $nominal_lama = $pengajuan->jumlah;
+            
+            //menyimpan data file yang diupload ke variabel $file
+            $file_pengajuan = $request->file('file-pengajuan');
+
+            $nama_file = time() . "_" . $file_pengajuan->getClientOriginalName();
+
+            //isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = 'uploads/file_pengajuan/';
+            //upload file
+            $file_pengajuan->move($tujuan_upload, $nama_file);
+            
+            $pengajuan->jumlah = $nominal;
+            $pengajuan->file = $tujuan_upload . $nama_file;
+            $pengajuan->save();
+    
+            $id_anggota = $pengajuan->id_anggota;
+            $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
+            $tanggungan = $keuangan_anggota->tagihan;
+            if((int)$nominal_lama > (int)$nominal){
+                $keuangan_anggota->tagihan = (int)$tanggungan + ((int)$nominal_lama - (int)$nominal);
+            }else{
+                $keuangan_anggota->tagihan = (int)$tanggungan - ((int)$nominal - (int)$nominal_lama);
+            }
+            $keuangan_anggota->save();
+
+            $res_anggota = Anggota::where('id_anggota', $id_anggota)
+                ->with('Kelas', 'Jurusan')
+                ->first();
+    
+            $res_anggota['detail_kelas'] = $res_anggota->Kelas->nama . ' ' . $res_anggota->Jurusan->nama
+                . ' ' . $res_anggota->nomor_kelas;
+    
+            $data['tanggal'] = Carbon::now()->format('l, d F Y');
+            $data['anggota'] = $res_anggota;
+            $data['pengajuan'] = $pengajuan;
+            $data['kasir'] = Session::get('nama');
+
+            return response($data, 200);
+        }else{
+            $data['message'] = 'Data Pengajuan Tidak Ditemukan.';
+            return response($data, 406);
+        }
+    }
+
+    public function updatePengajuanPenambahan(Request $request)
+    {
+        $id_pengajuan_penambahan = $request->input('id_pengajuan_penambahan');
+        $nominal = $request->input('nominalPenambahan');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $pengajuan = PengajuanPenambahan::find($id_pengajuan_penambahan);
+        if($pengajuan){
+            $nominal_lama = $pengajuan->jumlah;
+            $pengajuan->jumlah = $nominal;
+    
+            //menyimpan data file yang diupload ke variabel $file
+            $file_pengajuan = $request->file('file-pengajuan');
+    
+            if($file_pengajuan){
+                $nama_file = time() . "_" . $file_pengajuan->getClientOriginalName();
+        
+                //isi dengan nama folder tempat kemana file diupload
+                $tujuan_upload = 'uploads/file_pengajuan/';
+                //upload file
+                $file_pengajuan->move($tujuan_upload, $nama_file);
+                
+                $pengajuan->file = $tujuan_upload . $nama_file;
+            }
+
+            $id_anggota = $pengajuan->id_anggota;
+            $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
+            $tanggungan = $keuangan_anggota->tagihan;
+            if((int)$nominal_lama > (int)$nominal){
+                $keuangan_anggota->tagihan = (int)$tanggungan - ((int)$nominal_lama - (int)$nominal);
+            }else{
+                $keuangan_anggota->tagihan = (int)$tanggungan + ((int)$nominal - (int)$nominal_lama);
+            }
+    
+            $pengajuan->save();
+            $keuangan_anggota->save();
+    
+            $res_anggota = Anggota::where('id_anggota', $id_anggota)
+                ->with('Kelas', 'Jurusan')
+                ->first();
+    
+            $res_anggota['detail_kelas'] = $res_anggota->Kelas->nama . ' ' . $res_anggota->Jurusan->nama
+                . ' ' . $res_anggota->nomor_kelas;
+    
+            $data['tanggal'] = Carbon::now()->format('l, d F Y');
+            $data['anggota'] = $res_anggota;
+            $data['pengajuan'] = $pengajuan;
+            $data['kasir'] = Session::get('nama');
+    
+            return response($data, 200);
+        }else{
+            $data['message'] = 'Data Pengajuan Tidak Ditemukan.';
+            return response($data, 406);
+        }
+    }
+
+    public function deletePengajuanKeringanan(Request $request)
+    {
+        $id_pengajuan_keringanan = $request->input('id_pengajuan_keringanan');
+
+        $pengajuan = PengajuanKeringanan::find($id_pengajuan_keringanan);
+        if($pengajuan){
+            File::delete($pengajuan->file);
+
+            $pengajuan->soft_delete = 1;
+
+            $id_anggota = $pengajuan->id_anggota;
+            $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
+            $tanggungan = $keuangan_anggota->tagihan;
+            $keuangan_anggota->tagihan = (int)$tanggungan + (int)$pengajuan->jumlah;
+
+            $pengajuan->save();
+            $keuangan_anggota->save();
+
+            $data['message'] = 'Data Pengajuan Berhasil Dihapus.';
+            return response($data, 200);
+        }else{
+            $data['message'] = 'Data Pengajuan Tidak Ditemukan.';
+            return response($data, 406);
+        }
+    }
+
+    public function deletePengajuanPenambahan(Request $request)
+    {
+        $id_pengajuan_penambahan = $request->input('id_pengajuan_penambahan');
+
+        $pengajuan = PengajuanPenambahan::find($id_pengajuan_penambahan);
+        if($pengajuan){
+            File::delete($pengajuan->file);
+
+            $pengajuan->soft_delete = 1;
+
+            $id_anggota = $pengajuan->id_anggota;
+            $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
+            $tanggungan = $keuangan_anggota->tagihan;
+            $keuangan_anggota->tagihan = (int)$tanggungan - (int)$pengajuan->jumlah;
+
+            $pengajuan->save();
+            $keuangan_anggota->save();
+    
+            $data['message'] = 'Data Pengajuan Berhasil Dihapus.';
+            return response($data, 200);
+        }else{
+            $data['message'] = 'Data Pengajuan Tidak Ditemukan.';
+            return response($data, 406);
+        }
     }
 
     public function setorTabunganSiswa(Request $request)

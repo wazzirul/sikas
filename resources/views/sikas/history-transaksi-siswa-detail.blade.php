@@ -131,15 +131,15 @@
             <td class="color-neutral-100 nominal-transaksi">{{ $k->jumlah }}</td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#!" class="table__link-detail d-flex align-items-center gap-2 detail-pengajuan" data-file="" data-jumlah="200000" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringananDetail">
+                <a href="#!" class="table__link-detail d-flex align-items-center gap-2 detail-pengajuan" onClick="detailKeringanan({{ $k->jumlah }}, '{{ $k->file }}')" data-file="" data-jumlah="200000" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringananDetail">
                   Lihat Detail <i class="fa-solid fa-eye"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-info d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="##modalEditPengajuanPenambahanData">
+                <a href="#" class="table__link-detail text-info d-flex align-items-center gap-2" onClick="changeTransaksi({{ $k->id_pengajuan_keringanan }}, 6, {{ $k->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalEditPengajuanKeringananData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-danger d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeletePengajuanKeringananData">
+                <a href="#" class="table__link-detail text-danger d-flex align-items-center gap-2" onClick="changeTransaksi({{ $k->id_pengajuan_keringanan }}, 6, {{ $k->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalDeletePengajuanKeringananData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
@@ -154,15 +154,15 @@
             <td class="color-neutral-100 nominal-transaksi">{{ $p->jumlah }}</td>
             <td>
               <div class="d-flex align-items-center justify-content-cen gap-3">
-                <a href="#!" class="table__link-detail d-flex align-items-center gap-2 detail-pengajuan" data-file="" data-jumlah="200000" data-bs-toggle="modal" data-bs-target="#modalPengajuanPenambahanDetail">
+                <a href="#!" class="table__link-detail d-flex align-items-center gap-2 detail-pengajuan" onClick="detailPenambahan({{ $p->jumlah }}, '{{ $p->file }}')" data-file="" data-jumlah="200000" data-bs-toggle="modal" data-bs-target="#modalPengajuanPenambahanDetail">
                   Lihat Detail <i class="fa-solid fa-eye"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-info d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="##modalEditPengajuanKeringananData">
+                <a href="#" class="table__link-detail text-info d-flex align-items-center gap-2" onClick="changeTransaksi({{ $p->id_pengajuan_penambahan }}, 7, {{ $p->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalEditPengajuanPenambahanData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-danger d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#modalDeletePengajuanPenambahanData">
+                <a href="#" class="table__link-detail text-danger d-flex align-items-center gap-2" onClick="changeTransaksi({{ $p->id_pengajuan_penambahan }}, 7, {{ $p->id_anggota }})" data-bs-toggle="modal" data-bs-target="#modalDeletePengajuanPenambahanData">
                   Hapus <i class="fa-regular fa-trash-can"></i>
                 </a>
               </div>
@@ -215,9 +215,9 @@
           </a>
         </div>
         <div class="mt-5">
-          <form id="form-pengajuan-penambahan" action="/query/postPengajuanPenambahan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
+          <form id="form-update-pengajuan-penambahan" action="/query/updatePengajuanPenambahan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
-            <input type="hidden" name="id_anggota" value="{{ $anggota->id_anggota }}" />
+            <input type="hidden" name="id_pengajuan_penambahan" id="id_pengajuan_penambahan"  />
             <div class="pengajuan-keringanan-form__input-wrapper">
               <div class="pengajuan-keringanan-form__input">
                 <label for="upload-surat-pengajuan" class="form-label color-black">Upload Surat Pengajuan <span class="text-secondary text-extra-bold">*Optional</span></label>
@@ -230,14 +230,14 @@
               </div>
             </div>
             <div class="mt-3">
-              <label for="nominalPembayaran" class="form-label text-bold color-black">Nominal Penambahan</label>
-              <input type="text" min="0" class="form-control" required id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+              <label for="nominalPenambahan" class="form-label text-bold color-black">Nominal Penambahan</label>
+              <input type="text" min="0" class="form-control" required id="nominalPenambahan" name="nominalPenambahan" placeholder="0.00">
+            </div>
+            <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+              <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+              <button type="submit" class="btn btn-primary pengajuan-keringanan-button w-100">Ajukan Penambahan</button>
             </div>
           </form>
-        </div>
-        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-          <button type="submit" class="btn btn-primary pengajuan-keringanan-button w-100" data-bs-toggle="modal" data-bs-target="#modalPengajuanPenambahan">Ajukan Penambahan</button>
         </div>
       </div>
     </div>
@@ -256,9 +256,9 @@
           </a>
         </div>
         <div class="mt-5">
-        <form id="form-pengajuan-keringanan" action="/query/postPengajuanKeringanan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
+        <form id="form-update-pengajuan-keringanan" action="/query/updatePengajuanKeringanan" class="pengajuan-keringanan-form" method="POST" enctype="multipart/form-data">
           {{ csrf_field() }}
-          <input type="hidden" name="id_anggota" value="{{ $anggota->id_anggota }}" />
+          <input type="hidden" name="id_pengajuan_keringanan" id="id_pengajuan_keringanan"  />
           <div class="pengajuan-keringanan-form__input-wrapper">
             <div class="pengajuan-keringanan-form__input">
               <label for="upload-surat-pengajuan" class="form-label color-black">Upload Surat Pengajuan <span class="text-danger text-extra-bold">*Required</span></label>
@@ -271,14 +271,14 @@
             </div>
           </div>
           <div class="mt-3">
-            <label for="nominalPembayaran" class="form-label text-bold color-black">Nominal Keringanan</label>
-            <input type="text" min="0" class="form-control" required id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+            <label for="nominalKeringanan" class="form-label text-bold color-black">Nominal Keringanan</label>
+            <input type="text" min="0" class="form-control" required id="nominalKeringanan" name="nominalKeringanan" placeholder="0.00">
+          </div>
+          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+            <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
+            <button class="btn btn-primary pengajuan-keringanan-button w-100">Ajukan Keringanan</button>
           </div>
         </form>
-        </div>
-        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-          <button class="btn btn-primary pengajuan-keringanan-button w-100" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringanan">Ajukan Keringanan</button>
         </div>
       </div>
     </div>
@@ -333,6 +333,7 @@
 </div>
 
 <!-- Modal -->
+<button type="hidden" id="successPengajuanPenambahan" data-bs-toggle="modal" data-bs-target="#modalPengajuanPenambahan"></button>
 <div class="modal modal--transaksi fade" id="modalPengajuanPenambahan" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -361,12 +362,12 @@
         <div class="pengajuan-keringanan-detail mt-5">
           <div class="d-flex flex-column mb-5 align-items-center text-center">
             <h4 class="color-black mb-3">Jumlah Penambahan</h4>
-            <h5 class="text-bold text-success modal-jumlah">-</h5>
+            <h5 class="text-bold text-success modal-jumlah-penambahan">-</h5>
           </div>
           <h6 class="text-bold mb-3">Surat Pengajuan</h6>
-          <a href="#" download class="d-flex flex-row align-items-center pengajuan-keringanan-form__item-upload gap-3 modal-download">
+          <a href="#" download class="d-flex flex-row align-items-center pengajuan-keringanan-form__item-upload gap-3 modal-download-penambahan">
             <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
-            <p class="color-neutral-100 modal-file">Account-receible.pdf</p>
+            <p class="color-neutral-100 modal-file-penambahan">-</p>
           </a>
         </div>
       </div>
@@ -375,6 +376,7 @@
 </div>
 
 <!-- Modal -->
+<button type="hidden" id="successPengajuanKeringanan" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringanan"></button>
 <div class="modal modal--transaksi fade" id="modalPengajuanKeringanan" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -403,12 +405,12 @@
         <div class="pengajuan-keringanan-detail mt-5">
           <div class="d-flex flex-column mb-5 align-items-center text-center">
             <h4 class="color-black mb-3">Jumlah Keringanan</h4>
-            <h5 class="text-bold text-success modal-jumlah">-</h5>
+            <h5 class="text-bold text-success modal-jumlah-keringanan">-</h5>
           </div>
           <h6 class="text-bold mb-3">Surat Pengajuan</h6>
-          <a href="#" download class="d-flex flex-row align-items-center pengajuan-keringanan-form__item-upload gap-3 modal-download">
+          <a href="#" download class="d-flex flex-row align-items-center pengajuan-keringanan-form__item-upload gap-3 modal-download-keringanan">
             <i class="fa-solid fa-file-pdf text-primary file-icon"></i>
-            <p class="color-neutral-100 modal-file">Account-receible.pdf</p>
+            <p class="color-neutral-100 modal-file-keringanan">-</p>
           </a>
         </div>
       </div>
@@ -426,7 +428,7 @@
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-          <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeletePengajuanPenambahanDataSuccess">Delete</button>
+          <button class="btn btn-danger w-100 delete-penambahan-button" data-bs-toggle="modal" data-bs-target="#modalDeletePengajuanPenambahanDataSuccess">Delete</button>
         </div>
       </div>
     </div>
@@ -458,7 +460,7 @@
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-          <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeletePengajuanKeringananDataSuccess">Delete</button>
+          <button class="btn btn-danger w-100 delete-keringanan-button" data-bs-toggle="modal" data-bs-target="#modalDeletePengajuanKeringananDataSuccess">Delete</button>
         </div>
       </div>
     </div>

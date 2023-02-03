@@ -138,6 +138,10 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/postPembayaranAkademik', [QueryController::class, 'postPembayaranAkademik'])->name('sikas-query--post-pembayaran-akademik');
     Route::post('/query/postPengajuanKeringanan', [QueryController::class, 'postPengajuanKeringanan'])->name('sikas-query--post-pengajuan-keringanan');
     Route::post('/query/postPengajuanPenambahan', [QueryController::class, 'postPengajuanPenambahan'])->name('sikas-query--post-pengajuan-penambahan');
+    Route::post('/query/updatePengajuanKeringanan', [QueryController::class, 'updatePengajuanKeringanan'])->name('sikas-query--update-pengajuan-keringanan');
+    Route::post('/query/updatePengajuanPenambahan', [QueryController::class, 'updatePengajuanPenambahan'])->name('sikas-query--update-pengajuan-penambahan');
+    Route::post('/query/deletePengajuanKeringanan', [QueryController::class, 'deletePengajuanKeringanan'])->name('sikas-query--delete-pengajuan-keringanan');
+    Route::post('/query/deletePengajuanPenambahan', [QueryController::class, 'deletePengajuanPenambahan'])->name('sikas-query--delete-pengajuan-penambahan');
     Route::post('/query/updateJabatan', [QueryController::class, 'updateJabatan'])->name('sikas-query-updatejabatan');
     Route::post('/query/deleteJabatan', [QueryController::class, 'deleteJabatan'])->name('sikas-query-deletejabatan');
     Route::post('/query/updateJurusan', [QueryController::class, 'updateJurusan'])->name('sikas-query-updatejurusan');
