@@ -82,7 +82,7 @@
     <li class="menu-item {{ Route::is('sikas-jenis-pembayaran') == true ? 'active' : '' }}">
       <a href="{{route('sikas-jenis-pembayaran')}}" class="menu-link">
         <i class="fa-solid fa-cash-register menu-item__icon"></i>
-        <p class="menu-item__text">Jenis Pembayaran</p>
+        <p class="menu-item__text">Master BPP</p>
       </a>
     </li>
     <li class="menu-item {{ Route::is('sikas-master-jabatan') == true ? 'active' : '' }}">

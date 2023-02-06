@@ -87,8 +87,8 @@ Route::group(['middleware' => 'authsession'], function () {
         Route::post('/karyawan/import', [KaryawanController::class, 'importKaryawan'])->name('sikas-importkaryawan');
 
         //Jenis Pembayaran Controller
-        Route::get('/jenis-pembayaran', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');
-        Route::post('/jenis-pembayaran/post', [JenisPembayaranController::class, 'postJenisPembayaran'])->name('sikas-jenis-pembayaran-post');
+        Route::get('/master-bpp', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');
+        Route::post('/master-bpp/post', [JenisPembayaranController::class, 'postJenisPembayaran'])->name('sikas-jenis-pembayaran-post');
 
          // Jabatan Contoller
         Route::get('/master-jabatan', [JabatanController::class, 'index'])->name('sikas-master-jabatan');

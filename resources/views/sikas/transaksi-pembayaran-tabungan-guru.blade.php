@@ -103,7 +103,7 @@ Transaksi
   <h4 class="color-neutral-100 mb-5">Riwayat Tabungan</h4>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-      <table class="table table-striped" id="riwayat-tabungan">
+      <table class="table table-striped" id="riwayat-tabungan"  data-username="{{ \Session::get('nama') }}">
         <thead>
           <tr>
             <th>Tanggal</th>

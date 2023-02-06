@@ -20,28 +20,19 @@
 @endsection
 
 @section('current-pages-title')
-  Jenis Pembayaran
+  Master BPP
 @endsection
 
 @section('content')
 <div class="card card--jenis-pembayaran">
   <div class="jenis-pembayaran-wrapper">
-    <h4 class="text-bold color-black mb-4">Data Jenis / Nama Pembayaran</h4>    
-    <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
-    <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
-      <div class="d-flex align-items-center gap-4">
-        <button class="d-flex btn btn-primary gap-2 align-items-center" data-bs-toggle="modal" data-bs-target="#modalAddData">
-          Tambah Jenis Pembayaran
-          <i class="fa-solid fa-plus"></i>
-        </button>
-      </div>
-    </div>
+    <h4 class="text-bold color-black mb-4">Data Master BPP</h4>    
     <div class="table-responsive text-nowrap">
       <table class="table table-striped" id="data-jenis-pembayaran">
         <thead>
           <tr>
             <th>No</th>
-            <th>Jenis Pembayaran</th>
+            <th>Nama BPP</th>
             <th>Kelas</th>
             <th>Nominal</th>
             <th></th>
@@ -89,7 +80,7 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="/jenis-pembayaran/post" method="POST">
+        <form action="/master-bpp/post" method="POST">
           {{ csrf_field() }}
           <div class="mb-3">
             <label for="nama" class="form-label">Nama / Jenis Pembayaran</label>

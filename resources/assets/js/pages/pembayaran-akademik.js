@@ -37,8 +37,11 @@ $('#cari-siswa').keyup((e) => {
                         </div>
                         </div>
                         <div class="d-flex flex-column gap-1">
-                        <p class="text-bold color-neutral-100">Kelas</p>
-                        <p class="kelas-siswa color-neutral-80">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
+                          <p class="kelas-siswa text-bold text-info">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
+                          <p class="text-bold">
+                            <span class="text-success">Aktif</span>
+                            <span class="text-danger">Alumni - 2018/2019</span>
+                          </p>
                         </div>
                         <div href="#" class="cari-siswa__item-detail">
                         	<i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
@@ -119,7 +122,7 @@ function clickSiswa(e) {
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
                             <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-transactioncode="${value.kode_transaksi}">
-                            <i class="fa-solid fa-print table-icon__link"></i>
+                              <i class="fa-solid fa-print table-icon__link"></i>
                             </a>
                             <a href="#" class="table__link-detail text-info update-transaksi-button" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                             <i class="fa-solid fa-pen table-icon__link"></i>

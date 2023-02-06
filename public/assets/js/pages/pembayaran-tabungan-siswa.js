@@ -39,8 +39,11 @@ $('#cari-siswa').keyup((e) => {
                         </div>
                         </div>
                         <div class="d-flex flex-column gap-1">
-                        <p class="text-bold color-neutral-100">Kelas</p>
-                        <p class="kelas-siswa color-neutral-80">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
+                          <p class="kelas-siswa text-bold text-info">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
+                          <p class="text-bold">
+                            <span class="text-success">Aktif</span>
+                            <span class="text-danger">Alumni - 2018/2019</span>
+                          </p>
                         </div>
                         <div class="cari-siswa__item-detail">
                             <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
@@ -68,6 +71,11 @@ function clickSiswa(e) {
     $('.setoran-button').removeClass('disabled');
     $('.id_anggota_input').val(e.currentTarget.dataset.id);
     $('.card--riwayat-tabungan').removeClass('d-none');
+
+    let kasir = $(document).find('#riwayat-tabungan').data('username')
+    let name = $(e.currentTarget).find('.cari-siswa__nama-siswa').text()
+    let nis = $(e.currentTarget).find('.nomor-siswa').text()
+    let classname = $(e.currentTarget).find('.kelas-siswa').text()
 
     $.ajax({
         url: '/query/siswaById',
@@ -98,11 +106,11 @@ function clickSiswa(e) {
             console.log(result);
             $('.list-riwayat-tabungan').empty();
             $.each(result, (index, value) => {
-                let tanggal = new Date(Date.parse(value.tanggal));
-                let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
-                let bulan = tanggal.getMonth();
-                let date = tanggal.getDate();
-                let tahun = tanggal.getFullYear();
+              let tanggal = new Date(Date.parse(value.tanggal));
+              let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
+              let bulan = tanggal.getMonth();
+              let date = tanggal.getDate();
+              let tahun = tanggal.getFullYear();
 
                 $('.list-riwayat-tabungan').append(`
                     <tr>
@@ -128,16 +136,24 @@ function clickSiswa(e) {
                         ${value.approved == 0 && value.tipe_transaksi != 2 && document.getElementById('session_admin').value == 1 ? `
                             <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
                                 Konfrimasi
-                            </a>` : ''
+                            </a>` : `
+                            <a href="#" class="btn btn-dark disabled approve-button">
+                                Konfrimasi
+                            </a>`
                     }
                         </td>
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
-                          ${document.getElementById('session_admin').value == 1 || value.approved == 0 || value.tipe_transaksi == 2 ? `
-                            <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                                <i class="fa-solid fa-pen table-icon__link"></i>
-                            </a>
-                          ` : ''}
+                        
+                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.tipe_transaksi}" data-total="${value.jumlah}">
+                          <i class="fa-solid fa-print table-icon__link"></i>
+                        </a>
+
+                        ${document.getElementById('session_admin').value == 1 || value.approved == 0 || value.tipe_transaksi == 2 ? `
+                          <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                            <i class="fa-solid fa-pen table-icon__link"></i>
+                          </a>
+                        ` : ''}
                           
                           <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                             <i class="fa-regular fa-trash-can table-icon__link"></i>
