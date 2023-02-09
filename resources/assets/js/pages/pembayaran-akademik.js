@@ -1,3 +1,10 @@
+$(document).ready(function () {
+  $('.js-bulan-multiple').select2({
+    placeholder: "Pilih Bulan ...",
+    initSelection: function(element, callback) {                   
+    }
+  });
+});
 let dataSiswa;
 let validateDelete = true;
 

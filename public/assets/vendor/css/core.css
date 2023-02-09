@@ -8757,6 +8757,30 @@ th[rowspan]:not([rowspan="1"]) {
   border: 1px solid #696cff;
 }
 
+.select2-results__options .select2-results__option {
+  position: relative;
+  background-color: transparent !important;
+  color: #616161 !important;
+}
+.select2-results__options .select2-results__option--disabled {
+  background-color: transparent !important;
+  color: #02c39a !important;
+}
+.select2-results__options .select2-results__option--disabled::after {
+  content: "✓";
+  position: absolute;
+  right: 1.5rem;
+}
+.select2-results__options .select2-results__option--selected {
+  background-color: #696cff !important;
+  color: #fff !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #696cff !important;
+  color: #fff !important;
+}
+
 .select2-close-mask {
   z-index: 2099;
 }

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/printjs/print.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.min.css')}}">
 @endsection
 
 @section('vendor-script')
@@ -20,6 +21,7 @@
 
 @section('page-script')
 <script src="{{asset('assets/js/print-receipt.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/pages/pembayaran-akademik.js')}}"></script>
 @endsection
 
@@ -89,11 +91,6 @@ Transaksi
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
         <div class="cari-siswa">
-          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
-            <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
-            <h4 class="text-bold color-neutral-100">Belum Ada Pencarian</h4>
-            <p class="color-neutral-80">Masukkan nama lengkap siswa / nis untuk melakukan pencarian.</p>
-          </div>
         </div>
       </div>
       <div class="horizontal-line"></div>
@@ -106,25 +103,67 @@ Transaksi
                 <i class="fa-regular fa-user detail-siswa__icon"></i>
                 <div class="d-flex flex-column gap-1">
                   <h5 class="text-bold color-neutral-100 detail-nama">Nama Siswa</h5>
-                  <p class="nomor-siswa color-neutral-80 detail-nis">-</p>
+                  <p class="nomor-siswa color-super-black detail-nis">-</p>
                 </div>
+              </div>
+              <div class="d-flex flex-column detail-siswa__status-siswa">
+                <p class="color-neutral-100">Status Siswa</p>
+                <p class="text-bold">
+                  <span class="text-success">Aktif</span>
+                  <span class="text-danger">Alumni (2018-2019)</span>
+                </p>
               </div>
             </div>
             <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-3">
               <div class="d-flex flex-column gap-1">
-                <p class="color-neutral-80">Kelas</p>
+                <p class="color-neutral-100">Kelas</p>
                 <p class="text-bold color-neutral-100 detail-kelas">-</p>
               </div>
-              <div class="d-flex flex-column gap-1">
-                <p class="color-neutral-80">Sisa Partisipasi BPP</p>
+              <div class="d-flex flex-column gap-1 detail-siswa__sisa-partisipasi">
+                <p class="color-neutral-100">Sisa Partisipasi BPP</p>
                 <h5 class="text-bold text-primary detail-tagihan">0</h5>
               </div>
             </div>
           </div>
-          <div class="">
-            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
-            <input type="hidden" id="id_anggota" name="id_anggota" />
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+            <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
+            <h4 class="text-bold color-neutral-100">Belum Ada Siswa yang Dipilih</h4>
+            <p class="color-neutral-80">Lakukan pencarian / pilih salah satu data siswa.</p>
+          </div>
+          <div class="form-transaksi__angsuran d-flex flex-column gap-4">
+            <div class="">
+              <label for="angsuranKe" class="form-label">Angsuran Ke</label>
+              <input type="text" class="form-control disabled" id="angsuranKe" name="angsuranKe" disabled value="1">
+            </div>
+            <div class="">
+              <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
+              <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+              <input type="hidden" id="id_anggota" name="id_anggota" />
+            </div>            
+          </div>
+          <div class="form-transaksi__angsuran d-flex flex-column gap-4">
+            <div class="w-100">
+              <label for="bulan" class="form-label d-block">Bulan Ke</label>
+              <select class="js-bulan-multiple" name="bulan[]" multiple="multiple">
+                <option disabled class="disabled" value="Juli">Juli</option>
+                <option value="Agustus">Agustus</option>
+                <option value="September">September</option>
+                <option value="Oktober">Oktober</option>
+                <option value="November">November</option>
+                <option value="Desember">Desember</option>
+                <option value="Januari">Januari</option>
+                <option value="Februari">Februari</option>
+                <option value="Maret">Maret</option>
+                <option value="April">April</option>
+                <option value="Mei">Mei</option>
+                <option value="Juni">Juni</option>
+              </select>
+            </div>
+            <div class="">
+              <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
+              <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+              <input type="hidden" id="id_anggota" name="id_anggota" />
+            </div>            
           </div>
           <button type="hidden" class="d-none" id="button_pembayaran_sukses" data-bs-toggle="modal" data-bs-target="#modalPembayaran"></button>
           <button class="btn btn-primary pembayaran-button disabled">Bayar Sekarang</button>

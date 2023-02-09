@@ -85,22 +85,26 @@ Transaksi
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
         <div class="cari-siswa">
-          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
-            <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
-            <h4 class="text-bold color-neutral-100">Belum Ada Pencarian</h4>
-            <p class="color-neutral-80">Masukkan nama lengkap siswa / nis untuk melakukan pencarian.</p>
-          </div>
         </div>
       </div>
       <div class="horizontal-line"></div>
       <div class="card-item">
         <div class="card-item--detail-dan-form">
           <div class="detail-siswa">
-            <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
-              <i class="fa-regular fa-user detail-siswa__icon"></i>
-              <div class="d-flex flex-column gap-1">
-                <h5 class="text-bold color-neutral-100 detail-nama">Nama Siswa</h5>
-                <p class="nomor-siswa color-neutral-80 detail-nis">-</p>
+            <div class="d-flex flex-row justify-content-between align-items-center gap-2">
+              <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
+                <i class="fa-regular fa-user detail-siswa__icon"></i>
+                <div class="d-flex flex-column gap-1">
+                  <h5 class="text-bold color-neutral-100 detail-nama">Nama Siswa</h5>
+                  <p class="nomor-siswa color-super-black detail-nis">-</p>
+                </div>
+              </div>
+              <div class="d-flex flex-column detail-siswa__status-siswa">
+                <p class="color-neutral-100">Status Siswa</p>
+                <p class="text-bold">
+                  <span class="text-success">Aktif</span>
+                  <span class="text-danger">Alumni (2018-2019)</span>
+                </p>
               </div>
             </div>
             <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-3">
@@ -108,7 +112,7 @@ Transaksi
                 <p class="color-neutral-80">Kelas</p>
                 <p class="text-bold color-neutral-100 detail-kelas">-</p>
               </div>
-              <div class="d-flex flex-column gap-1">
+              <div class="d-flex flex-column gap-1 detail-siswa__total-tabungan">
                 <p class="color-neutral-80">Total Tabungan</p>
                 <h5 class="text-bold text-primary detail-tabungan">0</h5>
               </div>
@@ -123,6 +127,11 @@ Transaksi
               Setor Tabungan
               <i class="fa-solid fa-plus"></i>
             </button>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+            <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
+            <h4 class="text-bold color-neutral-100">Belum Ada Siswa yang Dipilih</h4>
+            <p class="color-neutral-80">Lakukan pencarian / pilih salah satu data siswa.</p>
           </div>
         </div>
       </div>

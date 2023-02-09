@@ -71,7 +71,7 @@
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-danger" onClick="changeTagihan({{$t->id_tagihan}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                <a href="#" class="table__link-detail text-danger" data-bs-toggle="modal" data-bs-target="#modalEditTransaksiLainData">
                   Delete <i class="fa-solid fa-trash-can"></i>
                 </a>
               </div>

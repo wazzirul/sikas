@@ -245,6 +245,34 @@ th[rowspan]:not([rowspan="1"]) {
     }
   }
 }
+.select2-results__options{
+  .select2-results__option{
+    position: relative;
+    background-color: transparent !important;
+    color: $color-neutral-80 !important;
+  }
+  .select2-results__option--disabled{
+    background-color: transparent !important;
+    color: $success !important;
+    &::after{
+      content: '\2713';
+      position: absolute;
+      right: 1.5rem;
+    }
+  }
+  .select2-results__option--selected{
+    background-color: $primary !important;
+    color: $color-white !important;
+  }
+}
+.select2-container--default{
+  .select2-selection--multiple{
+    .select2-selection__choice{
+      background-color: $primary !important;
+      color: $color-white !important;
+    }
+  }
+} 
 
 .select2-close-mask{
   z-index: 2099;
