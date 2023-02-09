@@ -45,17 +45,6 @@ Laporan
   </div>
   <div class="card">
     <div class="card-body">
-      <a href="{{route('sikas-laporan--pemasukan-dari-sumber-lain')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
-        <div class="jenis-laporan__icon-wrap">
-          <i class="fa-solid fa-sack-dollar jenis-laporan__icon"></i>
-        </div>
-        <i class="fa-solid fa-chevron-right jenis-laporan__icon jenis-laporan__icon--link"></i>
-      </a>
-      <h5 class="text-bold color-black mt-5 jenis-laporan__name">Laporan Pemasukan dari Sumber Lain</h5>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
       <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
       <a href="{{route('sikas-laporan--penggunaan-dana')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-laporan__link">
         <div class="jenis-laporan__icon-wrap">
