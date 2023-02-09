@@ -103,10 +103,10 @@ h5 {
   gap: 0.75rem;
 }
 
-.form-control {
+.form-control, .form-select {
   color: #1B1B1B;
 }
-.form-control:focus, .form-control:focus-visible, .form-control:focus-within, .form-control:active {
+.form-control:focus, .form-control:focus-visible, .form-control:focus-within, .form-control:active, .form-select:focus, .form-select:focus-visible, .form-select:focus-within, .form-select:active {
   color: #1B1B1B;
 }
 
@@ -218,6 +218,29 @@ th[rowspan]:not([rowspan="1"]) {
 .form-select {
   padding: 0.4375rem 2rem 0.4375rem 0.875rem;
   background-position: right 0.5rem center;
+}
+
+.select2.select2-container {
+  width: 100% !important;
+}
+.select2.select2-container .select2-selection {
+  border: 1px solid #d9dee3;
+  padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+}
+.select2.select2-container .select2-search {
+  position: relative;
+  top: -4px;
+}
+.select2.select2-container--open .select2-selection {
+  border: 1px solid #696cff;
+}
+
+.select2-close-mask {
+  z-index: 2099;
+}
+
+.select2-dropdown {
+  z-index: 3051;
 }
 
 .card--jenis-pembayaran {

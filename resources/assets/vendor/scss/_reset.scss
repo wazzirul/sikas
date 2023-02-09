@@ -117,7 +117,7 @@ h5{
   gap: toRem(12);
 }
 
-.form-control{
+.form-control,.form-select{
   color: $color-neutral-100;
   &:focus,&:focus-visible,&:focus-within,&:active{
     color: $color-neutral-100;
@@ -227,4 +227,28 @@ th[rowspan]:not([rowspan="1"]) {
 .form-select{
   padding: 0.4375rem 2rem 0.4375rem 0.875rem;
   background-position: right .5rem center;
+}
+
+.select2.select2-container{
+  width: 100% !important;
+  .select2-selection{
+    border:1px solid #d9dee3;
+    padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+  }
+  .select2-search{
+    position: relative;
+    top: -4px;
+  }
+  &--open{
+    .select2-selection{
+      border:1px solid $primary;
+    }
+  }
+}
+
+.select2-close-mask{
+  z-index: 2099;
+}
+.select2-dropdown{
+  z-index: 3051;
 }
