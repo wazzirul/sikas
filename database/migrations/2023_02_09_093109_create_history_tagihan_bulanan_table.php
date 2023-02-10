@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('history_tagihan', function (Blueprint $table) {
+        Schema::create('history_tagihan_bulanan', function (Blueprint $table) {
             $table->increments('id_history_tagihan');
-            $table->string('nama');
+            $table->unsignedInteger('id_anggota');
+            $table->foreign('id_anggota')->references('id_anggota')->on('anggota');
+            $table->unsignedInteger('id_tagihan');
+            $table->foreign('id_tagihan')->references('id_tagihan')->on('tagihan');
+            $table->string('bulan');
             $table->bigInteger('jumlah');
-            $table->string('kelas');
-            $table->string('angkatan')->nullable();
+            $table->integer('status');
 
             $table->smallInteger('soft_delete')->default(0);
             $table->timestamps();
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history_tagihan');
+        Schema::dropIfExists('history_tagihan_bulanan');
     }
 };
