@@ -100,12 +100,12 @@ function clickSiswa(e) {
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
-                let tahun = tanggal.getFullYear();
+                let tahun = tanggal.getFullYear();                                
 
                 $('.list-riwayat-tabungan').append(`
                     <tr>
                         <td>
-                            <p class="text-medium color-neutral-100">${MONTHS[bulan]}, ${date} ${tahun}</p>
+                            <p class="text-medium color-neutral-100">${bulan}, ${date} ${tahun}</p>
                         </td>
                         <td class="text-medium">
                             <p class="text-medium color-neutral-100">${value.tipe_transaksi == 2 ? 'Setor' : 'Tarik'}</p>              
@@ -135,7 +135,7 @@ function clickSiswa(e) {
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
                         
-                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.tipe_transaksi}" data-total="${value.jumlah}">
+                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-notClassname="${true}" >
                           <i class="fa-solid fa-print table-icon__link"></i>
                         </a>
                         

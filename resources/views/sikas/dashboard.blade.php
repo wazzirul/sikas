@@ -78,10 +78,10 @@ Dashboard
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">
-            <i class="fa-solid fa-money-bill-transfer text-warning avatar-icon"></i>
+            <i class="fa-solid fa-sack-dollar text-success avatar-icon"></i>
           </div>
         </div>
-        <span class="fw-semibold d-block mb-1">Transaksi Pengajuan Keringanan & Penambahan Hari ini</span>
+        <span class="fw-semibold d-block mb-1">Transaksi Pengajuan Penambahan Hari ini</span>
         <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $keringanan }}</h3>
       </div>
     </div>
@@ -91,10 +91,10 @@ Dashboard
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">
-            <i class="fa-solid fa-sack-dollar text-success avatar-icon"></i>
+            <i class="fa-solid fa-money-bill-transfer text-warning avatar-icon"></i>
           </div>
         </div>
-        <span class="fw-semibold d-block mb-1">Transaksi Pemasukan Dana Lain Hari ini</span>
+        <span class="fw-semibold d-block mb-1">Transaksi Pengajuan Keringanan Hari ini</span>
         <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $transaksi_lain }}</h3>
       </div>
     </div>
@@ -128,10 +128,10 @@ Dashboard
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-guru" aria-controls="navs-pills-tabungan-guru" aria-selected="false">Tabungan Guru</button>
           </li>
           <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pengajuan-keringanan" aria-controls="navs-pills-pengajuan-keringanan" aria-selected="false">Pengajuan Keringanan & Penambahan</button>
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pengajuan-penambahan" aria-controls="navs-pills-pengajuan-penambahan" aria-selected="false">Pengajuan Penambahan</button>
           </li>
           <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pemasukan-sumber-lain" aria-controls="navs-pills-pemasukan-sumber-lain" aria-selected="false">Pemasukan</button>
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pengajuan-keringanan" aria-controls="navs-pills-pengajuan-keringanan" aria-selected="false">Pengajuan Keringanan</button>
           </li>
           <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pengeluaran" aria-controls="navs-pills-pengeluaran" aria-selected="false">Pengeluaran</button>
@@ -286,6 +286,53 @@ Dashboard
           </div>
           @endif
         </div>
+        <div class="tab-pane fade" id="navs-pills-pengajuan-penambahan" role="tabpanel">
+          @if(count($data_keringanan) != 0)
+          <div class="table-responsive text-nowrap">
+            <table class="table table-striped" id="riwayat-transaksi">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>NIS/NIP</th>
+                  <th>Nama</th>
+                  <th>Nominal</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($data_keringanan as $dk)
+                <tr>
+                  <td>
+                    <p>{{ \Carbon\Carbon::parse($dk->tanggal)->translatedFormat('d F Y') }}</p>
+                  </td>
+                  <td class="text-medium color-neutral-100">{{ $dk->Anggota->nis }}</td>
+                  <td>
+                    <p class="text-medium text-black">{{ $dk->Anggota->nama }} ‘kelas {{ $dk->Anggota->Kelas->nama }} {{ $dk->Anggota->Jurusan->nama }} {{ $dk->Anggota->nomor_kelas }}’</p>
+                  </td>
+                  <td>
+                    <p class="text-bold text-black nominal-transaksi">{{ $dk->jumlah }}</p>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center justify-content-start gap-3">
+                      <a href="/transaksi/pengajuan-keringanan/{{$dk->Anggota->id_anggota}}" class="table__link-detail d-flex align-items-center gap-2">
+                        Lihat Detail
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          @else
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+            <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
+            <h4 class="text-bold color-neutral-100">Data Pengajuan Penambahan Kosong</h4>
+            <p class="color-neutral-80">Silahkan tambahkan data pengajuan terlebih dulu untuk melihat data pengajuan Penambahan.</p>
+          </div>
+          @endif
+        </div>
         <div class="tab-pane fade" id="navs-pills-pengajuan-keringanan" role="tabpanel">
           @if(count($data_keringanan) != 0)
           <div class="table-responsive text-nowrap">
@@ -329,56 +376,7 @@ Dashboard
           <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
             <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
             <h4 class="text-bold color-neutral-100">Data Pengajuan Keringanan Kosong</h4>
-            <p class="color-neutral-80">Silahkan tambahkan data pengajuan terlebih dulu untuk melihat data pengajuan keringanan.</p>
-          </div>
-          @endif
-        </div>
-        <div class="tab-pane fade" id="navs-pills-pemasukan-sumber-lain" role="tabpanel">
-          @if(count($data_transaksi_lain) != 0)
-          <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi">
-              <thead>
-                <tr>
-                  <th>Tanggal</th>
-                  <th>Nama Teller</th>
-                  <th>Keterangan</th>
-                  <th>Nominal</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($data_transaksi_lain as $dtl)
-                <tr>
-                  <td>
-                    <p>{{ \Carbon\Carbon::parse($dtl->tanggal)->translatedFormat('d F Y') }}</p>
-                  </td>
-                  <td>
-                    <p class="text-medium text-black">{{ $dtl->Admin->nama }}</p>
-                  </td>
-                  <td>
-                    <p class="text-medium text-black">{{ $dtl->nama_transaksi }}</p>
-                  </td>
-                  <td>
-                    <p class="text-bold text-black nominal-transaksi">{{ $dtl->jumlah }}</p>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center justify-content-start gap-3">
-                      <a href="/transaksi/pemasukan" class="table__link-detail d-flex align-items-center gap-2">
-                        Lihat Detail
-                        <i class="fa-solid fa-eye"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-          @else
-          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
-            <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
-            <h4 class="text-bold color-neutral-100">Data Pemasukan Sumber Lain Kosong</h4>
-            <p class="color-neutral-80">Silahkan tambahkan data pemasukan terlebih dulu untuk melihat data pemasukan sumber lain.</p>
+            <p class="color-neutral-80">Silahkan tambahkan data pengajuan terlebih dulu untuk melihat data pengajuan Keringanan.</p>
           </div>
           @endif
         </div>

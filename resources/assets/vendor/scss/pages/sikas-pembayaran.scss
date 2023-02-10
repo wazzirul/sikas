@@ -153,6 +153,11 @@
       width: toRem(40);
       height: toRem(40);
     }
+    .detail-siswa__status-siswa,
+    .detail-siswa__sisa-partisipasi,
+    .detail-siswa__total-tabungan{
+      width: toRem(150);
+    }
   }
   .pembayaran-button{
     padding: 1rem 2rem;

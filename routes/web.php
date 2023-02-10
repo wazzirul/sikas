@@ -51,8 +51,8 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi/tabungan/guru', [TabunganController::class, 'guru'])->name('sikas-transaksi--tabungan-guru');
     Route::post('/transaksi/importTabunganSiswa', [TabunganController::class, 'importTabunganSiswa'])->name('sikas-transaksi--importtabungansiswa');
     Route::post('/transaksi/importTabunganGuru', [TabunganController::class, 'importTabunganGuru'])->name('sikas-transaksi--importtabunganguru');
-    Route::get('/transaksi/pemasukan', [Main::class, 'TransaksiPemasukan'])->name('sikas-transaksi--pemasukan');
-    Route::post('/transaksi/importPemasukan', [Main::class, 'importPemasukan'])->name('sikas-transaksi--importpemasukan');
+    // Route::get('/transaksi/pemasukan', [Main::class, 'TransaksiPemasukan'])->name('sikas-transaksi--pemasukan');
+    // Route::post('/transaksi/importPemasukan', [Main::class, 'importPemasukan'])->name('sikas-transaksi--importpemasukan');
     Route::get('/transaksi/pengeluaran', [Main::class, 'TransaksiPengeluaran'])->name('sikas-transaksi--pengeluaran');
     Route::post('/transaksi/importPengeluaran', [Main::class, 'importPengeluaran'])->name('sikas-transaksi--importpengeluaran');
     Route::get('/transaksi/history-transaksi-siswa', [PembayaranController::class, 'historyTransaksiSiswa'])->name('sikas-transaksi--pembayaran-history-siswa');
@@ -61,7 +61,7 @@ Route::group(['middleware' => 'authsession'], function () {
     //Laporan Controller
     Route::get('/laporan', [LaporanController::class, 'index'])->name('sikas-laporan');
     Route::get('/laporan-penggunaan-dana', [LaporanController::class, 'penggunaanDana'])->name('sikas-laporan--penggunaan-dana');
-    Route::get('/laporan-pemasukan-dari-sumber-lain', [LaporanController::class, 'pemasukanSumberLain'])->name('sikas-laporan--pemasukan-dari-sumber-lain');
+    // Route::get('/laporan-pemasukan-dari-sumber-lain', [LaporanController::class, 'pemasukanSumberLain'])->name('sikas-laporan--pemasukan-dari-sumber-lain');
     Route::get('/laporan-pengajuan-keringanan', [LaporanController::class, 'pengajuanKeringanan'])->name('sikas-laporan--pengajuan-keringanan');
     Route::get('/laporan-pengajuan-penambahan', [LaporanController::class, 'pengajuanPenambahan'])->name('sikas-laporan--pengajuan-penambahan');
     Route::get('/laporan-biaya-penunjang-pendidikan', [LaporanController::class, 'pembayaranSPP'])->name('sikas-laporan--biaya-penunjang-pendidikan');
@@ -87,8 +87,8 @@ Route::group(['middleware' => 'authsession'], function () {
         Route::post('/karyawan/import', [KaryawanController::class, 'importKaryawan'])->name('sikas-importkaryawan');
 
         //Jenis Pembayaran Controller
-        Route::get('/master-bpp', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');
-        Route::post('/master-bpp/post', [JenisPembayaranController::class, 'postJenisPembayaran'])->name('sikas-jenis-pembayaran-post');
+        Route::get('/jenis-transaksi', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');
+        Route::post('/jenis-transaksi/post', [JenisPembayaranController::class, 'postJenisPembayaran'])->name('sikas-jenis-pembayaran-post');
 
          // Jabatan Contoller
         Route::get('/master-jabatan', [JabatanController::class, 'index'])->name('sikas-master-jabatan');

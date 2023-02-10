@@ -1,4 +1,10 @@
 $(document).ready(function () {
+  $('.js-angkatan-multiple').select2({
+    placeholder: "Pilih Angkatan ...",
+    initSelection: function(element, callback) {                   
+    }
+  });
+
   if ($("#data-jenis-pembayaran").length == 1) {
     $('#data-jenis-pembayaran').DataTable({
       "aaSorting": [],
