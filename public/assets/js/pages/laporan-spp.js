@@ -186,6 +186,11 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                         </td>
                     </tr>
                 `);
+                
+                $('#data-laporan-pembayaran-spp-perkelas').find('tr').each(function(){ 
+                    $(this).find('th').eq(-1).after('<th>HEADER</th>');
+                    $(this).find('td').eq(-1).after('<td>ROW</td>'); 
+                });
 
                 if (index == (result.length - 1)) {
                     $('#data-laporan-pembayaran-spp-perkelas').DataTable({
