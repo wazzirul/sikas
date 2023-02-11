@@ -30,6 +30,24 @@ function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
               <div class="list-value uppercase">${numberandname}</div>
             </div>
           </div>
+          <div class="row">
+            <div class="list">
+              <div class="list-key">
+                <div>Angsuran Ke </div>
+                <div>:</div>
+              </div>
+              <div class="list-value uppercase">3</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="list">
+              <div class="list-key">
+                <div>Pembayaran Bulan</div>
+                <div>:</div>
+              </div>
+              <div class="list-value uppercase">Januari - Maret</div>
+            </div>
+          </div>
           <div class="row">Untuk Pembayaran</div>
           <div class="row">
             <div class="col">
