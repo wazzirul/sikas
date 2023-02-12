@@ -1,19 +1,28 @@
 $(document).ready(function () {
-  $('.js-bulan-multiple').select2({
-    placeholder: "Pilih Bulan ...",
-    initSelection: function(element, callback) {                   
-    }
-  });
+    $('.js-bulan-multiple').select2({
+        placeholder: "Pilih Bulan ...",
+        initSelection: function (element, callback) {
+        }
+    });
 });
-let dataSiswa;
 let validateDelete = true;
 
 if ($("#history-pembayaran").length == 1) {
     $('#history-pembayaran').DataTable();
 }
 
+$('#bulan').change(() => {
+    let bulan_value = $('#bulan').val();
+    let total_nominal = bulan_value.length * parseInt($('#nominal_pembayaran_perbulan').val());
+    $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
+})
+
 $('#cari-siswa').keyup((e) => {
     let search = e.currentTarget.value;
+    retrieveSiswa(search);
+})
+
+function retrieveSiswa(search = "") {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
@@ -27,15 +36,13 @@ $('#cari-siswa').keyup((e) => {
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,
-            limit: 3,
+            limit: 20,
         },
         success: (result) => {
-            dataSiswa = result;
-
             $('.cari-siswa').empty();
             $.each(result, (index, value) => {
                 $('.cari-siswa').append(`
-                    <a href="#" class="cari-siswa__item" data-id="${value.id_anggota}">
+                    <a href="#!" class="cari-siswa__item" data-id="${value.id_anggota}">
                         <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
                         <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
                         <div class="d-flex flex-column gap-1">
@@ -46,8 +53,8 @@ $('#cari-siswa').keyup((e) => {
                         <div class="d-flex flex-column gap-1">
                           <p class="kelas-siswa text-bold text-info">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
                           <p class="text-bold">
-                            <span class="text-success">Aktif</span>
-                            <span class="text-danger">Alumni - 2018/2019</span>
+                            ${value.alumni == 0 ? '<span class="text-success">Aktif</span>' :
+                        `<span class="text-danger">Alumni (${value.angkatan ?? '-'})</span>`}
                           </p>
                         </div>
                         <div href="#" class="cari-siswa__item-detail">
@@ -65,19 +72,22 @@ $('#cari-siswa').keyup((e) => {
             console.log(err);
         }
     })
-})
+}
 
 $('.cari-siswa__item').click((e) => {
     clickSiswa(e);
 })
 
 function clickSiswa(e) {
-    $('.pembayaran-button').removeClass('disabled');
     $('#id_anggota').val(e.currentTarget.dataset.id);
-    $('.history-pembayaran-button').attr('href', `/transaksi/history-pembayaran/${e.currentTarget.dataset.id}`);
     $('.ajukan-penambahan-button').attr('href', `/transaksi/pengajuan-penambahan/${e.currentTarget.dataset.id}`);
     $('.ajukan-keringanan-button').attr('href', `/transaksi/pengajuan-keringanan/${e.currentTarget.dataset.id}`);
+
+    $('.empty-detail-pembayaran').addClass('d-none');
+    $('.pembayaran-button').removeClass('d-none');
+    $('.input-nominal').removeClass('d-none');
     $('.card--riwayat-transaksi').removeClass('d-none');
+    $('#bulan').empty();
 
     let kasir = $(document).find('#history-pembayaran').data('username')
     let name = $(e.currentTarget).find('.cari-siswa__nama-siswa').text()
@@ -96,7 +106,20 @@ function clickSiswa(e) {
             $('.detail-nama').text(result.nama);
             $('.detail-nis').text(result.nis);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
-            $('.detail-tagihan').text('Rp. ' + numberFormat(result.keuangan_anggota.tagihan));
+            // $('.detail-tagihan').text('Rp. ' + numberFormat(result.keuangan_anggota.tagihan));
+
+            if (result.alumni == 0) {
+                $('.detail-status-siswa').empty();
+                $('.detail-status-siswa').append(`
+                      <span class="text-success">Active</span>
+                `);
+            } else {
+                $('.detail-status-siswa').empty();
+                $('.detail-status-siswa').append(`
+                      <span class="text-danger">Alumni (${result.angkatan ?? '-'})</span>
+                `);
+            }
+
             return jumlahTagihan = result.keuangan_anggota.tagihan;
         },
         error: (err) => {
@@ -105,23 +128,31 @@ function clickSiswa(e) {
     })
 
     $.ajax({
-        url: '/query/riwayatPembayaranSpp',
+        url: '/query/getHistoryPembayaranDinamis',
         method: 'POST',
         data: {
             _token: $('#ctoken').val(),
-            id_anggota: e.currentTarget.dataset.id
+            id_anggota: e.currentTarget.dataset.id,
+            id_tagihan: $('#id_tagihan').val(),
         },
         success: (result) => {
-            $('.list-riwayat-pembayaran-spp').empty();
+            $('.list-riwayat-pembayaran-dinamis').empty();
+
+            let tagihan_terbayar = 0;
             $.each(result, (index, value) => {
+                tagihan_terbayar += value.jumlah;
+
                 let tanggal = new Date(Date.parse(value.tanggal));
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
                 let tahun = tanggal.getFullYear();
 
-                $('.list-riwayat-pembayaran-spp').append(`
+                console.log(value);
+
+                $('.list-riwayat-pembayaran-dinamis').append(`
                     <tr>
+                        <input type="hidden" value="${value.nama_transaksi}" name="nama_transaksi">
                         <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
                         <td class="color-neutral-100">${value.admin.nama}</td>
                         <td class="color-neutral-100">${value.nama_transaksi}</td>
@@ -131,16 +162,34 @@ function clickSiswa(e) {
                             <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-transactioncode="${value.kode_transaksi}">
                               <i class="fa-solid fa-print table-icon__link"></i>
                             </a>
-                            <a href="#" class="table__link-detail text-info update-transaksi-button" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                            <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                             <i class="fa-solid fa-pen table-icon__link"></i>
                             </a>
-                            <a href="#" class="table__link-detail text-danger delete-transaksi-button" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                            <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                             <i class="fa-regular fa-trash-can table-icon__link"></i>
                             </a>
                         </div>
                     </td>
                 `);
 
+            })
+
+            $.ajax({
+                url: '/query/getPembayaranDinamis',
+                method: 'POST',
+                data: {
+                    _token: $('#ctoken').val(),
+                    id_anggota: e.currentTarget.dataset.id,
+                    id_tagihan: $('#id_tagihan').val(),
+                },
+                success: (result_dinamis) => {
+                    let total_tagihan = result_dinamis[0].jumlah;
+                    total_tagihan -= tagihan_terbayar;
+                    $('.detail-tagihan').text('Rp. ' + numberFormat(total_tagihan))
+                },
+                error: () => {
+                    $('.detail-tagihan').text('Tidak ada tanggungan.')
+                }
             })
 
             if (result.length == 0) {

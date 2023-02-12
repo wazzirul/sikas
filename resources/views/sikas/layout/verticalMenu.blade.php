@@ -27,7 +27,7 @@
         <p class="menu-item__text">Transaksi</p>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item {{ Route::is('sikas-transaksi--biaya-penunjang-pendidikan*') == true ? 'active' : '' }}">
+        <li class="menu-item {{ Route::is('sikas-transaksi--biaya-penunjang-pendidikan*') == true ? 'active' : '' }}" id="sidebar-bpp">
           <a href="{{route('sikas-transaksi--biaya-penunjang-pendidikan')}}" class="menu-link">
             <div>Biaya Penunjang Pendidikan</div>
           </a>

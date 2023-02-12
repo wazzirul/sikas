@@ -75,6 +75,7 @@ class LaporanController extends Controller
       ->first();
 
     $transaksi_lain_bulan_ini = Transaksi::where('tipe_transaksi', '>=', 4)
+      ->where('tipe_transaksi', '<=', 5)
       ->whereDate('tanggal', '>=', $startDate)
       ->whereDate('tanggal', '<=', $endDate)
       ->where('soft_delete', 0)

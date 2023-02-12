@@ -81,7 +81,7 @@ Transaksi
               @endfor
             </select>
           </div>
-          <div class="filter-siswa__box">
+          <!-- <div class="filter-siswa__box">
             <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
             <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
               <option value="" selected>Semua</option>
@@ -93,7 +93,7 @@ Transaksi
               <option value="2018-2019">2018-2019</option>
               <option value="2017-2018">2017-2018</option>
             </select>
-          </div>
+          </div> -->
         </div>
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
         <div class="input-group input-group-merge">
@@ -155,7 +155,7 @@ Transaksi
               </div>
               <div class="d-flex flex-column gap-1 detail-siswa__sisa-partisipasi">
                 <p class="color-neutral-100">Sisa Partisipasi BPP</p>
-                <h5 class="text-bold text-primary detail-tagihan">0</h5>
+                <h5 class="text-bold text-primary detail-tagihan">-</h5>
               </div>
             </div>
           </div>
@@ -185,6 +185,7 @@ Transaksi
           <input type="hidden" id="tipe_pembayaran" name="tipe_pembayaran" />
           <input type="hidden" id="nominal_pembayaran_perbulan" />
           <input type="hidden" id="id_anggota" name="id_anggota" />
+          <input type="hidden" id="id_transaksi" />
           <button class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
         </form>
       </div>
@@ -205,8 +206,7 @@ Transaksi
           <tr>
             <th class="text-bold">Tanggal</th>
             <th class="text-bold">Nama Teller</th>
-            <th>Angsuran Ke</th>
-            <th>Pembayaran Bulan</th>
+            <th>Nama Pembayaran</th>
             <th class="text-bold">Jumlah Nominal</th>
             <th></th>
           </tr>
@@ -249,18 +249,6 @@ Transaksi
           <div class="w-100">
             <label for="bulan" class="form-label d-block">Bulan Ke</label>
             <select class="js-bulan-multiple" name="bulan[]" multiple="multiple">
-              <option disabled class="disabled" value="Juli">Juli</option>
-              <option value="Agustus">Agustus</option>
-              <option value="September">September</option>
-              <option value="Oktober">Oktober</option>
-              <option value="November">November</option>
-              <option value="Desember">Desember</option>
-              <option value="Januari">Januari</option>
-              <option value="Februari">Februari</option>
-              <option value="Maret">Maret</option>
-              <option value="April">April</option>
-              <option value="Mei">Mei</option>
-              <option value="Juni">Juni</option>
             </select>
           </div>
           <div class="">

@@ -37,12 +37,12 @@ Transaksi
 @section('content')
 <div class="card-body__header d-flex flex-row justify-content-between align-items-start gap-1 mb-5">
   <p class="fw-bold">
-    <span class="text-muted fw-light">Transaksi / </span> Dinamis
+    <span class="text-muted fw-light">Transaksi / </span> {{ $dinamis->nama }}
   </p>
 </div>
 <div class="card card--pembayaran">
   <div class="card-body">
-    <h3 class="text-bold mb-4">Form Dinamis</h3>
+    <h3 class="text-bold mb-4">Form {{ $dinamis->nama }}</h3>
     <div class="card-body__wrapper">
       <div class="card-item card-item--cari-siswa">
         <div class="filter-siswa d-flex align-items-end gap-3 mb-3 flex-wrap">
@@ -73,7 +73,7 @@ Transaksi
               @endfor
             </select>
           </div>
-          <div class="filter-siswa__box">
+          <!-- <div class="filter-siswa__box">
             <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
             <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
               <option value="" selected>Semua</option>
@@ -85,7 +85,7 @@ Transaksi
               <option value="2018-2019">2018-2019</option>
               <option value="2017-2018">2017-2018</option>
             </select>
-          </div>
+          </div> -->
         </div>
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
         <div class="input-group input-group-merge">
@@ -94,11 +94,35 @@ Transaksi
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
         <div class="cari-siswa">
+          @foreach($anggota as $a)
+            <a href="#!" class="cari-siswa__item" data-id="{{$a->id_anggota}}">
+                <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
+                <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
+                <div class="d-flex flex-column gap-1">
+                    <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
+                    <p class="nomor-siswa color-neutral-80">{{ $a->nis }}</p>
+                </div>
+                </div>
+                <div class="d-flex flex-column gap-1">
+                  <p class="kelas-siswa text-bold text-info">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
+                  <p class="text-bold">
+                    @if($a->alumni == 0)
+                      <span class="text-success">Aktif</span>
+                    @else
+                      <span class="text-danger">Alumni ({{ $a->angkatan ?? '-' }})</span>
+                    @endif
+                  </p>
+                </div>
+                <div href="#" class="cari-siswa__item-detail">
+                  <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
+                </div>
+            </a>
+          @endforeach
         </div>
       </div>
       <div class="horizontal-line"></div>
       <div class="card-item">
-        <form id="form-pembayaran-akademik" action="/query/postPembayaranAkademik" method="POST" class="card-item--detail-dan-form">
+        <form id="form-pembayaran-akademik" action="/query/postPembayaranDinamis" method="POST" class="card-item--detail-dan-form">
           {{ csrf_field() }}
           <div class="detail-siswa">
             <div class="d-flex flex-row justify-content-between align-items-center gap-2">
@@ -111,9 +135,8 @@ Transaksi
               </div>
               <div class="d-flex flex-column detail-siswa__status-siswa">
                 <p class="color-neutral-100">Status Siswa</p>
-                <p class="text-bold">
-                  <span class="text-success">Aktif</span>
-                  <span class="text-danger">Alumni (2018-2019)</span>
+                <p class="text-bold detail-status-siswa">
+                  <span class="text-success">-</span>
                 </p>
               </div>
             </div>
@@ -123,23 +146,24 @@ Transaksi
                 <p class="text-bold color-neutral-100 detail-kelas">-</p>
               </div>
               <div class="d-flex flex-column gap-1 detail-siswa__sisa-partisipasi">
-                <p class="color-neutral-100">Sisa Partisipasi BPP</p>
-                <h5 class="text-bold text-primary detail-tagihan">0</h5>
+                <p class="color-neutral-100">Sisa Partisipasi {{ $dinamis->nama }}</p>
+                <h5 class="text-bold text-primary detail-tagihan">-</h5>
               </div>
             </div>
           </div>
-          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state empty-detail-pembayaran">
             <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
             <h4 class="text-bold color-neutral-100">Belum Ada Siswa yang Dipilih</h4>
             <p class="color-neutral-80">Lakukan pencarian / pilih salah satu data siswa.</p>
           </div>
-          <div class="">
+          <div class="input-nominal d-none">
             <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
             <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
             <input type="hidden" id="id_anggota" name="id_anggota" />
+            <input type="hidden" id="id_tagihan" name="id_tagihan" value="{{ $dinamis->id_tagihan }}" />
           </div>       
           <button type="hidden" class="d-none" id="button_pembayaran_sukses" data-bs-toggle="modal" data-bs-target="#modalPembayaran"></button>
-          <button class="btn btn-primary pembayaran-button disabled">Bayar Sekarang</button>
+          <button class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
         </form>
       </div>
     </div>
@@ -147,7 +171,7 @@ Transaksi
 </div>
 
 <div class="card card--riwayat-transaksi mt-5 d-none">
-  <h4 class="color-neutral-100 mb-5">Riwayat Transaksi Dinamis</h4>
+  <h4 class="color-neutral-100 mb-5">Riwayat Transaksi {{ $dinamis->nama }}</h4>
   <div class="card-body">
     <div class="table-responsive text-nowrap mt-4">
       <table class="table table-striped" id="history-pembayaran" data-username="{{ \Session::get('nama') }}">
@@ -155,7 +179,7 @@ Transaksi
           <tr>
             <th class="text-bold">Tanggal</th>
             <th class="text-bold">Nama Teller</th>
-            <th class="text-bold">Keterangan</th>
+            <th class="text-bold">Nama Pembayaran</th>
             <th class="text-bold">Jumlah Nominal</th>
             <th></th>
           </tr>
@@ -166,8 +190,8 @@ Transaksi
     </div>
     <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state history-empty d-none">
       <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
-      <h4 class="text-bold color-neutral-100">Data Pembayaran Dinamis Kosong</h4>
-      <p class="color-neutral-80">Silahkan tambahkan data pembayaran terlebih dulu untuk melihat data pembayaran dinamis.</p>
+      <h4 class="text-bold color-neutral-100">Data Pembayaran {{ $dinamis->nama }} Kosong</h4>
+      <p class="color-neutral-80">Silahkan tambahkan data pembayaran terlebih dulu untuk melihat data pembayaran {{ $dinamis->nama }}.</p>
     </div>
   </div>
 </div>
