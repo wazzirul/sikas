@@ -178,9 +178,11 @@ function clickSiswa(e) {
 
                 $('.list-riwayat-pembayaran-spp').append(`
                     <tr>
-                        <td class="color-neutral-100">${value.nama_transaksi}</td>
+                        <input type="hidden" value="${value.nama_transaksi}" name="nama_transaksi">
                         <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
                         <td class="color-neutral-100">${value.admin.nama}</td>
+                        <td class="color-neutral-100">1</td>
+                        <td class="color-neutral-100">Januari - Maret</td>
                         <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">

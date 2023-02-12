@@ -53,18 +53,17 @@ Transaksi
     <h3 class="text-bold mb-4">Form Biaya Penunjang Pendidikan</h3>
     <div class="card-body__wrapper">
       <div class="card-item card-item--cari-siswa">
-        <div class="filter-siswa d-flex align-items-end gap-3 mb-3">
-          <div class="mt-3">
+        <div class="filter-siswa d-flex align-items-end gap-3 mb-3 flex-wrap">
+          <div class="filter-siswa__box">
             <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
             <select id="filter_id_kelas" autocomplete="off" class="form-select">
               <option value="" selected>Semua</option>
               @foreach($kelas as $k)
               <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
               @endforeach
-              <option value="0">Alumni</option>
             </select>
           </div>
-          <div class="mt-3">
+          <div class="filter-siswa__box">
             <label for="filter_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
             <select id="filter_id_jurusan" autocomplete="off" class="form-select">
               <option value="" selected>Semua</option>
@@ -73,7 +72,7 @@ Transaksi
               @endforeach
             </select>
           </div>
-          <div class="mt-3">
+          <div class="filter-siswa__box">
             <label for="filter_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
             <select id="filter_nomor_kelas" autocomplete="off" class="form-select">
               <option value="" selected>Semua</option>
@@ -82,7 +81,19 @@ Transaksi
               @endfor
             </select>
           </div>
-          <!-- <button type="button" class="btn btn-outline-primary cari-siswa-button">Filter Data</button> -->
+          <div class="filter-siswa__box">
+            <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
+            <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
+              <option value="" selected>Semua</option>
+              <option value="Aktif">Aktif</option>
+              <option value="2022-2023">2022-2023</option>
+              <option value="2021-2022">2021-2022</option>
+              <option value="2020-2021">2020-2021</option>
+              <option value="2019-2020">2019-2020</option>
+              <option value="2018-2019">2018-2019</option>
+              <option value="2017-2018">2017-2018</option>
+            </select>
+          </div>
         </div>
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
         <div class="input-group input-group-merge">
@@ -192,10 +203,11 @@ Transaksi
       <table class="table table-striped" id="history-pembayaran" data-username="{{ \Session::get('nama') }}">
         <thead>
           <tr>
-            <th class="text-bold">Jenis Pembayaran</th>
             <th class="text-bold">Tanggal</th>
             <th class="text-bold">Nama Teller</th>
-            <th class="text-bold">Jumlah Pembayaran</th>
+            <th>Angsuran Ke</th>
+            <th>Pembayaran Bulan</th>
+            <th class="text-bold">Jumlah Nominal</th>
             <th></th>
           </tr>
         </thead>
@@ -222,10 +234,40 @@ Transaksi
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <div class="mt-5">
-          <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
-          <input type="hidden" id="id_transaksi" />
-          <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
+        <div class="d-flex flex-column gap-4 mt-5">
+          <div class="">
+            <label for="angsuranKe" class="form-label">Angsuran Ke</label>
+            <input type="text" class="form-control disabled" id="angsuranKe" name="angsuranKe" disabled value="1">
+          </div>
+          <div class="">
+            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+            <input type="hidden" id="id_anggota" name="id_anggota" />
+          </div>            
+        </div>
+        <div class="d-flex flex-column gap-4 mt-5">
+          <div class="w-100">
+            <label for="bulan" class="form-label d-block">Bulan Ke</label>
+            <select class="js-bulan-multiple" name="bulan[]" multiple="multiple">
+              <option disabled class="disabled" value="Juli">Juli</option>
+              <option value="Agustus">Agustus</option>
+              <option value="September">September</option>
+              <option value="Oktober">Oktober</option>
+              <option value="November">November</option>
+              <option value="Desember">Desember</option>
+              <option value="Januari">Januari</option>
+              <option value="Februari">Februari</option>
+              <option value="Maret">Maret</option>
+              <option value="April">April</option>
+              <option value="Mei">Mei</option>
+              <option value="Juni">Juni</option>
+            </select>
+          </div>
+          <div class="">
+            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+            <input type="hidden" id="id_anggota" name="id_anggota" />
+          </div>            
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>

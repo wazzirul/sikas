@@ -18,7 +18,7 @@ $(document).ready(function () {
           </div>`,
             type: 'raw-html',
             header: null,
-            style: '@media print { @page { margin-top: 48px; margin-bottom: 48px; } @page:first { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; page-break-before: auto; } table { border: 1px solid #E0E0E0; border-collapse: collapse;} table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important;} table thead th, table thead td { text-align: left; white-space: nowrap; border: 1px solid #E0E0E0} p.kelas { width:64px !important }',
+            style: '@media print { @page { margin-top: 48px; margin-bottom: 48px; } @page:first { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; page-break-before: auto; } table { border: 1px solid #E0E0E0; border-collapse: collapse;} table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important;} table thead th, table thead td { text-align: left; white-space: nowrap; border: 1px solid #E0E0E0} p.kelas { width:64px !important } .d-none{ display:none !important; }',
             gridStyle: 'padding: 2px;',
             documentTitle: 'Laporan Pembayaran Partisipasi'
         })
@@ -35,6 +35,9 @@ $(document).ready(function () {
               <h2 class="page-header-title">Laporan Pembayaran Partisipasi Per Kelas</h2>
               <div class="page-header">${date}</div>
             </div>
+            <div class="page-subheader">
+              <h2 class="page-header-title">Kelas X TKJ 2</h2>
+            </div>
             <div class="page-content">
               <table>
                 ${tableInnerHTML}
@@ -43,7 +46,7 @@ $(document).ready(function () {
           </div>`,
             type: 'raw-html',
             header: null,
-            style: '@media print { @page { margin-top: 48px; margin-bottom: 48px; } @page:first { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; } table { border: 1px solid #E0E0E0; border-collapse: collapse; } table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important; } table thead th, table thead td { text-align: left; white-space: nowrap; } p.kelas { width:64px !important }',
+            style: '@media print { @page {margin-top: 48px; margin-bottom: 48px;} @page:first { margin-top: 0; margin-bottom: 0; } body { font-size: 14px; padding: 0; } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .page-header { display: flex; flex-direction: row; align-items: center; justify-content: space-between; } .page-content { margin-top: 16px; } table { border: 1px solid #E0E0E0; border-collapse: collapse; } table th, table td { border: 1px solid #E0E0E0; padding: 4px 16px !important; } table thead th, table thead td { text-align: left; white-space: nowrap; } p.kelas { width:64px !important } .tcolumn-kelas{ display:none !important; } .d-none{ display:none !important; }',
             gridStyle: 'padding: 2px;',
             documentTitle: 'Laporan Pembayaran Partisipasi'
         })
@@ -169,7 +172,7 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                         <td class="text-medium">
                             <p class="text-medium color-neutral-100">${value.nama}</p>              
                         </td>
-                        <td class="text-medium">
+                        <td class="text-medium tcolumn-kelas">
                             <p class="text-medium color-neutral-100 kelas">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>              
                         </td>
                         <td class="text-medium">
@@ -179,6 +182,45 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                             <p class="text-medium color-neutral-100">Rp. ${numberFormat(value.keuangan_anggota.tagihan_pertama)}</p>              
                         </td>
                         <td class="text-medium">
+                            <p class="text-medium color-neutral-100">2</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
+                        </td>
+                        <td class="text-medium">
                             <p class="text-medium color-neutral-100">Rp. ${numberFormat(value.total_pembayaran)}</p>              
                         </td>
                         <td class="text-medium">
@@ -186,6 +228,11 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                         </td>
                     </tr>
                 `);
+                
+                $('#data-laporan-pembayaran-spp-perkelas').find('tr').each(function(){ 
+                    $(this).find('th').eq(-1).after('<th>HEADER</th>');
+                    $(this).find('td').eq(-1).after('<td>ROW</td>'); 
+                });
 
                 if (index == (result.length - 1)) {
                     $('#data-laporan-pembayaran-spp-perkelas').DataTable({
