@@ -19,9 +19,9 @@ return new class extends Migration
             $table->foreign('id_anggota')->references('id_anggota')->on('anggota');
             $table->unsignedInteger('id_tagihan');
             $table->foreign('id_tagihan')->references('id_tagihan')->on('tagihan');
-            $table->string('bulan');
+            $table->string('bulan')->nullable();
             $table->bigInteger('jumlah');
-            $table->integer('status');
+            $table->integer('status')->default(0);
 
             $table->smallInteger('soft_delete')->default(0);
             $table->timestamps();

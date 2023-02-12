@@ -19,9 +19,10 @@ return new class extends Migration
             $table->bigInteger('jumlah');
             $table->unsignedInteger('id_kelas');
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas');
-            $table->string('Angkatan')->nullable();
+            $table->string('angkatan')->nullable();
             $table->smallInteger('status')->default(1);
             $table->smallInteger('tipe_tagihan')->default(2);
+            $table->smallInteger('flow_tagihan')->default(1);
 
             $table->smallInteger('soft_delete')->default(0);
             $table->timestamps();

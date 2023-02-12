@@ -20,6 +20,7 @@ class PengaturanController extends Controller
 
   public function resetTahunAjar(){
     $tagihan = Tagihan::with('Kelas')
+      ->where('tipe_tagihan', 1)
       ->where('soft_delete', 0)
       ->get();
 

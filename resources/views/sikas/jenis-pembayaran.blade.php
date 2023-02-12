@@ -47,6 +47,9 @@
             <th>Nama BPP</th>
             <th>Kelas</th>
             <th>Nominal</th>
+            <th>Tipe Pembayaran</th>
+            <th>Status</th>
+            <th>Angkatan</th>
             <th></th>
           </tr>
         </thead>
@@ -66,14 +69,25 @@
               <p class="text-medium color-neutral-100 nominal-pembayaran">{{ $t->jumlah }}</p>
             </td>
             <td>
+              <p class="text-medium color-neutral-100">{{ $t->flow_tagihan == 1 ? 'Angsuran' : 'Bulanan' }}</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">{{ $t->status == 1 ? 'Tagihan Aktif' : 'Tagihan Tidak Aktif' }}</p>
+            </td>
+            <td>
+              <p class="text-medium color-neutral-100">{{ $t->angkatan ?? '-' }}</p>
+            </td>
+            <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
                 <a href="#" class="table__link-detail text-info" onClick="changeTagihan({{$t->id_tagihan}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
+                @if($t->tipe_tagihan != 1)
                 <div class="table-link-border"></div>
                 <a href="#" class="table__link-detail text-danger" data-bs-toggle="modal" data-bs-target="#modalEditTransaksiLainData">
                   Delete <i class="fa-solid fa-trash-can"></i>
                 </a>
+                @endif
               </div>
             </td>
           </tr>

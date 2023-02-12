@@ -135,6 +135,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/deleteSiswa', [QueryController::class, 'deleteSiswa'])->name('sikas-query-deletesiswa');
     Route::post('/query/updateTeller', [QueryController::class, 'updateTeller'])->name('sikas-query-updateteller');
     Route::post('/query/deleteTeller', [QueryController::class, 'deleteTeller'])->name('sikas-query-deleteteller');
+    Route::post('/query/getPembayaranBulananSiswa', [QueryController::class, 'getPembayaranBulananSiswa'])->name('sikas-query--get-pembayaran-bulanan-siswa');
     Route::post('/query/postPembayaranAkademik', [QueryController::class, 'postPembayaranAkademik'])->name('sikas-query--post-pembayaran-akademik');
     Route::post('/query/postPengajuanKeringanan', [QueryController::class, 'postPengajuanKeringanan'])->name('sikas-query--post-pengajuan-keringanan');
     Route::post('/query/postPengajuanPenambahan', [QueryController::class, 'postPengajuanPenambahan'])->name('sikas-query--post-pengajuan-penambahan');

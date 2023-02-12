@@ -1,13 +1,13 @@
 $(document).ready(function () {
   $('.js-angkatan-multiple').select2({
     placeholder: "Pilih Angkatan ...",
-    initSelection: function(element, callback) {                   
+    initSelection: function (element, callback) {
     }
   });
 
   if ($("#data-jenis-pembayaran").length == 1) {
     $('#data-jenis-pembayaran').DataTable({
-      "aaSorting": [],
+      "aaSorting": [[5, "asc"], [2, "asc"], [0, "asc"]],
     });
   }
 
@@ -27,7 +27,7 @@ $(document).ready(function () {
         id_kelas: id_kelas,
         jumlah: jumlah,
       },
-      success: () => {
+      success: (result) => {
         setTimeout(() => {
           location.reload()
         }, 2000);

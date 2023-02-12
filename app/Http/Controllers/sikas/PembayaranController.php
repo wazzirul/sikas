@@ -106,7 +106,7 @@ class PembayaranController extends Controller
 		$anggota = Anggota::where('tipe_anggota', 2)
 				->where('soft_delete', 0)
 				->inRandomOrder()
-				->limit(3)
+				->limit(20)
 				->with('Kelas', 'Jurusan')
 				->get();
 

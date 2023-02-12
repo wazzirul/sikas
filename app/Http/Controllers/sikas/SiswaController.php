@@ -12,12 +12,12 @@ use App\Models\KeuanganAnggota;
 use App\Models\Kelas;
 use App\Models\Jurusan;
 use App\Models\Tagihan;
+use App\Models\HistoryTagihanBulanan;
 
 class SiswaController extends Controller
 {
   public function index(){
     $anggota = Anggota::where('tipe_anggota', 2)
-      ->where('alumni', 0)
       ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
       ->where('soft_delete', 0)
       ->limit(100)
@@ -74,6 +74,8 @@ class SiswaController extends Controller
     $siswa->save();
 
     $tagihan = Tagihan::where('id_kelas', $id_kelas)
+      ->where('tipe_tagihan', 1)
+      ->where('status', 1)
       ->first();
     
     $keuangan_siswa = KeuanganAnggota::where('id_anggota', $siswa->id_anggota)
@@ -81,14 +83,32 @@ class SiswaController extends Controller
     if($keuangan_siswa){
       $keuangan_siswa->tagihan = $tagihan->jumlah;
       $keuangan_siswa->tagihan_pertama = $tagihan->jumlah;
+      $keuangan_siswa->tipe_tagihan = $tagihan->flow_tagihan;
       $keuangan_siswa->soft_delete = '0';
     }else{
       $keuangan_siswa = new KeuanganAnggota();
       $keuangan_siswa->id_anggota = $siswa->id_anggota;
       $keuangan_siswa->tagihan = $tagihan->jumlah;
       $keuangan_siswa->tagihan_pertama = $tagihan->jumlah;
+      $keuangan_siswa->tipe_tagihan = $tagihan->flow_tagihan;
     }
     $keuangan_siswa->save();
+
+    if($tagihan->flow_tagihan == 2){
+      $bulan = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', 'Januari', 'Februari',
+         'Maret', 'April', 'Mei', 'Juni'];
+
+      $total_tagihan_bulanan = round((int)$tagihan->jumlah / 12);
+
+      foreach($bulan as $b){
+        $history_bulanan = new HistoryTagihanBulanan();
+        $history_bulanan->id_anggota = $siswa->id_anggota;
+        $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+        $history_bulanan->bulan = $b;
+        $history_bulanan->jumlah = $total_tagihan_bulanan;
+        $history_bulanan->save();
+      }
+    }
 
     return redirect('/siswa');
   }

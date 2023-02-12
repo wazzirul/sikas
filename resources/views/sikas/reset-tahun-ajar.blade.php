@@ -53,19 +53,19 @@ Reset Tahun Ajar
             @if($t->id_tagihan == 1)
               <h5 class="text-bold text-primary mb-2">Kelas {{ $t->Kelas->nama }}</h5>
               <div class="mb-3">
-                <label for="jenis_pembayaran{{$t->id_tagihan}}" class="form-label">Nama / Jenis Pembayaran</label>
-                <input type="text" class="form-control" id="jenis_pembayaran{{$t->id_tagihan}}" name="jenis_pembayaran{{$t->id_tagihan}}" placeholder="Nama / Jenis Pembayaran..." value="{{ $t->nama }}">
+                <label for="jenis_pembayaran" class="form-label">Nama / Jenis Pembayaran</label>
+                <input type="text" class="form-control" id="jenis_pembayaran" name="jenis_pembayaran" placeholder="Nama / Jenis Pembayaran..." value="{{ $t->nama }}">
               </div>
               <div class="mb-3">
-                <label for="flow_pembayaran" class="form-label">Flow Pembayaran Siswa</label>
-                <select id="flow_pembayaran" name="flow_pembayaran" class="form-select">
-                  <option value="Angsuran">Angsuran</option>
-                  <option value="Bulanan">Bulanan</option>
+                <label for="flow_tagihan" class="form-label">Flow Pembayaran Siswa</label>
+                <select id="flow_tagihan" name="flow_tagihan" class="form-select">
+                  <option value="1">Angsuran</option>
+                  <option value="2">Bulanan</option>
                 </select>
               </div>
               <div class="">
-                <label for="nominal{{$t->id_tagihan}}" class="form-label">Nominal Pembayaran</label>
-                <input type="text" class="form-control nominal-pembayaran" id="nominal{{$t->id_tagihan}}" name="nominal{{$t->id_tagihan}}" placeholder="Nominal Pembayaran..." data-value="{{$t->jumlah}}">
+                <label for="nominal" class="form-label">Nominal Pembayaran</label>
+                <input type="text" class="form-control nominal-pembayaran" id="nominal" name="nominal" placeholder="Nominal Pembayaran..." data-value="{{$t->jumlah}}">
               </div>
             @endif
           @endforeach

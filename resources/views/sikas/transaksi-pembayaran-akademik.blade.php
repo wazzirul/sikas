@@ -91,6 +91,30 @@ Transaksi
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
         <div class="cari-siswa">
+          @foreach($anggota as $a)
+            <a href="#!" class="cari-siswa__item" data-id="{{$a->id_anggota}}">
+                <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
+                <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
+                <div class="d-flex flex-column gap-1">
+                    <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
+                    <p class="nomor-siswa color-neutral-80">{{ $a->nis }}</p>
+                </div>
+                </div>
+                <div class="d-flex flex-column gap-1">
+                  <p class="kelas-siswa text-bold text-info">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
+                  <p class="text-bold">
+                    @if($a->alumni == 0)
+                      <span class="text-success">Aktif</span>
+                    @else
+                      <span class="text-danger">Alumni ({{ $a->angkatan ?? '-' }})</span>
+                    @endif
+                  </p>
+                </div>
+                <div href="#" class="cari-siswa__item-detail">
+                  <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
+                </div>
+            </a>
+          @endforeach
         </div>
       </div>
       <div class="horizontal-line"></div>
@@ -108,9 +132,8 @@ Transaksi
               </div>
               <div class="d-flex flex-column detail-siswa__status-siswa">
                 <p class="color-neutral-100">Status Siswa</p>
-                <p class="text-bold">
-                  <span class="text-success">Aktif</span>
-                  <span class="text-danger">Alumni (2018-2019)</span>
+                <p class="text-bold detail-status-siswa">
+                  <span class="text-success">-</span>
                 </p>
               </div>
             </div>
@@ -125,48 +148,33 @@ Transaksi
               </div>
             </div>
           </div>
-          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
+          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state empty-detail-pembayaran">
             <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
             <h4 class="text-bold color-neutral-100">Belum Ada Siswa yang Dipilih</h4>
             <p class="color-neutral-80">Lakukan pencarian / pilih salah satu data siswa.</p>
           </div>
-          <div class="form-transaksi__angsuran d-flex flex-column gap-4">
+          <div class="form-transaksi__angsuran d-flex flex-column gap-4 pembayaran-angsuran d-none">
             <div class="">
-              <label for="angsuranKe" class="form-label">Angsuran Ke</label>
-              <input type="text" class="form-control disabled" id="angsuranKe" name="angsuranKe" disabled value="1">
+              <label for="angsuran_ke" class="form-label">Angsuran Ke</label>
+              <input type="text" class="form-control disabled" id="angsuran_ke" name="angsuran_ke" disabled value="1">
             </div>
-            <div class="">
-              <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
-              <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
-              <input type="hidden" id="id_anggota" name="id_anggota" />
-            </div>            
           </div>
-          <div class="form-transaksi__angsuran d-flex flex-column gap-4">
+          <div class="form-transaksi__angsuran d-flex flex-column gap-4 pembayaran-bulanan d-none">
             <div class="w-100">
               <label for="bulan" class="form-label d-block">Bulan Ke</label>
-              <select class="js-bulan-multiple" name="bulan[]" multiple="multiple">
-                <option disabled class="disabled" value="Juli">Juli</option>
-                <option value="Agustus">Agustus</option>
-                <option value="September">September</option>
-                <option value="Oktober">Oktober</option>
-                <option value="November">November</option>
-                <option value="Desember">Desember</option>
-                <option value="Januari">Januari</option>
-                <option value="Februari">Februari</option>
-                <option value="Maret">Maret</option>
-                <option value="April">April</option>
-                <option value="Mei">Mei</option>
-                <option value="Juni">Juni</option>
+              <select class="js-bulan-multiple" id="bulan" name="bulan[]" multiple="multiple">
               </select>
             </div>
-            <div class="">
+          </div>
+          <div class="input-nominal d-none">
               <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
               <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
-              <input type="hidden" id="id_anggota" name="id_anggota" />
-            </div>            
-          </div>
+            </div>
           <button type="hidden" class="d-none" id="button_pembayaran_sukses" data-bs-toggle="modal" data-bs-target="#modalPembayaran"></button>
-          <button class="btn btn-primary pembayaran-button disabled">Bayar Sekarang</button>
+          <input type="hidden" id="tipe_pembayaran" name="tipe_pembayaran" />
+          <input type="hidden" id="nominal_pembayaran_perbulan" />
+          <input type="hidden" id="id_anggota" name="id_anggota" />
+          <button class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
         </form>
       </div>
     </div>

@@ -12,6 +12,7 @@ use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
+use App\Models\HistoryTagihanBulanan;
 use App\Models\PengajuanPenambahan;
 use App\Models\Transaksi;
 use App\Models\StrukturSekolah;
@@ -158,12 +159,15 @@ class QueryController extends Controller
     public function postPembayaranAkademik(Request $request)
     {
         $id_anggota = $request->input('id_anggota');
+        $bulan = $request->input('bulan');
+        $tipe_pembayaran = $request->input('tipe_pembayaran');
         $nominal = $request->input('nominalPembayaran');
         $nominal = str_replace('Rp', '', $nominal);
         $nominal = str_replace('.', '', $nominal);
         $nominal = str_replace(' ', '', $nominal);
 
         $anggota = Anggota::find($id_anggota);
+        $kelas = Kelas::find($anggota->id_kelas);
         $tagihan = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
         $tanggungan = (int)$tagihan->tagihan;
         $master_tagihan = Tagihan::where('id_kelas', $anggota->id_kelas)
@@ -174,13 +178,41 @@ class QueryController extends Controller
             $transaksi->id_admin = Session::get('id_user');
             $transaksi->nomor_transaksi = '001000' . date('dmY');
             $transaksi->kode_transaksi = 'AKDMK-' . $id_anggota . '-' . date('hi-dmY');
-            $transaksi->nama_transaksi = $master_tagihan->nama;
+
+            if((int)$tipe_pembayaran == 1) {
+                $transaksi->nama_transaksi = $master_tagihan->nama.' Angsuran Ke-'.((int)$tagihan->angsuran_ke + 1);
+            }
+            else {
+                if(count($bulan) > 1){
+                    $awal_bulan;
+                    $akhir_bulan;
+                    foreach($bulan as $key => $b){
+                        $history_tagihan = HistoryTagihanBulanan::find($b);
+                        $history_tagihan->status = 1;
+                        $history_tagihan->save();
+
+                        if($key == 0) $awal_bulan = $history_tagihan->bulan;
+                        if($key == (count($bulan) - 1)) $akhir_bulan = $history_tagihan->bulan;
+                    }
+
+                    $transaksi->nama_transaksi = $master_tagihan->nama.' '.$awal_bulan.'-'.$akhir_bulan;
+
+                }else{
+                    $history_tagihan = HistoryTagihanBulanan::find($bulan[0]);
+                    $history_tagihan->status = 1;
+                    $history_tagihan->save();
+
+                    $transaksi->nama_transaksi = $master_tagihan->nama.' '.$history_tagihan->bulan;
+                }
+            }
+
             $transaksi->id_anggota = $id_anggota;
             $transaksi->tipe_transaksi = 1;
             $transaksi->jumlah = $nominal;
-            $transaksi->id_kelas = $anggota->id_kelas;
+            $transaksi->kelas = $kelas->nama;
             $transaksi->save();
 
+            $tagihan->angsuran_ke += 1;
             $tagihan->tagihan = $tanggungan - $nominal;
             $tagihan->save();
 
@@ -210,6 +242,29 @@ class QueryController extends Controller
         } else {
             return response(null, 406);
         }
+    }
+
+    public function getPembayaranBulananSiswa(Request $request){
+        $id_anggota = $request->input('id_anggota');
+
+        $total_data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+            ->where('status', 0)
+            ->where('soft_delete', 0)
+            ->count();
+
+        if($total_data > 12){
+            $data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('status', 0)
+                ->where('soft_delete', 0)
+                ->get();
+        }else{
+            $data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('soft_delete', 0)
+                ->limit(12)
+                ->get();
+        }
+
+        return response($data, 200);
     }
 
     public function postPengajuanKeringanan(Request $request)
@@ -710,6 +765,26 @@ class QueryController extends Controller
         $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan - (int)$nominal_awal;
         $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal_awal;
 
+        if((int)$keuangan_anggota->tipe_tagihan == 2){
+            $terakhir_transaksi = HistoryTagihanBulanan::where('soft_delete', 0)
+                ->where('id_anggota', $transaksi->id_anggota)
+                ->where('status', 1)
+                ->orderBy('id_history_tagihan', 'DESC')
+                ->first();
+
+            $nominal_bulanan = $terakhir_transaksi->jumlah;
+            $banyak_transaksi = round((int)$nominal_awal / (int)$nominal_bulanan);
+
+            $bulanan_terbayar = HistoryTagihanBulanan::where('soft_delete', 0)
+                ->where('id_anggota', $transaksi->id_anggota)
+                ->where('status', 1)
+                ->orderBy('id_history_tagihan', 'DESC')
+                ->limit($banyak_transaksi)
+                ->update([
+                    'status' => 0,
+                ]);
+        }
+
         $transaksi->save();
         $keuangan_anggota->save();
         $keuangan_sekolah->save();
@@ -1201,7 +1276,6 @@ class QueryController extends Controller
     public function updateJenisPembayaran(Request $request){
         $id_tagihan = $request->input('id_tagihan');
         $nama = $request->input('nama') ?? null;
-        $id_kelas = $request->input('id_kelas') ?? null;
         $jumlah = $request->input('jumlah') ?? null;
 
         if($jumlah){
@@ -1211,10 +1285,47 @@ class QueryController extends Controller
         }
     
         $tagihan = Tagihan::find($id_tagihan);
+        $tagihan_lama = (int)$tagihan->jumlah;
+
         $nama != null && $tagihan->nama = $nama;
-        $id_kelas != null && $tagihan->id_kelas = $id_kelas;
         $jumlah != null && $tagihan->jumlah = $jumlah;
         $tagihan->save();
+
+        if($tagihan->status == 1 && $tagihan->tipe_tagihan == 1){
+            $anggota = Anggota::where('id_kelas', $tagihan->id_kelas)
+                ->where('alumni', 0)
+                ->where('soft_delete', 0)
+                ->get();
+
+            foreach($anggota as $a){
+                $keuangan = KeuanganAnggota::where('id_anggota', $a->id_anggota)
+                    ->first();
+
+                $jumlah_baru = (int)$tagihan->jumlah;
+                if($tagihan_lama <= $jumlah_baru){
+                    $tagihan_baru = $keuangan->tagihan + ($jumlah - $tagihan_lama);
+                    $keuangan->tagihan = (int)$tagihan_baru;
+
+                }else{
+                    $tagihan_baru = $keuangan->tagihan - ($tagihan_lama - $jumlah);
+                    $keuangan->tagihan = (int)$tagihan_baru;
+
+                }
+
+                $keuangan->tagihan_pertama = (int)$tagihan_baru;
+                $keuangan->save();
+
+                if($tagihan->flow_tagihan == 2){
+                    $tagihan_per_bulan = round((int)$tagihan->jumlah / 12);
+                    HistoryTagihanBulanan::where('id_anggota', $a->id_anggota)
+                        ->where('id_tagihan', $tagihan->id_tagihan)
+                        ->where('status', 0)
+                        ->update([
+                            'jumlah' => $tagihan_per_bulan
+                        ]);
+                }
+            }
+        }
     
         return response($tagihan, 200);
     }
@@ -1449,52 +1560,153 @@ class QueryController extends Controller
 
         foreach($kelas as $k){
             $id_kelas = $k->id_kelas;
-            $jenis_pembayaran = $request->input('jenis_pembayaran'.$id_kelas);
-            $nominal = $request->input('nominal'.$id_kelas);
-            $nominal = str_replace('Rp', '', $nominal);
-            $nominal = str_replace('.', '', $nominal);
-            $nominal = str_replace(' ', '', $nominal);
 
-            $tagihan_siswa = Tagihan::where('id_kelas', $id_kelas)
-                ->where('soft_delete', 0)
-                ->first();
-            $tagihan_siswa->nama = $jenis_pembayaran;
-            $tagihan_siswa->jumlah = $nominal;
-            $tagihan_siswa->save();
+            if($id_kelas == 3){
+                $tagihan = Tagihan::where('id_kelas', 3)
+                    ->where('status', 1)
+                    ->where('tipe_tagihan', 1)
+                    ->where('soft_delete', 0)
+                    ->first();
 
-            $naik_kelas = (int)$id_kelas + 1;
-            if($id_kelas < 3){
+                $tagihan_sebelumnya = Tagihan::where('id_kelas', 2)
+                    ->where('status', 1)
+                    ->where('tipe_tagihan', 1)
+                    ->where('soft_delete', 0)
+                    ->first();
+
+                $tagihan_alumni = new Tagihan();
+                $tagihan_alumni->nama = $tagihan->nama;
+                $tagihan_alumni->jumlah = $tagihan->jumlah;
+                $tagihan_alumni->id_kelas = $tagihan->id_kelas;
+                $tagihan_alumni->angkatan = date("Y").'-'.((int)date("Y") + 1);
+                $tagihan_alumni->status = 2;
+                $tagihan_alumni->tipe_tagihan = $tagihan->tipe_tagihan;
+                $tagihan_alumni->flow_tagihan = $tagihan->flow_tagihan;
+
+                $tagihan->nama = $tagihan_sebelumnya->nama;
+                $tagihan->jumlah = $tagihan_sebelumnya->jumlah;
+                $tagihan->flow_tagihan = $tagihan_sebelumnya->flow_tagihan;
+
+                $tagihan_alumni->save();
+                $tagihan->save();
+
                 $anggota = Anggota::where('tipe_anggota', 2)
-                    ->where('id_kelas', $id_kelas)
-                    ->where('alumni', 0)
-                    ->get();
-
-                $jumlah_tagihan = $request->input('nominal'.$naik_kelas);
-                $jumlah_tagihan = str_replace('Rp', '', $jumlah_tagihan);
-                $jumlah_tagihan = str_replace('.', '', $jumlah_tagihan);
-                $jumlah_tagihan = str_replace(' ', '', $jumlah_tagihan);
-
-                foreach($anggota as $a){
-                    $a->id_kelas = $naik_kelas;
-                    $keuangan_anggota = KeuanganAnggota::where('id_anggota', $a->id_anggota)
-                        ->first();
-
-                    if($keuangan_anggota){
-                        $tagihan_lama = (int)$keuangan_anggota->tagihan;
-                        $keuangan_anggota->tagihan = (int)$tagihan_lama + (int)$jumlah_tagihan;
-                        $keuangan_anggota->save();
-                    }
-                    $a->save();
-                }
-            }else if($id_kelas == 3){
-                $anggota = Anggota::where('tipe_anggota', 2)
-                    ->where('id_kelas', $id_kelas)
+                    ->where('id_kelas', 3)
                     ->where('alumni', 0)
                     ->update([
                         'alumni' => 1,
                     ]);
-            }
 
+                $anggota_naik_kelas = Anggota::where('tipe_anggota', 2)
+                    ->where('id_kelas', 2)
+                    ->where('alumni', 0)
+                    ->get();
+
+                foreach($anggota_naik_kelas as $ank){
+                    $keuangan_anggota = KeuanganAnggota::where('id_anggota', $ank->id_anggota)
+                        ->first();
+
+                    if($keuangan_anggota){
+                        $keuangan_anggota->tagihan += (int)$keuangan_anggota->tagihan_pertama;
+                        $keuangan_anggota->angsuran_ke = 0;
+                        $keuangan_anggota->save();
+                    }
+
+                    $ank->id_kelas = $id_kelas;
+                    $ank->save();
+
+                    if($tagihan->flow_tagihan == 2){
+                        $bulan = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', 'Januari', 'Februari',
+                            'Maret', 'April', 'Mei', 'Juni'];
+
+                        $total_tagihan_bulanan = round((int)$keuangan_anggota->tagihan_pertama / 12);
+
+                        foreach($bulan as $b){
+                            $history_bulanan = new HistoryTagihanBulanan();
+                            $history_bulanan->id_anggota = $ank->id_anggota;
+                            $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                            $history_bulanan->bulan = $b;
+                            $history_bulanan->jumlah = $total_tagihan_bulanan;
+                            $history_bulanan->save();
+                        }
+                    }
+                }
+
+            }else if($id_kelas == 2){
+                $tagihan = Tagihan::where('id_kelas', 2)
+                    ->where('status', 1)
+                    ->where('tipe_tagihan', 1)
+                    ->where('soft_delete', 0)
+                    ->first();
+
+                $tagihan_sebelumnya = Tagihan::where('id_kelas', 1)
+                    ->where('status', 1)
+                    ->where('tipe_tagihan', 1)
+                    ->where('soft_delete', 0)
+                    ->first();
+
+                $tagihan->nama = $tagihan_sebelumnya->nama;
+                $tagihan->jumlah = $tagihan_sebelumnya->jumlah;
+                $tagihan->flow_tagihan = $tagihan_sebelumnya->flow_tagihan;
+    
+                $tagihan->save();
+
+                $anggota_naik_kelas = Anggota::where('tipe_anggota', 2)
+                    ->where('id_kelas', 1)
+                    ->where('alumni', 0)
+                    ->get();
+
+                foreach($anggota_naik_kelas as $ank){
+                    $keuangan_anggota = KeuanganAnggota::where('id_anggota', $ank->id_anggota)
+                        ->first();
+
+                    if($keuangan_anggota){
+                        $keuangan_anggota->tagihan += (int)$keuangan_anggota->tagihan_pertama;
+                        $keuangan_anggota->save();
+                    }
+
+                    $ank->id_kelas = $id_kelas;
+                    $ank->save();
+
+                    if($tagihan->flow_tagihan == 2){
+                        $bulan = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', 'Januari', 'Februari',
+                            'Maret', 'April', 'Mei', 'Juni'];
+
+                        $total_tagihan_bulanan = round((int)$keuangan_anggota->tagihan_pertama / 12);
+
+                        foreach($bulan as $b){
+                            $history_bulanan = new HistoryTagihanBulanan();
+                            $history_bulanan->id_anggota = $ank->id_anggota;
+                            $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                            $history_bulanan->bulan = $b;
+                            $history_bulanan->jumlah = $total_tagihan_bulanan;
+                            $history_bulanan->save();
+                        }
+                    }
+                }
+
+            }else if($id_kelas == 1){
+                $jenis_pembayaran = $request->input('jenis_pembayaran');
+                $flow_tagihan = $request->input('flow_tagihan');
+                $nominal = $request->input('nominal');
+                $nominal = $request->input('nominal');
+                $nominal = str_replace('Rp', '', $nominal);
+                $nominal = str_replace('.', '', $nominal);
+                $nominal = str_replace(' ', '', $nominal);
+
+                $tagihan = Tagihan::where('id_kelas', 1)
+                    ->where('status', 1)
+                    ->where('tipe_tagihan', 1)
+                    ->where('soft_delete', 0)
+                    ->first();
+
+                $tagihan->nama = $jenis_pembayaran;
+                $tagihan->jumlah = $nominal;
+                $tagihan->status = 1;
+                $tagihan->tipe_tagihan = 1;
+                $tagihan->flow_tagihan = $flow_tagihan;
+                $tagihan->save();
+            }
         }
     
         return response('success', 200);

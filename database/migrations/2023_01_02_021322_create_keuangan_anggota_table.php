@@ -23,6 +23,7 @@ return new class extends Migration
             $table->bigInteger('tagihan_pertama')->default(0);
             $table->bigInteger('kelebihan_pembayaran')->default(0);
             $table->bigInteger('kekurangan_pembayaran')->default(0);
+            $table->integer('angsuran_ke')->default(0);
 
             $table->smallInteger('soft_delete')->default(0);
             $table->timestamps();

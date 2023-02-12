@@ -33,6 +33,7 @@ function formatRupiah(angka, prefix) {
     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
 
+let validateRisetTahun = true;
 $(document).on('submit', 'form#myform', function (e) {
     e.preventDefault()
 
@@ -47,18 +48,24 @@ $(document).on('submit', 'form#myform', function (e) {
     })
     if (dontSubmit) return
 
-    $.ajax({
-        url,
-        method,
-        data,
-        success: (result) => {
-            $('.success-button').click()
-        },
-        error: (err) => {
-            console.log(err);
-        },
-        complete: () => {
-            form.trigger('reset')
-        }
-    })
+    if (validateRisetTahun) {
+        validateRisetTahun = false;
+
+        $.ajax({
+            url,
+            method,
+            data,
+            success: (result) => {
+                $('.success-button').click()
+
+            },
+            error: (err) => {
+                console.log(err);
+            },
+            complete: () => {
+                form.trigger('reset')
+                validateRisetTahun = true;
+            }
+        })
+    }
 })
