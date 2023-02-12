@@ -226,10 +226,40 @@ Transaksi
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <div class="mt-5">
-          <label for="jumlah-pembayaran" class="form-label">Jumlah Pembayaran</label>
-          <input type="hidden" id="id_transaksi" />
-          <input type="text" class="form-control" id="jumlah-pembayaran" placeholder="Rp. 0.00">
+        <div class="d-flex flex-column gap-4 mt-5">
+          <div class="">
+            <label for="angsuranKe" class="form-label">Angsuran Ke</label>
+            <input type="text" class="form-control disabled" id="angsuranKe" name="angsuranKe" disabled value="1">
+          </div>
+          <div class="">
+            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+            <input type="hidden" id="id_anggota" name="id_anggota" />
+          </div>            
+        </div>
+        <div class="d-flex flex-column gap-4 mt-5">
+          <div class="w-100">
+            <label for="bulan" class="form-label d-block">Bulan Ke</label>
+            <select class="js-bulan-multiple" name="bulan[]" multiple="multiple">
+              <option disabled class="disabled" value="Juli">Juli</option>
+              <option value="Agustus">Agustus</option>
+              <option value="September">September</option>
+              <option value="Oktober">Oktober</option>
+              <option value="November">November</option>
+              <option value="Desember">Desember</option>
+              <option value="Januari">Januari</option>
+              <option value="Februari">Februari</option>
+              <option value="Maret">Maret</option>
+              <option value="April">April</option>
+              <option value="Mei">Mei</option>
+              <option value="Juni">Juni</option>
+            </select>
+          </div>
+          <div class="">
+            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
+            <input type="hidden" id="id_anggota" name="id_anggota" />
+          </div>            
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
