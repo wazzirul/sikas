@@ -1490,8 +1490,6 @@ class QueryController extends Controller
     }
 
     public function laporanPembayaranSppKelas(Request $request){
-        $tanggal_awal = $request->input('tanggal_awal');
-        $tanggal_akhir = $request->input('tanggal_akhir');
         $id_kelas = $request->input('id_kelas');
         $id_jurusan = $request->input('id_jurusan');
         $nomor_kelas = $request->input('nomor_kelas');
@@ -1506,11 +1504,18 @@ class QueryController extends Controller
 
         foreach($anggota as $a){
             $transaksi = Transaksi::where('tipe_transaksi', 1)
-                ->whereDate('tanggal', '>=', $tanggal_awal)
-                ->whereDate('tanggal', '<=', $tanggal_akhir)
                 ->where('id_anggota', $a->id_anggota)
+                ->where('kelas', $a->Kelas->nama)
                 ->where('soft_delete', 0)
                 ->sum('jumlah');
+
+            $tagihan_bulanan = HistoryTagihanBulanan::where('id_anggota', $a->id_anggota)
+                ->where('prefix_tagihan', null)
+                ->where('bulan', '!=', null)
+                ->where('soft_delete', 0)  
+                ->orderBy('id_history_tagihan', 'DESC')
+                ->limit(12)
+                ->get(); 
 
             $id_kelas = $a->id_kelas;
             $pembayaran_tambahan = HistoryTagihanBulanan::where('id_anggota', $a->id_anggota)
@@ -1540,6 +1545,7 @@ class QueryController extends Controller
 
             $a['total_pembayaran'] = $transaksi;
             $a['pembayaran_tambahan'] = $semua_pembayaran_tambahan;
+            $a['tagihan_bulanan'] = $tagihan_bulanan;
         }
 
         return response($anggota, 200);

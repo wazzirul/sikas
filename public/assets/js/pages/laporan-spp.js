@@ -157,10 +157,73 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
             nomor_kelas: nomor_kelas,
         },
         success: (result) => {
-            $('#tbody-laporan-spp-kelas').empty();
             $('#data-laporan-pembayaran-spp-perkelas').DataTable().clear().destroy();
+            $('#thead-laporan-spp-kelas').empty();
+            $('#tbody-laporan-spp-kelas').empty();
+
+            if (result[0].keuangan_anggota.tipe_tagihan == 2) {
+                $('#thead-laporan-spp-kelas').append(`
+                    <tr>
+                        <th>No</th>
+                        <th>No Induk</th>
+                        <th>Nama Siswa</th>
+                        <th class="tcolumn-kelas">Kelas</th>
+                        <th>L/P</th>
+                        <th>Kesanggupan Partisipasi</th>
+                        <th>Juli</th>
+                        <th>Agust</th>
+                        <th>Sept</th>
+                        <th>Okt</th>
+                        <th>Nov</th>
+                        <th>Des</th>
+                        <th>Jan</th>
+                        <th>Feb</th>
+                        <th>Maret</th>
+                        <th>April</th>
+                        <th>Mei</th>
+                        <th>Juni</th>
+                        <th>Total Partisipasi</th>
+                        <th>Sisa Partisipasi</th>
+                    </tr>
+                `);
+
+            } else {
+                $('#thead-laporan-spp-kelas').append(`
+                    <tr>
+                        <th>No</th>
+                        <th>No Induk</th>
+                        <th>Nama Siswa</th>
+                        <th class="tcolumn-kelas">Kelas</th>
+                        <th>L/P</th>
+                        <th>Kesanggupan Partisipasi</th>
+                        <th>Angsuran Ke</th>
+                        <th>Total Partisipasi</th>
+                        <th>Sisa Partisipasi</th>
+                    </tr>
+                `);
+
+            }
 
             $.each(result, (index, value) => {
+                let rekapan_bulanan = ``;
+                if (value.keuangan_anggota.tipe_tagihan == 2) {
+                    $.each(value.tagihan_bulanan.reverse(), (index_bulanan, value_bulanan) => {
+                        if (value_bulanan.status == 1) {
+                            rekapan_bulanan += `
+                                <td class="text-medium">
+                                    <p class="text-medium color-neutral-100">Rp. ${numberFormat(value_bulanan.jumlah)}</p>              
+                                </td>
+                            `;
+                        } else {
+                            rekapan_bulanan += `
+                                <td class="text-medium">
+                                    <p class="text-medium color-neutral-100">-</p>              
+                                </td>
+                            `;
+                        }
+                    })
+                }
+
                 $('#tbody-laporan-spp-kelas').append(`
                     <tr>
                         <td class="text-medium">
@@ -181,45 +244,13 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                         <td class="text-medium">
                             <p class="text-medium color-neutral-100">Rp. ${numberFormat(value.keuangan_anggota.tagihan_pertama)}</p>              
                         </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">2</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
-                        <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Rp. 10.000</p>              
-                        </td>
+                        ${value.keuangan_anggota.tipe_tagihan == 1 ? `
+                            <td class="text-medium">
+                                <p class="text-medium color-neutral-100">${value.keuangan_anggota.angsuran_ke}</p>              
+                            </td>
+                        ` : `
+                            ${rekapan_bulanan}
+                        `}
                         <td class="text-medium">
                             <p class="text-medium color-neutral-100">Rp. ${numberFormat(value.total_pembayaran)}</p>              
                         </td>
@@ -228,15 +259,22 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                         </td>
                     </tr>
                 `);
-                
-                $('#data-laporan-pembayaran-spp-perkelas').find('tr').each(function(){ 
-                    $(this).find('th').eq(-1).after('<th>HEADER</th>');
-                    $(this).find('td').eq(-1).after('<td>ROW</td>'); 
-                });
+
+                $.each(value.pembayaran_tambahan, (index_tambahan, value_tambahan) => {
+                    $('#data-laporan-pembayaran-spp-perkelas').find('tr').each(function () {
+                        $(this).find('th').eq(-1).after(`<th>${value_tambahan.nama}</th>`);
+                        $(this).find('td').eq(-1).after(`
+                            <td class="text-medium">
+                                <p class="text-medium color-neutral-100">${value_tambahan.jumlah}</p>              
+                            </td>
+                        `);
+                    });
+                })
 
                 if (index == (result.length - 1)) {
                     $('#data-laporan-pembayaran-spp-perkelas').DataTable({
                         "aaSorting": [],
+                        "bDestroy": true
                     });
                 }
             })
@@ -244,6 +282,7 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
             if (result.length == 0) {
                 $('#data-laporan-pembayaran-spp-perkelas').DataTable({
                     "aaSorting": [],
+                    "bDestroy": true
                 });
             }
         },

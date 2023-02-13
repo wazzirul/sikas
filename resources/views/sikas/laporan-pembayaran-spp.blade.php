@@ -95,30 +95,7 @@ Laporan
           </div>
           <div class="table-responsive text-nowrap">
             <table class="table table-striped" id="data-laporan-pembayaran-spp-perkelas">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>No Induk</th>
-                  <th>Nama Siswa</th>
-                  <th class="tcolumn-kelas">Kelas</th>
-                  <th>L/P</th>
-                  <th>Kesanggupan Partisipasi</th>
-                  <th>Angsuran Ke</th>
-                  <th>Juli</th>
-                  <th>Agust</th>
-                  <th>Sept</th>
-                  <th>Okt</th>
-                  <th>Nov</th>
-                  <th>Des</th>
-                  <th>Jan</th>
-                  <th>Feb</th>
-                  <th>Maret</th>
-                  <th>April</th>
-                  <th>Mei</th>
-                  <th>Juni</th>
-                  <th>Total Partisipasi</th>
-                  <th>Sisa Partisipasi</th>
-                </tr>
+              <thead id="thead-laporan-spp-kelas">
               </thead>
               <tbody id="tbody-laporan-spp-kelas">
               </tbody>
