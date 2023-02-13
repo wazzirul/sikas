@@ -14,6 +14,7 @@ use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
+use App\Models\PengajuanPenambahan;
 use App\Models\StrukturSekolah;
 use App\Models\Transaksi;
 
@@ -72,17 +73,6 @@ class Main extends Controller
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
-    $transaksi_lain = Transaksi::where('tipe_transaksi', 5)
-      ->whereDate('tanggal', $hari_ini)
-      ->where('soft_delete', 0)
-      ->sum('jumlah');
-    $data_transaksi_lain = Transaksi::where('tipe_transaksi', 5)
-      ->whereDate('tanggal', $hari_ini)
-      ->where('soft_delete', 0)
-      ->with('Admin')
-      ->orderBy('id_transaksi', 'DESC')
-      ->get();
-
     $keringanan = PengajuanKeringanan::where('soft_delete', 0)
       ->whereDate('tanggal', $hari_ini)
       ->sum('jumlah');
@@ -90,6 +80,15 @@ class Main extends Controller
       ->whereDate('tanggal', $hari_ini)
       ->with('Anggota.Kelas', 'Anggota.Jurusan')
       ->orderBy('id_pengajuan_keringanan', 'DESC')
+      ->get();
+
+    $penambahan = PengajuanPenambahan::where('soft_delete', 0)
+      ->whereDate('tanggal', $hari_ini)
+      ->sum('jumlah');
+    $data_penambahan = PengajuanPenambahan::where('soft_delete', 0)
+      ->whereDate('tanggal', $hari_ini)
+      ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->orderBy('id_pengajuan_penambahan', 'DESC')
       ->get();
 
     $pengeluaran = Transaksi::where('tipe_transaksi', '>=', 3)
@@ -109,14 +108,14 @@ class Main extends Controller
       'transaksi_spp' => $transaksi_spp,
       'tabungan_siswa' => $tabungan_siswa,
       'tabungan_guru' => $tabungan_guru,
-      'transaksi_lain' => $transaksi_lain,
+      'penambahan' => $penambahan,
       'keringanan' => $keringanan,
       'pengeluaran' => $pengeluaran,
 
       'data_transaksi_spp' => $data_transaksi_spp,
       'data_tabungan_siswa' => $data_tabungan_siswa,
       'data_tabungan_guru' => $data_tabungan_guru,
-      'data_transaksi_lain' => $data_transaksi_lain,
+      'data_penambahan' => $data_penambahan,
       'data_keringanan' => $data_keringanan,
       'data_pengeluaran' => $data_pengeluaran,
     ]);

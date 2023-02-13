@@ -82,7 +82,7 @@ Dashboard
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">Transaksi Pengajuan Penambahan Hari ini</span>
-        <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $keringanan }}</h3>
+        <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $penambahan }}</h3>
       </div>
     </div>
   </div>
@@ -95,7 +95,7 @@ Dashboard
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">Transaksi Pengajuan Keringanan Hari ini</span>
-        <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $transaksi_lain }}</h3>
+        <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $keringanan }}</h3>
       </div>
     </div>
   </div>
@@ -287,7 +287,7 @@ Dashboard
           @endif
         </div>
         <div class="tab-pane fade" id="navs-pills-pengajuan-penambahan" role="tabpanel">
-          @if(count($data_keringanan) != 0)
+          @if(count($data_penambahan) != 0)
           <div class="table-responsive text-nowrap">
             <table class="table table-striped" id="riwayat-transaksi">
               <thead>
@@ -300,21 +300,21 @@ Dashboard
                 </tr>
               </thead>
               <tbody>
-                @foreach($data_keringanan as $dk)
+                @foreach($data_penambahan as $dp)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dk->tanggal)->translatedFormat('d F Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dp->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
-                  <td class="text-medium color-neutral-100">{{ $dk->Anggota->nis }}</td>
+                  <td class="text-medium color-neutral-100">{{ $dp->Anggota->nis }}</td>
                   <td>
-                    <p class="text-medium text-black">{{ $dk->Anggota->nama }} ‘kelas {{ $dk->Anggota->Kelas->nama }} {{ $dk->Anggota->Jurusan->nama }} {{ $dk->Anggota->nomor_kelas }}’</p>
+                    <p class="text-medium text-black">{{ $dp->Anggota->nama }} ‘kelas {{ $dp->Anggota->Kelas->nama }} {{ $dp->Anggota->Jurusan->nama }} {{ $dp->Anggota->nomor_kelas }}’</p>
                   </td>
                   <td>
-                    <p class="text-bold text-black nominal-transaksi">{{ $dk->jumlah }}</p>
+                    <p class="text-bold text-black nominal-transaksi">{{ $dp->jumlah }}</p>
                   </td>
                   <td>
                     <div class="d-flex align-items-center justify-content-start gap-3">
-                      <a href="/transaksi/pengajuan-keringanan/{{$dk->Anggota->id_anggota}}" class="table__link-detail d-flex align-items-center gap-2">
+                      <a href="/transaksi/pengajuan-keringanan/{{$dp->Anggota->id_anggota}}" class="table__link-detail d-flex align-items-center gap-2">
                         Lihat Detail
                         <i class="fa-solid fa-eye"></i>
                       </a>

@@ -26,13 +26,13 @@
         // Get and convert the responseText into JSON
         var response = JSON.parse(xhr.responseText);
         for(var i = 0; i < response.length; i++){
-          let page_url = window.location.origin+'/transaksi/dinamis/'+response[i].id_tagihan;
+          let page_url = window.location.origin+'/transaksi/dinamis/'+response[i].prefix_tagihan;
           let active_url;
           window.location == page_url ? active_url = 'active' : '';
 
           let txt = `
             <li class="menu-item ${page_url == window.location ? 'active' : ''}">
-              <a href="/transaksi/dinamis/${response[i].id_tagihan}" class="menu-link">
+              <a href="/transaksi/dinamis/${response[i].prefix_tagihan}" class="menu-link">
                 <div>${response[i].nama}</div>
               </a>
             </li>

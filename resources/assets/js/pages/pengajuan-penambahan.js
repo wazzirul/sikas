@@ -105,7 +105,7 @@ $(document).on('submit', 'form#form-pengajuan-penambahan', function (e) {
           transactiontype = 'Pengajuan Penambahan Uang Akademik',
           total = pengajuan.jumlah
 
-        printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total })
+        printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total }, () => location.reload())
       } catch (error) {
         console.error(error);
       }
@@ -116,7 +116,6 @@ $(document).on('submit', 'form#form-pengajuan-penambahan', function (e) {
     complete: () => {
       form.trigger('reset')
       $('.pengajuan-keringanan-form__item-upload').addClass('d-none');
-      location.reload()
     }
   })
 })

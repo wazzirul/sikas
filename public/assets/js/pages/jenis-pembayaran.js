@@ -7,7 +7,7 @@ $(document).ready(function () {
 
   if ($("#data-jenis-pembayaran").length == 1) {
     $('#data-jenis-pembayaran').DataTable({
-      "aaSorting": [[5, "asc"], [2, "asc"], [0, "asc"]],
+      "aaSorting": [[5, "asc"], [0, "asc"]],
     });
   }
 

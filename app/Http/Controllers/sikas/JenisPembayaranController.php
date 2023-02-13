@@ -37,16 +37,26 @@ class JenisPembayaranController extends Controller
     $jumlah = str_replace('.', '', $jumlah);
     $jumlah = str_replace(' ', '', $jumlah);
 
+    $tagihan_sama = Tagihan::where('nama', $nama)
+      ->first();
+
     $tagihan = new Tagihan();
     $tagihan->nama = $nama;
     $tagihan->id_kelas = $id_kelas;
     $tagihan->jumlah = $jumlah;
+    $tagihan->angkatan = $angkatan;
+    $tagihan->tipe_tagihan = 2;
 
     if($status_siswa == 'aktif'){
       $tagihan->status = 1;
     }else{
       $tagihan->status = 2;
     }
+
+    $tagihan->save();
+
+    if($tagihan_sama) $tagihan->prefix_tagihan = $tagihan_sama->prefix_tagihan;
+    else $tagihan->prefix_tagihan = $tagihan->id_tagihan;
 
     $tagihan->save();
 
@@ -60,6 +70,7 @@ class JenisPembayaranController extends Controller
         $history_bulanan = new HistoryTagihanBulanan();
         $history_bulanan->id_anggota = $a->id_anggota;
         $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+        $history_bulanan->prefix_tagihan = $tagihan->prefix_tagihan;
         $history_bulanan->jumlah = $tagihan->jumlah;
         $history_bulanan->save();
       }

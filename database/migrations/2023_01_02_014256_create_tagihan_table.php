@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('tagihan', function (Blueprint $table) {
             $table->increments('id_tagihan');
+            $table->integer('prefix_tagihan')->nullable();
             $table->string('nama');
             $table->bigInteger('jumlah');
             $table->unsignedInteger('id_kelas');

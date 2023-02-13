@@ -133,7 +133,7 @@ function clickSiswa(e) {
         data: {
             _token: $('#ctoken').val(),
             id_anggota: e.currentTarget.dataset.id,
-            id_tagihan: $('#id_tagihan').val(),
+            id_tagihan: $('#prefix_tagihan').val(),
         },
         success: (result) => {
             $('.list-riwayat-pembayaran-dinamis').empty();
@@ -147,8 +147,6 @@ function clickSiswa(e) {
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
                 let tahun = tanggal.getFullYear();
-
-                console.log(value);
 
                 $('.list-riwayat-pembayaran-dinamis').append(`
                     <tr>
@@ -180,7 +178,7 @@ function clickSiswa(e) {
                 data: {
                     _token: $('#ctoken').val(),
                     id_anggota: e.currentTarget.dataset.id,
-                    id_tagihan: $('#id_tagihan').val(),
+                    prefix_tagihan: $('#prefix_tagihan').val(),
                 },
                 success: (result_dinamis) => {
                     let total_tagihan = result_dinamis[0].jumlah;

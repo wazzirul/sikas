@@ -155,11 +155,38 @@ class LaporanController extends Controller
       ->where('soft_delete', 0)
       ->max('nomor_kelas');
 
+    $angkatan = Anggota::where('soft_delete', 0)
+      ->where('angkatan', '!=', null)
+      ->orderBy('angkatan', 'DESC')
+      ->select('angkatan')
+      ->first();
+
+    $angkatan_bawah = Anggota::where('soft_delete', 0)
+      ->where('angkatan', '!=', null)
+      ->orderBy('angkatan', 'ASC')
+      ->select('angkatan')
+      ->first();
+
+    if($angkatan == null) $angkatan = ((int)date('Y') - 1).'-'.date('Y');
+    $angkatan = explode('-', $angkatan);
+    $angkatan_siswa = $angkatan[1];
+
+    if($angkatan_bawah == null) $angkatan_bawah = '2015-2016';
+    $angkatan_bawah = explode('-', $angkatan_bawah);
+    $angkatan_siswa_bawah = $angkatan_bawah[1];
+
+    $all_angkatan = [];
+    for($i = $angkatan_siswa; $i >= $angkatan_siswa_bawah; $i--){
+      $angkatan_sekarang = strval(($i - 1).'-'.$i);
+      array_push($all_angkatan, $angkatan_sekarang);
+    }
+
     return view('sikas.laporan-pembayaran-spp', [
       'laporan' => $laporan,
       'kelas' => $kelas,
       'jurusan' => $jurusan,
       'nomor_kelas' => $nomor_kelas,
+      'all_angkatan' => $all_angkatan,
     ]);
   }  
 

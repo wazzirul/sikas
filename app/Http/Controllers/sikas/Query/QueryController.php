@@ -157,8 +157,11 @@ class QueryController extends Controller
     }
 
     public function getSidebarPembayaranDinamis(){
-        $data = Tagihan::where('soft_delete', 0)
+        $data = Tagihan::select('nama','prefix_tagihan')
+            ->where('soft_delete', 0)
             ->where('tipe_tagihan', 2)
+            ->where('prefix_tagihan', '!=', null)
+            ->distinct()
             ->get();
 
         return response($data, 200);
@@ -257,17 +260,23 @@ class QueryController extends Controller
 
         $total_data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
             ->where('status', 0)
+            ->where('bulan', '!=', null)
+            ->where('prefix_tagihan', null)
             ->where('soft_delete', 0)
             ->count();
 
         if($total_data > 12){
             $data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                 ->where('status', 0)
+                ->where('bulan', '!=', null)
+                ->where('prefix_tagihan', null)
                 ->where('soft_delete', 0)
                 ->get();
         }else{
             $data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                 ->where('soft_delete', 0)
+                ->where('bulan', '!=', null)
+                ->where('prefix_tagihan', null)
                 ->limit(12)
                 ->get();
         }
@@ -277,11 +286,11 @@ class QueryController extends Controller
 
     public function getPembayaranDinamis(Request $request){
         $id_anggota = $request->input('id_anggota');
-        $id_tagihan = $request->input('id_tagihan') ?? null;
+        $prefix_tagihan = $request->input('prefix_tagihan') ?? null;
 
         $data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-            ->where(function($q) use($id_tagihan){
-                $id_tagihan && $q->where('id_tagihan', $id_tagihan);
+            ->where(function($q) use($prefix_tagihan){
+                $prefix_tagihan && $q->where('prefix_tagihan', $prefix_tagihan);
             })
             ->where('bulan', null)
             ->where('soft_delete', 0)
@@ -327,7 +336,7 @@ class QueryController extends Controller
         $transaksi->kode_transaksi = 'DNMS-' . $id_anggota . '-' . date('hi-dmY');
         $transaksi->id_anggota = $id_anggota;
         $transaksi->tipe_transaksi = 8;
-        $transaksi->id_tagihan = $id_tagihan;
+        $transaksi->id_tagihan = $master_tagihan->prefix_tagihan;
         $transaksi->jumlah = $nominal;
         $transaksi->nama_transaksi = $master_tagihan->nama;
         $transaksi->save();
@@ -373,7 +382,27 @@ class QueryController extends Controller
         $keuangan_anggota = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
         $tanggungan = $keuangan_anggota->tagihan;
         $keuangan_anggota->tagihan = (int)$tanggungan - (int)$nominal;
+        $keuangan_anggota->tagihan_pertama -= (int)$nominal;
         $keuangan_anggota->save();
+
+        if($keuangan_anggota->tipe_tagihan == 2){
+            $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->count();
+
+            $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
+            HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->update([
+                    'jumlah' => $tagihan_perbulan,
+                ]);
+        }
 
         $res_anggota = Anggota::where('id_anggota', $id_anggota)
             ->with('Kelas', 'Jurusan')
@@ -1483,7 +1512,34 @@ class QueryController extends Controller
                 ->where('soft_delete', 0)
                 ->sum('jumlah');
 
+            $id_kelas = $a->id_kelas;
+            $pembayaran_tambahan = HistoryTagihanBulanan::where('id_anggota', $a->id_anggota)
+                ->where('prefix_tagihan', '!=', null)
+                ->where('bulan', null)
+                ->where('soft_delete', 0)
+                ->with('Tagihan')
+                ->whereHas('Tagihan', function($q) use($id_kelas){
+                    $id_kelas && $q->where('tagihan.id_kelas', $id_kelas);
+                })
+                ->get();
+
+            $semua_pembayaran_tambahan = [];
+
+            foreach($pembayaran_tambahan as $pt){
+                $nama_pembayaran_tambahan = $pt->Tagihan->nama;
+                $total_partisipasi = Transaksi::where('id_anggota', $a->id_anggota)
+                    ->where('id_tagihan', $pt->Tagihan->id_tagihan)
+                    ->where('soft_delete', 0)
+                    ->sum('jumlah');
+
+                $data_pembayaran_tambahan['nama'] = $nama_pembayaran_tambahan;
+                $data_pembayaran_tambahan['jumlah'] = $total_partisipasi;
+
+                array_push($semua_pembayaran_tambahan, $data_pembayaran_tambahan);
+            }
+
             $a['total_pembayaran'] = $transaksi;
+            $a['pembayaran_tambahan'] = $semua_pembayaran_tambahan;
         }
 
         return response($anggota, 200);
@@ -1798,6 +1854,12 @@ class QueryController extends Controller
                 $tagihan->flow_tagihan = $flow_tagihan;
                 $tagihan->save();
             }
+
+            Tagihan::where('tipe_tagihan', 2)
+                ->where('soft_delete', 0)
+                ->update([
+                    'status' => 2,
+                ]);
         }
     
         return response('success', 200);

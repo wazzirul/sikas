@@ -160,6 +160,7 @@ Transaksi
             <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
             <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
             <input type="hidden" id="id_anggota" name="id_anggota" />
+            <input type="hidden" id="prefix_tagihan" name="prefix_tagihan" value="{{ $dinamis->prefix_tagihan }}" />
             <input type="hidden" id="id_tagihan" name="id_tagihan" value="{{ $dinamis->id_tagihan }}" />
           </div>       
           <button type="hidden" class="d-none" id="button_pembayaran_sukses" data-bs-toggle="modal" data-bs-target="#modalPembayaran"></button>
