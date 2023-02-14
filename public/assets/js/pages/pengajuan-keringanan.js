@@ -30,7 +30,6 @@ $(document).ready(function () {
   })
 
   $('#tahunAjaran').keyup((e) => {
-    console.log($('.form-control.form-control-sm').find('input[type=search]'));
     $('.form-control.form-control-sm').find('input[type=search]').prevObject.each((index, value) => {
       $(value).val(e.currentTarget.value);
       $(value).keyup();

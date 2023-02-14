@@ -65,6 +65,7 @@ $(document).ready(function () {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
+    let angkatan = $('#filter_angkatan_siswa').val();
 
     $.ajax({
       url: '/query/siswaByFilter',
@@ -74,6 +75,7 @@ $(document).ready(function () {
         id_kelas: id_kelas,
         id_jurusan: id_jurusan,
         nomor_kelas: nomor_kelas,
+        angkatan: angkatan,
       },
       success: (result) => {
         $('#tbody-data-siswa').empty();

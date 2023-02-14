@@ -24,71 +24,6 @@ $(document).ready(function () {
         })
     })
 
-
-    $('.applyBtn').click(() => {
-        let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
-        let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
-
-        $.ajax({
-            url: '/query/laporanPembayaranTabungan',
-            method: 'POST',
-            data: {
-                _token: $('#ctoken').val(),
-                tanggal_awal: tanggal_awal,
-                tanggal_akhir: tanggal_akhir,
-            },
-            success: (result) => {
-                $('#tbody-laporan-tabungan').empty();
-                $('#data-laporan-pembayaran-tabungan').DataTable().clear().destroy();
-
-                $.each(result, (index, value) => {
-                    let keterangan
-                    if (value.anggota.tipe_anggota == 1) {
-                        keterangan = `${value.anggota.nama} \‘kelas ${value.anggota.jabatan != null ? value.anggota.jabatan.nama : 'Guru'}\’`;
-                    } else {
-                        keterangan = `${value.anggota.nama} \‘kelas ${value.anggota.kelas.nama} ${value.anggota.jurusan.nama} ${value.anggota.nomor_kelas}\’`;
-                    }
-
-                    $('#tbody-laporan-tabungan').append(`
-                        <tr>
-                            <td>
-                            <p class="text-medium color-neutral-100">${moment(value.tanggal).format('DD MMMM YYYY')}</p>
-                            </td>
-                            <td class="text-medium">
-                            <p class="text-medium color-neutral-100">${value.admin.nama}</p>              
-                            </td>
-                            <td class="text-medium">
-                            <p class="text-medium color-neutral-100">${value.nama_transaksi}</p>              
-                            </td>
-                            <td>
-                            <p class="text-medium color-neutral-100">${keterangan}</p>
-                            </td>
-                            <td>
-                            <p class="text-medium color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</p>
-                            </td>
-                        </tr>
-                    `);
-
-                    if (index == (result.length - 1)) {
-                        $('#data-laporan-pembayaran-tabungan').DataTable({
-                            "aaSorting": [],
-                        });
-                    }
-                })
-
-                if (result.length == 0) {
-                    $('#data-laporan-pembayaran-tabungan').DataTable({
-                        "aaSorting": [],
-                    });
-                }
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        })
-
-    })
-
     $.each($('.nominal-transaksi'), (index, value) => {
         $(value).text('Rp. ' + numberFormat($(value).text()))
     })
@@ -98,4 +33,67 @@ function numberFormat(x) {
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return parts.join(",");
+}
+
+function retrieveLaporanDetail() {
+    let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
+    let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+    $.ajax({
+        url: '/query/laporanPembayaranTabungan',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            tanggal_awal: tanggal_awal,
+            tanggal_akhir: tanggal_akhir,
+        },
+        success: (result) => {
+            $('#tbody-laporan-tabungan').empty();
+            $('#data-laporan-pembayaran-tabungan').DataTable().clear().destroy();
+
+            $.each(result, (index, value) => {
+                let keterangan
+                if (value.anggota.tipe_anggota == 1) {
+                    keterangan = `${value.anggota.nama} \‘kelas ${value.anggota.jabatan != null ? value.anggota.jabatan.nama : 'Guru'}\’`;
+                } else {
+                    keterangan = `${value.anggota.nama} \‘kelas ${value.anggota.kelas.nama} ${value.anggota.jurusan.nama} ${value.anggota.nomor_kelas}\’`;
+                }
+
+                $('#tbody-laporan-tabungan').append(`
+                    <tr>
+                        <td>
+                        <p class="text-medium color-neutral-100">${moment(value.tanggal).format('DD MMMM YYYY')}</p>
+                        </td>
+                        <td class="text-medium">
+                        <p class="text-medium color-neutral-100">${value.admin.nama}</p>              
+                        </td>
+                        <td class="text-medium">
+                        <p class="text-medium color-neutral-100">${value.nama_transaksi}</p>              
+                        </td>
+                        <td>
+                        <p class="text-medium color-neutral-100">${keterangan}</p>
+                        </td>
+                        <td>
+                        <p class="text-medium color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</p>
+                        </td>
+                    </tr>
+                `);
+
+                if (index == (result.length - 1)) {
+                    $('#data-laporan-pembayaran-tabungan').DataTable({
+                        "aaSorting": [],
+                    });
+                }
+            })
+
+            if (result.length == 0) {
+                $('#data-laporan-pembayaran-tabungan').DataTable({
+                    "aaSorting": [],
+                });
+            }
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
 }

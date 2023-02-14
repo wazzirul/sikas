@@ -75,8 +75,8 @@ Laporan
                 </select>
               </div>
               <div class="mt-3">
-                <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
-                <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
+                <label for="filter_angkatan_siswa_kelas" class="form-label text-bold color-black">Angkatan</label>
+                <select id="filter_angkatan_siswa_kelas" autocomplete="off" class="form-select">
                   <option value="Aktif" selected>Aktif</option>
                   @foreach($all_angkatan as $aa)
                   <option value="{{ $aa }}">{{ $aa }}</option>
@@ -136,14 +136,10 @@ Laporan
               <div class="mt-3">
                 <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
                 <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
-                  <option value="" selected>Semua</option>
-                  <option value="Aktif">Aktif</option>
-                  <option value="2022-2023">2022-2023</option>
-                  <option value="2021-2022">2021-2022</option>
-                  <option value="2020-2021">2020-2021</option>
-                  <option value="2019-2020">2019-2020</option>
-                  <option value="2018-2019">2018-2019</option>
-                  <option value="2017-2018">2017-2018</option>
+                  <option value="" selected>Aktif</option>
+                  @foreach($all_angkatan as $aa)
+                  <option value="{{ $aa }}">{{ $aa }}</option>
+                  @endforeach
                 </select>
               </div>
               <!-- <button type="button" class="btn btn-outline-primary cari-siswa-button">Filter Data</button> -->

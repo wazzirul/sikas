@@ -56,17 +56,18 @@ $(document).ready(function () {
         fetchDataPembayaran();
     })
 
-    $('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas').change(() => {
+    $('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa').change(() => {
         fetchDataPembayaran();
     })
 
-    $('#filter_id_kelas_kelas, #filter_id_jurusan_kelas, #filter_nomor_kelas_kelas').change(() => {
+    $('#filter_id_kelas_kelas, #filter_id_jurusan_kelas, #filter_nomor_kelas_kelas, #filter_angkatan_siswa_kelas').change(() => {
         let id_kelas = $('#filter_id_kelas_kelas').val() ?? null;
         let id_jurusan = $('#filter_id_jurusan_kelas').val() ?? null;
         let nomor_kelas = $('#filter_nomor_kelas_kelas').val() ?? null;
+        let angkatan = $('#filter_angkatan_siswa_kelas').val() ?? null;
 
         if (id_kelas && id_jurusan && nomor_kelas) {
-            fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas);
+            fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas, angkatan);
         }
     })
 
@@ -82,6 +83,7 @@ function fetchDataPembayaran() {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
+    let angkatan = $('#filter_angkatan_siswa').val();
 
     $.ajax({
         url: '/query/laporanPembayaranSpp',
@@ -93,6 +95,7 @@ function fetchDataPembayaran() {
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,
+            angkatan: angkatan,
         },
         success: (result) => {
             $('#tbody-laporan-spp').empty();
@@ -141,7 +144,7 @@ function fetchDataPembayaran() {
     })
 }
 
-function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
+function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas, angkatan) {
     let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
     let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
 
@@ -155,38 +158,56 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,
+            angkatan: angkatan,
         },
         success: (result) => {
             $('#data-laporan-pembayaran-spp-perkelas').DataTable().clear().destroy();
             $('#thead-laporan-spp-kelas').empty();
             $('#tbody-laporan-spp-kelas').empty();
 
-            if (result[0].keuangan_anggota.tipe_tagihan == 2) {
-                $('#thead-laporan-spp-kelas').append(`
-                    <tr>
-                        <th>No</th>
-                        <th>No Induk</th>
-                        <th>Nama Siswa</th>
-                        <th class="tcolumn-kelas">Kelas</th>
-                        <th>L/P</th>
-                        <th>Kesanggupan Partisipasi</th>
-                        <th>Juli</th>
-                        <th>Agust</th>
-                        <th>Sept</th>
-                        <th>Okt</th>
-                        <th>Nov</th>
-                        <th>Des</th>
-                        <th>Jan</th>
-                        <th>Feb</th>
-                        <th>Maret</th>
-                        <th>April</th>
-                        <th>Mei</th>
-                        <th>Juni</th>
-                        <th>Total Partisipasi</th>
-                        <th>Sisa Partisipasi</th>
-                    </tr>
-                `);
+            if (result.length != 0) {
+                if (result[0].keuangan_anggota.tipe_tagihan == 2) {
+                    $('#thead-laporan-spp-kelas').append(`
+                        <tr>
+                            <th>No</th>
+                            <th>No Induk</th>
+                            <th>Nama Siswa</th>
+                            <th class="tcolumn-kelas">Kelas</th>
+                            <th>L/P</th>
+                            <th>Kesanggupan Partisipasi</th>
+                            <th>Juli</th>
+                            <th>Agust</th>
+                            <th>Sept</th>
+                            <th>Okt</th>
+                            <th>Nov</th>
+                            <th>Des</th>
+                            <th>Jan</th>
+                            <th>Feb</th>
+                            <th>Maret</th>
+                            <th>April</th>
+                            <th>Mei</th>
+                            <th>Juni</th>
+                            <th>Total Partisipasi</th>
+                            <th>Sisa Partisipasi</th>
+                        </tr>
+                    `);
 
+                } else {
+                    $('#thead-laporan-spp-kelas').append(`
+                        <tr>
+                            <th>No</th>
+                            <th>No Induk</th>
+                            <th>Nama Siswa</th>
+                            <th class="tcolumn-kelas">Kelas</th>
+                            <th>L/P</th>
+                            <th>Kesanggupan Partisipasi</th>
+                            <th>Angsuran Ke</th>
+                            <th>Total Partisipasi</th>
+                            <th>Sisa Partisipasi</th>
+                        </tr>
+                    `);
+
+                }
             } else {
                 $('#thead-laporan-spp-kelas').append(`
                     <tr>
@@ -201,7 +222,6 @@ function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas) {
                         <th>Sisa Partisipasi</th>
                     </tr>
                 `);
-
             }
 
             $.each(result, (index, value) => {

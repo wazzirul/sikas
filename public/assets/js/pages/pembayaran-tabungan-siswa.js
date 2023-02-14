@@ -9,9 +9,18 @@ if ($("#riwayat-tabungan").length == 1) {
 
 $('#cari-siswa').keyup((e) => {
     let search = e.currentTarget.value;
+    retrieveSiswa(search);
+})
+
+$('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa').change(() => {
+    retrieveSiswa();
+})
+
+function retrieveSiswa(search = "") {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
+    let angkatan = $('#filter_angkatan_siswa').val();
 
     $.ajax({
         url: '/query/dataSiswa',
@@ -22,7 +31,8 @@ $('#cari-siswa').keyup((e) => {
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,
-            limit: 2,
+            angkatan: angkatan,
+            limit: 20,
         },
         success: (result) => {
             dataSiswa = result;
@@ -30,7 +40,7 @@ $('#cari-siswa').keyup((e) => {
             $('.cari-siswa').empty();
             $.each(result, (index, value) => {
                 $('.cari-siswa').append(`
-                    <a href="#" class="cari-siswa__item" data-id="${value.id_anggota}">
+                    <a href="#!" class="cari-siswa__item" data-id="${value.id_anggota}">
                         <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
                         <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
                         <div class="d-flex flex-column gap-1">
@@ -41,12 +51,12 @@ $('#cari-siswa').keyup((e) => {
                         <div class="d-flex flex-column gap-1">
                           <p class="kelas-siswa text-bold text-info">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
                           <p class="text-bold">
-                            <span class="text-success">Aktif</span>
-                            <span class="text-danger">Alumni - 2018/2019</span>
+                            ${value.alumni == 0 ? '<span class="text-success">Aktif</span>' :
+                        `<span class="text-danger">Alumni (${value.angkatan ?? '-'})</span>`}
                           </p>
                         </div>
-                        <div class="cari-siswa__item-detail">
-                            <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
+                        <div href="#" class="cari-siswa__item-detail">
+                        	<i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
                         </div>
                     </a>
                 `);
@@ -60,7 +70,7 @@ $('#cari-siswa').keyup((e) => {
             console.log(err);
         }
     })
-})
+}
 
 $('.cari-siswa__item').click((e) => {
     clickSiswa(e);
@@ -89,6 +99,18 @@ function clickSiswa(e) {
             $('.detail-nis').text(result.nis);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
             $('.detail-tabungan').text('Rp. ' + numberFormat(result.keuangan_anggota.tabungan));
+
+            if (result.alumni == 0) {
+                $('.detail-status-siswa').empty();
+                $('.detail-status-siswa').append(`
+                      <span class="text-success">Active</span>
+                `);
+            } else {
+                $('.detail-status-siswa').empty();
+                $('.detail-status-siswa').append(`
+                      <span class="text-danger">Alumni (${result.angkatan ?? '-'})</span>
+                `);
+            }
         },
         error: (err) => {
             console.log(err);
@@ -103,14 +125,13 @@ function clickSiswa(e) {
             id_anggota: e.currentTarget.dataset.id
         },
         success: (result) => {
-            console.log(result);
             $('.list-riwayat-tabungan').empty();
             $.each(result, (index, value) => {
-              let tanggal = new Date(Date.parse(value.tanggal));
-              let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
-              let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
-              let date = tanggal.getDate();
-              let tahun = tanggal.getFullYear();
+                let tanggal = new Date(Date.parse(value.tanggal));
+                let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
+                let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
+                let date = tanggal.getDate();
+                let tahun = tanggal.getFullYear();
 
                 $('.list-riwayat-tabungan').append(`
                     <tr>

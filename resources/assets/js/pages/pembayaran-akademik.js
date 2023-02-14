@@ -22,10 +22,15 @@ $('#cari-siswa').keyup((e) => {
     retrieveSiswa(search);
 })
 
+$('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa').change(() => {
+    retrieveSiswa();
+})
+
 function retrieveSiswa(search = "") {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
+    let angkatan = $('#filter_angkatan_siswa').val();
 
     $.ajax({
         url: '/query/dataSiswa',
@@ -36,6 +41,7 @@ function retrieveSiswa(search = "") {
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,
+            angkatan: angkatan,
             limit: 20,
         },
         success: (result) => {
@@ -175,7 +181,6 @@ function clickSiswa(e) {
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
                 let tahun = tanggal.getFullYear();
-                console.log(value);
 
                 $.ajax({
                     url: '/query/siswaById',
@@ -184,9 +189,8 @@ function clickSiswa(e) {
                         _token: $('#ctoken').val(),
                         id: value.id_anggota
                     },
-                    success: (hasil) => {                        
-                        remainingbill = hasil.keuangan_anggota.tagihan;    
-                        console.log(remainingbill);
+                    success: (hasil) => {
+                        remainingbill = hasil.keuangan_anggota.tagihan;
                         $('.list-riwayat-pembayaran-spp').append(`
                         <tr>
                             <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
@@ -206,13 +210,13 @@ function clickSiswa(e) {
                                 </a>
                             </div>
                         </td>
-                    `);                    
+                    `);
                     },
                     error: (err) => {
                         console.log(err);
                     }
                 })
-                
+
 
             })
 
@@ -380,7 +384,7 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                     classname = anggota.detail_kelas,
                     transactiontype = transaksi.nama_transaksi,
                     total = transaksi.jumlah,
-                    transactioncode = transaksi.kode_transaksi                    
+                    transactioncode = transaksi.kode_transaksi
 
                 $.ajax({
                     url: '/query/siswaById',
@@ -391,8 +395,7 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                     },
                     success: (hasil) => {
                         $('#button_pembayaran_sukses').click();
-                        remainingbill = hasil.keuangan_anggota.tagihan;   
-                        console.log(remainingbill);                     
+                        remainingbill = hasil.keuangan_anggota.tagihan;
                         printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingbill });
                     },
                     error: (err) => {

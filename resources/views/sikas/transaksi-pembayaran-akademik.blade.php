@@ -81,19 +81,15 @@ Transaksi
               @endfor
             </select>
           </div>
-          <!-- <div class="filter-siswa__box">
+          <div class="filter-siswa__box">
             <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
             <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
-              <option value="" selected>Semua</option>
-              <option value="Aktif">Aktif</option>
-              <option value="2022-2023">2022-2023</option>
-              <option value="2021-2022">2021-2022</option>
-              <option value="2020-2021">2020-2021</option>
-              <option value="2019-2020">2019-2020</option>
-              <option value="2018-2019">2018-2019</option>
-              <option value="2017-2018">2017-2018</option>
+              <option value="" selected>Aktif</option>
+              @foreach($all_angkatan as $aa)
+              <option value="{{ $aa }}">{{ $aa }}</option>
+              @endforeach
             </select>
-          </div> -->
+          </div>
         </div>
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
         <div class="input-group input-group-merge">
@@ -102,30 +98,7 @@ Transaksi
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
         <div class="cari-siswa">
-          @foreach($anggota as $a)
-            <a href="#!" class="cari-siswa__item" data-id="{{$a->id_anggota}}">
-                <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-                <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-                <div class="d-flex flex-column gap-1">
-                    <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">{{ $a->nama }}</p>
-                    <p class="nomor-siswa color-neutral-80">{{ $a->nis }}</p>
-                </div>
-                </div>
-                <div class="d-flex flex-column gap-1">
-                  <p class="kelas-siswa text-bold text-info">{{ $a->Kelas->nama }} {{ $a->Jurusan->nama }} {{ $a->nomor_kelas }}</p>
-                  <p class="text-bold">
-                    @if($a->alumni == 0)
-                      <span class="text-success">Aktif</span>
-                    @else
-                      <span class="text-danger">Alumni ({{ $a->angkatan ?? '-' }})</span>
-                    @endif
-                  </p>
-                </div>
-                <div href="#" class="cari-siswa__item-detail">
-                  <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-                </div>
-            </a>
-          @endforeach
+          
         </div>
       </div>
       <div class="horizontal-line"></div>

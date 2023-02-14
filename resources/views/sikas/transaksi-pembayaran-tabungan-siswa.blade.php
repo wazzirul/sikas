@@ -47,18 +47,17 @@ Transaksi
     <h3 class="text-bold mb-4">Form Pembayaran Tabungan Siswa</h3>
     <div class="card-body__wrapper">
       <div class="card-item card-item--cari-siswa">
-        <div class="filter-siswa d-flex align-items-end gap-3 mb-3">
-          <div class="mt-3">
+      <div class="filter-siswa d-flex align-items-end gap-3 mb-3 flex-wrap">
+          <div class="filter-siswa__box">
             <label for="filter_id_kelas" class="form-label text-bold color-black">Kelas</label>
             <select id="filter_id_kelas" autocomplete="off" class="form-select">
               <option value="" selected>Semua</option>
               @foreach($kelas as $k)
               <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
               @endforeach
-              <option value="0">Alumni</option>
             </select>
           </div>
-          <div class="mt-3">
+          <div class="filter-siswa__box">
             <label for="filter_id_jurusan" class="form-label text-bold color-black">Jurusan</label>
             <select id="filter_id_jurusan" autocomplete="off" class="form-select">
               <option value="" selected>Semua</option>
@@ -67,7 +66,7 @@ Transaksi
               @endforeach
             </select>
           </div>
-          <div class="mt-3">
+          <div class="filter-siswa__box">
             <label for="filter_nomor_kelas" class="form-label text-bold color-black">Nomor Kelas</label>
             <select id="filter_nomor_kelas" autocomplete="off" class="form-select">
               <option value="" selected>Semua</option>
@@ -76,7 +75,15 @@ Transaksi
               @endfor
             </select>
           </div>
-          <!-- <button type="button" class="btn btn-outline-primary cari-siswa-button">Filter Data</button> -->
+          <div class="filter-siswa__box">
+            <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
+            <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
+              <option value="" selected>Aktif</option>
+              @foreach($all_angkatan as $aa)
+              <option value="{{ $aa }}">{{ $aa }}</option>
+              @endforeach
+            </select>
+          </div>
         </div>
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
         <div class="input-group input-group-merge">
@@ -101,9 +108,8 @@ Transaksi
               </div>
               <div class="d-flex flex-column detail-siswa__status-siswa">
                 <p class="color-neutral-100">Status Siswa</p>
-                <p class="text-bold">
-                  <span class="text-success">Aktif</span>
-                  <span class="text-danger">Alumni (2018-2019)</span>
+                <p class="text-bold detail-status-siswa">
+                  <span class="text-success">-</span>
                 </p>
               </div>
             </div>

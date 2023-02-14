@@ -28,26 +28,22 @@ class QueryController extends Controller
     {
         $search = $request->input('search');
         $limit = $request->input('limit');
-        $id_kelas = $request->input('id_kelas') ?? null;
+        $id_kelas = $request->input('id_kelas');
         $id_jurusan = $request->input('id_jurusan');
         $nomor_kelas = $request->input('nomor_kelas');
+        $angkatan = $request->input('angkatan') ?? null;
 
         $anggota = Anggota::where(function ($query) use ($search) {
-            $query->where('nama', 'LIKE', '%' . $search . '%');
-            $query->orWhere('nis', 'LIKE', '%' . $search . '%');
-        })
+                $query->where('nama', 'LIKE', '%' . $search . '%');
+                $query->orWhere('nis', 'LIKE', '%' . $search . '%');
+            })
             ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
-                if($id_kelas != null){
-                    if($id_kelas == 0){
-                        $q->where('alumni', '=', 1);
-                    }else{
-                        $q->where('id_kelas', $id_kelas);
-                    }
-                }
+                $id_kelas && $q->where('id_kelas', $id_kelas);
                 $id_jurusan && $q->where('id_jurusan', $id_jurusan);
                 $nomor_kelas && $q->where('nomor_kelas', $nomor_kelas);
             })
             ->inRandomOrder()
+            ->where('angkatan', $angkatan)
             ->where('tipe_anggota', 2)
             ->where('soft_delete', 0)
             ->limit($limit)
@@ -87,23 +83,18 @@ class QueryController extends Controller
 
     public function siswaByFilter(Request $request)
     {
-        $id_kelas = $request->input('id_kelas') ?? null;
+        $id_kelas = $request->input('id_kelas');
         $id_jurusan = $request->input('id_jurusan');
         $nomor_kelas = $request->input('nomor_kelas');
+        $angkatan = $request->input('angkatan') ?? null;
 
         $anggota = Anggota::where('tipe_anggota', 2)
             ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
-                if($id_kelas != null){
-                    if($id_kelas == 0){
-                        $q->where('alumni', '=', 1);
-                    }else{
-                        $q->where('id_kelas', $id_kelas);
-                    }
-                }
-                
+                $id_kelas && $q->where('id_kelas', '=', $id_kelas);
                 $id_jurusan && $q->where('id_jurusan', '=', $id_jurusan);
                 $nomor_kelas && $q->where('nomor_kelas', '=', $nomor_kelas);
             })
+            ->where('angkatan', $angkatan)
             ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
             ->get();
 
@@ -451,6 +442,25 @@ class QueryController extends Controller
 
         $pengajuan->save();
         $keuangan_anggota->save();
+
+        if($keuangan_anggota->tipe_tagihan == 2){
+            $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->count();
+
+            $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
+            HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->update([
+                    'jumlah' => $tagihan_perbulan,
+                ]);
+        }
 
         $res_anggota = Anggota::where('id_anggota', $id_anggota)
             ->with('Kelas', 'Jurusan')
@@ -1466,22 +1476,18 @@ class QueryController extends Controller
         $id_kelas = $request->input('id_kelas') ?? null;
         $id_jurusan = $request->input('id_jurusan') ?? null;
         $nomor_kelas = $request->input('nomor_kelas') ?? null;
+        $angkatan = $request->input('angkatan') ?? null;
     
         $laporan = Transaksi::where('tipe_transaksi', 1)
             ->whereDate('tanggal', '>=', $tanggal_awal)
             ->whereDate('tanggal', '<=', $tanggal_akhir)
             ->with('Anggota', 'Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
             ->whereHas('Anggota', function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
-                if($id_kelas != null){
-                    if($id_kelas == 0){
-                        $q->where('alumni', '=', 1);
-                    }else{
-                        $q->where('id_kelas', $id_kelas);
-                    }
-                }
+                $id_kelas && $q->where('anggota.id_kelas', $id_kelas);
                 $id_jurusan && $q->where('anggota.id_jurusan', $id_jurusan);
                 $nomor_kelas && $q->where('anggota.nomor_kelas', $nomor_kelas);
             })
+            ->where('angkatan', $angkatan)
             ->where('soft_delete', 0)
             ->orderBy('id_transaksi', 'DESC')
             ->get();
@@ -1493,10 +1499,12 @@ class QueryController extends Controller
         $id_kelas = $request->input('id_kelas');
         $id_jurusan = $request->input('id_jurusan');
         $nomor_kelas = $request->input('nomor_kelas');
+        $angkatan = $request->input('angkatan') ?? null;
 
         $anggota = Anggota::where('id_kelas', $id_kelas)
             ->where('id_jurusan', $id_jurusan)
             ->where('nomor_kelas', $nomor_kelas)
+            ->where('angkatan', $angkatan)
             ->where('soft_delete', 0)
             ->with('Kelas', 'Jurusan', 'KeuanganAnggota')
             ->orderBy('nama', 'ASC')
@@ -1575,6 +1583,20 @@ class QueryController extends Controller
             ->whereDate('tanggal', '<=', $tanggal_akhir)
             ->where('soft_delete', 0)
             ->orderBy('id_pengajuan_keringanan', 'DESC')
+            ->with('Anggota.Kelas', 'Anggota.Jurusan')
+            ->get();
+
+        return response($laporan, 200);
+    }
+
+    public function laporanPengajuanPenambahan(Request $request){
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+    
+        $laporan = PengajuanPenambahan::whereDate('tanggal', '>=', $tanggal_awal)
+            ->whereDate('tanggal', '<=', $tanggal_akhir)
+            ->where('soft_delete', 0)
+            ->orderBy('id_pengajuan_penambahan', 'DESC')
             ->with('Anggota.Kelas', 'Anggota.Jurusan')
             ->get();
 

@@ -57,7 +57,6 @@ $(document).on('submit', 'form#myform', function (e) {
             data,
             success: (result) => {
                 $('.success-button').click()
-
             },
             error: (err) => {
                 console.log(err);

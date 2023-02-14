@@ -18,7 +18,7 @@
 @section('page-script')
 <script src="{{asset('assets/js/datatable-tables.js')}}"></script>
 <script src="{{asset('assets/js/pages/laporan.js')}}"></script>
-<script src="{{asset('assets/js/pages/laporan-pengajuan-keringanan.js')}}"></script>
+<script src="{{asset('assets/js/pages/laporan-pengajuan-penambahan.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -49,7 +49,7 @@ Laporan
       </button>
     </div>
     <div class="table-responsive text-nowrap">
-      <table class="table table-striped" id="data-laporan-pengajuan-keringanan">
+      <table class="table table-striped" id="data-laporan-pengajuan-penambahan">
         <thead>
           <tr>
             <th>Tanggal</th>
@@ -58,14 +58,14 @@ Laporan
             <th>Jumlah Nominal</th>
           </tr>
         </thead>
-        <tbody id="tbody-pengajuan-keringanan">
+        <tbody id="tbody-pengajuan-penambahan">
           @foreach($laporan as $l)
           <tr>
             <td>
               <p class="text-medium color-neutral-100">{{ \Carbon\Carbon::parse($l->tanggal)->translatedFormat('d F Y') }}</p>
             </td>
             <td class="text-medium">
-              <p class="text-medium color-neutral-100">Pengajuan Keringanan</p>
+              <p class="text-medium color-neutral-100">Pengajuan Penambahan</p>
             </td>
             <td>
               <p class="text-medium color-neutral-100">{{ $l->Anggota->nama }} ‘kelas {{ $l->Anggota->Kelas->nama }} {{ $l->Anggota->Jurusan->nama }} {{ $l->Anggota->nomor_kelas }}’</p>

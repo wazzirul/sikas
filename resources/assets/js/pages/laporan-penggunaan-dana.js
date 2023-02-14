@@ -24,64 +24,6 @@ $(document).ready(function () {
         })
     })
 
-    $('.applyBtn').click(() => {
-        let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
-        let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
-        moment().locale('id');
-
-        $.ajax({
-            url: '/query/laporanPenggunaanDana',
-            method: 'POST',
-            data: {
-                _token: $('#ctoken').val(),
-                tanggal_awal: tanggal_awal,
-                tanggal_akhir: tanggal_akhir,
-            },
-            success: (result) => {
-                $('#tbody-penggunaan-dana').empty();
-                $('#data-laporan-penggunaan-dana').DataTable().clear().destroy();
-
-                $.each(result, (index, value) => {
-                    $('#tbody-penggunaan-dana').append(`
-                        <tr>
-                            <td>
-                            <p class="text-medium color-neutral-100">${moment(value.tanggal).format('DD MMMM YYYY')}</p>
-                            </td>
-                            <td class="text-medium">
-                            <p class="text-medium color-neutral-100">${value.admin.nama}</p>              
-                            </td>
-                            <td class="text-medium">
-                            <p class="text-medium color-neutral-100">Penggunaan Dana</p>              
-                            </td>
-                            <td>
-                            <p class="text-medium color-neutral-100">${value.nama_transaksi}</p>              
-                            </td>
-                            <td>
-                            <p class="text-medium color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</p>
-                            </td>
-                        </tr>
-                    `);
-
-                    if (index == (result.length - 1)) {
-                        $('#data-laporan-penggunaan-dana').DataTable({
-                            "aaSorting": [],
-                        });
-                    }
-                })
-
-                if (result.length == 0) {
-                    $('#data-laporan-penggunaan-dana').DataTable({
-                        "aaSorting": [],
-                    });
-                }
-            },
-            error: (err) => {
-                console.log(err);
-            }
-        })
-
-    })
-
     $.each($('.nominal-transaksi'), (index, value) => {
         $(value).text('Rp. ' + numberFormat($(value).text()))
     })
@@ -91,4 +33,61 @@ function numberFormat(x) {
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return parts.join(",");
+}
+
+function retrieveLaporanDetail() {
+    let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
+    let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
+    moment().locale('id');
+
+    $.ajax({
+        url: '/query/laporanPenggunaanDana',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            tanggal_awal: tanggal_awal,
+            tanggal_akhir: tanggal_akhir,
+        },
+        success: (result) => {
+            $('#tbody-penggunaan-dana').empty();
+            $('#data-laporan-penggunaan-dana').DataTable().clear().destroy();
+
+            $.each(result, (index, value) => {
+                $('#tbody-penggunaan-dana').append(`
+                    <tr>
+                        <td>
+                        <p class="text-medium color-neutral-100">${moment(value.tanggal).format('DD MMMM YYYY')}</p>
+                        </td>
+                        <td class="text-medium">
+                        <p class="text-medium color-neutral-100">${value.admin.nama}</p>              
+                        </td>
+                        <td class="text-medium">
+                        <p class="text-medium color-neutral-100">Penggunaan Dana</p>              
+                        </td>
+                        <td>
+                        <p class="text-medium color-neutral-100">${value.nama_transaksi}</p>              
+                        </td>
+                        <td>
+                        <p class="text-medium color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</p>
+                        </td>
+                    </tr>
+                `);
+
+                if (index == (result.length - 1)) {
+                    $('#data-laporan-penggunaan-dana').DataTable({
+                        "aaSorting": [],
+                    });
+                }
+            })
+
+            if (result.length == 0) {
+                $('#data-laporan-penggunaan-dana').DataTable({
+                    "aaSorting": [],
+                });
+            }
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
 }

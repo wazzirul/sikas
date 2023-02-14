@@ -1,3 +1,4 @@
+let validatePengeluaran = true;
 $(document).ready(function () {
   if ($("#riwayat-pengeluaran").length == 1) {
     $('#riwayat-pengeluaran').DataTable();
@@ -24,28 +25,35 @@ $(document).ready(function () {
   })
 
   $('.approve-button').click((e) => {
-    console.log(e);
     $('.modal--transaksi__nominal-penarikan').text(`Rp. ${numberFormat(e.currentTarget.dataset.jumlah)}`);
   })
 
   $('.pengajuan-pemasukan-button').click((e) => {
-    $.ajax({
-      url: '/query/pengeluaran',
-      method: 'POST',
-      data: {
-        _token: $('#ctoken').val(),
-        nominal: $('#nominalPengeluaran').val(),
-        keterangan: $('#keterangan').val(),
-      },
-      success: () => {
-        setTimeout(() => {
-          location.reload()
-        }, 2000);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+    if (validatePengeluaran) {
+      validatePengeluaran = false;
+
+      $.ajax({
+        url: '/query/pengeluaran',
+        method: 'POST',
+        data: {
+          _token: $('#ctoken').val(),
+          nominal: $('#nominalPengeluaran').val(),
+          keterangan: $('#keterangan').val(),
+        },
+        success: () => {
+          setTimeout(() => {
+            location.reload()
+          }, 2000);
+
+          validatePengeluaran = true;
+
+        },
+        error: (err) => {
+          console.log(err);
+          validatePengeluaran = true;
+        }
+      })
+    }
   })
 
   $('#pengeluaran-upload-file').change(() => {

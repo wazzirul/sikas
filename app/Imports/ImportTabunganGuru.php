@@ -2,9 +2,11 @@
 
 namespace App\Imports;
 
+use Session;
 use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
+use App\Models\Transaksi;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
@@ -22,7 +24,7 @@ class ImportTabunganGuru implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[1] && $row[2] && $row[3]){
+        if($row[1] && $row[2] && $row[4]){
             $anggota = Anggota::where('nip', $row[1])
                 ->where('nama', $row[2])
                 ->where('tipe_anggota', 1)
@@ -35,7 +37,7 @@ class ImportTabunganGuru implements ToModel, WithStartRow
                     ->first();
 
                 $tabungan_lama = (int)$keuangan_anggota->tabungan;
-                $tabungan_baru = $row[3];
+                $tabungan_baru = $row[4];
                 $tabungan_baru = str_replace('Rp', '', $tabungan_baru);
                 $tabungan_baru = str_replace('rp', '', $tabungan_baru);
                 $tabungan_baru = str_replace('.', '', $tabungan_baru);
@@ -52,8 +54,19 @@ class ImportTabunganGuru implements ToModel, WithStartRow
                     $keuangan_sekolah->total += ($tabungan_lama - $tabungan_baru);
                 }
 
+                $transaksi = new Transaksi();
+                $transaksi->id_admin = Session::get('id_user');
+                $transaksi->nomor_transaksi = '002000' . date('dmY');
+                $transaksi->kode_transaksi = 'TBNGN-' . $anggota->id_anggota . '-' . date('hi-dmY');
+                $transaksi->nama_transaksi = 'Setoran Tabungan';
+                $transaksi->id_anggota = $anggota->id_anggota;
+                $transaksi->tipe_transaksi = 2;
+                $transaksi->jumlah = (int)$tabungan_baru;
+                $transaksi->mutasi = (int)$tabungan_baru;
+
                 $keuangan_anggota->save();
                 $keuangan_sekolah->save();
+                $transaksi->save();
 
                 return $anggota;
             }

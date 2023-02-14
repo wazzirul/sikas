@@ -156,6 +156,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/laporanPembayaranSppKelas', [QueryController::class, 'laporanPembayaranSppKelas'])->name('sikas-query-laporanpembayaransppkelas');
     Route::post('/query/laporanPembayaranTabungan', [QueryController::class, 'laporanPembayaranTabungan'])->name('sikas-query-laporanpembayarantabungan');
     Route::post('/query/laporanPengajuanKeringanan', [QueryController::class, 'laporanPengajuanKeringanan'])->name('sikas-query-laporanpengajuankeringanan');
+    Route::post('/query/laporanPengajuanPenambahan', [QueryController::class, 'laporanPengajuanPenambahan'])->name('sikas-query-laporanpengajuanpenambahan');
     Route::post('/query/laporanPemasukanLain', [QueryController::class, 'laporanPemasukanLain'])->name('sikas-query-laporanpemasukanlain');
     Route::post('/query/laporanPenggunaanDana', [QueryController::class, 'laporanPenggunaanDana'])->name('sikas-query-laporanpenggunaandana');
     Route::post('/query/laporan', [QueryController::class, 'laporan'])->name('sikas-query-laporan');

@@ -15,10 +15,9 @@ $('#cari-siswa').keyup((e) => {
         data: {
             _token: $('#ctoken').val(),
             search: search,
-            limit: 2,
+            limit: 20,
         },
         success: (result) => {
-            console.log(result);
             dataSiswa = result;
 
             $('.cari-siswa').empty();
@@ -100,7 +99,7 @@ function clickSiswa(e) {
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
-                let tahun = tanggal.getFullYear();                                
+                let tahun = tanggal.getFullYear();
 
                 $('.list-riwayat-tabungan').append(`
                     <tr>

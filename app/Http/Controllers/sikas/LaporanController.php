@@ -11,6 +11,7 @@ use App\Models\Kelas;
 use App\Models\Jurusan;
 use App\Models\Transaksi;
 use App\Models\PengajuanKeringanan;
+use App\Models\PengajuanPenambahan;
 use App\Models\KeuanganSekolah;
 
 class LaporanController extends Controller
@@ -128,7 +129,7 @@ class LaporanController extends Controller
   }  
 
   public function pengajuanPenambahan(){
-    $laporan = PengajuanKeringanan::where('soft_delete', 0)
+    $laporan = PengajuanPenambahan::where('soft_delete', 0)
       ->with('Anggota.Kelas', 'Anggota.Jurusan')
       ->get();
 
@@ -168,10 +169,12 @@ class LaporanController extends Controller
       ->first();
 
     if($angkatan == null) $angkatan = ((int)date('Y') - 1).'-'.date('Y');
+		else $angkatan = $angkatan->angkatan;
     $angkatan = explode('-', $angkatan);
     $angkatan_siswa = $angkatan[1];
 
     if($angkatan_bawah == null) $angkatan_bawah = '2015-2016';
+		else $angkatan_bawah = $angkatan_bawah->angkatan;
     $angkatan_bawah = explode('-', $angkatan_bawah);
     $angkatan_siswa_bawah = $angkatan_bawah[1];
 
