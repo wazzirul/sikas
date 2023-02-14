@@ -93,6 +93,7 @@ function clickSiswa(e) {
     let name = $(e.currentTarget).find('.cari-siswa__nama-siswa').text()
     let nis = $(e.currentTarget).find('.nomor-siswa').text()
     let classname = $(e.currentTarget).find('.kelas-siswa').text()
+    let tagihan_terbayar = 0;
 
     $.ajax({
         url: '/query/siswaById',
@@ -106,7 +107,7 @@ function clickSiswa(e) {
             $('.detail-nama').text(result.nama);
             $('.detail-nis').text(result.nis);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
-            // $('.detail-tagihan').text('Rp. ' + numberFormat(result.keuangan_anggota.tagihan));
+            // $('.detail-tagihan').text('Rp. ' + numberFormat(result.keuangan_anggota.tagihan));            
 
             if (result.alumni == 0) {
                 $('.detail-status-siswa').empty();
@@ -137,8 +138,7 @@ function clickSiswa(e) {
         },
         success: (result) => {
             $('.list-riwayat-pembayaran-dinamis').empty();
-
-            let tagihan_terbayar = 0;
+            
             $.each(result, (index, value) => {
                 tagihan_terbayar += value.jumlah;
 
@@ -146,7 +146,7 @@ function clickSiswa(e) {
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
-                let tahun = tanggal.getFullYear();
+                let tahun = tanggal.getFullYear();                
 
                 $('.list-riwayat-pembayaran-dinamis').append(`
                     <tr>
@@ -180,7 +180,7 @@ function clickSiswa(e) {
                     id_anggota: e.currentTarget.dataset.id,
                     prefix_tagihan: $('#prefix_tagihan').val(),
                 },
-                success: (result_dinamis) => {
+                success: (result_dinamis) => {                    
                     let total_tagihan = result_dinamis[0].jumlah;
                     total_tagihan -= tagihan_terbayar;
                     $('.detail-tagihan').text('Rp. ' + numberFormat(total_tagihan))
@@ -354,24 +354,9 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                     classname = anggota.detail_kelas,
                     transactiontype = transaksi.nama_transaksi,
                     total = transaksi.jumlah,
-                    transactioncode = transaksi.kode_transaksi
-
-                $.ajax({
-                    url: '/query/siswaById',
-                    method: 'POST',
-                    data: {
-                        _token: $('#ctoken').val(),
-                        id: anggota.id_anggota
-                    },
-                    success: (hasil) => {
-                        $('#button_pembayaran_sukses').click();
-                        remainingBill = hasil.keuangan_anggota.tagihan;
-                        printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingBill });
-                    },
-                    error: (err) => {
-                        console.log(err);
-                    }
-                })
+                    transactioncode = transaksi.kode_transaksi;
+                    printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode });
+                                    
             } catch (error) {
                 console.error(error);
             }
