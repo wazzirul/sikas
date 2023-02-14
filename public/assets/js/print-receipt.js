@@ -1,7 +1,7 @@
 'use strict';
 
 function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
-  let { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, removetransactionnumber, savingsFund, remainingbill, notClassname } = el?.dataset || raw
+  let { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, removetransactionnumber, savingsFund, remainingBill, notClassname } = el?.dataset || raw
   let formattedTotal = `${new Intl.NumberFormat('id').format(total)},-`
 
   if (!numberandname) return
@@ -30,24 +30,6 @@ function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
               <div class="list-value uppercase">${numberandname}</div>
             </div>
           </div>
-          <div class="row">
-            <div class="list">
-              <div class="list-key">
-                <div>Angsuran Ke </div>
-                <div>:</div>
-              </div>
-              <div class="list-value uppercase">3</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="list">
-              <div class="list-key">
-                <div>Pembayaran Bulan</div>
-                <div>:</div>
-              </div>
-              <div class="list-value uppercase">Januari - Maret</div>
-            </div>
-          </div>
           <div class="row">Untuk Pembayaran</div>
           <div class="row">
             <div class="col">
@@ -73,8 +55,8 @@ function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
           ${savingsFund ? `<div class="row savings-fund">
             <div class="nominal-pronouncing uppercase">DANA TABUNGAN SAAT INI : Rp ${new Intl.NumberFormat('id').format(savingsFund)},-</div>
           </div>` : ''}
-          ${remainingbill ? `<div class="row savings-fund">
-            <div class="nominal-pronouncing uppercase">SISA PARTISIPASI : Rp ${new Intl.NumberFormat('id').format(remainingbill)},-</div>
+          ${remainingBill ? `<div class="row savings-fund">
+            <div class="nominal-pronouncing uppercase">SISA PARTISIPASI : Rp ${new Intl.NumberFormat('id').format(remainingBill)},-</div>
           </div>` : ''}
         </div>
         <div class="page-footer">
