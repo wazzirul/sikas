@@ -89,6 +89,7 @@ function changeTagihan($id_tagihan) {
       $('#update_jumlah').val(result.jumlah);
       $('#update_id_kelas').val(result.id_kelas);
       $('.nama-delete-modal').text(result.nama);
+      $('#flow_pembayaran').val(result.flow_tagihan == 1 ? 'Angsuran' : 'Bulanan');
     },
     error: (err) => {
       console.log(err);

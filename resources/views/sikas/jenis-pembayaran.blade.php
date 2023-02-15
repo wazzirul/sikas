@@ -84,7 +84,7 @@
                 </a>
                 @if($t->tipe_tagihan != 1)
                 <div class="table-link-border"></div>
-                <a href="#" class="table__link-detail text-danger" data-bs-toggle="modal" data-bs-target="#modalEditTransaksiLainData">
+                <a href="#" class="table__link-detail text-danger" onClick="changeTagihan({{$t->id_tagihan}})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                   Delete <i class="fa-solid fa-trash-can"></i>
                 </a>
                 @endif
@@ -134,11 +134,9 @@
           <div class="mb-3">
             <label for="angkatan" class="form-label d-block">Angkatan</label>
             <select class="js-angkatan-multiple" name="angkatan[]" multiple="multiple">
-              <option value="2021-2022">2021-2022</option>
-              <option value="2020-2021">2020-2021</option>
-              <option value="2019-2020">2019-2020</option>
-              <option value="2018-2019">2018-2019</option>
-              <option value="2017-2018">2018-2019</option>
+              @foreach($all_angkatan as $aa)
+              <option value="{{ $aa }}">{{ $aa }}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">
@@ -190,11 +188,9 @@
           <div class="mb-3">
             <label for="angkatan" class="form-label d-block">Angkatan</label>
             <select class="js-angkatan-multiple" name="angkatan[]" multiple="multiple">
-              <option value="2021-2022">2021-2022</option>
-              <option value="2020-2021">2020-2021</option>
-              <option value="2019-2020">2019-2020</option>
-              <option value="2018-2019">2018-2019</option>
-              <option value="2017-2018">2018-2019</option>
+              @foreach($all_angkatan as $aa)
+              <option value="{{ $aa }}">{{ $aa }}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">

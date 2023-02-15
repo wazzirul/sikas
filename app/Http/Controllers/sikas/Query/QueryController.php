@@ -1448,6 +1448,13 @@ class QueryController extends Controller
                         ]);
                 }
             }
+        }else if($tagihan->status == 1 && $tagihan->tipe_tagihan == 2){
+            $jumlah != null && HistoryTagihanBulanan::where('id_tagihan', $tagihan)
+                ->where('bulan', null)
+                ->where('soft_delete', 0)
+                ->update([
+                    'jumlah' => $jumlah
+                ]);
         }
     
         return response($tagihan, 200);

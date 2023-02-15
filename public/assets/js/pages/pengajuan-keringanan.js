@@ -1,3 +1,4 @@
+let validatePengajuan = true;
 $(document).ready(function () {
   $('.sisa-tanggungan').text('Rp. ' + numberFormat($('.sisa-tanggungan').text()));
 
@@ -74,40 +75,47 @@ $(document).on('submit', 'form#form-pengajuan-keringanan', function (e) {
   })
   if (dontSubmit) return
 
-  $.ajax({
-    url,
-    method,
-    data,
-    processData: false,
-    contentType: false,
-    success: (result) => {
-      try {
-        let { tanggal, anggota, pengajuan, kasir } = result
-        let tgl = new Date(Date.parse(tanggal));
-        let day = tgl.toLocaleDateString('id', { weekday: 'long' });
-        let bulan = tgl.toLocaleDateString('id', { month: 'long' });
-        let date = tgl.getDate();
-        let tahun = tgl.getFullYear();
+  if (validatePengajuan) {
+    validatePengajuan = false;
 
-        let username = kasir,
-          numberanddate = `${day}, ${date} ${bulan} ${tahun}`,
-          removetransactionnumber = true,
-          numberandname = `${anggota.nis} / ${anggota.nama}`,
-          classname = anggota.detail_kelas,
-          transactiontype = 'Pengajuan Keringanan Uang Akademik',
-          total = pengajuan.jumlah
+    $.ajax({
+      url,
+      method,
+      data,
+      processData: false,
+      contentType: false,
+      success: (result) => {
+        $('.pengajuan-sukses').click();
+        try {
+          let { tanggal, anggota, pengajuan, kasir } = result
+          let tgl = new Date(Date.parse(tanggal));
+          let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+          let bulan = tgl.toLocaleDateString('id', { month: 'long' });
+          let date = tgl.getDate();
+          let tahun = tgl.getFullYear();
 
-        printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total }, () => location.reload())
-      } catch (error) {
-        console.error(error);
+          let username = kasir,
+            numberanddate = `${day}, ${date} ${bulan} ${tahun}`,
+            removetransactionnumber = true,
+            numberandname = `${anggota.nis} / ${anggota.nama}`,
+            classname = anggota.detail_kelas,
+            transactiontype = 'Pengajuan Keringanan Uang Akademik',
+            total = pengajuan.jumlah
+
+          printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total }, () => location.reload())
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        validatePengajuan = true;
+      },
+      complete: () => {
+        validatePengajuan = true;
+        form.trigger('reset')
+        $('.pengajuan-keringanan-form__item-upload').addClass('d-none');
       }
-    },
-    error: (err) => {
-      console.log(err);
-    },
-    complete: () => {
-      form.trigger('reset')
-      $('.pengajuan-keringanan-form__item-upload').addClass('d-none');
-    }
-  })
+    })
+  }
 })

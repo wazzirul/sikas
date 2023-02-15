@@ -115,7 +115,8 @@ Transaksi
         <label for="nominalPembayaran" class="form-label text-bold color-black">Nominal Keringanan</label>
         <input type="text" min="0" class="form-control" required id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
       </div>
-      <button class="btn btn-primary pengajuan-keringanan-button mt-4" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringanan">Ajukan Keringanan</button>
+      <button class="btn btn-primary pengajuan-keringanan-button mt-4">Ajukan Keringanan</button>
+      <button class="pengajuan-sukses d-none" data-bs-toggle="modal" data-bs-target="#modalPengajuanKeringanan"></button>
     </form>
   </div>
 </div>
