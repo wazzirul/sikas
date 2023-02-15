@@ -396,6 +396,7 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                     success: (hasil) => {
                         $('#button_pembayaran_sukses').click();
                         remainingbill = hasil.keuangan_anggota.tagihan;
+                        console.log(remainingbill);
                         printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingbill });
                     },
                     error: (err) => {
