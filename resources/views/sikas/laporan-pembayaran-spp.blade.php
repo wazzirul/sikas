@@ -74,7 +74,7 @@ Laporan
               <div class="mt-3">
                 <label for="filter_angkatan_siswa_kelas" class="form-label text-bold color-black">Angkatan</label>
                 <select id="filter_angkatan_siswa_kelas" autocomplete="off" class="form-select">
-                  <option value="Aktif" selected>Aktif</option>
+                  <option value="" selected>Aktif</option>
                   @foreach($all_angkatan as $aa)
                   <option value="{{ $aa }}">{{ $aa }}</option>
                   @endforeach
@@ -88,6 +88,15 @@ Laporan
                 Cetak Laporan
                 <i class="fa-solid fa-plus"></i>
               </button>
+            </div>
+            <div class="d-none">
+              <div class="date-range">
+                <div id="date-range-span" class="form-control">
+                  <span></span>
+                </div>
+                <i class="fa-regular fa-calendar-days date-range-icon text-primary"></i>
+                <input type="hidden" name="date-range-input" value="" class="" id="date-range-input" />
+              </div>
             </div>
           </div>
           <div class="table-responsive text-nowrap">
