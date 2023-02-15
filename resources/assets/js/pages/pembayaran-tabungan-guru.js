@@ -93,13 +93,18 @@ function clickSiswa(e) {
             id_anggota: e.currentTarget.dataset.id
         },
         success: (result) => {
-            $('.list-riwayat-tabungan').empty();
+            $('.list-riwayat-tabungan').empty();     
+            console.log(result);       
+            let totalMutasi = 0;
+            if (result == 'undefined') {console.log("benar");} 
+            else{totalMutasi = result[0].mutasi}
             $.each(result, (index, value) => {
                 let tanggal = new Date(Date.parse(value.tanggal));
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
                 let tahun = tanggal.getFullYear();
+                console.log(totalMutasi);
 
                 $('.list-riwayat-tabungan').append(`
                     <tr>
@@ -134,7 +139,7 @@ function clickSiswa(e) {
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
                         
-                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-notClassname="${true}" >
+                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-savingsfund="${totalMutasi}" data-notClassname="${true}" >
                           <i class="fa-solid fa-print table-icon__link"></i>
                         </a>
                         
@@ -317,10 +322,10 @@ $(document).on('submit', 'form#form-setor-tabungan', function (e) {
                     classname = anggota.detail_kelas,
                     transactiontype = 'Setor Dana Tabungan',
                     total = transaksi.jumlah,
-                    savingsFund = transaksi.mutasi,
+                    savingsfund = transaksi.mutasi,
                     notClassname = true
 
-                printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsFund, notClassname })
+                printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund, notClassname })
             } catch (error) {
                 console.error(error);
             }
@@ -390,11 +395,11 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
                         classname = anggota.detail_kelas,
                         transactiontype = 'Penarikan Dana Tabungan',
                         total = transaksi.jumlah,
-                        savingsFund = transaksi.mutasi,
+                        savingsfund = transaksi.mutasi,
                         notClassname = true
 
                     $('#button_penarikan_sukses').click();
-                    printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsFund, notClassname })
+                    printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund, notClassname })
                 } catch (error) {
                     console.error(error);
                 }

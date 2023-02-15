@@ -137,41 +137,10 @@ function clickSiswa(e) {
             id_tagihan: $('#prefix_tagihan').val(),
         },
         success: (result) => {
-            $('.list-riwayat-pembayaran-dinamis').empty();
-            
+            let total_tagihan = 0;
             $.each(result, (index, value) => {
                 tagihan_terbayar += value.jumlah;
-
-                let tanggal = new Date(Date.parse(value.tanggal));
-                let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
-                let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
-                let date = tanggal.getDate();
-                let tahun = tanggal.getFullYear();                
-
-                $('.list-riwayat-pembayaran-dinamis').append(`
-                    <tr>
-                        <input type="hidden" value="${value.nama_transaksi}" name="nama_transaksi">
-                        <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
-                        <td class="color-neutral-100">${value.admin.nama}</td>
-                        <td class="color-neutral-100">${value.nama_transaksi}</td>
-                        <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
-                        <td>
-                        <div class="d-flex align-items-center justify-content-end gap-3">
-                            <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-transactioncode="${value.kode_transaksi}">
-                              <i class="fa-solid fa-print table-icon__link"></i>
-                            </a>
-                            <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                            <i class="fa-solid fa-pen table-icon__link"></i>
-                            </a>
-                            <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                            <i class="fa-regular fa-trash-can table-icon__link"></i>
-                            </a>
-                        </div>
-                    </td>
-                `);
-
             })
-
             $.ajax({
                 url: '/query/getPembayaranDinamis',
                 method: 'POST',
@@ -184,6 +153,39 @@ function clickSiswa(e) {
                     let total_tagihan = result_dinamis[0].jumlah;
                     total_tagihan -= tagihan_terbayar;
                     $('.detail-tagihan').text('Rp. ' + numberFormat(total_tagihan))
+
+                    $('.list-riwayat-pembayaran-dinamis').empty();
+                    let sisa_tagihan = total_tagihan - tagihan_terbayar;                    
+                    $.each(result, (index, value) => {
+                        let tanggal = new Date(Date.parse(value.tanggal));
+                        let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
+                        let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
+                        let date = tanggal.getDate();
+                        let tahun = tanggal.getFullYear();                
+
+                        $('.list-riwayat-pembayaran-dinamis').append(`
+                            <tr>
+                                <input type="hidden" value="${value.nama_transaksi}" name="nama_transaksi">
+                                <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
+                                <td class="color-neutral-100">${value.admin.nama}</td>
+                                <td class="color-neutral-100">${value.nama_transaksi}</td>
+                                <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
+                                <td>
+                                <div class="d-flex align-items-center justify-content-end gap-3">
+                                    <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-remainingbill="${sisa_tagihan}" data-transactioncode="${value.kode_transaksi}">
+                                    <i class="fa-solid fa-print table-icon__link"></i>
+                                    </a>
+                                    <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                                    <i class="fa-solid fa-pen table-icon__link"></i>
+                                    </a>
+                                    <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                                    <i class="fa-regular fa-trash-can table-icon__link"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        `);
+
+                    })
                 },
                 error: () => {
                     $('.detail-tagihan').text('Tidak ada tanggungan.')
@@ -355,7 +357,8 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                     transactiontype = transaksi.nama_transaksi,
                     total = transaksi.jumlah,
                     transactioncode = transaksi.kode_transaksi;
-                    printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode });
+                    remainingbill = total_tagihan - total,
+                    printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingbill });
                                     
             } catch (error) {
                 console.error(error);
