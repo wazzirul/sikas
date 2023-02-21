@@ -5,8 +5,10 @@
 @import '../_reset';
 
 .btn-import-transaksi{
-  background: $color-white;
-  padding: toRem(12) toRem(24);
+  padding: toRem(12) toRem(24) !important;
+}
+.btn-unduh-format{
+  padding: toRem(12) toRem(24) !important;
 }
 
 .jenis-pembayaran{

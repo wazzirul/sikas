@@ -22,6 +22,7 @@
 @section('page-script')
 <script src="{{asset('assets/js/print-receipt.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/select2/select2.min.js')}}"></script>
+<script src="{{asset('assets/js/unduh-format-data.js')}}"></script>
 <script src="{{asset('assets/js/pages/pembayaran-akademik.js')}}"></script>
 @endsection
 
@@ -39,14 +40,20 @@ Transaksi
   <p class="fw-bold">
     <span class="text-muted fw-light">Transaksi / </span> Biaya Penunjang Pendidikan
   </p>
-  <form action="/transaksi/importBpp" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
-  {{ csrf_field() }}
-    <input type="file" name="file" id="bpp-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-    <label for="bpp-upload-file" class="btn bg-lg btn-outline-primary btn-import-transaksi d-flex gap-2 align-items-center w-max-content ml-auto">
-        Import Transaksi BPP
-        <i class="fa-solid fa-arrow-up-from-bracket"></i>
-    </label>
-  </form>
+  <div class="d-flex flex-row justify-center align-items-center gap-3">
+    <button onclick="do_dl();" class="btn bg-lg btn-outline-dark btn-unduh-format d-flex gap-2 align-items-center w-max-content ml-auto">
+        Unduh Contoh Format Import Data
+        <i class="fa-solid fa-download"></i>
+    </button>
+    <form action="/transaksi/importBpp" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+    {{ csrf_field() }}
+      <input type="file" name="file" id="bpp-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <label for="bpp-upload-file" class="btn bg-lg btn-outline-primary btn-import-transaksi d-flex gap-2 align-items-center w-max-content ml-auto">
+          Import Transaksi BPP
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+      </label>
+    </form>
+  </div>
 </div>
 <div class="card card--pembayaran">
   <div class="card-body">
@@ -79,15 +86,6 @@ Transaksi
               @for($q = 1; $q <= $nomor_kelas; $q++)
               <option value="{{ $q }}">{{ $q }}</option>
               @endfor
-            </select>
-          </div>
-          <div class="filter-siswa__box">
-            <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
-            <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
-              <option value="" selected>Aktif</option>
-              @foreach($all_angkatan as $aa)
-              <option value="{{ $aa }}">{{ $aa }}</option>
-              @endforeach
             </select>
           </div>
         </div>
@@ -190,8 +188,8 @@ Transaksi
     </div>
     <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state history-empty d-none">
       <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
-      <h4 class="text-bold color-neutral-100">Data Pembayaran SPP Kosong</h4>
-      <p class="color-neutral-80">Silahkan tambahkan data pembayaran terlebih dulu untuk melihat data pembayaran spp.</p>
+      <h4 class="text-bold color-neutral-100">Data Pembayaran BPP Kosong</h4>
+      <p class="color-neutral-80">Silahkan tambahkan data pembayaran terlebih dulu untuk melihat data pembayaran bpp.</p>
     </div>
   </div>
 </div>

@@ -8,12 +8,10 @@
   padding: toRem(32);
   .siswa-header{
     display: flex;
-    flex-direction: row;
-    align-items: end;
-    justify-content: space-between;
+    flex-direction: column-reverse;
+    align-items: flex-start;
     gap: toRem(24);
     @include media-breakpoint-down(lg) {
-      flex-direction: column-reverse;
       gap: toRem(8);
       & > div{
         width: 100%;

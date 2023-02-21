@@ -43,6 +43,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi', [Main::class, 'index'])->name('sikas-transaksi');
     Route::get('/transaksi/pembayaran', [PembayaranController::class, 'transaksiPembayaran'])->name('sikas-transaksi--pembayaran');
     Route::get('/transaksi/biaya-penunjang-pendidikan', [PembayaranController::class, 'PembayaranAkademik'])->name('sikas-transaksi--biaya-penunjang-pendidikan');
+    Route::get('/transaksi/bpp-alumni', [PembayaranController::class, 'PembayaranAkademikAlumni'])->name('sikas-transaksi--bpp-alumni');
     Route::post('/transaksi/importBpp', [PembayaranController::class, 'importBpp'])->name('sikas-transaksi--importbpp');
     Route::get('/transaksi/history-pembayaran/{id}', [PembayaranController::class, 'historyTransaksiPembayaran'])->name('sikas-transaksi--pembayaran-history');
     Route::get('/transaksi/pengajuan-penambahan/{id}', [PembayaranController::class, 'pengajuanPenambahanPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-penambahan');

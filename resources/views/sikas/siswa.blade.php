@@ -11,6 +11,7 @@
 @endsection
 
 @section('page-script')
+<script src="{{asset('assets/js/unduh-format-data.js')}}"></script>
 <script src="{{asset('assets/js/pages/siswa.js')}}"></script>
 @endsection
 
@@ -68,7 +69,11 @@
         </div>
         <button type="button" class="btn btn-outline-primary cari-siswa-button">Cari Data</button>
       </div>        
-      <div class="d-flex align-items-end justify-content-end gap-4">
+      <div class="d-flex w-100 align-items-end justify-content-end gap-3">
+        <button onclick="do_dl_siswa();" class="btn btn-outline-dark btn-unduh-format d-flex gap-2 align-items-center ml-auto">
+            Unduh Contoh Format Import Data
+            <i class="fa-solid fa-download"></i>
+        </button>
         <form action="/siswa/import" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
           <input type="file" name="file" id="siswa-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">

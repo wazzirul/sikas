@@ -37,6 +37,11 @@
             <div>Tabungan</div>
           </a>
         </li>
+        <li class="menu-item {{ Route::is('sikas-transaksi--bpp-alumni*') == true ? 'active' : '' }}" id="sidebar-bpp">
+          <a href="{{route('sikas-transaksi--bpp-alumni')}}" class="menu-link">
+            <div>BPP Alumni</div>
+          </a>
+        </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--pengeluaran') == true ? 'active' : '' }}">
           <a href="{{route('sikas-transaksi--pengeluaran')}}" class="menu-link">
             <div>Pengeluaran</div>

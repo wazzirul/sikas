@@ -11,6 +11,7 @@
 @endsection
 
 @section('page-script')
+<script src="{{asset('assets/js/unduh-format-data.js')}}"></script>
 <script src="{{asset('assets/js/pages/karyawan.js')}}"></script>
 @endsection
 
@@ -27,8 +28,12 @@
 <div class="card card--karyawan">
   <div class="karyawan-wrapper">
     <h4 class="text-bold color-black mb-4">Data Karyawan</h4>    
-    <div class="d-flex align-items-center justify-content-end gap-4 mb-5">
+    <div class="d-flex align-items-center justify-content-end gap-3 mb-5">
       <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
+      <button onclick="do_dl_karyawan();" class="btn btn-outline-dark btn-unduh-format d-flex gap-2 align-items-center ml-auto">
+          Unduh Contoh Format Import Data
+          <i class="fa-solid fa-download"></i>
+      </button>
       <form action="/karyawan/import" id="importForm" class="form-upload-karyawan" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <input type="file" name="file" id="karyawan-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">

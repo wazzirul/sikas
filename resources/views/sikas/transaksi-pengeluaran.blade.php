@@ -11,6 +11,7 @@
 @endsection
 
 @section('page-script')
+<script src="{{asset('assets/js/unduh-format-data.js')}}"></script>
 <script src="{{asset('assets/js/pages/pengeluaran.js')}}"></script>
 @endsection
 
@@ -28,14 +29,20 @@
   <p class="fw-bold mb-5">
     <span class="text-muted fw-light">Transaksi /</span> Pengeluaran
   </p>
-  <form action="/transaksi/importPengeluaran" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
-  {{ csrf_field() }}
-    <input type="file" name="file" id="pengeluaran-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-    <label for="pengeluaran-upload-file" class="btn bg-lg btn-outline-primary btn-import-transaksi d-flex gap-2 align-items-center w-max-content ml-auto">
-        Import Transaksi Pengeluaran
-        <i class="fa-solid fa-arrow-up-from-bracket"></i>
-    </label>
-  </form>
+  <div class="d-flex flex-row justify-center align-items-center gap-3">
+    <button onclick="do_dl_pengeluaran();" class="btn bg-lg btn-outline-dark btn-unduh-format d-flex gap-2 align-items-center w-max-content ml-auto">
+        Unduh Contoh Format Import Data
+        <i class="fa-solid fa-download"></i>
+    </button>
+    <form action="/transaksi/importPengeluaran" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+    {{ csrf_field() }}
+      <input type="file" name="file" id="pengeluaran-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <label for="pengeluaran-upload-file" class="btn bg-lg btn-outline-primary btn-import-transaksi d-flex gap-2 align-items-center w-max-content ml-auto">
+          Import Transaksi Pengeluaran
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+      </label>
+    </form>
+  </div>
 </div>
 <div class="card card--pemasukan-pengeluaran">
   <div class="pemasukan-pengeluaran__form">
