@@ -83,10 +83,19 @@ class ImportBPP implements ToModel, WithStartRow
             $siswa->save();
 
             if($row[5] == 'Alumni'){
-                $tagihan = Tagihan::where('nama', 'Pembayaran SPP')
+                $nama_tagihan = 'SPP';
+                $tagihan = Tagihan::where('nama', $nama_tagihan)
                     ->where('tipe_tagihan', 1)
                     ->where('angkatan', $siswa->angkatan)
                     ->first();
+
+                if(!$tagihan){
+                    $nama_tagihan = 'BPP';
+                    $tagihan = Tagihan::where('nama', $nama_tagihan)
+                        ->where('tipe_tagihan', 1)
+                        ->where('angkatan', $siswa->angkatan)
+                        ->first();
+                }
 
                 if(!$tagihan){
                     $nominal_partisipasi = $row[22];
@@ -105,7 +114,7 @@ class ImportBPP implements ToModel, WithStartRow
                     $pembayaran_total = (int)$nominal_partisipasi + (int)$nominal_bayar;
 
                     $tagihan = new Tagihan();
-                    $tagihan->nama = 'Pembayaran SPP';
+                    $tagihan->nama = $nama_tagihan;
                     $tagihan->tipe_tagihan = 1;
                     $tagihan->id_kelas = 3;
                     $tagihan->angkatan = $siswa->angkatan;
@@ -171,8 +180,8 @@ class ImportBPP implements ToModel, WithStartRow
 
             $keuangan_sekolah = KeuanganSekolah::first();
             if($row[6] == "Angsuran"){
-                $nominal_partisipasi = $row[10];
-                $nominal_bayar = $row[11];
+                $nominal_partisipasi = $row[23];
+                $nominal_bayar = $row[24];
 
                 $nominal_partisipasi = str_replace('Rp', '', $nominal_partisipasi);
                 $nominal_partisipasi = str_replace('rp', '', $nominal_partisipasi);
@@ -194,9 +203,44 @@ class ImportBPP implements ToModel, WithStartRow
                 $keuangan_sekolah->pemasukan += (int)$nominal_partisipasi;
                 $keuangan_sekolah->total += (int)$nominal_partisipasi;
 
+                $index_bulan = 11;
+                $index_terbayar = 0;
+                for ($q = 0; $q < 12; $q++) {
+                    if($row[$index_bulan] != ""){
+                        $pembayaran_bulanan = $row[$index_bulan];
+
+                        $pembayaran_bulanan = str_replace('Rp', '', $pembayaran_bulanan);
+                        $pembayaran_bulanan = str_replace('rp', '', $pembayaran_bulanan);
+                        $pembayaran_bulanan = str_replace('.', '', $pembayaran_bulanan);
+                        $pembayaran_bulanan = str_replace(' ', '', $pembayaran_bulanan);
+
+                        $pembayaran_bulanan = (int)$pembayaran_bulanan;
+                        if(is_string($pembayaran_bulanan)) $pembayaran_bulanan = 0;
+
+                        if($pembayaran_bulanan != 0){
+                            $index_terbayar++;
+
+                            $transaksi_baru = new Transaksi();
+                            $transaksi_baru->id_admin = Session::get('id_user');
+                            $transaksi_baru->nomor_transaksi = '001000' . date('dmY');
+                            $transaksi_baru->kode_transaksi = 'AKDMK-' . $id_anggota . '-' . date('hi-dmY');
+                            $transaksi_baru->nama_transaksi = $tagihan->nama.' Angsuran ke-'.$index_terbayar;
+                            $transaksi_baru->id_anggota = $id_anggota;
+                            $transaksi_baru->tipe_transaksi = 1;
+                            $transaksi_baru->jumlah = $pembayaran_bulanan;
+                            $transaksi_baru->kelas = $kelas->nama;
+                            $transaksi_baru->save();
+                        }
+                    }
+
+                    $index_bulan++;
+                }
+
+                $keuangan_siswa->angsuran_ke = (int)$index_terbayar;
+
             }else if($row[6] == "Bulanan"){
-                $nominal_partisipasi = $row[22];
-                $nominal_bayar = $row[23];
+                $nominal_partisipasi = $row[23];
+                $nominal_bayar = $row[24];
 
                 $nominal_partisipasi = str_replace('Rp', '', $nominal_partisipasi);
                 $nominal_partisipasi = str_replace('rp', '', $nominal_partisipasi);
@@ -221,7 +265,7 @@ class ImportBPP implements ToModel, WithStartRow
                     ->limit(12)
                     ->get();
 
-                $index_bulan = 8;
+                $index_bulan = 11;
                 $tahun_bayar = date('Y');
                 if($row[5] == "Alumni"){
                     $tahun_angkatan = explode("-", $row[7]);
@@ -230,6 +274,7 @@ class ImportBPP implements ToModel, WithStartRow
 
                 $terbayar = false;
                 $index_terbayar = 0;
+                $total_bayar_bulanan = 0;
                 foreach ($history_bulanan->reverse() as $key => $value) {
                     if($row[$index_bulan] != ""){
                         $pembayaran_bulanan = $row[$index_bulan];
@@ -253,6 +298,8 @@ class ImportBPP implements ToModel, WithStartRow
                             $transaksi_baru->jumlah = $pembayaran_bulanan;
                             $transaksi_baru->kelas = $kelas->nama;
                             $transaksi_baru->save();
+
+                            $total_bayar_bulanan += $pembayaran_bulanan;
                         }
 
                         $terbayar = true;
@@ -262,14 +309,27 @@ class ImportBPP implements ToModel, WithStartRow
                     $index_bulan += 1;
                 }
 
-                $index_bulan = 8;
+                $index_bulan = 11;
                 foreach ($history_bulanan->reverse() as $key => $value) {
-                    if($terbayar && $index_terbayar >= $index_bulan){
-                        $value->status = 1;
-                        $value->save();
+                    if($total_bayar_bulanan > 0){
+                        $total_bayar_bulanan -= $value->jumlah;
+
+                        if($total_bayar_bulanan >= 0){
+                            $value->status = 1;
+                            $value->save();
+                        }
                     }
                     $index_bulan += 1;
                 }
+            }
+
+            if($row[8] != null){
+                $tagihan_pertama = $row[8];
+                $tagihan_pertama = str_replace('Rp', '', $tagihan_pertama);
+                $tagihan_pertama = str_replace('rp', '', $tagihan_pertama);
+                $tagihan_pertama = str_replace('.', '', $tagihan_pertama);
+                $tagihan_pertama = str_replace(' ', '', $tagihan_pertama);
+                $keuangan_siswa->tagihan_pertama = (int)$tagihan_pertama;
             }
 
             $keuangan_siswa->save();
