@@ -142,10 +142,55 @@ Transaksi
             </div>
           </div>
           <div class="form-transaksi__angsuran d-flex flex-column gap-4 pembayaran-bulanan d-none">
-            <div class="w-100">
-              <label for="bulan" class="form-label d-block">Bulan Ke</label>
-              <select class="js-bulan-multiple" id="bulan" name="bulan[]" multiple="multiple">
-              </select>
+            <div class="form-check__wrapper form-check-bulanan">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="JULI" checked disabled>
+                <label class="form-check-label disabled" for="JULI">JULI <i class="fa-solid fa-check"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="AGUST">
+                <label class="form-check-label" for="AGUST">AGUST <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="SEPT">
+                <label class="form-check-label" for="SEPT">SEPT <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="OKT">
+                <label class="form-check-label" for="OKT">OKT <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="NOV">
+                <label class="form-check-label" for="NOV">NOV <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="DES">
+                <label class="form-check-label" for="DES">DES <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="JAN">
+                <label class="form-check-label" for="JAN">JAN <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="FEB">
+                <label class="form-check-label" for="FEB">FEB <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="MARET">
+                <label class="form-check-label" for="MARET">MARET <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="APRIL">
+                <label class="form-check-label" for="APRIL">APRIL <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="MEI">
+                <label class="form-check-label" for="MEI">MEI <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="JUNI">
+                <label class="form-check-label" for="JUNI">JUNI <i class="fa-solid fa-check form-check-label__icon"></i></label>
+              </div>
             </div>
           </div>
           <div class="input-nominal d-none">

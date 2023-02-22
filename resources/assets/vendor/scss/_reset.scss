@@ -14,6 +14,7 @@ $grid-breakpoints: (
   lg: 992px,
   lg-2: 1064px,
   xl: 1200px,
+  xl-2: 1300px,
   xxl: 1400px,
   xxl-2: 1440px,
 );
@@ -279,4 +280,61 @@ th[rowspan]:not([rowspan="1"]) {
 }
 .select2-dropdown{
   z-index: 3051;
+}
+
+.form-check-bulanan{
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  gap: toRem(8);
+  width: 100%;
+  @include media-breakpoint-down(xxl) {
+    grid-template-columns: repeat(4,1fr);
+  }
+  @include media-breakpoint-down(xl) {
+    grid-template-columns: repeat(6,1fr);
+  }
+  .form-check{
+    padding: 0;
+    margin: 0;
+  }
+  .form-check-input{
+    cursor: pointer;
+    display: none;
+  }
+  .form-check-label{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: toRem(8);
+    border-radius: toRem(8);
+    background-color: $dark;
+    color: $color-white;
+    padding: toRem(8) toRem(12);
+    width: 100%;
+    transition: all linear .2s;
+    .form-check-label__icon{
+      display: none;
+      color: $color-white;
+      transition: all linear .2s;
+    }
+  }
+  
+  .form-check-input[checked] ~ .form-check-label, .form-check-input:checked ~ .form-check-label, .form-check-label.checked{
+    opacity: 1;
+    background-color: $info;
+    color: $color-white;
+    .form-check-label__icon{
+      display: block;
+    }
+  }
+  .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label{
+    opacity: 1;
+    background-color: $success;
+    color: $color-white;
+    .form-check-label__icon{
+      display: block;
+    }
+  }
 }

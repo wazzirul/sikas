@@ -117,7 +117,7 @@ function clickSiswa(e) {
             if (result.alumni == 0) {
                 $('.detail-status-siswa').empty();
                 $('.detail-status-siswa').append(`
-                      <span class="text-success">Active</span>
+                      <span class="text-success">Aktif</span>
                 `);
             } else {
                 $('.detail-status-siswa').empty();
