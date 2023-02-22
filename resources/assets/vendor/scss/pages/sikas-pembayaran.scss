@@ -64,7 +64,10 @@
   position: relative;
   .card-body{
     position: relative;
-    padding: 2rem;
+    padding: toRem(32);
+    @include media-breakpoint-down(xl-2) {
+      padding: toRem(32) toRem(24);
+    }
   }
   .card-body__wrapper{
     display: grid;
@@ -72,6 +75,12 @@
     gap: toRem(32);
     @include media-breakpoint-down(lg) {
       grid-template-columns: 1fr;
+    }
+    @include media-breakpoint-down(xxl) {
+      gap: toRem(24);
+    }
+    @include media-breakpoint-down(xl-2) {
+      gap: toRem(16);
     }
   }
   .input-group.input-group-merge{
@@ -121,6 +130,19 @@
     }
     .cari-siswa__item-nama{
       width: toRem(250);
+      @include media-breakpoint-down(xl-2) {
+        max-width: toRem(200);
+      }
+      @include media-breakpoint-down(xl) {
+        max-width: toRem(250);
+      }
+      @include media-breakpoint-down(lg-2) {
+        max-width: toRem(200);
+      }
+      @include media-breakpoint-down(lg) {
+        width: toRem(300);
+        max-width: toRem(300);
+      }
     }
     .cari-siswa__nama-siswa{
       height: toRem(20);
@@ -128,7 +150,39 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       width: 100%;
-      max-width: toRem(170);
+      max-width: toRem(180);
+      @include media-breakpoint-down(xl-2) {
+        max-width: toRem(160);
+      }
+      @include media-breakpoint-down(xl) {
+        max-width: toRem(180);
+      }
+      @include media-breakpoint-down(lg-2) {
+        max-width: toRem(160);
+      }
+      @include media-breakpoint-down(lg) {
+        max-width: toRem(260);
+      }
+    }
+    .nomor-siswa{
+      height: toRem(20);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      max-width: toRem(180);
+      @include media-breakpoint-down(xl-2) {
+        max-width: toRem(160);
+      }
+      @include media-breakpoint-down(xl) {
+        max-width: toRem(180);
+      }
+      @include media-breakpoint-down(lg-2) {
+        max-width: toRem(160);
+      }
+      @include media-breakpoint-down(lg) {
+        max-width: toRem(260);
+      }
     }
     .cari-siswa__icon{
       width: toRem(32);
