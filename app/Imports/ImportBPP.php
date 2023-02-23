@@ -98,27 +98,19 @@ class ImportBPP implements ToModel, WithStartRow
                 }
 
                 if(!$tagihan){
-                    $nominal_partisipasi = $row[22];
-                    $nominal_bayar = $row[23];
+                    $tagihan_kesanggupan = $row[8];
 
-                    $nominal_partisipasi = str_replace('Rp', '', $nominal_partisipasi);
-                    $nominal_partisipasi = str_replace('rp', '', $nominal_partisipasi);
-                    $nominal_partisipasi = str_replace('.', '', $nominal_partisipasi);
-                    $nominal_partisipasi = str_replace(' ', '', $nominal_partisipasi);
-
-                    $nominal_bayar = str_replace('Rp', '', $nominal_bayar);
-                    $nominal_bayar = str_replace('rp', '', $nominal_bayar);
-                    $nominal_bayar = str_replace('.', '', $nominal_bayar);
-                    $nominal_bayar = str_replace(' ', '', $nominal_bayar);
-
-                    $pembayaran_total = (int)$nominal_partisipasi + (int)$nominal_bayar;
+                    $tagihan_kesanggupan = str_replace('Rp', '', $tagihan_kesanggupan);
+                    $tagihan_kesanggupan = str_replace('rp', '', $tagihan_kesanggupan);
+                    $tagihan_kesanggupan = str_replace('.', '', $tagihan_kesanggupan);
+                    $tagihan_kesanggupan = str_replace(' ', '', $tagihan_kesanggupan);
 
                     $tagihan = new Tagihan();
                     $tagihan->nama = $nama_tagihan;
                     $tagihan->tipe_tagihan = 1;
                     $tagihan->id_kelas = 3;
                     $tagihan->angkatan = $siswa->angkatan;
-                    $tagihan->jumlah = $pembayaran_total;
+                    $tagihan->jumlah = $tagihan_kesanggupan;
                     $tagihan->status = 2;
 
                     if($row[6] == "Angsuran") $tagihan->flow_tagihan = 1;

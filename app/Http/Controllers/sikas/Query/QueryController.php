@@ -32,18 +32,20 @@ class QueryController extends Controller
         $id_jurusan = $request->input('id_jurusan');
         $nomor_kelas = $request->input('nomor_kelas');
         $angkatan = $request->input('angkatan') ?? null;
+        $alumni = $request->input('alumni') ?? null;
 
         $anggota = Anggota::where(function ($query) use ($search) {
                 $query->where('nama', 'LIKE', '%' . $search . '%');
                 $query->orWhere('nis', 'LIKE', '%' . $search . '%');
             })
-            ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
+            ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas, $alumni, $angkatan){
                 $id_kelas && $q->where('id_kelas', $id_kelas);
                 $id_jurusan && $q->where('id_jurusan', $id_jurusan);
                 $nomor_kelas && $q->where('nomor_kelas', $nomor_kelas);
+                $alumni != null && $q->where('alumni', $alumni);
+                $angkatan && $q->where('angkatan', $angkatan);
             })
             ->inRandomOrder()
-            ->where('angkatan', $angkatan)
             ->where('tipe_anggota', 2)
             ->where('soft_delete', 0)
             ->limit($limit)
@@ -1449,7 +1451,7 @@ class QueryController extends Controller
                 }
             }
         }else if($tagihan->status == 1 && $tagihan->tipe_tagihan == 2){
-            $jumlah != null && HistoryTagihanBulanan::where('id_tagihan', $tagihan)
+            $jumlah != null && HistoryTagihanBulanan::where('id_tagihan', $tagihan->id_tagihan)
                 ->where('bulan', null)
                 ->where('soft_delete', 0)
                 ->update([

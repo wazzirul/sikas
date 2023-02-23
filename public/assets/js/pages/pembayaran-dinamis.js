@@ -11,10 +11,8 @@ if ($("#history-pembayaran").length == 1) {
     $('#history-pembayaran').DataTable();
 }
 
-$('#bulan').change(() => {
-    let bulan_value = $('#bulan').val();
-    let total_nominal = bulan_value.length * parseInt($('#nominal_pembayaran_perbulan').val());
-    $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
+$('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa').change(() => {
+    retrieveSiswa();
 })
 
 $('#cari-siswa').keyup((e) => {
@@ -87,7 +85,6 @@ function clickSiswa(e) {
     $('.pembayaran-button').removeClass('d-none');
     $('.input-nominal').removeClass('d-none');
     $('.card--riwayat-transaksi').removeClass('d-none');
-    $('#bulan').empty();
 
     let kasir = $(document).find('#history-pembayaran').data('username')
     let name = $(e.currentTarget).find('.cari-siswa__nama-siswa').text()
@@ -149,19 +146,19 @@ function clickSiswa(e) {
                     id_anggota: e.currentTarget.dataset.id,
                     prefix_tagihan: $('#prefix_tagihan').val(),
                 },
-                success: (result_dinamis) => {                    
+                success: (result_dinamis) => {
                     let total_tagihan = result_dinamis[0].jumlah;
                     total_tagihan -= tagihan_terbayar;
                     $('.detail-tagihan').text('Rp. ' + numberFormat(total_tagihan))
 
                     $('.list-riwayat-pembayaran-dinamis').empty();
-                    let sisa_tagihan = total_tagihan - tagihan_terbayar;                    
+                    let sisa_tagihan = total_tagihan - tagihan_terbayar;
                     $.each(result, (index, value) => {
                         let tanggal = new Date(Date.parse(value.tanggal));
                         let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                         let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                         let date = tanggal.getDate();
-                        let tahun = tanggal.getFullYear();                
+                        let tahun = tanggal.getFullYear();
 
                         $('.list-riwayat-pembayaran-dinamis').append(`
                             <tr>
@@ -357,9 +354,9 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                     transactiontype = transaksi.nama_transaksi,
                     total = transaksi.jumlah,
                     transactioncode = transaksi.kode_transaksi;
-                    remainingbill = total_tagihan - total,
+                remainingbill = total_tagihan - total,
                     printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingbill });
-                                    
+
             } catch (error) {
                 console.error(error);
             }

@@ -30,7 +30,7 @@ $(document).ready(function () {
       success: (result) => {
         setTimeout(() => {
           location.reload()
-        }, 2000);
+        }, 1000);
       },
       error: (err) => {
         console.log(err);
@@ -51,7 +51,7 @@ $(document).ready(function () {
       success: () => {
         setTimeout(() => {
           location.reload()
-        }, 2000);
+        }, 1000);
       },
       error: (err) => {
         console.log(err);

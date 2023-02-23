@@ -4,18 +4,14 @@ $(document).ready(function () {
         initSelection: function (element, callback) {
         }
     });
+
+    retrieveSiswa();
 });
 let validateDelete = true;
 
 if ($("#history-pembayaran").length == 1) {
     $('#history-pembayaran').DataTable();
 }
-
-$('#bulan').change(() => {
-    let bulan_value = $('#bulan').val();
-    let total_nominal = bulan_value.length * parseInt($('#nominal_pembayaran_perbulan').val());
-    $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
-})
 
 $('#cari-siswa').keyup((e) => {
     let search = e.currentTarget.value;
@@ -30,7 +26,6 @@ function retrieveSiswa(search = "") {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
-    let angkatan = $('#filter_angkatan_siswa').val();
 
     $.ajax({
         url: '/query/dataSiswa',
@@ -41,7 +36,7 @@ function retrieveSiswa(search = "") {
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,
-            angkatan: angkatan,
+            alumni: '0',
             limit: 20,
         },
         success: (result) => {
@@ -93,7 +88,8 @@ function clickSiswa(e) {
     $('.pembayaran-button').removeClass('d-none');
     $('.input-nominal').removeClass('d-none');
     $('.card--riwayat-transaksi').removeClass('d-none');
-    $('#bulan').empty();
+    $('.form-check-bulanan').empty();
+    $('#nominalPembayaran').val('')
 
     let kasir = $(document).find('#history-pembayaran').data('username')
     let name = $(e.currentTarget).find('.cari-siswa__nama-siswa').text()
@@ -158,10 +154,18 @@ function clickSiswa(e) {
                 $('#nominal_pembayaran_perbulan').val(result[result.length - 1].jumlah);
 
                 $.each(result, (index, value) => {
-                    if (value.status == 0) $('#bulan').append(`<option value="${value.id_history_tagihan}">${value.bulan}</option>`);
-                    else $('#bulan').append(`<option disabled class="disabled" value="${value.id_history_tagihan}">${value.bulan}</option>`);
-
+                    $('.form-check-bulanan').append(`
+                        <div class="form-check">
+                            <input class="form-check-input bulan-checkbox" type="checkbox" value="${value.id_history_tagihan}" name="bulan[]" id="tagihan-${value.id_history_tagihan}" ${value.status == 0 ? '' : 'disabled'}>
+                            <label class="form-check-label ${value.status == 0 ? '' : 'disabled'}" for="tagihan-${value.id_history_tagihan}">${value.bulan.toUpperCase()} <i class="fa-solid fa-check"></i></label>
+                        </div>
+                    `);
                 })
+
+                $('input.bulan-checkbox').on('change', () => {
+                    let total_nominal = $('input.bulan-checkbox:checked').length * parseInt($('#nominal_pembayaran_perbulan').val());
+                    $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '))
+                });
             }
         }
     })

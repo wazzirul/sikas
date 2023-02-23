@@ -23,7 +23,7 @@
 <script src="{{asset('assets/js/print-receipt.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/select2/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/unduh-format-data.js')}}"></script>
-<script src="{{asset('assets/js/pages/pembayaran-akademik.js')}}"></script>
+<script src="{{asset('assets/js/pages/pembayaran-akademik-alumni.js')}}"></script>
 @endsection
 
 @section('page-style')
@@ -141,10 +141,8 @@ Transaksi
             </div>
           </div>
           <div class="form-transaksi__angsuran d-flex flex-column gap-4 pembayaran-bulanan d-none">
-            <div class="w-100">
-              <label for="bulan" class="form-label d-block">Bulan Ke</label>
-              <select class="js-bulan-multiple" id="bulan" name="bulan[]" multiple="multiple">
-              </select>
+            <div class="form-check__wrapper form-check-bulanan">
+              
             </div>
           </div>
           <div class="input-nominal d-none">
