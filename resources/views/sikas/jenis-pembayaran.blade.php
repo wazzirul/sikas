@@ -40,7 +40,7 @@
     </div>
 
     <div class="table-responsive text-nowrap">
-      <table class="table table-striped" id="data-jenis-pembayaran">
+      <table class="table table-jenis-pembayaran" id="data-jenis-pembayaran">
         <thead>
           <tr>
             <th>No</th>
@@ -55,7 +55,7 @@
         </thead>
         <tbody>
           @foreach($tagihan as $t)
-          <tr>
+          <tr class="{{ $t->status == 1 ? 'active' : 'nonactive' }}">
             <td>
               <p class="text-medium color-neutral-100">{{ $t->id_tagihan}}</p>
             </td>

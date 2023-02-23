@@ -9,6 +9,16 @@
 }
 
 .table{
+  &.table-jenis-pembayaran{
+    thead th,thead td{
+      background-color: $color-neutral-30 !important;
+      color: $color-neutral-100 !important;
+    }
+    tbody .nonactive th,tbody .nonactive td,tbody .nonactive td p{
+      background-color: $color-neutral-30 !important;
+      color: $color-neutral-80 !important;
+    }
+  }
   .table__link-detail{
     display: flex;
     align-items: center;

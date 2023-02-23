@@ -126,15 +126,15 @@ input[type=number] {
   margin-top: 1rem !important;
 }
 
-.table-striped {
+.table.table-striped {
   border: 1px solid #E0E0E0 !important;
 }
-.table-striped thead, .table-striped tbody, .table-striped tr, .table-striped td, .table-striped th {
+.table.table-striped thead, .table.table-striped tbody, .table.table-striped tr, .table.table-striped td, .table.table-striped th {
   border-color: #E0E0E0 !important;
 }
-.table-striped .table-link-border {
-  width: 1px;
-  height: 1.25rem;
+.table .table-link-border {
+  width: 1px !important;
+  height: 1.25rem !important;
   background-color: #C2C2C2;
 }
 
@@ -266,66 +266,6 @@ th[rowspan]:not([rowspan="1"]) {
 
 .select2-dropdown {
   z-index: 3051;
-}
-
-.form-check-bulanan {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.5rem;
-  width: 100%;
-}
-@media (max-width: 1399.98px) {
-  .form-check-bulanan {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-@media (max-width: 1199.98px) {
-  .form-check-bulanan {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-.form-check-bulanan .form-check {
-  padding: 0;
-  margin: 0;
-}
-.form-check-bulanan .form-check-input {
-  cursor: pointer;
-  display: none;
-}
-.form-check-bulanan .form-check-label {
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: 0.5rem;
-  background-color: #233446;
-  color: #fff;
-  padding: 0.5rem 0.75rem;
-  width: 100%;
-  transition: all linear 0.2s;
-}
-.form-check-bulanan .form-check-label .form-check-label__icon {
-  display: none;
-  color: #fff;
-  transition: all linear 0.2s;
-}
-.form-check-bulanan .form-check-input[checked] ~ .form-check-label, .form-check-bulanan .form-check-input:checked ~ .form-check-label, .form-check-bulanan .form-check-label.checked {
-  opacity: 1;
-  background-color: #2196f3;
-  color: #fff;
-}
-.form-check-bulanan .form-check-input[checked] ~ .form-check-label .form-check-label__icon, .form-check-bulanan .form-check-input:checked ~ .form-check-label .form-check-label__icon, .form-check-bulanan .form-check-label.checked .form-check-label__icon {
-  display: block;
-}
-.form-check-bulanan .form-check-input[disabled] ~ .form-check-label, .form-check-bulanan .form-check-input:disabled ~ .form-check-label {
-  opacity: 1;
-  background-color: #02c39a;
-  color: #fff;
-}
-.form-check-bulanan .form-check-input[disabled] ~ .form-check-label .form-check-label__icon, .form-check-bulanan .form-check-input:disabled ~ .form-check-label .form-check-label__icon {
-  display: block;
 }
 
 .card--teller {
