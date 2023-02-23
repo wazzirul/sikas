@@ -1,7 +1,7 @@
 'use strict';
 
 function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
-  let { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, removetransactionnumber, savingsFund, remainingBill, notClassname } = el?.dataset || raw
+  let { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, removetransactionnumber, savingsfund, remainingbill, notClassname } = el?.dataset || raw
   let formattedTotal = `${new Intl.NumberFormat('id').format(total)},-`
 
   if (!numberandname) return
@@ -52,11 +52,11 @@ function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
           <div class="row">
             <div class="nominal-pronouncing uppercase">TERBILANG : ${terbilang(total)} RUPIAH</div>
           </div>
-          ${savingsFund ? `<div class="row savings-fund">
-            <div class="nominal-pronouncing uppercase">DANA TABUNGAN SAAT INI : Rp ${new Intl.NumberFormat('id').format(savingsFund)},-</div>
+          ${savingsfund ? `<div class="row savings-fund">
+            <div class="nominal-pronouncing uppercase">DANA TABUNGAN SAAT INI : Rp ${new Intl.NumberFormat('id').format(savingsfund)},-</div>
           </div>` : ''}
-          ${remainingBill ? `<div class="row savings-fund">
-            <div class="nominal-pronouncing uppercase">SISA PARTISIPASI : Rp ${new Intl.NumberFormat('id').format(remainingBill)},-</div>
+          ${remainingbill ? `<div class="row savings-fund">
+            <div class="nominal-pronouncing uppercase">SISA PARTISIPASI : Rp ${new Intl.NumberFormat('id').format(remainingbill)},-</div>
           </div>` : ''}
         </div>
         <div class="page-footer">
