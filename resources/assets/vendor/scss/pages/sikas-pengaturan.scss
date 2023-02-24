@@ -6,9 +6,16 @@
 
 .card--pengaturan{
   padding: toRem(32);
+  width: 50%;
+  min-width: 250px;
   .card-body{
     padding: 0;
   }
+}
+
+.btn-simpan{
+  padding: toRem(8) toRem(20);
+  min-width: toRem(240);
 }
 
 .modal--pengaturan{

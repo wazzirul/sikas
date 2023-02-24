@@ -26,14 +26,15 @@
 @section('content')
 <div class="card card--pengaturan">
   <div class="card-body">
+    <h4 class="text-bold color-black mb-4">Pengaturan Akun Admin</h4>  
     <form action="#">
       <div class="mb-3">
         <label for="nama_teller" class="form-label">Nama Teller</label>
-        <input type="text" class="form-control" id="nama_teller" placeholder="Nama Teller..." value="{{$data->nama}}" disabled>
+        <input type="text" class="form-control" id="nama_teller" placeholder="Nama Teller..." value="{{$data->nama}}">
       </div>
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" placeholder="Username..." value="{{$data->username}}" disabled>
+        <input type="text" class="form-control" id="username" placeholder="Username..." value="{{$data->username}}">
       </div>
       <div class="mb-3 form-password-toggle">
         <div class="d-flex justify-content-between">
@@ -45,9 +46,9 @@
           <!-- <span class="input-group-text cursor-pointer"><i class="bx bx-show"></i></span> -->
         </div>
       </div>
-      <!-- <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
-      </div> -->
+      <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+        <button class="btn btn-primary ml-auto btn-simpan" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
+      </div>
     </form>
   </div>
 </div>

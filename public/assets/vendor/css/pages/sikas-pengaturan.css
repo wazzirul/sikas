@@ -270,9 +270,16 @@ th[rowspan]:not([rowspan="1"]) {
 
 .card--pengaturan {
   padding: 2rem;
+  width: 50%;
+  min-width: 250px;
 }
 .card--pengaturan .card-body {
   padding: 0;
+}
+
+.btn-simpan {
+  padding: 0.5rem 1.25rem;
+  min-width: 15rem;
 }
 
 .modal--pengaturan .modal-dialog {
