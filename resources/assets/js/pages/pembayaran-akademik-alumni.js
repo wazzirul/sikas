@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $('.js-bulan-multiple').select2({
-        placeholder: "Pilih Bulan ...",
+    $('.js-tahun-multiple').select2({
+        placeholder: "Pilih Tahun ...",
         initSelection: function (element, callback) {
         }
     });
