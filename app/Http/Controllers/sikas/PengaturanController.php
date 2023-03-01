@@ -28,4 +28,20 @@ class PengaturanController extends Controller
       'tagihan' => $tagihan,
     ]);
   }
+
+  public function updateAkun(Request $request){
+    $nama = $request->input('nama');
+    $username = $request->input('username');
+
+    $data = User::where('id_user', Session::get('id_user'))
+      ->first();
+
+    if($data){
+      $nama && $data->nama = $nama;
+      $username && $data->username = $username;
+      $data->save();
+    }
+
+    return redirect('/pengaturan');
+  }
 }

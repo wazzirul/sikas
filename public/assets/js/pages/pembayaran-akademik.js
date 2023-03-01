@@ -163,9 +163,37 @@ function clickSiswa(e) {
                     `);
                 })
 
-                $('input.bulan-checkbox').on('change', () => {
-                    let total_nominal = $('input.bulan-checkbox:checked').length * parseInt($('#nominal_pembayaran_perbulan').val());
-                    $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '))
+                let checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
+                let checkbox_bulan_checked = $('input.bulan-checkbox:checked');
+                $('input.bulan-checkbox').on('change', (el) => {
+                    if (checkbox_bulan.length != 0) {
+                        if (!$('#' + $(el)[0].currentTarget.id).is(":checked")) {
+                            if (checkbox_bulan_checked[checkbox_bulan_checked.length - 1] == $(el)[0].currentTarget) {
+                                checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
+                                checkbox_bulan_checked = $('input.bulan-checkbox:checked');
+
+                                let total_nominal = $('input.bulan-checkbox:checked').length * parseInt($('#nominal_pembayaran_perbulan').val());
+                                $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
+
+                            } else {
+                                alert(`Un-check bulan ${checkbox_bulan_checked[checkbox_bulan_checked.length - 1].parentElement.querySelector('label').innerText} terlebih dahulu.`);
+                                $('#' + $(el)[0].currentTarget.id).prop('checked', true);
+                            }
+
+                        } else {
+                            if (checkbox_bulan[0] == $(el)[0].currentTarget) {
+                                checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
+                                checkbox_bulan_checked = $('input.bulan-checkbox:checked');
+
+                                let total_nominal = $('input.bulan-checkbox:checked').length * parseInt($('#nominal_pembayaran_perbulan').val());
+                                $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
+
+                            } else {
+                                alert(`Pilih bulan ${checkbox_bulan[0].parentElement.querySelector('label').innerText} terlebih dahulu.`);
+                                $('#' + $(el)[0].currentTarget.id).prop('checked', false);
+                            }
+                        }
+                    }
                 });
             }
         }

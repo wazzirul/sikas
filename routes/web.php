@@ -104,6 +104,7 @@ Route::group(['middleware' => 'authsession'], function () {
         //Other
         Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('sikas-pengaturan');
         Route::get('/reset-tahun-ajar', [PengaturanController::class, 'resetTahunAjar'])->name('sikas-reset-tahun-ajar');
+        Route::post('/update-akun', [PengaturanController::class, 'updateAkun'])->name('sikas-pengaturan-update-akun');
     });
 
     // Query

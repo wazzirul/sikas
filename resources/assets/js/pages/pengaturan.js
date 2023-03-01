@@ -43,10 +43,39 @@ $(document).on('submit', 'form#myform', function (e) {
         },
         error: (err) => {
             $('.error-button').click()
-            console.log(err);
         },
         complete: () => {
             form.trigger('reset')
+        }
+    })
+})
+
+$(document).on('submit', 'form#formupdate', function (e) {
+    e.preventDefault()
+
+    let form = $(this),
+        url = form.attr('action'),
+        method = form.attr('method'),
+        data = form.serialize()
+
+    // let dontSubmit = false
+    // form.find('input:not([type="hidden"])').each((_, el) => {
+    //     if (!$(el).val()) dontSubmit = true
+    // })
+    // if (dontSubmit) return
+
+    $.ajax({
+        url,
+        method,
+        data,
+        success: (result) => {
+            $('.success-button').click()
+        },
+        error: (err) => {
+            $('.error-button').click()
+        },
+        complete: () => {
+            // form.trigger('reset')
         }
     })
 })

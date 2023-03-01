@@ -27,11 +27,13 @@ class Main extends Controller
     $transaksi_spp = Transaksi::where('tipe_transaksi', 1)
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->where('id_admin', Session::get('id_user'))
       ->sum('jumlah');
     $data_transaksi_spp = Transaksi::where('tipe_transaksi', 1)
       ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
@@ -42,6 +44,7 @@ class Main extends Controller
       })
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->where('id_admin', Session::get('id_user'))
       ->sum('jumlah');
     $data_tabungan_siswa = Transaksi::where('tipe_transaksi', 2)
       ->with(['Anggota'])
@@ -51,6 +54,7 @@ class Main extends Controller
       ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
@@ -61,6 +65,7 @@ class Main extends Controller
       })
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->where('id_admin', Session::get('id_user'))
       ->sum('jumlah');
     $data_tabungan_guru = Transaksi::where('tipe_transaksi', 2)
       ->with(['Anggota'])
@@ -70,24 +75,29 @@ class Main extends Controller
       ->with('Anggota.Jabatan', 'Admin')
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
     $keringanan = PengajuanKeringanan::where('soft_delete', 0)
       ->whereDate('tanggal', $hari_ini)
+      ->where('id_admin', Session::get('id_user'))
       ->sum('jumlah');
     $data_keringanan = PengajuanKeringanan::where('soft_delete', 0)
       ->whereDate('tanggal', $hari_ini)
       ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_pengajuan_keringanan', 'DESC')
       ->get();
 
     $penambahan = PengajuanPenambahan::where('soft_delete', 0)
       ->whereDate('tanggal', $hari_ini)
+      ->where('id_admin', Session::get('id_user'))
       ->sum('jumlah');
     $data_penambahan = PengajuanPenambahan::where('soft_delete', 0)
       ->whereDate('tanggal', $hari_ini)
       ->with('Anggota.Kelas', 'Anggota.Jurusan')
+      ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_pengajuan_penambahan', 'DESC')
       ->get();
 
@@ -95,12 +105,14 @@ class Main extends Controller
       ->where('tipe_transaksi', '<=', 4)
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
+      ->where('id_admin', Session::get('id_user'))
       ->sum('jumlah');
     $data_pengeluaran = Transaksi::where('tipe_transaksi', '>=', 3)
       ->where('tipe_transaksi', '<=', 4)
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
       ->with('Admin')
+      ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 

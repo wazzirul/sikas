@@ -75,13 +75,7 @@ class JenisPembayaranController extends Controller
     $tagihan->jumlah = $jumlah;
     $tagihan->angkatan = $angkatan;
     $tagihan->tipe_tagihan = 2;
-
-    if($status_siswa == 'aktif'){
-      $tagihan->status = 1;
-    }else{
-      $tagihan->status = 2;
-    }
-
+    $tagihan->status = 1;
     $tagihan->save();
 
     if($tagihan_sama) $tagihan->prefix_tagihan = $tagihan_sama->prefix_tagihan;
@@ -89,20 +83,21 @@ class JenisPembayaranController extends Controller
 
     $tagihan->save();
 
-    if($tagihan->status == 1){
-      $anggota = Anggota::where('id_kelas', $id_kelas)
-        ->where('alumni', 0)
-        ->where('soft_delete', 0)
-        ->get();
+    $anggota = Anggota::where('id_kelas', $id_kelas)
+      ->where('Anggota', function($q) use($angkatan){
+          $angkatan && $q->where('anggota.angkatan', $angkatan);
+          !$angkatan && $q->where('anggota.alumni', 0);
+      })
+      ->where('soft_delete', 0)
+      ->get();
 
-      foreach ($anggota as $a) {
-        $history_bulanan = new HistoryTagihanBulanan();
-        $history_bulanan->id_anggota = $a->id_anggota;
-        $history_bulanan->id_tagihan = $tagihan->id_tagihan;
-        $history_bulanan->prefix_tagihan = $tagihan->prefix_tagihan;
-        $history_bulanan->jumlah = $tagihan->jumlah;
-        $history_bulanan->save();
-      }
+    foreach ($anggota as $a) {
+      $history_bulanan = new HistoryTagihanBulanan();
+      $history_bulanan->id_anggota = $a->id_anggota;
+      $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+      $history_bulanan->prefix_tagihan = $tagihan->prefix_tagihan;
+      $history_bulanan->jumlah = $tagihan->jumlah;
+      $history_bulanan->save();
     }
 
     return redirect('/jenis-transaksi');

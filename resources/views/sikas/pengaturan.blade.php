@@ -27,14 +27,15 @@
 <div class="card card--pengaturan">
   <div class="card-body">
     <h4 class="text-bold color-black mb-4">Pengaturan Akun Admin</h4>  
-    <form action="#">
+    <form id="formupdate" action="/update-akun" method="POST">
+      {{ csrf_field() }}
       <div class="mb-3">
         <label for="nama_teller" class="form-label">Nama Teller</label>
-        <input type="text" class="form-control" id="nama_teller" placeholder="Nama Teller..." value="{{$data->nama}}">
+        <input type="text" class="form-control" name="nama" id="nama_teller" placeholder="Nama Teller..." value="{{$data->nama}}">
       </div>
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" placeholder="Username..." value="{{$data->username}}">
+        <input type="text" class="form-control" name="username" id="username" placeholder="Username..." value="{{$data->username}}">
       </div>
       <div class="mb-3 form-password-toggle">
         <div class="d-flex justify-content-between">
@@ -47,7 +48,7 @@
         </div>
       </div>
       <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-        <button class="btn btn-primary ml-auto btn-simpan" data-bs-toggle="modal" data-bs-target="#modalAddSuccess">Simpan</button>
+        <button type="submit" class="btn btn-primary ml-auto btn-simpan">Simpan</button>
       </div>
     </form>
   </div>
