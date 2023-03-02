@@ -7,6 +7,20 @@ $(document).ready(function () {
 
     retrieveSiswa();
 });
+
+// Toast Alert
+function tempAlert(msg, duration) {
+    let el = document.createElement("div");
+    el.classList.add("alert-bulan");
+    el.setAttribute("style", "position:fixed;top:24px;right:24px;background-color:#ffa700;color:#fff;z-index:1100;transition:all linear .2s;padding:16px;border-radius:8px;text-align:center;font-weight:500;");
+    el.innerHTML = msg;
+    setTimeout(function () {
+        el.parentNode.removeChild(el);
+    }, duration);
+    document.body.appendChild(el);
+}
+tempAlert("Pilih bulan <span style='font-weight:700;'>JULI</span> terlebih dahulu <br> Pilih bulan secara berurutan",2500);
+
 let validateDelete = true;
 
 if ($("#history-pembayaran").length == 1) {
