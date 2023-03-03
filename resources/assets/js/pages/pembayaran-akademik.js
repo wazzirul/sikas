@@ -19,7 +19,6 @@ function tempAlert(msg, duration) {
     }, duration);
     document.body.appendChild(el);
 }
-tempAlert("Pilih bulan <span style='font-weight:700;'>JULI</span> terlebih dahulu <br> Pilih bulan secara berurutan",2500);
 
 let validateDelete = true;
 
@@ -190,7 +189,7 @@ function clickSiswa(e) {
                                 $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
 
                             } else {
-                                alert(`Un-check bulan ${checkbox_bulan_checked[checkbox_bulan_checked.length - 1].parentElement.querySelector('label').innerText} terlebih dahulu.`);
+                                tempAlert(`Hapus pilihan bulan <span style='font-weight:700;'>${checkbox_bulan_checked[checkbox_bulan_checked.length - 1].parentElement.querySelector('label').innerText}</span> terlebih dahulu <br> Pilih bulan secara berurutan`, 2500);
                                 $('#' + $(el)[0].currentTarget.id).prop('checked', true);
                             }
 
@@ -203,7 +202,7 @@ function clickSiswa(e) {
                                 $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
 
                             } else {
-                                alert(`Pilih bulan ${checkbox_bulan[0].parentElement.querySelector('label').innerText} terlebih dahulu.`);
+                                tempAlert(`Pilih bulan <span style='font-weight:700;'>${checkbox_bulan[0].parentElement.querySelector('label').innerText}</span> terlebih dahulu <br> Pilih bulan secara berurutan`, 2500);
                                 $('#' + $(el)[0].currentTarget.id).prop('checked', false);
                             }
                         }
