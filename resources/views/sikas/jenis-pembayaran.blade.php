@@ -79,7 +79,7 @@
             </td>
             <td>
               <div class="d-flex align-items-center justify-content-end gap-3">
-                <a href="#" class="table__link-detail text-info" onClick="changeTagihan({{$t->id_tagihan}})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                <a href="#" class="table__link-detail text-info" onClick="changeTagihan({{$t->id_tagihan}})" data-bs-toggle="modal" data-bs-target="#{{ $t->tipe_tagihan == 1 ? 'modalEditData' : 'modalEditTransaksiLainData' }}">
                   Edit <i class="fa-solid fa-pen"></i>
                 </a>
                 @if($t->tipe_tagihan != 1)
@@ -126,12 +126,12 @@
           </div>
           <div class="mb-3">
             <label for="status_siswa" class="form-label">Status Siswa</label>
-            <select id="status_siswa" name="status_siswa" class="form-select" required>
+            <select id="status_siswa" name="status_siswa" class="form-select status-siswa" required>
                 <option value="aktif">Aktif</option>
                 <option value="alumni">Alumni</option>
             </select>
           </div>
-          <div class="mb-3">
+          <div class="mb-3 div-angkatan d-none">
             <label for="angkatan" class="form-label d-block">Angkatan</label>
             <select class="js-angkatan-multiple" name="angkatan[]" multiple="multiple">
               @foreach($all_angkatan as $aa)
@@ -164,51 +164,48 @@
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form action="/jenis-transaksi/post" method="POST">
-          {{ csrf_field() }}
           <div class="mb-3">
-            <label for="nama" class="form-label">Nama / Jenis Transaksi</label>
-            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama / Jenis Transaksi..." required>
+            <label for="update_lain_nama" class="form-label">Nama / Jenis Transaksi</label>
+            <input type="text" class="form-control" name="update_lain_nama" id="update_lain_nama" placeholder="Nama / Jenis Transaksi..." required>
           </div>
           <div class="mb-3">
-            <label for="id_kelas" class="form-label">Kelas</label>
-            <select id="id_kelas" name="id_kelas" class="form-select" required>
+            <label for="update_lain_id_kelas" class="form-label">Kelas</label>
+            <select id="update_lain_id_kelas" name="update_lain_id_kelas" class="form-select" required>
               @foreach($kelas as $k)
                 <option value="{{ $k->id_kelas }}">{{ $k->nama }}</option>
               @endforeach
             </select>
           </div>
           <div class="mb-3">
-            <label for="status_siswa" class="form-label">Status Siswa</label>
-            <select id="status_siswa" name="status_siswa" class="form-select" required>
+            <label for="update_lain_status_siswa" class="form-label">Status Siswa</label>
+            <select id="update_lain_status_siswa" name="update_lain_status_siswa" class="form-select status-siswa" required>
                 <option value="aktif">Aktif</option>
                 <option value="alumni">Alumni</option>
             </select>
           </div>
-          <div class="mb-3">
-            <label for="angkatan" class="form-label d-block">Angkatan</label>
-            <select class="js-angkatan-multiple" name="angkatan[]" multiple="multiple">
+          <div class="mb-3 div-angkatan d-none">
+            <label for="update_lain_angkatan" class="form-label d-block">Angkatan</label>
+            <select class="js-angkatan-multiple" name="update_lain_angkatan" id="update_lain_angkatan">
               @foreach($all_angkatan as $aa)
               <option value="{{ $aa }}">{{ $aa }}</option>
               @endforeach
             </select>
           </div>
           <div class="mb-3">
-            <label for="jumlah" class="form-label">Nominal</label>
-            <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="Nominal..." required>
+            <label for="update_lain_jumlah" class="form-label">Nominal</label>
+            <input type="text" class="form-control" name="update_lain_jumlah" id="update_lain_jumlah" placeholder="Nominal..." required>
           </div>
           <div class="mb-3">
-            <label for="status_transaksi" class="form-label">Status Transaksi</label>
-            <select id="status_transaksi" name="status_transaksi" class="form-select" required>
-                <option value="aktif">Aktif</option>
-                <option value="alumni">Nonaktif</option>
+            <label for="update_lain_status_transaksi" class="form-label">Status Transaksi</label>
+            <select id="update_lain_status_transaksi" name="update_lain_status_transaksi" class="form-select" required>
+                <option value="1">Aktif</option>
+                <option value="2">Nonaktif</option>
             </select>
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal" >Batal</button>
-            <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+            <button type="submit" class="btn btn-primary w-100 update-lain-tagihan-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
           </div>
-        </form>
       </div>
     </div>
   </div>

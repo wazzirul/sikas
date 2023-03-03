@@ -11,6 +11,7 @@ if ($("#history-pembayaran").length == 1) {
     $('#history-pembayaran').DataTable();
 }
 
+retrieveSiswa();
 $('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa').change(() => {
     retrieveSiswa();
 })
@@ -24,6 +25,7 @@ function retrieveSiswa(search = "") {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
+    let angkatan_siswa = $('#filter_angkatan_siswa').val();
 
     $.ajax({
         url: '/query/dataSiswa',
@@ -34,6 +36,7 @@ function retrieveSiswa(search = "") {
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,
+            angkatan: angkatan_siswa,
             limit: 20,
         },
         success: (result) => {

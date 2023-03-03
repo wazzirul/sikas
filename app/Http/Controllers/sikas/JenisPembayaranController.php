@@ -60,44 +60,78 @@ class JenisPembayaranController extends Controller
     $nama = $request->input('nama');
     $id_kelas = $request->input('id_kelas');
     $status_siswa = $request->input('status_siswa');
-    $angkatan = $request->input('angkatan');
+    $angkatan = $request->input('angkatan') ?? null;
     $jumlah = $request->input('jumlah');
     $jumlah = str_replace('Rp', '', $jumlah);
     $jumlah = str_replace('.', '', $jumlah);
     $jumlah = str_replace(' ', '', $jumlah);
 
-    $tagihan_sama = Tagihan::where('nama', $nama)
-      ->first();
-
-    $tagihan = new Tagihan();
-    $tagihan->nama = $nama;
-    $tagihan->id_kelas = $id_kelas;
-    $tagihan->jumlah = $jumlah;
-    $tagihan->angkatan = $angkatan;
-    $tagihan->tipe_tagihan = 2;
-    $tagihan->status = 1;
-    $tagihan->save();
-
-    if($tagihan_sama) $tagihan->prefix_tagihan = $tagihan_sama->prefix_tagihan;
-    else $tagihan->prefix_tagihan = $tagihan->id_tagihan;
-
-    $tagihan->save();
-
-    $anggota = Anggota::where('id_kelas', $id_kelas)
-      ->where('Anggota', function($q) use($angkatan){
-          $angkatan && $q->where('anggota.angkatan', $angkatan);
-          !$angkatan && $q->where('anggota.alumni', 0);
-      })
-      ->where('soft_delete', 0)
-      ->get();
-
-    foreach ($anggota as $a) {
-      $history_bulanan = new HistoryTagihanBulanan();
-      $history_bulanan->id_anggota = $a->id_anggota;
-      $history_bulanan->id_tagihan = $tagihan->id_tagihan;
-      $history_bulanan->prefix_tagihan = $tagihan->prefix_tagihan;
-      $history_bulanan->jumlah = $tagihan->jumlah;
-      $history_bulanan->save();
+    if($angkatan){
+      foreach ($angkatan as $key => $value_angkatan) {
+        $tagihan_sama = Tagihan::where('nama', $nama)
+          ->first();
+    
+        $tagihan = new Tagihan();
+        $tagihan->nama = $nama;
+        $tagihan->id_kelas = $id_kelas;
+        $tagihan->jumlah = $jumlah;
+        $tagihan->angkatan = $value_angkatan;
+        $tagihan->tipe_tagihan = 2;
+        $tagihan->status = 1;
+        $tagihan->save();
+    
+        if($tagihan_sama) $tagihan->prefix_tagihan = $tagihan_sama->prefix_tagihan;
+        else $tagihan->prefix_tagihan = $tagihan->id_tagihan;
+    
+        $tagihan->save();
+    
+        $anggota = Anggota::where('id_kelas', $id_kelas)
+          ->where(function($q) use($value_angkatan){
+              $value_angkatan && $q->where('anggota.angkatan', $value_angkatan);
+          })
+          ->where('soft_delete', 0)
+          ->get();
+    
+        foreach ($anggota as $a) {
+          $history_bulanan = new HistoryTagihanBulanan();
+          $history_bulanan->id_anggota = $a->id_anggota;
+          $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+          $history_bulanan->prefix_tagihan = $tagihan->prefix_tagihan;
+          $history_bulanan->jumlah = $tagihan->jumlah;
+          $history_bulanan->save();
+        }
+      }
+    }else{
+      $tagihan_sama = Tagihan::where('nama', $nama)
+          ->first();
+    
+        $tagihan = new Tagihan();
+        $tagihan->nama = $nama;
+        $tagihan->id_kelas = $id_kelas;
+        $tagihan->jumlah = $jumlah;
+        $tagihan->angkatan = $angkatan;
+        $tagihan->tipe_tagihan = 2;
+        $tagihan->status = 1;
+        $tagihan->save();
+    
+        if($tagihan_sama) $tagihan->prefix_tagihan = $tagihan_sama->prefix_tagihan;
+        else $tagihan->prefix_tagihan = $tagihan->id_tagihan;
+    
+        $tagihan->save();
+    
+        $anggota = Anggota::where('id_kelas', $id_kelas)
+          ->where('alumni', 0)
+          ->where('soft_delete', 0)
+          ->get();
+    
+        foreach ($anggota as $a) {
+          $history_bulanan = new HistoryTagihanBulanan();
+          $history_bulanan->id_anggota = $a->id_anggota;
+          $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+          $history_bulanan->prefix_tagihan = $tagihan->prefix_tagihan;
+          $history_bulanan->jumlah = $tagihan->jumlah;
+          $history_bulanan->save();
+        }
     }
 
     return redirect('/jenis-transaksi');

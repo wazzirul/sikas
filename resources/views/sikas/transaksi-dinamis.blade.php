@@ -73,19 +73,15 @@ Transaksi
               @endfor
             </select>
           </div>
-          <!-- <div class="filter-siswa__box">
+          <div class="filter-siswa__box">
             <label for="filter_angkatan_siswa" class="form-label text-bold color-black">Angkatan</label>
             <select id="filter_angkatan_siswa" autocomplete="off" class="form-select">
-              <option value="" selected>Semua</option>
-              <option value="Aktif">Aktif</option>
-              <option value="2022-2023">2022-2023</option>
-              <option value="2021-2022">2021-2022</option>
-              <option value="2020-2021">2020-2021</option>
-              <option value="2019-2020">2019-2020</option>
-              <option value="2018-2019">2018-2019</option>
-              <option value="2017-2018">2017-2018</option>
+              <option value="">Siswa Aktif</option>
+              @foreach($all_angkatan as $aa)
+              <option value="{{ $aa }}">{{ $aa }}</option>
+              @endforeach
             </select>
-          </div> -->
+          </div>
         </div>
         <label class="text-bold mb-3" for="cari-siswa">Cari Siswa</label>
         <div class="input-group input-group-merge">

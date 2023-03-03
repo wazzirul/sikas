@@ -38,12 +38,15 @@ class QueryController extends Controller
                 $query->where('nama', 'LIKE', '%' . $search . '%');
                 $query->orWhere('nis', 'LIKE', '%' . $search . '%');
             })
-            ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas, $alumni, $angkatan){
+            ->where(function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
                 $id_kelas && $q->where('id_kelas', $id_kelas);
                 $id_jurusan && $q->where('id_jurusan', $id_jurusan);
                 $nomor_kelas && $q->where('nomor_kelas', $nomor_kelas);
-                $alumni != null && $q->where('alumni', $alumni);
-                $angkatan && $q->where('angkatan', $angkatan);
+            })
+            ->where(function($r) use($angkatan){
+                $angkatan && $r->where('alumni', 1);
+                $angkatan && $r->where('angkatan', $angkatan);
+                !$angkatan && $r->where('alumni', 0);
             })
             ->inRandomOrder()
             ->where('tipe_anggota', 2)
@@ -153,6 +156,7 @@ class QueryController extends Controller
         $data = Tagihan::select('nama','prefix_tagihan')
             ->where('soft_delete', 0)
             ->where('tipe_tagihan', 2)
+            ->where('status', 1)
             ->where('prefix_tagihan', '!=', null)
             ->distinct()
             ->get();
@@ -1401,7 +1405,11 @@ class QueryController extends Controller
     public function updateJenisPembayaran(Request $request){
         $id_tagihan = $request->input('id_tagihan');
         $nama = $request->input('nama') ?? null;
+        $id_kelas = $request->input('id_kelas') ?? null;
         $jumlah = $request->input('jumlah') ?? null;
+        $status_siswa = $request->input('status_siswa') ?? null;
+        $angkatan = $request->input('angkatan') ?? null;
+        $status = $request->input('status') ?? null;
 
         if($jumlah){
             $jumlah = str_replace('Rp', '', $jumlah);
@@ -1414,6 +1422,15 @@ class QueryController extends Controller
 
         $nama != null && $tagihan->nama = $nama;
         $jumlah != null && $tagihan->jumlah = $jumlah;
+        $angkatan != null && $tagihan->angkatan = $angkatan;
+        $status != null && $tagihan->status = $status;
+
+        if($tagihan->tipe_tagihan == 2){
+            $id_kelas != null && $tagihan->id_kelas = $id_kelas;
+        }
+        if($status_siswa == 'aktif'){
+            $tagihan->angkatan = null;
+        }
         $tagihan->save();
 
         if($tagihan->status == 1 && $tagihan->tipe_tagihan == 1){
@@ -1451,12 +1468,42 @@ class QueryController extends Controller
                 }
             }
         }else if($tagihan->status == 1 && $tagihan->tipe_tagihan == 2){
-            $jumlah != null && HistoryTagihanBulanan::where('id_tagihan', $tagihan->id_tagihan)
-                ->where('bulan', null)
-                ->where('soft_delete', 0)
-                ->update([
-                    'jumlah' => $jumlah
-                ]);
+            if($id_kelas != null || $angkatan != null){
+                HistoryTagihanBulanan::where('id_tagihan', $tagihan->id_tagihan)
+                    ->where('bulan', null)
+                    ->where('soft_delete', 0)
+                    ->update([
+                        'soft_delete' => 1
+                    ]);
+
+                $id_kelas = $tagihan->id_kelas;
+                $angkatan = $tagihan->angkatan ?? null;
+
+                $anggota = Anggota::where('id_kelas', $tagihan->id_kelas)
+                    ->where(function($r) use($angkatan){
+                        $angkatan && $r->where('alumni', 1);
+                        $angkatan && $r->where('angkatan', $angkatan);
+                        !$angkatan && $r->where('alumni', 0);
+                    })
+                    ->where('soft_delete', 0)
+                    ->get();
+
+                foreach ($anggota as $a) {
+                    $history_bulanan = new HistoryTagihanBulanan();
+                    $history_bulanan->id_anggota = $a->id_anggota;
+                    $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                    $history_bulanan->prefix_tagihan = $tagihan->prefix_tagihan;
+                    $history_bulanan->jumlah = $tagihan->jumlah;
+                    $history_bulanan->save();
+                }
+            }else{
+                $jumlah != null && HistoryTagihanBulanan::where('id_tagihan', $tagihan->id_tagihan)
+                    ->where('bulan', null)
+                    ->where('soft_delete', 0)
+                    ->update([
+                        'jumlah' => $jumlah
+                    ]);
+            }
         }
     
         return response($tagihan, 200);
