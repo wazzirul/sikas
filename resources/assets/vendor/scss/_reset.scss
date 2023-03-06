@@ -230,6 +230,7 @@ th[rowspan]:not([rowspan="1"]) {
 .form-select{
   padding: 0.4375rem 2rem 0.4375rem 0.875rem;
   background-position: right .5rem center;
+  min-height: toRem(40);
 }
 
 .select2.select2-container{
@@ -237,6 +238,7 @@ th[rowspan]:not([rowspan="1"]) {
   .select2-selection{
     border:1px solid #d9dee3;
     padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+    min-height: toRem(40);
   }
   .select2-search{
     position: relative;
@@ -246,6 +248,10 @@ th[rowspan]:not([rowspan="1"]) {
     .select2-selection{
       border:1px solid $primary;
     }
+  }
+  .select2-selection--single .select2-selection__rendered{
+    padding-left: 0;
+    line-height: 25px;
   }
 }
 .select2-results__options{
@@ -273,7 +279,11 @@ th[rowspan]:not([rowspan="1"]) {
     .select2-selection__choice{
       background-color: $primary !important;
       color: $color-white !important;
+      margin: 0 !important;
     }
+  }
+  .select2-selection--single .select2-selection__arrow b{
+    margin-top: 2px;
   }
 } 
 

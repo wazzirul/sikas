@@ -219,6 +219,7 @@ th[rowspan]:not([rowspan="1"]) {
 .form-select {
   padding: 0.4375rem 2rem 0.4375rem 0.875rem;
   background-position: right 0.5rem center;
+  min-height: 2.5rem;
 }
 
 .select2.select2-container {
@@ -227,6 +228,7 @@ th[rowspan]:not([rowspan="1"]) {
 .select2.select2-container .select2-selection {
   border: 1px solid #d9dee3;
   padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+  min-height: 2.5rem;
 }
 .select2.select2-container .select2-search {
   position: relative;
@@ -234,6 +236,10 @@ th[rowspan]:not([rowspan="1"]) {
 }
 .select2.select2-container--open .select2-selection {
   border: 1px solid #696cff;
+}
+.select2.select2-container .select2-selection--single .select2-selection__rendered {
+  padding-left: 0;
+  line-height: 25px;
 }
 
 .select2-results__options .select2-results__option {
@@ -258,6 +264,10 @@ th[rowspan]:not([rowspan="1"]) {
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: #696cff !important;
   color: #fff !important;
+  margin: 0 !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  margin-top: 2px;
 }
 
 .select2-close-mask {
