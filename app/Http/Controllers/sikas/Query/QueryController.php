@@ -1948,4 +1948,18 @@ class QueryController extends Controller
     
         return response('success', 200);
     }
+
+    public function getTahunPembayaranBulananSiswa(Request $request){
+        $id_anggota = $request->input('id_anggota');
+    
+        $data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+            ->select('tahun_ajaran')
+            ->where('soft_delete', 0)
+            ->orderBy('tahun_ajaran', 'DESC')
+            ->get();
+
+        $data = $data->unique('tahun_ajaran');
+        
+        return response($data, 200);
+    }
 }

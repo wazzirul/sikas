@@ -98,7 +98,7 @@ class ImportBPP implements ToModel, WithStartRow
                 }
 
                 if(!$tagihan){
-                    $tagihan_kesanggupan = $row[8];
+                    $tagihan_kesanggupan = $row[9];
 
                     $tagihan_kesanggupan = str_replace('Rp', '', $tagihan_kesanggupan);
                     $tagihan_kesanggupan = str_replace('rp', '', $tagihan_kesanggupan);
@@ -146,6 +146,8 @@ class ImportBPP implements ToModel, WithStartRow
                    'Maret', 'April', 'Mei', 'Juni'];
           
                 $total_tagihan_bulanan = round((int)$tagihan->jumlah / 12);
+                $tahun_ajaran = $row[7];
+                $tahun_ajaran = str_replace('/', '-', $tahun_ajaran);
           
                 foreach($bulan as $b){
                     $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
@@ -161,10 +163,115 @@ class ImportBPP implements ToModel, WithStartRow
                         $history_bulanan->id_tagihan = $tagihan->id_tagihan;
                     }
                     
+                    $history_bulanan->tahun_ajaran = $tahun_ajaran;
                     $history_bulanan->bulan = $b;
                     $history_bulanan->jumlah = $total_tagihan_bulanan;
                     $history_bulanan->status = 0;
                     $history_bulanan->save();
+                }
+
+                if($kelas->id_kelas >= 2){
+                    $explode_tahun_ajaran = explode("-", $tahun_ajaran);
+                    $tahun_ajaran_last = (int)$explode_tahun_ajaran[0] - 1;
+                    $tahun_ajaran = (string)$tahun_ajaran_last."-".$explode_tahun_ajaran[0];
+                    foreach($bulan as $b){
+                        $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                            ->where('tahun_ajaran', $tahun_ajaran)
+                            ->where('id_tagihan', $tagihan->id_tagihan)
+                            ->where('bulan', $b)
+                            ->first();
+    
+                        if($history_bulanan){
+                            $history_bulanan->soft_delete = 0;
+                        }else{
+                            $history_bulanan = new HistoryTagihanBulanan();
+                            $history_bulanan->id_anggota = $siswa->id_anggota;
+                            $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                        }
+                        
+                        $history_bulanan->tahun_ajaran = $tahun_ajaran;
+                        $history_bulanan->bulan = $b;
+                        $history_bulanan->jumlah = $total_tagihan_bulanan;
+                        $history_bulanan->status = 0;
+                        $history_bulanan->save();
+                    }
+
+                    if($kelas->id_kelas == 3){
+                        $tahun_ajaran_last_2 = (int)$tahun_ajaran_last - 1;
+                        $tahun_ajaran = (string)$tahun_ajaran_last_2."-".$tahun_ajaran_last;
+                        foreach($bulan as $b){
+                            $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                                ->where('tahun_ajaran', $tahun_ajaran)
+                                ->where('id_tagihan', $tagihan->id_tagihan)
+                                ->where('bulan', $b)
+                                ->first();
+        
+                            if($history_bulanan){
+                                $history_bulanan->soft_delete = 0;
+                            }else{
+                                $history_bulanan = new HistoryTagihanBulanan();
+                                $history_bulanan->id_anggota = $siswa->id_anggota;
+                                $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                            }
+                            
+                            $history_bulanan->tahun_ajaran = $tahun_ajaran;
+                            $history_bulanan->bulan = $b;
+                            $history_bulanan->jumlah = $total_tagihan_bulanan;
+                            $history_bulanan->status = 0;
+                            $history_bulanan->save();
+                        }
+                    }
+                }else{
+                    if($kelas->id_kelas == 1){
+                        $explode_tahun_ajaran = explode("-", $tahun_ajaran);
+                        $tahun_ajaran_new = (int)$explode_tahun_ajaran[0] - 1;
+                        $tahun_ajaran = (string)$tahun_ajaran_new."-".$explode_tahun_ajaran[0];
+                        foreach($bulan as $b){
+                            $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                                ->where('tahun_ajaran', $tahun_ajaran)
+                                ->where('id_tagihan', $tagihan->id_tagihan)
+                                ->where('bulan', $b)
+                                ->first();
+        
+                            if($history_bulanan){
+                                $history_bulanan->soft_delete = 0;
+                            }else{
+                                $history_bulanan = new HistoryTagihanBulanan();
+                                $history_bulanan->id_anggota = $siswa->id_anggota;
+                                $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                            }
+                            
+                            $history_bulanan->tahun_ajaran = $tahun_ajaran;
+                            $history_bulanan->bulan = $b;
+                            $history_bulanan->jumlah = $total_tagihan_bulanan;
+                            $history_bulanan->status = 0;
+                            $history_bulanan->save();
+                        }
+
+                        $tahun_ajaran_new_2 = (int)$tahun_ajaran_new - 1;
+                        $tahun_ajaran = (string)$tahun_ajaran_new_2."-".$tahun_ajaran_new;
+                        foreach($bulan as $b){
+                            $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                                ->where('tahun_ajaran', $tahun_ajaran)
+                                ->where('id_tagihan', $tagihan->id_tagihan)
+                                ->where('bulan', $b)
+                                ->first();
+        
+                            if($history_bulanan){
+                                $history_bulanan->soft_delete = 0;
+                            }else{
+                                $history_bulanan = new HistoryTagihanBulanan();
+                                $history_bulanan->id_anggota = $siswa->id_anggota;
+                                $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                            }
+                            
+                            $history_bulanan->tahun_ajaran = $tahun_ajaran;
+                            $history_bulanan->bulan = $b;
+                            $history_bulanan->jumlah = $total_tagihan_bulanan;
+                            $history_bulanan->status = 0;
+                            $history_bulanan->save();
+                        }
+                    }
                 }
             }
 
@@ -172,8 +279,8 @@ class ImportBPP implements ToModel, WithStartRow
 
             $keuangan_sekolah = KeuanganSekolah::first();
             if($row[6] == "Angsuran"){
-                $nominal_partisipasi = $row[23];
-                $nominal_bayar = $row[24];
+                $nominal_partisipasi = $row[24];
+                $nominal_bayar = $row[25];
 
                 $nominal_partisipasi = str_replace('Rp', '', $nominal_partisipasi);
                 $nominal_partisipasi = str_replace('rp', '', $nominal_partisipasi);
@@ -195,7 +302,7 @@ class ImportBPP implements ToModel, WithStartRow
                 $keuangan_sekolah->pemasukan += (int)$nominal_partisipasi;
                 $keuangan_sekolah->total += (int)$nominal_partisipasi;
 
-                $index_bulan = 11;
+                $index_bulan = 12;
                 $index_terbayar = 0;
                 for ($q = 0; $q < 12; $q++) {
                     if($row[$index_bulan] != ""){
@@ -231,8 +338,8 @@ class ImportBPP implements ToModel, WithStartRow
                 $keuangan_siswa->angsuran_ke = (int)$index_terbayar;
 
             }else if($row[6] == "Bulanan"){
-                $nominal_partisipasi = $row[23];
-                $nominal_bayar = $row[24];
+                $nominal_partisipasi = $row[24];
+                $nominal_bayar = $row[25];
 
                 $nominal_partisipasi = str_replace('Rp', '', $nominal_partisipasi);
                 $nominal_partisipasi = str_replace('rp', '', $nominal_partisipasi);
@@ -251,19 +358,16 @@ class ImportBPP implements ToModel, WithStartRow
                 $keuangan_siswa->tagihan = (int)$nominal_partisipasi;
                 $keuangan_siswa->tagihan_pertama = (int)$pembayaran_total;
 
+                $tahun_ajaran = $row[7];
+                $tahun_ajaran = str_replace('/', '-', $tahun_ajaran);
                 $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
                     ->where('id_tagihan', $tagihan->id_tagihan)
+                    ->where('tahun_ajaran', $tahun_ajaran)
                     ->orderBy('id_history_tagihan', 'DESC')
                     ->limit(12)
                     ->get();
 
-                $index_bulan = 11;
-                $tahun_bayar = date('Y');
-                if($row[5] == "Alumni"){
-                    $tahun_angkatan = explode("-", $row[7]);
-                    $tahun_bayar = $tahun_angkatan[0];
-                }
-
+                $index_bulan = 12;
                 $terbayar = false;
                 $index_terbayar = 0;
                 $total_bayar_bulanan = 0;
@@ -301,7 +405,7 @@ class ImportBPP implements ToModel, WithStartRow
                     $index_bulan += 1;
                 }
 
-                $index_bulan = 11;
+                $index_bulan = 12;
                 foreach ($history_bulanan->reverse() as $key => $value) {
                     if($total_bayar_bulanan > 0){
                         $total_bayar_bulanan -= $value->jumlah;

@@ -137,7 +137,7 @@ Transaksi
           </div>
           <div class="w-100">
             <label for="tahun" class="form-label d-block">Tahun</label>
-            <select class="js-tahun-multiple" name="tahun[]" multiple="multiple">
+            <select class="js-tahun-multiple" name="tahun[]">
               <option value="2024-2025">2024-2025</option>
               <option value="2023-2024">2023-2024</option>
               <option selected value="2022-2023">2022-2023</option>

@@ -156,6 +156,23 @@ function clickSiswa(e) {
     })
 
     $.ajax({
+        url: '/query/getTahunPembayaranBulananSiswa',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_anggota: e.currentTarget.dataset.id
+        },
+        success: (result) => {
+            console.log(result);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+
+
+
+    $.ajax({
         url: '/query/getPembayaranBulananSiswa',
         method: 'POST',
         data: {

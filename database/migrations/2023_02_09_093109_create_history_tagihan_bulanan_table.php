@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('id_tagihan')->references('id_tagihan')->on('tagihan');
             $table->integer('prefix_tagihan')->nullable();
             $table->string('bulan')->nullable();
+            $table->string('tahun_ajaran')->nullable();
             $table->bigInteger('jumlah');
             $table->integer('status')->default(0);
 
