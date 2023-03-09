@@ -265,6 +265,8 @@ class PembayaranController extends Controller
 	}
 
 	public function importBpp(Request $request){
+		ini_set('memory_limit', '3000M');
+		ini_set('max_execution_time', '0');
 		Excel::import(new ImportBPP, $request->file('file')->store('files'));
 	
 		return redirect('/transaksi/biaya-penunjang-pendidikan');
