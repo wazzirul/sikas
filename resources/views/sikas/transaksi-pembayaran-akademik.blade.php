@@ -135,25 +135,10 @@ Transaksi
             <h4 class="text-bold color-neutral-100">Belum Ada Siswa yang Dipilih</h4>
             <p class="color-neutral-80">Lakukan pencarian / pilih salah satu data siswa.</p>
           </div>
-          <div class="w-100">
+          <div class="w-100 pembayaran-bulanan d-none">
             <label for="tahun" class="form-label d-block">Tahun</label>
-            <select class="js-tahun-multiple" name="tahun[]">
-              <option value="2024-2025">2024-2025</option>
-              <option value="2023-2024">2023-2024</option>
-              <option selected value="2022-2023">2022-2023</option>
-              <option value="2021-2022">2021-2022</option>
-              <option value="2020-2021">2020-2021</option>
-              <option value="2019-2020">2019-2020</option>
-              <option value="2018-2019">2018-2019</option>
-              <option value="2017-2018">2017-2018</option>
-              <option value="2016-2017">2016-2017</option>
-              <option value="2015-2016">2015-2016</option>
-              <option value="2014-2015">2014-2015</option>
-              <option value="2013-2014">2013-2014</option>
-              <option value="2012-2013">2012-2013</option>
-              <option value="2011-2012">2011-2012</option>
-              <option value="2010-2011">2010-2011</option>
-              <option value="2009-2010">2009-2010</option>
+            <select class="js-tahun-multiple" name="tahun" id="tahun">
+              
             </select>
           </div>
           <div class="form-transaksi__angsuran d-flex flex-column gap-4 pembayaran-angsuran d-none">

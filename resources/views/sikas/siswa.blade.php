@@ -171,6 +171,10 @@
             </select>
           </div>
           <div class="mb-3">
+            <label for="tahun_ajaran" class="form-label">Tahun Ajaran</label>
+            <input type="text" class="form-control" name="tahun_ajaran" id="tahun_ajaran" value="{{ (date('Y') - 1).'-'.(date('Y')) }}" placeholder="Tahun Ajaran..." >
+          </div>
+          <div class="mb-3">
             <label for="id_kelas" class="form-label text-bold color-black">Kelas</label>
             <select id="id_kelas" name="id_kelas" class="form-select">
               @foreach($kelas as $k)

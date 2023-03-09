@@ -72,6 +72,7 @@ class SiswaController extends Controller
   public function postSiswa(Request $request){
     $nama_siswa = $request->input('nama_siswa');
     $nis = $request->input('nis');
+    $tahun_ajaran = $request->input('tahun_ajaran');
     $jenis_kelamin = $request->input('jenis_kelamin');
     $id_kelas = $request->input('id_kelas');
     $id_jurusan = $request->input('id_jurusan');
@@ -124,6 +125,7 @@ class SiswaController extends Controller
     $keuangan_siswa->save();
 
     if($tagihan->flow_tagihan == 2){
+      $tahun_ajaran = str_replace('/', '-', $tahun_ajaran);
       $bulan = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', 'Januari', 'Februari',
          'Maret', 'April', 'Mei', 'Juni'];
 
@@ -131,12 +133,144 @@ class SiswaController extends Controller
 
       foreach($bulan as $b){
         $history_bulanan = new HistoryTagihanBulanan();
+        $history_bulanan->tahun_ajaran = $tahun_ajaran;
         $history_bulanan->id_anggota = $siswa->id_anggota;
         $history_bulanan->id_tagihan = $tagihan->id_tagihan;
         $history_bulanan->bulan = $b;
         $history_bulanan->jumlah = $total_tagihan_bulanan;
         $history_bulanan->save();
       }
+
+      if($id_kelas >= 2){
+        $explode_tahun_ajaran = explode("-", $tahun_ajaran);
+        $tahun_ajaran_last = (int)$explode_tahun_ajaran[0] - 1;
+        $tahun_ajaran_siswa = (string)$tahun_ajaran_last."-".$explode_tahun_ajaran[0];
+        foreach($bulan as $b){
+            $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                ->where('tahun_ajaran', $tahun_ajaran_siswa)
+                ->where('id_tagihan', $tagihan->id_tagihan)
+                ->where('bulan', $b)
+                ->first();
+
+            if($history_bulanan){
+                $history_bulanan->soft_delete = 0;
+            }else{
+                $history_bulanan = new HistoryTagihanBulanan();
+                $history_bulanan->id_anggota = $siswa->id_anggota;
+                $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+            }
+            
+            $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
+            $history_bulanan->bulan = $b;
+            $history_bulanan->jumlah = $total_tagihan_bulanan;
+            $history_bulanan->status = 0;
+            $history_bulanan->save();
+        }
+
+        if($id_kelas == 2){
+            $explode_tahun_ajaran = explode("-", $tahun_ajaran);
+            $tahun_ajaran_new = (int)$explode_tahun_ajaran[0] + 1;
+            $tahun_ajaran_siswa = (string)$tahun_ajaran_new."-".(string)($tahun_ajaran_new + 1);
+            foreach($bulan as $b){
+                $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                    ->where('tahun_ajaran', $tahun_ajaran_siswa)
+                    ->where('id_tagihan', $tagihan->id_tagihan)
+                    ->where('bulan', $b)
+                    ->first();
+
+                if($history_bulanan){
+                    $history_bulanan->soft_delete = 0;
+                }else{
+                    $history_bulanan = new HistoryTagihanBulanan();
+                    $history_bulanan->id_anggota = $siswa->id_anggota;
+                    $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                }
+                
+                $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
+                $history_bulanan->bulan = $b;
+                $history_bulanan->jumlah = $total_tagihan_bulanan;
+                $history_bulanan->status = 0;
+                $history_bulanan->save();
+            }
+        }
+
+        if($id_kelas == 3){
+            $tahun_ajaran_last_2 = (int)$tahun_ajaran_last - 1;
+            $tahun_ajaran_siswa = (string)$tahun_ajaran_last_2."-".$tahun_ajaran_last;
+            foreach($bulan as $b){
+                $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                    ->where('tahun_ajaran', $tahun_ajaran_siswa)
+                    ->where('id_tagihan', $tagihan->id_tagihan)
+                    ->where('bulan', $b)
+                    ->first();
+
+                if($history_bulanan){
+                    $history_bulanan->soft_delete = 0;
+                }else{
+                    $history_bulanan = new HistoryTagihanBulanan();
+                    $history_bulanan->id_anggota = $siswa->id_anggota;
+                    $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                }
+                
+                $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
+                $history_bulanan->bulan = $b;
+                $history_bulanan->jumlah = $total_tagihan_bulanan;
+                $history_bulanan->status = 0;
+                $history_bulanan->save();
+            }
+        }
+    }else{
+        if($id_kelas == 1){
+            $explode_tahun_ajaran = explode("-", $tahun_ajaran);
+            $tahun_ajaran_new = (int)$explode_tahun_ajaran[0] - 1;
+            $tahun_ajaran_siswa = (string)$tahun_ajaran_new."-".$explode_tahun_ajaran[0];
+            foreach($bulan as $b){
+                $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                    ->where('tahun_ajaran', $tahun_ajaran_siswa)
+                    ->where('id_tagihan', $tagihan->id_tagihan)
+                    ->where('bulan', $b)
+                    ->first();
+
+                if($history_bulanan){
+                    $history_bulanan->soft_delete = 0;
+                }else{
+                    $history_bulanan = new HistoryTagihanBulanan();
+                    $history_bulanan->id_anggota = $siswa->id_anggota;
+                    $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                }
+                
+                $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
+                $history_bulanan->bulan = $b;
+                $history_bulanan->jumlah = $total_tagihan_bulanan;
+                $history_bulanan->status = 0;
+                $history_bulanan->save();
+            }
+
+            $tahun_ajaran_new_2 = (int)$tahun_ajaran_new - 1;
+            $tahun_ajaran_siswa = (string)$tahun_ajaran_new_2."-".$tahun_ajaran_new;
+            foreach($bulan as $b){
+                $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                    ->where('tahun_ajaran', $tahun_ajaran_siswa)
+                    ->where('id_tagihan', $tagihan->id_tagihan)
+                    ->where('bulan', $b)
+                    ->first();
+
+                if($history_bulanan){
+                    $history_bulanan->soft_delete = 0;
+                }else{
+                    $history_bulanan = new HistoryTagihanBulanan();
+                    $history_bulanan->id_anggota = $siswa->id_anggota;
+                    $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                }
+                
+                $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
+                $history_bulanan->bulan = $b;
+                $history_bulanan->jumlah = $total_tagihan_bulanan;
+                $history_bulanan->status = 0;
+                $history_bulanan->save();
+            }
+        }
+    }
     }
 
     return redirect('/siswa');

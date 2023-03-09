@@ -155,6 +155,7 @@ function clickSiswa(e) {
         }
     })
 
+
     $.ajax({
         url: '/query/getTahunPembayaranBulananSiswa',
         method: 'POST',
@@ -163,71 +164,22 @@ function clickSiswa(e) {
             id_anggota: e.currentTarget.dataset.id
         },
         success: (result) => {
-            console.log(result);
+            let year_now = new Date().getFullYear();
+            let now_tahun_ajaran = `${(year_now - 1)}-${(year_now)}`
+            $('#tahun').empty();
+            $.each(result, (index, value) => {
+                $('#tahun').append(`
+                    <option value="${value.tahun_ajaran}" ${now_tahun_ajaran == value.tahun_ajaran ? 'selected' : ''}>${value.tahun_ajaran}</option>
+                `)
+            })
+
+            getPembayaranBulananSiswa(e.currentTarget.dataset.id, $('#tahun').val());
         },
         error: (err) => {
             console.log(err);
         }
     })
 
-
-
-    $.ajax({
-        url: '/query/getPembayaranBulananSiswa',
-        method: 'POST',
-        data: {
-            _token: $('#ctoken').val(),
-            id_anggota: e.currentTarget.dataset.id
-        },
-        success: (result) => {
-            if (result.length != 0) {
-                $('#nominal_pembayaran_perbulan').val(result[result.length - 1].jumlah);
-
-                $.each(result, (index, value) => {
-                    $('.form-check-bulanan').append(`
-                    
-                        <div class="form-check">
-                            <input class="form-check-input bulan-checkbox" type="checkbox" value="${value.id_history_tagihan}" name="bulan[]" id="tagihan-${value.id_history_tagihan}" ${value.status == 0 ? '' : 'disabled'}>
-                            <label class="form-check-label ${value.status == 0 ? '' : 'disabled'}" for="tagihan-${value.id_history_tagihan}">${value.bulan.toUpperCase()} <i class="fa-solid fa-check form-check-label__icon"></i></label>
-                        </div>
-                    `);
-                })
-
-                let checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
-                let checkbox_bulan_checked = $('input.bulan-checkbox:checked');
-                $('input.bulan-checkbox').on('change', (el) => {
-                    if (checkbox_bulan.length != 0) {
-                        if (!$('#' + $(el)[0].currentTarget.id).is(":checked")) {
-                            if (checkbox_bulan_checked[checkbox_bulan_checked.length - 1] == $(el)[0].currentTarget) {
-                                checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
-                                checkbox_bulan_checked = $('input.bulan-checkbox:checked');
-
-                                let total_nominal = $('input.bulan-checkbox:checked').length * parseInt($('#nominal_pembayaran_perbulan').val());
-                                $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
-
-                            } else {
-                                tempAlert(`Hapus pilihan bulan <span style='font-weight:700;'>${checkbox_bulan_checked[checkbox_bulan_checked.length - 1].parentElement.querySelector('label').innerText}</span> terlebih dahulu <br> Pilih bulan secara berurutan`, 2500);
-                                $('#' + $(el)[0].currentTarget.id).prop('checked', true);
-                            }
-
-                        } else {
-                            if (checkbox_bulan[0] == $(el)[0].currentTarget) {
-                                checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
-                                checkbox_bulan_checked = $('input.bulan-checkbox:checked');
-
-                                let total_nominal = $('input.bulan-checkbox:checked').length * parseInt($('#nominal_pembayaran_perbulan').val());
-                                $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
-
-                            } else {
-                                tempAlert(`Pilih bulan <span style='font-weight:700;'>${checkbox_bulan[0].parentElement.querySelector('label').innerText}</span> terlebih dahulu <br> Pilih bulan secara berurutan`, 2500);
-                                $('#' + $(el)[0].currentTarget.id).prop('checked', false);
-                            }
-                        }
-                    }
-                });
-            }
-        }
-    })
 
     $.ajax({
         url: '/query/riwayatPembayaranSpp',
@@ -304,6 +256,72 @@ function clickSiswa(e) {
         }
     })
 }
+
+function getPembayaranBulananSiswa(id_anggota, tahun_ajaran) {
+    $.ajax({
+        url: '/query/getPembayaranBulananSiswa',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_anggota: id_anggota,
+            tahun_ajaran: tahun_ajaran,
+        },
+        success: (result) => {
+            console.log(result);
+            if (result.length != 0) {
+                $('#nominal_pembayaran_perbulan').val(result[result.length - 1].jumlah);
+
+                $('.form-check-bulanan').empty();
+                $.each(result, (index, value) => {
+                    $('.form-check-bulanan').append(`
+                    
+                        <div class="form-check">
+                            <input class="form-check-input bulan-checkbox" type="checkbox" value="${value.id_history_tagihan}" name="bulan[]" id="tagihan-${value.id_history_tagihan}" ${value.status == 0 ? '' : 'disabled'}>
+                            <label class="form-check-label ${value.status == 0 ? '' : 'disabled'}" for="tagihan-${value.id_history_tagihan}">${value.bulan.toUpperCase()} <i class="fa-solid fa-check form-check-label__icon"></i></label>
+                        </div>
+                    `);
+                })
+
+                let checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
+                let checkbox_bulan_checked = $('input.bulan-checkbox:checked');
+                $('input.bulan-checkbox').on('change', (el) => {
+                    if (checkbox_bulan.length != 0) {
+                        if (!$('#' + $(el)[0].currentTarget.id).is(":checked")) {
+                            if (checkbox_bulan_checked[checkbox_bulan_checked.length - 1] == $(el)[0].currentTarget) {
+                                checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
+                                checkbox_bulan_checked = $('input.bulan-checkbox:checked');
+
+                                let total_nominal = $('input.bulan-checkbox:checked').length * parseInt($('#nominal_pembayaran_perbulan').val());
+                                $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
+
+                            } else {
+                                tempAlert(`Hapus pilihan bulan <span style='font-weight:700;'>${checkbox_bulan_checked[checkbox_bulan_checked.length - 1].parentElement.querySelector('label').innerText}</span> terlebih dahulu <br> Pilih bulan secara berurutan`, 2500);
+                                $('#' + $(el)[0].currentTarget.id).prop('checked', true);
+                            }
+
+                        } else {
+                            if (checkbox_bulan[0] == $(el)[0].currentTarget) {
+                                checkbox_bulan = $('input.bulan-checkbox:not(:disabled):not(:checked)');
+                                checkbox_bulan_checked = $('input.bulan-checkbox:checked');
+
+                                let total_nominal = $('input.bulan-checkbox:checked').length * parseInt($('#nominal_pembayaran_perbulan').val());
+                                $('#nominalPembayaran').val(formatRupiah(total_nominal.toString(), 'RP. '));
+
+                            } else {
+                                tempAlert(`Pilih bulan <span style='font-weight:700;'>${checkbox_bulan[0].parentElement.querySelector('label').innerText}</span> terlebih dahulu <br> Pilih bulan secara berurutan`, 2500);
+                                $('#' + $(el)[0].currentTarget.id).prop('checked', false);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    })
+}
+
+$('#tahun').change(() => {
+    getPembayaranBulananSiswa($('#id_anggota').val(), $('#tahun').val());
+})
 
 $('#bpp-upload-file').change(() => {
     $('#importForm').submit();
@@ -422,11 +440,11 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
     nominal_pembayaran = nominal_pembayaran.replaceAll('.', '');
     nominal_pembayaran = nominal_pembayaran.replaceAll(' ', '');
 
-    if (parseInt(total_tagihan) < parseInt(nominal_pembayaran)) {
-        $('.sisa-partisipasi').text('Rp. ' + formatRupiah(total_tagihan));
-        $('#button_pembayaran_gagal').click();
-        return
-    }
+    // if (parseInt(total_tagihan) < parseInt(nominal_pembayaran)) {
+    //     $('.sisa-partisipasi').text('Rp. ' + formatRupiah(total_tagihan));
+    //     $('#button_pembayaran_gagal').click();
+    //     return
+    // }
 
     $.ajax({
         url,

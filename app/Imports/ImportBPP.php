@@ -173,10 +173,10 @@ class ImportBPP implements ToModel, WithStartRow
                 if($kelas->id_kelas >= 2){
                     $explode_tahun_ajaran = explode("-", $tahun_ajaran);
                     $tahun_ajaran_last = (int)$explode_tahun_ajaran[0] - 1;
-                    $tahun_ajaran = (string)$tahun_ajaran_last."-".$explode_tahun_ajaran[0];
+                    $tahun_ajaran_siswa = (string)$tahun_ajaran_last."-".$explode_tahun_ajaran[0];
                     foreach($bulan as $b){
                         $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
-                            ->where('tahun_ajaran', $tahun_ajaran)
+                            ->where('tahun_ajaran', $tahun_ajaran_siswa)
                             ->where('id_tagihan', $tagihan->id_tagihan)
                             ->where('bulan', $b)
                             ->first();
@@ -189,19 +189,20 @@ class ImportBPP implements ToModel, WithStartRow
                             $history_bulanan->id_tagihan = $tagihan->id_tagihan;
                         }
                         
-                        $history_bulanan->tahun_ajaran = $tahun_ajaran;
+                        $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                         $history_bulanan->bulan = $b;
                         $history_bulanan->jumlah = $total_tagihan_bulanan;
                         $history_bulanan->status = 0;
                         $history_bulanan->save();
                     }
 
-                    if($kelas->id_kelas == 3){
-                        $tahun_ajaran_last_2 = (int)$tahun_ajaran_last - 1;
-                        $tahun_ajaran = (string)$tahun_ajaran_last_2."-".$tahun_ajaran_last;
+                    if($kelas->id_kelas == 2){
+                        $explode_tahun_ajaran = explode("-", $tahun_ajaran);
+                        $tahun_ajaran_new = (int)$explode_tahun_ajaran[0] + 1;
+                        $tahun_ajaran_siswa = (string)$tahun_ajaran_new."-".(string)($tahun_ajaran_new + 1);
                         foreach($bulan as $b){
                             $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
-                                ->where('tahun_ajaran', $tahun_ajaran)
+                                ->where('tahun_ajaran', $tahun_ajaran_siswa)
                                 ->where('id_tagihan', $tagihan->id_tagihan)
                                 ->where('bulan', $b)
                                 ->first();
@@ -214,7 +215,33 @@ class ImportBPP implements ToModel, WithStartRow
                                 $history_bulanan->id_tagihan = $tagihan->id_tagihan;
                             }
                             
-                            $history_bulanan->tahun_ajaran = $tahun_ajaran;
+                            $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
+                            $history_bulanan->bulan = $b;
+                            $history_bulanan->jumlah = $total_tagihan_bulanan;
+                            $history_bulanan->status = 0;
+                            $history_bulanan->save();
+                        }
+                    }
+
+                    if($kelas->id_kelas == 3){
+                        $tahun_ajaran_last_2 = (int)$tahun_ajaran_last - 1;
+                        $tahun_ajaran_siswa = (string)$tahun_ajaran_last_2."-".$tahun_ajaran_last;
+                        foreach($bulan as $b){
+                            $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
+                                ->where('tahun_ajaran', $tahun_ajaran_siswa)
+                                ->where('id_tagihan', $tagihan->id_tagihan)
+                                ->where('bulan', $b)
+                                ->first();
+        
+                            if($history_bulanan){
+                                $history_bulanan->soft_delete = 0;
+                            }else{
+                                $history_bulanan = new HistoryTagihanBulanan();
+                                $history_bulanan->id_anggota = $siswa->id_anggota;
+                                $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                            }
+                            
+                            $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                             $history_bulanan->bulan = $b;
                             $history_bulanan->jumlah = $total_tagihan_bulanan;
                             $history_bulanan->status = 0;
@@ -225,10 +252,10 @@ class ImportBPP implements ToModel, WithStartRow
                     if($kelas->id_kelas == 1){
                         $explode_tahun_ajaran = explode("-", $tahun_ajaran);
                         $tahun_ajaran_new = (int)$explode_tahun_ajaran[0] - 1;
-                        $tahun_ajaran = (string)$tahun_ajaran_new."-".$explode_tahun_ajaran[0];
+                        $tahun_ajaran_siswa = (string)$tahun_ajaran_new."-".$explode_tahun_ajaran[0];
                         foreach($bulan as $b){
                             $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
-                                ->where('tahun_ajaran', $tahun_ajaran)
+                                ->where('tahun_ajaran', $tahun_ajaran_siswa)
                                 ->where('id_tagihan', $tagihan->id_tagihan)
                                 ->where('bulan', $b)
                                 ->first();
@@ -241,7 +268,7 @@ class ImportBPP implements ToModel, WithStartRow
                                 $history_bulanan->id_tagihan = $tagihan->id_tagihan;
                             }
                             
-                            $history_bulanan->tahun_ajaran = $tahun_ajaran;
+                            $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                             $history_bulanan->bulan = $b;
                             $history_bulanan->jumlah = $total_tagihan_bulanan;
                             $history_bulanan->status = 0;
@@ -249,10 +276,10 @@ class ImportBPP implements ToModel, WithStartRow
                         }
 
                         $tahun_ajaran_new_2 = (int)$tahun_ajaran_new - 1;
-                        $tahun_ajaran = (string)$tahun_ajaran_new_2."-".$tahun_ajaran_new;
+                        $tahun_ajaran_siswa = (string)$tahun_ajaran_new_2."-".$tahun_ajaran_new;
                         foreach($bulan as $b){
                             $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
-                                ->where('tahun_ajaran', $tahun_ajaran)
+                                ->where('tahun_ajaran', $tahun_ajaran_siswa)
                                 ->where('id_tagihan', $tagihan->id_tagihan)
                                 ->where('bulan', $b)
                                 ->first();
@@ -265,7 +292,7 @@ class ImportBPP implements ToModel, WithStartRow
                                 $history_bulanan->id_tagihan = $tagihan->id_tagihan;
                             }
                             
-                            $history_bulanan->tahun_ajaran = $tahun_ajaran;
+                            $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                             $history_bulanan->bulan = $b;
                             $history_bulanan->jumlah = $total_tagihan_bulanan;
                             $history_bulanan->status = 0;

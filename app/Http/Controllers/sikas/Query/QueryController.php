@@ -181,7 +181,7 @@ class QueryController extends Controller
         $master_tagihan = Tagihan::where('id_kelas', $anggota->id_kelas)
             ->first();
 
-        if ((int)$nominal <= $tanggungan) {
+        // if ((int)$nominal <= $tanggungan) {
             $transaksi = new Transaksi();
             $transaksi->id_admin = Session::get('id_user');
             $transaksi->nomor_transaksi = '001000' . date('dmY');
@@ -247,15 +247,17 @@ class QueryController extends Controller
             $data['transaksi'] = $transaksi;
             $data['kasir'] = Session::get('nama');
             return response($data, 200);
-        } else {
-            return response(null, 406);
-        }
+        // } else {
+        //     return response(null, 406);
+        // }
     }
 
     public function getPembayaranBulananSiswa(Request $request){
         $id_anggota = $request->input('id_anggota');
+        $tahun_ajaran = $request->input('tahun_ajaran');
 
         $total_data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+            ->where('tahun_ajaran', $tahun_ajaran)
             ->where('status', 0)
             ->where('bulan', '!=', null)
             ->where('prefix_tagihan', null)
@@ -264,13 +266,20 @@ class QueryController extends Controller
 
         if($total_data > 12){
             $data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('tahun_ajaran', $tahun_ajaran)
                 ->where('status', 0)
                 ->where('bulan', '!=', null)
                 ->where('prefix_tagihan', null)
                 ->where('soft_delete', 0)
+                ->orderBy('tahun_ajaran', 'DESC')
+                ->orderBy('id_history_tagihan', 'ASC')
+                ->limit(12)
                 ->get();
         }else{
             $data = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->orderBy('tahun_ajaran', 'DESC')
+                ->orderBy('id_history_tagihan', 'ASC')
+                ->where('tahun_ajaran', $tahun_ajaran)
                 ->where('soft_delete', 0)
                 ->where('bulan', '!=', null)
                 ->where('prefix_tagihan', null)
@@ -1846,21 +1855,21 @@ class QueryController extends Controller
                     $ank->id_kelas = $id_kelas;
                     $ank->save();
 
-                    if($tagihan->flow_tagihan == 2){
-                        $bulan = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', 'Januari', 'Februari',
-                            'Maret', 'April', 'Mei', 'Juni'];
+                    // if($tagihan->flow_tagihan == 2){
+                    //     $bulan = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', 'Januari', 'Februari',
+                    //         'Maret', 'April', 'Mei', 'Juni'];
 
-                        $total_tagihan_bulanan = round((int)$keuangan_anggota->tagihan_pertama / 12);
+                    //     $total_tagihan_bulanan = round((int)$keuangan_anggota->tagihan_pertama / 12);
 
-                        foreach($bulan as $b){
-                            $history_bulanan = new HistoryTagihanBulanan();
-                            $history_bulanan->id_anggota = $ank->id_anggota;
-                            $history_bulanan->id_tagihan = $tagihan->id_tagihan;
-                            $history_bulanan->bulan = $b;
-                            $history_bulanan->jumlah = $total_tagihan_bulanan;
-                            $history_bulanan->save();
-                        }
-                    }
+                    //     foreach($bulan as $b){
+                    //         $history_bulanan = new HistoryTagihanBulanan();
+                    //         $history_bulanan->id_anggota = $ank->id_anggota;
+                    //         $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                    //         $history_bulanan->bulan = $b;
+                    //         $history_bulanan->jumlah = $total_tagihan_bulanan;
+                    //         $history_bulanan->save();
+                    //     }
+                    // }
                 }
 
             }else if($id_kelas == 2){
@@ -1899,21 +1908,21 @@ class QueryController extends Controller
                     $ank->id_kelas = $id_kelas;
                     $ank->save();
 
-                    if($tagihan->flow_tagihan == 2){
-                        $bulan = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', 'Januari', 'Februari',
-                            'Maret', 'April', 'Mei', 'Juni'];
+                    // if($tagihan->flow_tagihan == 2){
+                    //     $bulan = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', 'Januari', 'Februari',
+                    //         'Maret', 'April', 'Mei', 'Juni'];
 
-                        $total_tagihan_bulanan = round((int)$keuangan_anggota->tagihan_pertama / 12);
+                    //     $total_tagihan_bulanan = round((int)$keuangan_anggota->tagihan_pertama / 12);
 
-                        foreach($bulan as $b){
-                            $history_bulanan = new HistoryTagihanBulanan();
-                            $history_bulanan->id_anggota = $ank->id_anggota;
-                            $history_bulanan->id_tagihan = $tagihan->id_tagihan;
-                            $history_bulanan->bulan = $b;
-                            $history_bulanan->jumlah = $total_tagihan_bulanan;
-                            $history_bulanan->save();
-                        }
-                    }
+                    //     foreach($bulan as $b){
+                    //         $history_bulanan = new HistoryTagihanBulanan();
+                    //         $history_bulanan->id_anggota = $ank->id_anggota;
+                    //         $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                    //         $history_bulanan->bulan = $b;
+                    //         $history_bulanan->jumlah = $total_tagihan_bulanan;
+                    //         $history_bulanan->save();
+                    //     }
+                    // }
                 }
 
             }else if($id_kelas == 1){
