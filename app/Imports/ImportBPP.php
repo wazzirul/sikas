@@ -152,6 +152,7 @@ class ImportBPP implements ToModel, WithStartRow
                 foreach($bulan as $b){
                     $history_bulanan = HistoryTagihanBulanan::where('id_anggota', $siswa->id_anggota)
                         ->where('id_tagihan', $tagihan->id_tagihan)
+                        ->where('tahun_ajaran', $tahun_ajaran)
                         ->where('bulan', $b)
                         ->first();
 
