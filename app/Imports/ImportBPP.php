@@ -162,12 +162,12 @@ class ImportBPP implements ToModel, WithStartRow
                         $history_bulanan = new HistoryTagihanBulanan();
                         $history_bulanan->id_anggota = $siswa->id_anggota;
                         $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                        $history_bulanan->status = 0;
                     }
                     
                     $history_bulanan->tahun_ajaran = $tahun_ajaran;
                     $history_bulanan->bulan = $b;
                     $history_bulanan->jumlah = $total_tagihan_bulanan;
-                    $history_bulanan->status = 0;
                     $history_bulanan->save();
                 }
 
@@ -188,12 +188,12 @@ class ImportBPP implements ToModel, WithStartRow
                             $history_bulanan = new HistoryTagihanBulanan();
                             $history_bulanan->id_anggota = $siswa->id_anggota;
                             $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                            $history_bulanan->status = 0;
                         }
                         
                         $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                         $history_bulanan->bulan = $b;
                         $history_bulanan->jumlah = $total_tagihan_bulanan;
-                        $history_bulanan->status = 0;
                         $history_bulanan->save();
                     }
 
@@ -214,12 +214,12 @@ class ImportBPP implements ToModel, WithStartRow
                                 $history_bulanan = new HistoryTagihanBulanan();
                                 $history_bulanan->id_anggota = $siswa->id_anggota;
                                 $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                                $history_bulanan->status = 0;
                             }
                             
                             $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                             $history_bulanan->bulan = $b;
                             $history_bulanan->jumlah = $total_tagihan_bulanan;
-                            $history_bulanan->status = 0;
                             $history_bulanan->save();
                         }
                     }
@@ -240,12 +240,12 @@ class ImportBPP implements ToModel, WithStartRow
                                 $history_bulanan = new HistoryTagihanBulanan();
                                 $history_bulanan->id_anggota = $siswa->id_anggota;
                                 $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                                $history_bulanan->status = 0;
                             }
                             
                             $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                             $history_bulanan->bulan = $b;
                             $history_bulanan->jumlah = $total_tagihan_bulanan;
-                            $history_bulanan->status = 0;
                             $history_bulanan->save();
                         }
                     }
@@ -267,12 +267,12 @@ class ImportBPP implements ToModel, WithStartRow
                                 $history_bulanan = new HistoryTagihanBulanan();
                                 $history_bulanan->id_anggota = $siswa->id_anggota;
                                 $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                                $history_bulanan->status = 0;
                             }
                             
                             $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                             $history_bulanan->bulan = $b;
                             $history_bulanan->jumlah = $total_tagihan_bulanan;
-                            $history_bulanan->status = 0;
                             $history_bulanan->save();
                         }
 
@@ -291,12 +291,12 @@ class ImportBPP implements ToModel, WithStartRow
                                 $history_bulanan = new HistoryTagihanBulanan();
                                 $history_bulanan->id_anggota = $siswa->id_anggota;
                                 $history_bulanan->id_tagihan = $tagihan->id_tagihan;
+                                $history_bulanan->status = 0;
                             }
                             
                             $history_bulanan->tahun_ajaran = $tahun_ajaran_siswa;
                             $history_bulanan->bulan = $b;
                             $history_bulanan->jumlah = $total_tagihan_bulanan;
-                            $history_bulanan->status = 0;
                             $history_bulanan->save();
                         }
                     }
