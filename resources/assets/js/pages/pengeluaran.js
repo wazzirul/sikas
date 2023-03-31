@@ -1,8 +1,17 @@
 let validatePengeluaran = true;
+
+$(function() {
+  $('#tanggalPengeluaran').daterangepicker({
+    "singleDatePicker": true,
+    "startDate": moment(),
+  });
+});
+
 $(document).ready(function () {
   if ($("#riwayat-pengeluaran").length == 1) {
     $('#riwayat-pengeluaran').DataTable();
   }
+
 
   $('#nominalPengeluaran').keyup((e) => {
     let input = e.currentTarget.value;

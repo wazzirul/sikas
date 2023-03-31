@@ -38,3 +38,48 @@
     height: toRem(56);
   }
 }
+.pengajuan-pengeluaran-form__wrap{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  justify-content: center;
+  gap: toRem(40);
+  @include media-breakpoint-down(xl) {
+    gap: toRem(16);
+  }
+  @include media-breakpoint-down(md) {
+    grid-template-columns: 1fr;
+    gap: toRem(24);
+  }
+}
+.date-range{
+  position: relative;
+  #date-range-span{
+    padding-right: toRem(40);
+  }
+  .date-range-icon{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: toRem(16);
+    height: toRem(16);
+    width: toRem(16);
+    margin: auto 0;
+  }
+}
+.daterangepicker{
+  right: toRem(56) !important;
+  @include media-breakpoint-down(xxl) {
+    right: toRem(60) !important;
+  }
+  .drp-buttons{
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: toRem(12);
+    align-items: center;
+    justify-content: end;
+  }
+  .drp-selected{
+    width: 100% !important;
+  }
+}

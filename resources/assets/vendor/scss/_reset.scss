@@ -293,3 +293,9 @@ th[rowspan]:not([rowspan="1"]) {
 .select2-dropdown{
   z-index: 3051;
 }
+
+.card-body__header{
+  @include media-breakpoint-down(lg) {
+    flex-direction: column !important;
+  } 
+}

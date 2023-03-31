@@ -4,10 +4,13 @@
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.css')}}">
 @endsection
 
 @section('vendor-script')
+<script src="{{asset('assets/vendor/libs/daterangepicker/moment.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.js')}}"></script>
 @endsection
 
 @section('page-script')
@@ -49,13 +52,19 @@
     <h4 class="text-bold color-black mb-4">Form Pengeluaran</h4>
     <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
     <div class="pengajuan-pengeluaran-form">
-      <div class="mt-3">
-        <label for="nominalPengeluaran" class="form-label text-bold color-black">Nominal Pengeluaran</label>
-        <input type="text" min="0" autocomplete="off" class="form-control" id="nominalPengeluaran" placeholder="0.00">
+      <div class="mt-3 pengajuan-pengeluaran-form__wrap">
+        <div class="">
+          <label for="nominalPengeluaran" class="form-label text-bold color-black">Nominal Pengeluaran</label>
+          <input type="text" min="0" autocomplete="off" class="form-control" name="nominalPengeluaran" id="nominalPengeluaran" placeholder="0.00">
+        </div>
+        <div class="">
+          <label for="tanggalPengeluaran" class="form-label text-bold color-black">Tanggal Pengeluaran</label>
+          <input type="text" name="tanggalPengeluaran" id="tanggalPengeluaran" class="form-control" value="10/24/1984" />
+        </div>
       </div>
       <div class="mt-3">
         <label for="keterangan" class="form-label text-bold color-black">Keterangan</label>
-        <textarea class="form-control" autocomplete="off" id="keterangan" rows="6" placeholder="Masukan keterangan pengeluaran"></textarea>
+        <textarea class="form-control" autocomplete="off" id="keterangan" name="keterangan" rows="6" placeholder="Masukan keterangan pengeluaran"></textarea>
       </div>
       <button class="btn btn-primary pengajuan-pemasukan-button mt-5" data-bs-toggle="modal" data-bs-target="#modalPengajuanPengeluaran">Setor Pengeluaran</button>
     </div>
