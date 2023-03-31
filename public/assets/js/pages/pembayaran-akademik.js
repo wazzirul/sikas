@@ -23,7 +23,9 @@ function tempAlert(msg, duration) {
 let validateDelete = true;
 
 if ($("#history-pembayaran").length == 1) {
-    $('#history-pembayaran').DataTable();
+    $('#history-pembayaran').DataTable({
+        "aaSorting": [],
+    });
 }
 
 $('#cari-siswa').keyup((e) => {

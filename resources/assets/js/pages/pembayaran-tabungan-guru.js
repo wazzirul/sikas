@@ -9,6 +9,15 @@ if ($("#riwayat-tabungan").length == 1) {
 
 $('#cari-siswa').keyup((e) => {
     let search = e.currentTarget.value;
+    retrieveSiswa(search);
+})
+
+$('.cari-siswa__item').click((e) => {
+    clickSiswa(e);
+})
+
+retrieveSiswa();
+function retrieveSiswa(search = "") {
     $.ajax({
         url: '/query/dataGuru',
         method: 'POST',
@@ -50,11 +59,7 @@ $('#cari-siswa').keyup((e) => {
             console.log(err);
         }
     })
-})
-
-$('.cari-siswa__item').click((e) => {
-    clickSiswa(e);
-})
+}
 
 function clickSiswa(e) {
     $('.penarikan-button').removeClass('disabled');
@@ -93,11 +98,11 @@ function clickSiswa(e) {
             id_anggota: e.currentTarget.dataset.id
         },
         success: (result) => {
-            $('.list-riwayat-tabungan').empty();     
-            console.log(result);       
+            $('.list-riwayat-tabungan').empty();
+            console.log(result);
             let totalMutasi = 0;
-            if (result == 'undefined') {console.log("benar");} 
-            else{totalMutasi = result[0].mutasi}
+            if (result == 'undefined') { console.log("benar"); }
+            else { totalMutasi = result[0].mutasi }
             $.each(result, (index, value) => {
                 let tanggal = new Date(Date.parse(value.tanggal));
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });

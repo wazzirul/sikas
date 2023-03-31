@@ -20,6 +20,7 @@ use App\Models\Jurusan;
 use App\Models\Tagihan;
 use App\Models\Kelas;
 use App\Models\User;
+use App\Models\BridgeHistoryBulan;
 use Carbon\Carbon as Carbon;
 
 class QueryController extends Controller
@@ -169,6 +170,7 @@ class QueryController extends Controller
         $id_anggota = $request->input('id_anggota');
         $bulan = $request->input('bulan');
         $tipe_pembayaran = $request->input('tipe_pembayaran');
+        $tahun_ajaran = $request->input('tahun');
         $nominal = $request->input('nominalPembayaran');
         $nominal = str_replace('Rp', '', $nominal);
         $nominal = str_replace('.', '', $nominal);
@@ -186,9 +188,14 @@ class QueryController extends Controller
             $transaksi->id_admin = Session::get('id_user');
             $transaksi->nomor_transaksi = '001000' . date('dmY');
             $transaksi->kode_transaksi = 'AKDMK-' . $id_anggota . '-' . date('hi-dmY');
+            $transaksi->id_anggota = $id_anggota;
+            $transaksi->tipe_transaksi = 1;
+            $transaksi->jumlah = $nominal;
+            $transaksi->kelas = $kelas->nama;
+            $transaksi->save();
 
             if((int)$tipe_pembayaran == 1) {
-                $transaksi->nama_transaksi = $master_tagihan->nama.' Angsuran Ke-'.((int)$tagihan->angsuran_ke + 1);
+                $transaksi->nama_transaksi = $master_tagihan->nama.' Angsuran Ke-'.((int)$tagihan->angsuran_ke + 1).' '.$tahun_ajaran;
             }
             else {
                 if(count($bulan) > 1){
@@ -199,25 +206,32 @@ class QueryController extends Controller
                         $history_tagihan->status = 1;
                         $history_tagihan->save();
 
+                        $bridge = new BridgeHistoryBulan();
+                        $bridge->id_transaksi = $transaksi->id_transaksi;
+                        $bridge->id_history_tagihan = $b;
+                        $bridge->save();
+
                         if($key == 0) $awal_bulan = $history_tagihan->bulan;
                         if($key == (count($bulan) - 1)) $akhir_bulan = $history_tagihan->bulan;
                     }
 
-                    $transaksi->nama_transaksi = $master_tagihan->nama.' '.$awal_bulan.'-'.$akhir_bulan;
+                    $transaksi->nama_transaksi = $master_tagihan->nama.' '.$awal_bulan.'-'.$akhir_bulan.' '.$tahun_ajaran;
 
                 }else{
                     $history_tagihan = HistoryTagihanBulanan::find($bulan[0]);
                     $history_tagihan->status = 1;
                     $history_tagihan->save();
 
-                    $transaksi->nama_transaksi = $master_tagihan->nama.' '.$history_tagihan->bulan;
+                    $bridge = new BridgeHistoryBulan();
+                    $bridge->id_transaksi = $transaksi->id_transaksi;
+                    $bridge->id_history_tagihan = $bulan[0];
+                    $bridge->save();
+
+                    $transaksi->nama_transaksi = $master_tagihan->nama.' '.$history_tagihan->bulan.' '.$tahun_ajaran;
                 }
             }
 
-            $transaksi->id_anggota = $id_anggota;
-            $transaksi->tipe_transaksi = 1;
-            $transaksi->jumlah = $nominal;
-            $transaksi->kelas = $kelas->nama;
+            
             $transaksi->save();
 
             $tagihan->angsuran_ke += 1;
@@ -901,23 +915,19 @@ class QueryController extends Controller
             $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal_awal;
 
             if((int)$keuangan_anggota->tipe_tagihan == 2 && (int)$transaksi->tipe_transaksi == 1){
-                $terakhir_transaksi = HistoryTagihanBulanan::where('soft_delete', 0)
-                    ->where('id_anggota', $transaksi->id_anggota)
-                    ->where('status', 1)
-                    ->orderBy('id_history_tagihan', 'DESC')
-                    ->first();
+                $bridge = BridgeHistoryBulan::where('id_transaksi', $id_transaksi)
+                    ->where('soft_delete', 0)
+                    ->get();
 
-                $nominal_bulanan = $terakhir_transaksi->jumlah;
-                $banyak_transaksi = round((int)$nominal_awal / (int)$nominal_bulanan);
+                foreach($bridge as $br){
+                    $history = HistoryTagihanBulanan::find($br->id_history_tagihan);
+                    $history->status = 0;
+                    $history->save();
 
-                $bulanan_terbayar = HistoryTagihanBulanan::where('soft_delete', 0)
-                    ->where('id_anggota', $transaksi->id_anggota)
-                    ->where('status', 1)
-                    ->orderBy('id_history_tagihan', 'DESC')
-                    ->limit($banyak_transaksi)
-                    ->update([
-                        'status' => 0,
-                    ]);
+                    $br->soft_delete = 1;
+                    $br->save();
+                }
+
             }
         }
 
@@ -1427,6 +1437,7 @@ class QueryController extends Controller
         }
     
         $tagihan = Tagihan::find($id_tagihan);
+        $nama_tagihan_lama = $tagihan->nama;
         $tagihan_lama = (int)$tagihan->jumlah;
 
         $nama != null && $tagihan->nama = $nama;
@@ -1513,6 +1524,18 @@ class QueryController extends Controller
                         'jumlah' => $jumlah
                     ]);
             }
+        }
+
+        $transaksi = Transaksi::where('id_tagihan', $id_tagihan)
+            ->leftjoin('anggota', 'anggota.id_anggota', '=', 'transaksi.id_anggota')
+            ->where('anggota.alumni', 0)
+            ->where('transaksi.tipe_transaksi', 1)
+            ->where('transaksi.soft_delete', 0)
+            ->get();
+
+        foreach($transaksi as $t){
+            $t->nama_transaksi = str_replace($nama_tagihan_lama, $tagihan->nama, $t->nama_transaksi);
+            $t->save();
         }
     
         return response($tagihan, 200);

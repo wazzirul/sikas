@@ -16,6 +16,7 @@ $('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_s
     retrieveSiswa();
 })
 
+retrieveSiswa()
 function retrieveSiswa(search = "") {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
@@ -125,16 +126,16 @@ function clickSiswa(e) {
             id_anggota: e.currentTarget.dataset.id
         },
         success: (result) => {
-            $('.list-riwayat-tabungan').empty();            
+            $('.list-riwayat-tabungan').empty();
             let savingsfund = 0;
-            if (result == 'undefined') {console.log("benar");} 
-            else{savingsfund = result[0].mutasi}
+            if (result == 'undefined') { console.log("benar"); }
+            else { savingsfund = result[0].mutasi }
             $.each(result, (index, value) => {
                 let tanggal = new Date(Date.parse(value.tanggal));
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
                 let date = tanggal.getDate();
-                let tahun = tanggal.getFullYear();                 
+                let tahun = tanggal.getFullYear();
 
                 $('.list-riwayat-tabungan').append(`
                     <tr>
@@ -425,7 +426,7 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
                         classname = anggota.detail_kelas,
                         transactiontype = 'Penarikan Dana Tabungan',
                         total = transaksi.jumlah,
-                        savingsfund = transaksi.mutasi                        
+                        savingsfund = transaksi.mutasi
 
                     $('#button_penarikan_sukses').click();
                     printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund })

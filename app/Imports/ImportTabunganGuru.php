@@ -24,52 +24,74 @@ class ImportTabunganGuru implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[1] && $row[2] && $row[4]){
-            $anggota = Anggota::where('nip', $row[1])
-                ->where('nama', $row[2])
+        if($row[2] && $row[4]){
+            $anggota = Anggota::where('nama', $row[2])
                 ->where('tipe_anggota', 1)
-                ->where('soft_delete', 0)
                 ->first();
 
-            if($anggota){
-                $keuangan_sekolah = KeuanganSekolah::first();
-                $keuangan_anggota = KeuanganAnggota::where('id_anggota', $anggota->id_anggota)
-                    ->first();
+            if(!$anggota){
+                $anggota = new Anggota();
+                $anggota->nip = $row[1];
+                $anggota->nama = $row[2];
+                $anggota->tipe_anggota = 1;
+                $anggota->save();
+            }
 
-                $tabungan_lama = (int)$keuangan_anggota->tabungan;
-                $tabungan_baru = $row[4];
-                $tabungan_baru = str_replace('Rp', '', $tabungan_baru);
-                $tabungan_baru = str_replace('rp', '', $tabungan_baru);
-                $tabungan_baru = str_replace('.', '', $tabungan_baru);
-                $tabungan_baru = str_replace(' ', '', $tabungan_baru);
-                $tabungan_baru = (int)$tabungan_baru;
+            $keuangan_sekolah = KeuanganSekolah::first();
+            $keuangan_anggota = KeuanganAnggota::where('id_anggota', $anggota->id_anggota)
+                ->first();
 
-                $keuangan_anggota->tabungan = $tabungan_baru;
+            if($keuangan_anggota){
+                $keuangan_anggota->soft_delete = '0';
+            }else{
+                $keuangan_anggota = new KeuanganAnggota();
+                $keuangan_anggota->id_anggota = $anggota->id_anggota;
+            }
 
-                if($tabungan_lama > $tabungan_baru){
-                    $keuangan_sekolah->pemasukan -= ($tabungan_lama - $tabungan_baru);
-                    $keuangan_sekolah->total -= ($tabungan_lama - $tabungan_baru);
-                }else {
-                    $keuangan_sekolah->pemasukan += ($tabungan_lama - $tabungan_baru);
-                    $keuangan_sekolah->total += ($tabungan_lama - $tabungan_baru);
-                }
+            $tabungan_lama = (int)$keuangan_anggota->tabungan;
+            $tabungan_baru = $row[4];
+            $tabungan_baru = str_replace('Rp', '', $tabungan_baru);
+            $tabungan_baru = str_replace('rp', '', $tabungan_baru);
+            $tabungan_baru = str_replace('.', '', $tabungan_baru);
+            $tabungan_baru = str_replace(' ', '', $tabungan_baru);
+            $tabungan_baru = (int)$tabungan_baru;
 
+            $keuangan_anggota->tabungan = $tabungan_baru;
+
+            if($tabungan_lama > $tabungan_baru){
+                $keuangan_sekolah->pemasukan -= ($tabungan_lama - $tabungan_baru);
+                $keuangan_sekolah->total -= ($tabungan_lama - $tabungan_baru);
+            }else {
+                $keuangan_sekolah->pemasukan += ($tabungan_lama - $tabungan_baru);
+                $keuangan_sekolah->total += ($tabungan_lama - $tabungan_baru);
+            }
+
+            $transaksi = Transaksi::where('nomor_transaksi', '002000' . date('dmY'))
+                ->where('nama_transaksi', 'Setoran Tabungan')
+                ->where('tipe_transaksi', 2)
+                ->where('id_anggota', $anggota->id_anggota)
+                ->first();
+
+            if(!$transaksi){
                 $transaksi = new Transaksi();
                 $transaksi->id_admin = Session::get('id_user');
                 $transaksi->nomor_transaksi = '002000' . date('dmY');
-                $transaksi->kode_transaksi = 'TBNGN-' . $anggota->id_anggota . '-' . date('hi-dmY');
                 $transaksi->nama_transaksi = 'Setoran Tabungan';
                 $transaksi->id_anggota = $anggota->id_anggota;
                 $transaksi->tipe_transaksi = 2;
-                $transaksi->jumlah = (int)$tabungan_baru;
-                $transaksi->mutasi = (int)$tabungan_baru;
-
-                $keuangan_anggota->save();
-                $keuangan_sekolah->save();
-                $transaksi->save();
-
-                return $anggota;
+            }else{
+                $transaksi->soft_delete = 0;
             }
+
+            $transaksi->kode_transaksi = 'TBNGN-' . $anggota->id_anggota . '-' . date('hi-dmY');
+            $transaksi->jumlah = (int)$tabungan_baru;
+            $transaksi->mutasi = (int)$tabungan_baru;
+
+            $keuangan_anggota->save();
+            $keuangan_sekolah->save();
+            $transaksi->save();
+
+            return $anggota;
         }
     }
 }
