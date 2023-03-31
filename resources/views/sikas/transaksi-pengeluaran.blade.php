@@ -4,10 +4,13 @@
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dataTables/datatables.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.css')}}">
 @endsection
 
 @section('vendor-script')
+<script src="{{asset('assets/vendor/libs/daterangepicker/moment.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/daterangepicker/daterangepicker.js')}}"></script>
 @endsection
 
 @section('page-script')
@@ -49,13 +52,15 @@
     <h4 class="text-bold color-black mb-4">Form Pengeluaran</h4>
     <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
     <div class="pengajuan-pengeluaran-form">
-      <div class="">
-        <label for="nominalPengeluaran" class="form-label text-bold color-black">Nominal Pengeluaran</label>
-        <input type="text" min="0" autocomplete="off" class="form-control" name="nominalPengeluaran" id="nominalPengeluaran" placeholder="0.00">
-      </div>
-      <div class="mt-3">
-        <label for="tanggalPengeluaran" class="form-label text-bold color-black">Tanggal Pengeluaran</label>
-        <input class="form-control" type="date" value="<?= date("Y-m-d"); ?>" id="tanggalPengeluaran" autocomplete="off" name="tanggalPengeluaran">
+      <div class="mt-3 pengajuan-pengeluaran-form__wrap">
+        <div class="">
+          <label for="nominalPengeluaran" class="form-label text-bold color-black">Nominal Pengeluaran</label>
+          <input type="text" min="0" autocomplete="off" class="form-control" name="nominalPengeluaran" id="nominalPengeluaran" placeholder="0.00">
+        </div>
+        <div class="">
+          <label for="tanggalPengeluaran" class="form-label text-bold color-black">Tanggal Pengeluaran</label>
+          <input type="text" name="tanggalPengeluaran" id="tanggalPengeluaran" class="form-control" value="10/24/1984" />
+        </div>
       </div>
       <div class="mt-3">
         <label for="keterangan" class="form-label text-bold color-black">Keterangan</label>

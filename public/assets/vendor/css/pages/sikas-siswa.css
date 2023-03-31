@@ -278,6 +278,12 @@ th[rowspan]:not([rowspan="1"]) {
   z-index: 3051;
 }
 
+@media (max-width: 991.98px) {
+  .card-body__header {
+    flex-direction: column !important;
+  }
+}
+
 .card--siswa {
   padding: 2rem;
 }
