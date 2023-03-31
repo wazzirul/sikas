@@ -49,13 +49,17 @@
     <h4 class="text-bold color-black mb-4">Form Pengeluaran</h4>
     <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
     <div class="pengajuan-pengeluaran-form">
-      <div class="mt-3">
+      <div class="">
         <label for="nominalPengeluaran" class="form-label text-bold color-black">Nominal Pengeluaran</label>
-        <input type="text" min="0" autocomplete="off" class="form-control" id="nominalPengeluaran" placeholder="0.00">
+        <input type="text" min="0" autocomplete="off" class="form-control" name="nominalPengeluaran" id="nominalPengeluaran" placeholder="0.00">
+      </div>
+      <div class="mt-3">
+        <label for="tanggalPengeluaran" class="form-label text-bold color-black">Tanggal Pengeluaran</label>
+        <input class="form-control" type="date" value="<?= date("Y-m-d"); ?>" id="tanggalPengeluaran" autocomplete="off" name="tanggalPengeluaran">
       </div>
       <div class="mt-3">
         <label for="keterangan" class="form-label text-bold color-black">Keterangan</label>
-        <textarea class="form-control" autocomplete="off" id="keterangan" rows="6" placeholder="Masukan keterangan pengeluaran"></textarea>
+        <textarea class="form-control" autocomplete="off" id="keterangan" name="keterangan" rows="6" placeholder="Masukan keterangan pengeluaran"></textarea>
       </div>
       <button class="btn btn-primary pengajuan-pemasukan-button mt-5" data-bs-toggle="modal" data-bs-target="#modalPengajuanPengeluaran">Setor Pengeluaran</button>
     </div>
