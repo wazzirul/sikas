@@ -348,7 +348,7 @@ class ImportBPP implements ToModel, WithStartRow
                             $index_terbayar++;
 
                             $transaksi_baru = Transaksi::where('nama_transaksi', $tagihan->nama.' Angsuran ke-'.$index_terbayar.' '.$tahun_ajaran)
-                                ->where('id_anggota', $value->id_anggota)
+                                ->where('id_anggota', $id_anggota)
                                 ->where('id_tagihan', $tagihan->id_tagihan)
                                 ->where('tipe_transaksi', 1)
                                 ->first();
@@ -424,7 +424,7 @@ class ImportBPP implements ToModel, WithStartRow
 
                         if($pembayaran_bulanan != 0){
                             $transaksi_baru = Transaksi::where('nama_transaksi', $tagihan->nama.' '.$value->bulan.' '.$tahun_ajaran)
-                                ->where('id_anggota', $value->id_anggota)
+                                ->where('id_anggota', $id_anggota)
                                 ->where('id_tagihan', $tagihan->id_tagihan)
                                 ->where('tipe_transaksi', 1)
                                 ->first();
@@ -433,7 +433,7 @@ class ImportBPP implements ToModel, WithStartRow
                                 $transaksi_baru = new Transaksi();
                                 $transaksi_baru->nama_transaksi = $tagihan->nama.' '.$value->bulan.' '.$tahun_ajaran;
                                 $transaksi_baru->tipe_transaksi = 1;
-                                $transaksi_baru->id_anggota = $value->id_anggota;
+                                $transaksi_baru->id_anggota = $id_anggota;
                                 $transaksi_baru->id_tagihan = $tagihan->id_tagihan;
                             }else{
                                 $transaksi_baru->soft_delete = 0;
@@ -441,7 +441,7 @@ class ImportBPP implements ToModel, WithStartRow
 
                             $transaksi_baru->id_admin = Session::get('id_user');
                             $transaksi_baru->nomor_transaksi = '001000' . date('dmY');
-                            $transaksi_baru->kode_transaksi = 'AKDMK-' . $value->id_anggota . '-' . date('hi-dmY');
+                            $transaksi_baru->kode_transaksi = 'AKDMK-' . $id_anggota . '-' . date('hi-dmY');
                             $transaksi_baru->jumlah = $pembayaran_bulanan;
                             $transaksi_baru->kelas = $kelas->nama;
                             $transaksi_baru->save();
@@ -452,22 +452,22 @@ class ImportBPP implements ToModel, WithStartRow
                         $banyak_bulan_dibayar = 0;
                         $nama_bulan_dibayar = [];
                         while($total_bayar_bulanan > 0){
-                            $total_bayar_bulanan -= $history_bulanan[$index_terbayar]->jumlah;
-                            if($total_bayar_bulanan >= 0){
-                                $history_bulanan[$index_terbayar]->status = 1;
-                                $history_bulanan[$index_terbayar]->save();
+                            if($index_terbayar < 12){
+                                $total_bayar_bulanan -= $history_bulanan[$index_terbayar]->jumlah;
+                                if($total_bayar_bulanan >= 0){
+                                    $history_bulanan[$index_terbayar]->status = 1;
+                                    $history_bulanan[$index_terbayar]->save();
+        
+                                    $bridge = new BridgeHistoryBulan();
+                                    $bridge->id_transaksi = $transaksi_baru->id_transaksi;
+                                    $bridge->id_history_tagihan = $history_bulanan[$index_terbayar]->id_history_tagihan;
+                                    $bridge->save();
     
-                                $bridge = new BridgeHistoryBulan();
-                                $bridge->id_transaksi = $transaksi_baru->id_transaksi;
-                                $bridge->id_history_tagihan = $history_bulanan[$index_terbayar]->id_history_tagihan;
-                                $bridge->save();
-
-                                array_push($nama_bulan_dibayar, $history_bulanan[$index_terbayar]->bulan);
-                                $index_terbayar++;
-                                $banyak_bulan_dibayar++;
-                            }else{
-                                break;
-                            }
+                                    array_push($nama_bulan_dibayar, $history_bulanan[$index_terbayar]->bulan);
+                                    $index_terbayar++;
+                                    $banyak_bulan_dibayar++;
+                                } else break;
+                            } else break;
                         }
                         if($banyak_bulan_dibayar > 1){
                             $transaksi_baru->nama_transaksi = $tagihan->nama.' '.$nama_bulan_dibayar[0].'-'.$nama_bulan_dibayar[count($nama_bulan_dibayar) - 1].' '.$tahun_ajaran;
