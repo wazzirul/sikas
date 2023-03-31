@@ -160,8 +160,7 @@ Transaksi
           <input type="hidden" id="tipe_pembayaran" name="tipe_pembayaran" />
           <input type="hidden" id="nominal_pembayaran_perbulan" />
           <input type="hidden" id="id_anggota" name="id_anggota" />
-          <input type="hidden" id="id_transaksi" />
-          <button class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
+          <button type="button" class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
         </form>
       </div>
     </div>
@@ -210,31 +209,19 @@ Transaksi
           </a>
         </div>
         <div class="d-flex flex-column gap-4 mt-5">
+          <input type="hidden" id="id_transaksi" name="id_transaksi" />
           <div class="">
-            <label for="angsuranKe" class="form-label">Angsuran Ke</label>
-            <input type="text" class="form-control disabled" id="angsuranKe" name="angsuranKe" disabled value="1">
+            <label for="nama_transaksi" class="form-label">Nama Pembayaran</label>
+            <input type="text" class="form-control" id="nama_transaksi" name="nama_transaksi" value="-">
           </div>
           <div class="">
-            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
-            <input type="hidden" id="id_anggota" name="id_anggota" />
-          </div>            
-        </div>
-        <div class="d-flex flex-column gap-4 mt-5">
-          <div class="w-100">
-            <label for="bulan" class="form-label d-block">Bulan Ke</label>
-            <select class="js-bulan-multiple" name="bulan[]" multiple="multiple">
-            </select>
-          </div>
-          <div class="">
-            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
-            <input type="hidden" id="id_anggota" name="id_anggota" />
+            <label for="nominal" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominal" name="nominal" placeholder="0.00">
           </div>            
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
-          <button class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+          <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
         </div>
       </div>
     </div>
@@ -250,8 +237,8 @@ Transaksi
           <h4 class="color-black text-bold text-center">Hapus Transaksi Pembayaran</h4>
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
-          <button class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
+          <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger w-100 delete-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalDeleteSuccess">Delete</button>
         </div>
       </div>
     </div>

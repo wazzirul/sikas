@@ -219,13 +219,15 @@ function clickSiswa(e) {
                                 <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-transactioncode="${value.kode_transaksi}" data-remainingbill="${remainingbill}">
                                 <i class="fa-solid fa-print table-icon__link"></i>
                                 </a>
-                                <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                                <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi}, true)" data-bs-toggle="modal" data-bs-target="#modalEditData">
                                 <i class="fa-solid fa-pen table-icon__link"></i>
                                 </a>
                                 <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                                 <i class="fa-regular fa-trash-can table-icon__link"></i>
                                 </a>
                             </div>
+                            <input type="hidden" id="nama-transaksi-${value.id_transaksi}" value="${value.nama_transaksi}" />
+                            <input type="hidden" id="nominal-transaksi-${value.id_transaksi}" value="${value.jumlah}" />
                         </td>
                     `);
                     },
@@ -269,7 +271,6 @@ function getPembayaranBulananSiswa(id_anggota, tahun_ajaran) {
             tahun_ajaran: tahun_ajaran,
         },
         success: (result) => {
-            console.log(result);
             if (result.length != 0) {
                 $('#nominal_pembayaran_perbulan').val(result[result.length - 1].jumlah);
 
@@ -329,8 +330,17 @@ $('#bpp-upload-file').change(() => {
     $('#importForm').submit();
 })
 
-function changeTransaksi($id_transaksi) {
-    $('#id_transaksi').val($id_transaksi);
+function changeTransaksi(id_transaksi, edit = false) {
+    $('#id_transaksi').val(id_transaksi);
+
+    if (edit == true) {
+        $('#nama_transaksi').val($(`#nama-transaksi-${id_transaksi}`).val())
+        $('#nominal').val('Rp. ' + numberFormat($(`#nominal-transaksi-${id_transaksi}`).val()))
+    }
+}
+
+function retrieveEdit() {
+
 }
 
 function numberFormat(x) {
@@ -344,6 +354,11 @@ $('#nominalPembayaran').keyup((e) => {
     $('#nominalPembayaran').val(formatRupiah(input, 'RP. '))
 })
 
+$('#nominal').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominal').val(formatRupiah(input, 'RP. '))
+})
+
 $('#jumlah-pembayaran').keyup((e) => {
     let input = e.currentTarget.value;
     $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
@@ -351,27 +366,31 @@ $('#jumlah-pembayaran').keyup((e) => {
 
 function updateTransaksi() {
     let id_transaksi = $('#id_transaksi').val();
-    let id_anggota = $('#id_anggota_setoran').val();
-    $('#update-result').text(numberFormat($('#jumlah-pembayaran').val()));
+    let nama_transaksi = $('#nama_transaksi').val();
+    let nominal = $('#nominal').val();
+    $('#update-result').text(numberFormat($('#nominal').val()));
 
-    $.ajax({
-        url: '/query/updateHistoryPembayaran',
-        method: 'POST',
-        data: {
-            _token: $('#ctoken').val(),
-            id_transaksi: id_transaksi,
-            id_anggota: id_anggota,
-            nominal: $('#jumlah-pembayaran').val(),
-        },
-        success: () => {
-            setTimeout(() => {
-                location.reload()
-            }, 2000);
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    })
+    if (validateDelete) {
+        validateDelete = false;
+        $.ajax({
+            url: '/query/updateHistoryPembayaran',
+            method: 'POST',
+            data: {
+                _token: $('#ctoken').val(),
+                id_transaksi: id_transaksi,
+                nama_transaksi: nama_transaksi,
+                nominal: nominal,
+            },
+            success: (res) => {
+                validateDelete = true;
+                $(document).find(`.cari-siswa__item[data-id="${res.id_anggota}"]`).trigger('click')
+            },
+            error: (err) => {
+                validateDelete = true;
+                console.log(err);
+            }
+        })
+    }
 }
 
 function deleteTransaksi() {
@@ -386,11 +405,9 @@ function deleteTransaksi() {
                 _token: $('#ctoken').val(),
                 id_transaksi: id_transaksi,
             },
-            success: () => {
-                setTimeout(() => {
-                    validateDelete = true;
-                    location.reload()
-                }, 2000);
+            success: (res) => {
+                validateDelete = true;
+                $(document).find(`.cari-siswa__item[data-id="${res.id_anggota}"]`).trigger('click')
             },
             error: (err) => {
                 validateDelete = true;
@@ -479,7 +496,6 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
                     success: (hasil) => {
                         $('#button_pembayaran_sukses').click();
                         remainingbill = hasil.keuangan_anggota.tagihan;
-                        console.log(remainingbill);
                         printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingbill });
                     },
                     error: (err) => {

@@ -1,6 +1,6 @@
 let validatePengeluaran = true;
 
-$(function() {
+$(function () {
   $('#tanggalPengeluaran').daterangepicker({
     "singleDatePicker": true,
     "startDate": moment(),
@@ -46,6 +46,7 @@ $(document).ready(function () {
         method: 'POST',
         data: {
           _token: $('#ctoken').val(),
+          tanggal: $('#tanggalPengeluaran').data('daterangepicker').startDate.format('YYYY-MM-DD'),
           nominal: $('#nominalPengeluaran').val(),
           keterangan: $('#keterangan').val(),
         },
@@ -72,46 +73,55 @@ $(document).ready(function () {
 
 $('.confirm-transaksi-button').click(() => {
   let id_transaksi = $('#id_transaksi').val();
-
-  $.ajax({
-    url: '/query/approvePengeluaran',
-    method: 'POST',
-    data: {
-      _token: $('#ctoken').val(),
-      id_transaksi: id_transaksi,
-    },
-    success: () => {
-      setTimeout(() => {
-        location.reload()
-      }, 2000);
-    },
-    error: (err) => {
-      console.log(err);
-    }
-  })
+  if (validatePengeluaran) {
+    validatePengeluaran = false;
+    $.ajax({
+      url: '/query/approvePengeluaran',
+      method: 'POST',
+      data: {
+        _token: $('#ctoken').val(),
+        id_transaksi: id_transaksi,
+      },
+      success: () => {
+        setTimeout(() => {
+          location.reload()
+        }, 2000);
+        validatePengeluaran = true;
+      },
+      error: (err) => {
+        validatePengeluaran = true;
+        console.log(err);
+      }
+    })
+  }
 })
 
 function updateTransaksi() {
   let id_transaksi = $('#id_transaksi').val();
   $('#update-result').text(numberFormat($('#jumlah-pembayaran').val()));
 
-  $.ajax({
-    url: '/query/updatePengeluaran',
-    method: 'POST',
-    data: {
-      _token: $('#ctoken').val(),
-      id_transaksi: id_transaksi,
-      nominal: $('#jumlah-pembayaran').val(),
-    },
-    success: () => {
-      setTimeout(() => {
-        location.reload()
-      }, 2000);
-    },
-    error: (err) => {
-      console.log(err);
-    }
-  })
+  if (validatePengeluaran) {
+    validatePengeluaran = false;
+    $.ajax({
+      url: '/query/updatePengeluaran',
+      method: 'POST',
+      data: {
+        _token: $('#ctoken').val(),
+        id_transaksi: id_transaksi,
+        nominal: $('#jumlah-pembayaran').val(),
+      },
+      success: () => {
+        setTimeout(() => {
+          location.reload()
+        }, 2000);
+        validatePengeluaran = true;
+      },
+      error: (err) => {
+        console.log(err);
+        validatePengeluaran = true;
+      }
+    })
+  }
 }
 
 function deleteTransaksi() {

@@ -865,12 +865,14 @@ class QueryController extends Controller
     public function updateHistoryPembayaran(Request $request)
     {
         $id_transaksi = $request->input('id_transaksi');
+        $nama_transaksi = $request->input('nama_transaksi');
         $nominal = $request->input('nominal');
         $nominal = str_replace('Rp', '', $nominal);
         $nominal = str_replace('.', '', $nominal);
         $nominal = str_replace(' ', '', $nominal);
 
         $transaksi = Transaksi::find($id_transaksi);
+        $nama_transaksi && $transaksi->nama_transaksi = $nama_transaksi;
         $nominal_awal = $transaksi->jumlah;
         $keuangan_anggota = KeuanganAnggota::where('id_anggota', $transaksi->id_anggota)->first();
         $keuangan_sekolah = KeuanganSekolah::first();
@@ -1077,6 +1079,7 @@ class QueryController extends Controller
     public function pengeluaran(Request $request)
     {
         $keterangan = $request->input('keterangan');
+        $tanggal = $request->input('tanggal');
         $nominal = $request->input('nominal');
         $nominal = str_replace('Rp', '', $nominal);
         $nominal = str_replace('.', '', $nominal);
@@ -1089,6 +1092,7 @@ class QueryController extends Controller
         $transaksi->nama_transaksi = $keterangan;
         $transaksi->tipe_transaksi = 4;
         $transaksi->jumlah = (int)$nominal;
+        $transaksi->tanggal = $tanggal;
 
         $keuangan_sekolah = KeuanganSekolah::first();
         if(Session::get('tipe_user') == 1){

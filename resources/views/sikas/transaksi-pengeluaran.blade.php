@@ -59,7 +59,7 @@
         </div>
         <div class="">
           <label for="tanggalPengeluaran" class="form-label text-bold color-black">Tanggal Pengeluaran</label>
-          <input type="text" name="tanggalPengeluaran" id="tanggalPengeluaran" class="form-control" value="10/24/1984" />
+          <input type="text" name="tanggalPengeluaran" id="tanggalPengeluaran" class="form-control" />
         </div>
       </div>
       <div class="mt-3">
