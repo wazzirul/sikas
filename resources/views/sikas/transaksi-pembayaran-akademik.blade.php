@@ -160,7 +160,7 @@ Transaksi
           <input type="hidden" id="tipe_pembayaran" name="tipe_pembayaran" />
           <input type="hidden" id="nominal_pembayaran_perbulan" />
           <input type="hidden" id="id_anggota" name="id_anggota" />
-          <button type="button" class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
+          <button type="submit" class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
         </form>
       </div>
     </div>

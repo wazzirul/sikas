@@ -131,28 +131,13 @@ Transaksi
           </div>
           <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state empty-detail-pembayaran">
             <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
-            <h4 class="text-bold color-neutral-100">Belum Ada Siswa Alumni yang Dipilih</h4>
-            <p class="color-neutral-80">Lakukan pencarian / pilih salah satu data siswa alumni.</p>
+            <h4 class="text-bold color-neutral-100">Belum Ada Siswa yang Dipilih</h4>
+            <p class="color-neutral-80">Lakukan pencarian / pilih salah satu data siswa.</p>
           </div>
-          <div class="w-100">
+          <div class="w-100 pembayaran-bulanan d-none">
             <label for="tahun" class="form-label d-block">Tahun</label>
-            <select class="js-tahun-multiple" name="tahun[]" multiple="multiple">
-              <option value="2024-2025">2024-2025</option>
-              <option value="2023-2024">2023-2024</option>
-              <option selected value="2022-2023">2022-2023</option>
-              <option value="2021-2022">2021-2022</option>
-              <option value="2020-2021">2020-2021</option>
-              <option value="2019-2020">2019-2020</option>
-              <option value="2018-2019">2018-2019</option>
-              <option value="2017-2018">2017-2018</option>
-              <option value="2016-2017">2016-2017</option>
-              <option value="2015-2016">2015-2016</option>
-              <option value="2014-2015">2014-2015</option>
-              <option value="2013-2014">2013-2014</option>
-              <option value="2012-2013">2012-2013</option>
-              <option value="2011-2012">2011-2012</option>
-              <option value="2010-2011">2010-2011</option>
-              <option value="2009-2010">2009-2010</option>
+            <select class="js-tahun-multiple" name="tahun" id="tahun">
+              
             </select>
           </div>
           <div class="form-transaksi__angsuran d-flex flex-column gap-4 pembayaran-angsuran d-none">
@@ -164,7 +149,6 @@ Transaksi
           <div class="form-transaksi__angsuran d-flex flex-column pembayaran-bulanan d-none">
             <label class="form-label">Bulan</label>
             <div class="form-check__wrapper form-check-bulanan">
-              
             </div>
           </div>
           <div class="input-nominal d-none">
@@ -175,8 +159,7 @@ Transaksi
           <input type="hidden" id="tipe_pembayaran" name="tipe_pembayaran" />
           <input type="hidden" id="nominal_pembayaran_perbulan" />
           <input type="hidden" id="id_anggota" name="id_anggota" />
-          <input type="hidden" id="id_transaksi" />
-          <button class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
+          <button type="submit" class="btn btn-primary pembayaran-button d-none">Bayar Sekarang</button>
         </form>
       </div>
     </div>
@@ -225,31 +208,19 @@ Transaksi
           </a>
         </div>
         <div class="d-flex flex-column gap-4 mt-5">
+          <input type="hidden" id="id_transaksi" name="id_transaksi" />
           <div class="">
-            <label for="angsuranKe" class="form-label">Angsuran Ke</label>
-            <input type="text" class="form-control disabled" id="angsuranKe" name="angsuranKe" disabled value="1">
+            <label for="nama_transaksi" class="form-label">Nama Pembayaran</label>
+            <input type="text" class="form-control" id="nama_transaksi" name="nama_transaksi" value="-">
           </div>
           <div class="">
-            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
-            <input type="hidden" id="id_anggota" name="id_anggota" />
-          </div>            
-        </div>
-        <div class="d-flex flex-column gap-4 mt-5">
-          <div class="w-100">
-            <label for="bulan" class="form-label d-block">Bulan Ke</label>
-            <select class="js-bulan-multiple" name="bulan[]" multiple="multiple">
-            </select>
-          </div>
-          <div class="">
-            <label for="nominalPembayaran" class="form-label">Nominal Pembayaran</label>
-            <input type="text" class="form-control" id="nominalPembayaran" name="nominalPembayaran" placeholder="0.00">
-            <input type="hidden" id="id_anggota" name="id_anggota" />
+            <label for="nominal" class="form-label">Nominal Pembayaran</label>
+            <input type="text" class="form-control" id="nominal" name="nominal" placeholder="0.00">
           </div>            
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
-          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
-          <button class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
+          <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary w-100 update-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalEditSuccess">Simpan</button>
         </div>
       </div>
     </div>

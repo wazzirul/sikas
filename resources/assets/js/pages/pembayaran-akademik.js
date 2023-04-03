@@ -339,10 +339,6 @@ function changeTransaksi(id_transaksi, edit = false) {
     }
 }
 
-function retrieveEdit() {
-
-}
-
 function numberFormat(x) {
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -442,11 +438,11 @@ $(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
         method = form.attr('method'),
         data = form.serialize()
 
-    let dontSubmit = false
-    form.find('input:not([type="hidden"])').each((_, el) => {
-        if (!$(el).val()) dontSubmit = true
-    })
-    if (dontSubmit) return
+    // let dontSubmit = false
+    // form.find('input:not([type="hidden"])').each((_, el) => {
+    //     if (!$(el).val()) dontSubmit = true
+    // })
+    // if (dontSubmit) return
 
     let total_tagihan = $('.detail-tagihan')[0].innerHTML;
     let nominal_pembayaran = $('#nominalPembayaran').val();
