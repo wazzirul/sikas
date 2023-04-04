@@ -92,8 +92,8 @@
       <table class="table table-striped" id="data-siswa">
         <thead>
           <tr>
-            <th>Nama</th>
             <th>NIS</th>
+            <th>Nama</th>
             <th>L/P</th>
             <th>Kelas</th>
             <th>Status</th>
@@ -104,10 +104,10 @@
           @foreach($anggota as $a)
           <tr>
             <td>
-              <p class="text-medium color-neutral-100">{{ $a->nama }}</p>              
+              <p class="text-medium color-neutral-100">{{ $a->nis }}</p>
             </td>
             <td>
-              <p class="text-medium color-neutral-100">{{ $a->nis }}</p>
+              <p class="text-medium color-neutral-100">{{ $a->nama }}</p>              
             </td>
             <td>
               <p class="text-medium color-neutral-100">{{ $a->jenis_kelamin }}</p>
