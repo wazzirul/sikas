@@ -22,7 +22,13 @@ function tempAlert(msg, duration) {
 
 let validateDelete = true;
 
-if ($("#history-pembayaran").length == 1) {
+function destroyDatatable() {
+    if ($.fn.DataTable.isDataTable('#history-pembayaran')) {
+        $('#history-pembayaran').DataTable().destroy();
+    }
+}
+
+function initDatatable() {
     $('#history-pembayaran').DataTable({
         "aaSorting": [],
     });
@@ -110,6 +116,7 @@ function clickSiswa(e) {
     let name = $(e.currentTarget).find('.cari-siswa__nama-siswa').text()
     let nis = $(e.currentTarget).find('.nomor-siswa').text()
     let classname = $(e.currentTarget).find('.kelas-siswa').text()
+    let remainingbill = 0;
 
     $.ajax({
         url: '/query/siswaById',
@@ -124,6 +131,7 @@ function clickSiswa(e) {
             $('.detail-nis').text(result.nis);
             $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
             $('#tipe_pembayaran').val(result.keuangan_anggota.tipe_tagihan);
+            remainingbill = result.keuangan_anggota.tagihan;
 
             if (result.alumni == 0) {
                 $('.detail-status-siswa').empty();
@@ -191,7 +199,9 @@ function clickSiswa(e) {
             id_anggota: e.currentTarget.dataset.id
         },
         success: (result) => {
+            destroyDatatable()
             $('.list-riwayat-pembayaran-spp').empty();
+
             $.each(result, (index, value) => {
                 let tanggal = new Date(Date.parse(value.tanggal));
                 let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
@@ -199,49 +209,37 @@ function clickSiswa(e) {
                 let date = tanggal.getDate();
                 let tahun = tanggal.getFullYear();
 
-                $.ajax({
-                    url: '/query/siswaById',
-                    method: 'POST',
-                    data: {
-                        _token: $('#ctoken').val(),
-                        id: value.id_anggota
-                    },
-                    success: (hasil) => {
-                        remainingbill = hasil.keuangan_anggota.tagihan;
-                        $('.list-riwayat-pembayaran-spp').append(`
-                        <tr>
-                            <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
-                            <td class="color-neutral-100">${value.admin.nama}</td>
-                            <td class="color-neutral-100">${value.nama_transaksi}</td>
-                            <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
-                            <td>
-                            <div class="d-flex align-items-center justify-content-end gap-3">
-                                <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-transactioncode="${value.kode_transaksi}" data-remainingbill="${remainingbill}">
-                                <i class="fa-solid fa-print table-icon__link"></i>
-                                </a>
-                                <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi}, true)" data-bs-toggle="modal" data-bs-target="#modalEditData">
-                                <i class="fa-solid fa-pen table-icon__link"></i>
-                                </a>
-                                <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
-                                <i class="fa-regular fa-trash-can table-icon__link"></i>
-                                </a>
-                            </div>
-                            <input type="hidden" id="nama-transaksi-${value.id_transaksi}" value="${value.nama_transaksi}" />
-                            <input type="hidden" id="nominal-transaksi-${value.id_transaksi}" value="${value.jumlah}" />
-                        </td>
-                    `);
-                    },
-                    error: (err) => {
-                        console.log(err);
-                    }
-                })
+                $('.list-riwayat-pembayaran-spp').append(`
+                    <tr>
+                        <td class="color-neutral-100">${(index + 1)}</td>
+                        <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
+                        <td class="color-neutral-100">${value.admin.nama}</td>
+                        <td class="color-neutral-100">${value.nama_transaksi}</td>
+                        <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
+                        <td>
+                        <div class="d-flex align-items-center justify-content-end gap-3">
+                            <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-transactioncode="${value.kode_transaksi}" data-remainingbill="${remainingbill}">
+                            <i class="fa-solid fa-print table-icon__link"></i>
+                            </a>
+                            <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi}, true)" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                            <i class="fa-solid fa-pen table-icon__link"></i>
+                            </a>
+                            <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                            <i class="fa-regular fa-trash-can table-icon__link"></i>
+                            </a>
+                        </div>
+                        <input type="hidden" id="nama-transaksi-${value.id_transaksi}" value="${value.nama_transaksi}" />
+                        <input type="hidden" id="nominal-transaksi-${value.id_transaksi}" value="${value.jumlah}" />
+                    </td>
+                `);
 
-
+                (index == result.length - 1) && initDatatable();
             })
 
             if (result.length == 0) {
                 $('.table-responsive').addClass('d-none');
                 $('.history-empty').removeClass('d-none');
+                initDatatable()
             } else {
                 $('.table-responsive').removeClass('d-none');
                 $('.history-empty').addClass('d-none');

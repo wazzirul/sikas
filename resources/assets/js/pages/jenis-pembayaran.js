@@ -12,6 +12,7 @@ $(document).ready(function () {
   }
 
   $('.update-tagihan-button').click(() => {
+    $('#animation-overlay').show();
     let id_tagihan = $('#id_tagihan').val();
     let nama = $('#update_nama').val();
     let id_kelas = $('#update_id_kelas').val();
@@ -27,18 +28,24 @@ $(document).ready(function () {
         id_kelas: id_kelas,
         jumlah: jumlah,
       },
-      success: (result) => {
+      success: () => {
+        $('#button_edit_success').trigger('click')
         setTimeout(() => {
           location.reload()
-        }, 1000);
+        }, 1500);
       },
       error: (err) => {
+        $('#button_edit_gagal').trigger('click')
         console.log(err);
+      },
+      complete: () => {
+        $('#animation-overlay').hide();
       }
     })
   })
 
   $('.update-lain-tagihan-button').click(() => {
+    $('#animation-overlay').show();
     let id_tagihan = $('#id_tagihan').val();
     let nama = $('#update_lain_nama').val();
     let id_kelas = $('#update_lain_id_kelas').val();
@@ -61,12 +68,17 @@ $(document).ready(function () {
         status: status,
       },
       success: (result) => {
+        $('#button_edit_success').trigger('click')
         setTimeout(() => {
           location.reload()
-        }, 1000);
+        }, 1500);
       },
       error: (err) => {
+        $('#button_edit_gagal').trigger('click')
         console.log(err);
+      },
+      complete: () => {
+        $('#animation-overlay').hide();
       }
     })
   })

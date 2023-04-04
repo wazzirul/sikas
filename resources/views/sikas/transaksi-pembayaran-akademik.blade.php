@@ -178,6 +178,7 @@ Transaksi
       <table class="table table-striped" id="history-pembayaran" data-username="{{ \Session::get('nama') }}">
         <thead>
           <tr>
+            <th class="text-bold">No</th>
             <th class="text-bold">Tanggal</th>
             <th class="text-bold">Nama Teller</th>
             <th>Nama Pembayaran</th>
