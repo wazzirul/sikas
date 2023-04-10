@@ -53,6 +53,17 @@
       <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Guru</h5>
     </div>
   </div>
+  <div class="card">
+    <div class="card-body">
+      <a href="{{route('sikas-transaksi--tabungan-umum')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
+        <div class="jenis-pembayaran__icon-wrap">
+          <i class="fa-solid fa-wallet jenis-pembayaran__icon"></i>
+        </div>
+        <i class="fa-solid fa-chevron-right jenis-pembayaran__icon jenis-pembayaran__icon--link"></i>
+      </a>
+      <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Umum</h5>
+    </div>
+  </div>
 </div> 
 <div class="card riwayat-transaksi mt-5">
   <h4 class="color-neutral-100 mb-5">Riwayat Transaksi</h4>

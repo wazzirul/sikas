@@ -299,3 +299,8 @@ th[rowspan]:not([rowspan="1"]) {
     flex-direction: column !important;
   } 
 }
+
+.choices-sikas{
+  border: 1px solid $color-neutral-40 !important;
+  border-radius: toRem(6) !important;
+}

@@ -170,7 +170,7 @@ function clickSiswa(e) {
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
                         
-                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-savingsfund="${savingsfund}">
+                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi} ${name}" data-total="${value.jumlah}" data-savingsfund="${savingsfund}">
                           <i class="fa-solid fa-print table-icon__link"></i>
                         </a>
 
@@ -352,7 +352,7 @@ $(document).on('submit', 'form#form-setor-tabungan', function (e) {
                     removetransactionnumber = true,
                     numberandname = `${anggota.nis} / ${anggota.nama}`,
                     classname = anggota.detail_kelas,
-                    transactiontype = 'Setor Dana Tabungan',
+                    transactiontype = `Setor Tabungan ${anggota.nama}`,
                     total = transaksi.jumlah,
                     savingsfund = transaksi.mutasi
 
@@ -424,7 +424,7 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
                         removetransactionnumber = true,
                         numberandname = `${anggota.nis} / ${anggota.nama}`,
                         classname = anggota.detail_kelas,
-                        transactiontype = 'Penarikan Dana Tabungan',
+                        transactiontype = `Penarikan Tabungan ${anggota.nama}`,
                         total = transaksi.jumlah,
                         savingsfund = transaksi.mutasi
 

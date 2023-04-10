@@ -124,6 +124,11 @@ class TabunganController extends Controller
         ]);
     }
 
+    //TABUNGAN Umum 
+    public function umum(){
+        return view('sikas.transaksi-pembayaran-tabungan-umum');
+    }
+
     public function importTabunganSiswa(Request $request){
 		Excel::import(new ImportTabunganSiswa, $request->file('file')->store('files'));
 	
