@@ -22,6 +22,7 @@
 @section('page-script')
 <script src="{{asset('assets/js/print-receipt.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/select2/select2.min.js')}}"></script>
+<script src="{{asset('assets/js/unduh-format-data.js')}}"></script>
 <script src="{{asset('assets/js/pages/pembayaran-dinamis.js')}}"></script>
 @endsection
 
@@ -40,7 +41,7 @@ Transaksi
     <span class="text-muted fw-light">Transaksi / </span> {{ $dinamis->nama }}
   </p>
   <div class="d-flex flex-row justify-center align-items-center gap-3">
-    <button onclick="do_dl();" class="btn bg-lg btn-outline-dark btn-unduh-format d-flex gap-2 align-items-center w-max-content ml-auto">
+    <button onclick="do_dl_transaksi_dinamis();" class="btn bg-lg btn-outline-dark btn-unduh-format d-flex gap-2 align-items-center w-max-content ml-auto">
         Unduh Contoh Format Import Data
         <i class="fa-solid fa-download"></i>
     </button>

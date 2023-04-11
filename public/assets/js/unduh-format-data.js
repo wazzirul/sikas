@@ -70,3 +70,14 @@ function do_dl_tabungan_karyawan() {
   ]);
 };
 
+function do_dl_tabungan_umum() {
+  download_files([
+    { download: "/assets/files/Contoh Import Sikas - Data Tabungan Umum.xlsx", filename: "Contoh Import Sikas - Data Tabungan Umum.xlsx" }
+  ]);
+};
+
+function do_dl_transaksi_dinamis() {
+  download_files([
+    { download: "/assets/files/Contoh Import Sikas - Data Transaksi Dinamis.xlsx", filename: "Contoh Import Sikas - Data Transaksi Dinamis.xlsx" }
+  ]);
+};
