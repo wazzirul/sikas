@@ -49,6 +49,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi/pengajuan-penambahan/{id}', [PembayaranController::class, 'pengajuanPenambahanPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-penambahan');
     Route::get('/transaksi/pengajuan-keringanan/{id}', [PembayaranController::class, 'pengajuanKeringananPembayaran'])->name('sikas-transaksi--pembayaran-pengajuan-keringanan');
     Route::get('/transaksi/dinamis/{id}', [PembayaranDinamisController::class, 'pembayaranDinamis'])->name('sikas-transaksi-dinamis--pembayaran-dinamis');
+    Route::post('/transaksi/dinamis/importDinamis', [PembayaranDinamisController::class, 'importDinamis'])->name('sikas-transaksi-dinamis--import-dinamis');
     Route::get('/transaksi/tabungan', [TabunganController::class, 'tabungan'])->name('sikas-transaksi--tabungan');
     Route::get('/transaksi/tabungan/siswa', [TabunganController::class, 'siswa'])->name('sikas-transaksi--tabungan-siswa');
     Route::get('/transaksi/tabungan/guru', [TabunganController::class, 'guru'])->name('sikas-transaksi--tabungan-guru');

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\ImportBPP;
+use App\Imports\ImportDinamis;
 
 use App\Models\Anggota;
 use App\Models\Kelas;
@@ -75,5 +75,14 @@ class PembayaranDinamisController extends Controller
 			'nomor_kelas' => $nomor_kelas,
 			'all_angkatan' => $all_angkatan,
 		]);
+	}
+
+	public function importDinamis(Request $request){
+		ini_set('memory_limit', '3000M');
+		ini_set('max_execution_time', '0');
+		$id_tagihan = $request->input('id_tagihan');
+		Excel::import(new ImportDinamis($id_tagihan), $request->file('file')->store('files'));
+	
+		return redirect('/transaksi/dinamis/'.$id_tagihan);
 	}
 }

@@ -238,6 +238,10 @@ $('#jumlah-pembayaran').keyup((e) => {
     $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
 })
 
+$('#dinamis-upload-file').change(() => {
+    $('#importForm').submit();
+})
+
 function updateTransaksi() {
     let id_transaksi = $('#id_transaksi').val();
     let id_anggota = $('#id_anggota_setoran').val();

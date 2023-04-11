@@ -39,6 +39,21 @@ Transaksi
   <p class="fw-bold">
     <span class="text-muted fw-light">Transaksi / </span> {{ $dinamis->nama }}
   </p>
+  <div class="d-flex flex-row justify-center align-items-center gap-3">
+    <button onclick="do_dl();" class="btn bg-lg btn-outline-dark btn-unduh-format d-flex gap-2 align-items-center w-max-content ml-auto">
+        Unduh Contoh Format Import Data
+        <i class="fa-solid fa-download"></i>
+    </button>
+    <form action="/transaksi/dinamis/importDinamis" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+    {{ csrf_field() }}
+      <input type="hidden" name="id_tagihan" value="{{ $dinamis->id_tagihan }}" />
+      <input type="file" name="file" id="dinamis-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      <label for="dinamis-upload-file" class="btn bg-lg btn-outline-primary btn-import-transaksi d-flex gap-2 align-items-center w-max-content ml-auto">
+          Import Transaksi {{ $dinamis->nama }}
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+      </label>
+    </form>
+  </div>
 </div>
 <div class="card card--pembayaran">
   <div class="card-body">

@@ -6,6 +6,7 @@ use Session;
 use App\Models\Anggota;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
+use App\Models\StrukturSekolah;
 use App\Models\Transaksi;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -35,6 +36,22 @@ class ImportTabunganGuru implements ToModel, WithStartRow
                 $anggota->nama = $row[2];
                 $anggota->tipe_anggota = 1;
                 $anggota->save();
+            }
+
+            if($row[3] && $row[3] != 'Guru'){
+                $jabatan = StrukturSekolah::where('jabatan', $row['3'])
+                    ->first();
+
+                if($jabatan){
+                    $jabatan->soft_delete = 0;
+                    $jabatan->id_anggota = $anggota->id_anggota;
+                }else{
+                    $jabatan = new StrukturSekolah();
+                    $jabatan->id_anggota = $anggota->id_anggota;
+                    $jabatan->jabatan = $row[3];
+                }
+
+                $jabatan->save();
             }
 
             $keuangan_sekolah = KeuanganSekolah::first();
