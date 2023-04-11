@@ -1,5 +1,20 @@
 $(document).ready(function () {
-  $('#transaksi-terakhir').DataTable({
+  $('#riwayat-transaksi-spp').DataTable({
+    "aaSorting": [],
+  });
+  $('#riwayat-transaksi-tabungan-siswa').DataTable({
+    "aaSorting": [],
+  });
+  $('#riwayat-transaksi-tabungan-guru').DataTable({
+    "aaSorting": [],
+  });
+  $('#riwayat-transaksi-pengajuan-penambahan').DataTable({
+    "aaSorting": [],
+  });
+  $('#riwayat-transaksi-pengajuan-keringanan').DataTable({
+    "aaSorting": [],
+  });
+  $('#riwayat-transaksi-pengeluaran').DataTable({
     "aaSorting": [],
   });
 

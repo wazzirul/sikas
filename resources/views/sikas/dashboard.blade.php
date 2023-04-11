@@ -142,7 +142,7 @@ Dashboard
         <div class="tab-pane fade show active" id="navs-pills-pembayaran-spp" role="tabpanel">
           @if(count($data_transaksi_spp) != 0)
           <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi">
+            <table class="table table-striped" id="riwayat-transaksi-spp">
               <thead>
                 <tr>
                   <th>Tanggal</th>
@@ -191,7 +191,7 @@ Dashboard
         <div class="tab-pane fade" id="navs-pills-tabungan-siswa" role="tabpanel">
           @if(count($data_tabungan_siswa) != 0)
           <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi">
+            <table class="table table-striped" id="riwayat-transaksi-tabungan-siswa">
               <thead>
                 <tr>
                   <th>Tanggal</th>
@@ -240,7 +240,7 @@ Dashboard
         <div class="tab-pane fade" id="navs-pills-tabungan-guru" role="tabpanel">
           @if(count($data_tabungan_guru) != 0)
           <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi">
+            <table class="table table-striped" id="riwayat-transaksi-tabungan-guru">
               <thead>
                 <tr>
                   <th>Tanggal</th>
@@ -289,7 +289,7 @@ Dashboard
         <div class="tab-pane fade" id="navs-pills-pengajuan-penambahan" role="tabpanel">
           @if(count($data_penambahan) != 0)
           <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi">
+            <table class="table table-striped" id="riwayat-transaksi-pengajuan-penambahan">
               <thead>
                 <tr>
                   <th>Tanggal</th>
@@ -336,7 +336,7 @@ Dashboard
         <div class="tab-pane fade" id="navs-pills-pengajuan-keringanan" role="tabpanel">
           @if(count($data_keringanan) != 0)
           <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi">
+            <table class="table table-striped" id="riwayat-transaksi-pengajuan-keringanan">
               <thead>
                 <tr>
                   <th>Tanggal</th>
@@ -383,7 +383,7 @@ Dashboard
         <div class="tab-pane fade" id="navs-pills-pengeluaran" role="tabpanel">
           @if(count($data_pengeluaran) != 0)
           <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi">
+            <table class="table table-striped" id="riwayat-transaksi-pengeluaran">
               <thead>
                 <tr>
                   <th>Tanggal</th>

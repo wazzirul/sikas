@@ -40,7 +40,7 @@ Transaksi
         Unduh Contoh Format Import Data
         <i class="fa-solid fa-download"></i>
     </button>
-    <form action="/transaksi/importTabunganSiswa" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
+    <form action="/transaksi/importTabunganUmum" id="importForm" class="form-upload-siswa" method="POST" enctype="multipart/form-data">
     {{ csrf_field() }}
       <input type="file" name="file" id="tabungan-upload-file" class="d-none" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
       <label for="tabungan-upload-file" class="btn bg-lg btn-outline-primary btn-import-transaksi d-flex gap-2 align-items-center w-max-content ml-auto">
@@ -69,70 +69,6 @@ Transaksi
           <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
         </div>
         <div class="cari-siswa">
-          <a href="#!" class="cari-siswa__item" data-id="${value.id_anggota}">
-            <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-              <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-              <div class="d-flex flex-column gap-1">
-                  <p class="text-bold cari-siswa__nama-siswa text-primary">Kelas XII OTR 3</p>
-                  <p class="text-bold color-neutral-100 nomor-siswa">0001</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <p class="kelas-siswa color-neutral-80">Jabatan / Kelas</p>
-              <p class="text-bold text-info">XII OTR 3</p>
-            </div>
-            <div href="#" class="cari-siswa__item-detail">
-              <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-            </div>
-          </a>
-          <a href="#!" class="cari-siswa__item" data-id="${value.id_anggota}">
-            <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-              <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-              <div class="d-flex flex-column gap-1">
-                  <p class="text-bold cari-siswa__nama-siswa text-primary">Masjid</p>
-                  <p class="text-bold color-neutral-100 nomor-siswa">0004</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <p class="kelas-siswa color-neutral-80">Jabatan / Kelas</p>
-              <p class="text-bold text-info">Umum</p>
-            </div>
-            <div href="#" class="cari-siswa__item-detail">
-              <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-            </div>
-          </a>
-          <a href="#!" class="cari-siswa__item" data-id="${value.id_anggota}">
-            <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-              <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-              <div class="d-flex flex-column gap-1">
-                  <p class="text-bold cari-siswa__nama-siswa text-primary">Kelas XI TKJ 2</p>
-                  <p class="text-bold color-neutral-100 nomor-siswa">0002</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <p class="kelas-siswa color-neutral-80">Jabatan / Kelas</p>
-              <p class="text-bold text-info">XI TKJ 2</p>
-            </div>
-            <div href="#" class="cari-siswa__item-detail">
-              <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-            </div>
-          </a>
-          <a href="#!" class="cari-siswa__item" data-id="${value.id_anggota}">
-            <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
-              <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
-              <div class="d-flex flex-column gap-1">
-                  <p class="text-bold cari-siswa__nama-siswa text-primary">Kelas X TKJ 2</p>
-                  <p class="text-bold color-neutral-100 nomor-siswa">0003</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column gap-1">
-              <p class="kelas-siswa color-neutral-80">Jabatan / Kelas</p>
-              <p class="text-bold text-info">X TKJ 2</p>
-            </div>
-            <div href="#" class="cari-siswa__item-detail">
-              <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
-            </div>
-          </a>
         </div>
       </div>
       <div class="horizontal-line"></div>
@@ -143,21 +79,21 @@ Transaksi
               <div class="d-flex flex-row gap-3 align-items-center detail-siswa__item-nama color-neutral-100">
                 <i class="fa-regular fa-user detail-siswa__icon"></i>
                 <div class="d-flex flex-column gap-1">
-                  <h5 class="text-bold color-neutral-100 detail-nama">Nama Tabungan</h5>
-                  <p class="nomor-siswa color-super-black detail-nis">-</p>
+                  <h5 class="text-bold color-neutral-100">Nama Tabungan</h5>
+                  <p class="nomor-siswa color-super-black detail-nama">-</p>
                 </div>
               </div>
               <div class="d-flex flex-column detail-siswa__status-siswa">
                 <p class="color-neutral-100">Jabatan / Kelas</p>
                 <p class="text-bold detail-status-siswa">
-                  <span class="text-success">-</span>
+                  <span class="text-success detail-keterangan">-</span>
                 </p>
               </div>
             </div>
             <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-3">
               <div class="d-flex flex-column gap-1">
                 <p class="color-neutral-80">No. Buku Tabungan</p>
-                <p class="text-bold color-neutral-100 detail-kelas">-</p>
+                <p class="text-bold color-neutral-100 detail-nomor">-</p>
               </div>
               <div class="d-flex flex-column gap-1 detail-siswa__total-tabungan">
                 <p class="color-neutral-80">Total Tabungan</p>
@@ -166,11 +102,11 @@ Transaksi
             </div>
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3">
-            <button class="btn btn-lg btn-outline-primary w-100 penarikan-button" data-bs-toggle="modal" data-bs-target="#modalPenarikan">
+            <button class="btn btn-lg btn-outline-primary w-100 penarikan-button disabled" data-bs-toggle="modal" data-bs-target="#modalPenarikan">
               Penarikan
               <i class="fa-solid fa-money-bill"></i>
             </button>
-            <button class="btn btn-lg btn-primary w-100 setoran-button" data-bs-toggle="modal" data-bs-target="#modalSetoran">
+            <button class="btn btn-lg btn-primary w-100 setoran-button disabled" data-bs-toggle="modal" data-bs-target="#modalSetoran">
               Setor Tabungan
               <i class="fa-solid fa-plus"></i>
             </button>
@@ -226,21 +162,21 @@ Transaksi
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form id="form-setor-tabungan" action="#" method="get">
+        <form id="form-tambah-tabungan" action="/transaksi/tabungan/tambahTabunganUmum" method="POST">
           {{ csrf_field() }}
           <div class="mt-5">
             <label for="nomorTabungan" class="form-label">Nomor Tabungan</label>
-            <input type="hidden" name="id_anggota" class="id_anggota_input" id="id_anggota_setoran" />
-            <input type="text" class="form-control" name="nominal" id="nomorTabungan" value="0005" disabled>
+            <input type="text" class="form-control" name="nomor_tabungan_disable" id="nomorTabungan" value="0001" disabled>
+            <input type="hidden" name="nomor_tabungan" id="nomor_tabungan">
           </div>
           <div class="mt-5">
             <label for="namaTabungan" class="form-label">Nama Tabungan</label>
-            <input type="text" class="form-control" name="nominal" id="namaTabungan" placeholder="Nama Tabungan...">
+            <input type="text" class="form-control" name="nama_tabungan" id="namaTabungan" placeholder="Nama Tabungan...">
           </div>
           <div class="mt-5">
             <label for="jabatanKelas" class="form-label">Jabatan / Kelas</label>
             <!-- AUTO COMPLETE DROPDOWN -->
-            <select id="jabatanKelas" class="selectpicker form-control choices-sikas">
+            <select id="jabatanKelas" name="keterangan" class="selectpicker form-control choices-sikas">
               <option value="Umum">Umum</option>
               <option value="Guru">Guru</option>
               <option value="XII OTR 1">XII OTR 1</option>
@@ -302,11 +238,11 @@ Transaksi
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form id="form-tarik-tabungan" action="/query/penarikanTabunganSiswa" method="POST">
+        <form id="form-tarik-tabungan" action="/query/penarikanTabunganUmum" method="POST">
           {{ csrf_field() }}
           <div class="mt-5">
             <label for="nominalPenarikan" class="form-label">Nominal Penarikan</label>
-            <input type="hidden" name="id_anggota" class="id_anggota_input" id="id_anggota_penarikan" />
+            <input type="hidden" name="id_tabungan_umum" class="id_tabungan_umum_input" id="id_tabungan_umum_penarikan" />
             <input type="hidden" id="session_admin" value="{{ Session::get('tipe_user') }}" />
             <input type="text" class="form-control" name="nominal" id="nominalPenarikan" placeholder="Rp. 0.00">
           </div>
@@ -332,11 +268,11 @@ Transaksi
             <i class="fa-solid fa-xmark icon"></i>
           </a>
         </div>
-        <form id="form-setor-tabungan" action="/query/setorTabunganSiswa" method="POST">
+        <form id="form-setor-tabungan" action="/query/setorTabunganUmum" method="POST">
           {{ csrf_field() }}
           <div class="mt-5">
             <label for="nominalTabungan" class="form-label">Nominal Tabungan</label>
-            <input type="hidden" name="id_anggota" class="id_anggota_input" id="id_anggota_setoran" />
+            <input type="hidden" name="id_tabungan_umum" class="id_tabungan_umum_input" id="id_tabungan_umum_setoran" />
             <input type="text" class="form-control" name="nominal" id="nominalTabungan" placeholder="Rp. 0.00">
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
@@ -517,4 +453,10 @@ Transaksi
     </div>
   </div>
 </div>
+
+<script>
+  let nomor_tabungan = String(@json($id_tabungan_umum)).padStart(4, '0');
+  document.getElementById('nomorTabungan').value = nomor_tabungan
+  document.getElementById('nomor_tabungan').value = nomor_tabungan
+</script>
 @endsection

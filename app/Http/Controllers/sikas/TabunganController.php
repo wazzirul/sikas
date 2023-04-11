@@ -8,6 +8,7 @@ use Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ImportTabunganSiswa;
 use App\Imports\ImportTabunganGuru;
+use App\Imports\ImportTabunganUmum;
 
 use App\Models\Anggota;
 use App\Models\Kelas;
@@ -16,6 +17,7 @@ use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
 use App\Models\PengajuanKeringanan;
 use App\Models\Transaksi;
+use App\Models\TabunganUmum;
 
 class TabunganController extends Controller
 {
@@ -126,7 +128,39 @@ class TabunganController extends Controller
 
     //TABUNGAN Umum 
     public function umum(){
-        return view('sikas.transaksi-pembayaran-tabungan-umum');
+        $tabungan_umum = TabunganUmum::orderBy('id_tabungan_umum', 'DESC')
+            ->select('id_tabungan_umum')
+            ->first();
+
+        if(!$tabungan_umum) $id_tabungan_umum = 1;
+        else $id_tabungan_umum = (int)$tabungan_umum->id_tabungan_umum + 1;
+
+        return view('sikas.transaksi-pembayaran-tabungan-umum', [
+            'id_tabungan_umum' => $id_tabungan_umum
+        ]);
+    }
+
+    public function tambahTabunganUmum(Request $request){
+        $nomor_tabungan = $request->input('nomor_tabungan');
+        $nama_tabungan = $request->input('nama_tabungan');
+        $keterangan = $request->input('keterangan');
+
+        $data = TabunganUmum::where('nomor_tabungan', $nomor_tabungan)
+            ->where('nama_tabungan', $nama_tabungan)
+            ->where('keterangan', $keterangan)
+            ->first();
+
+        if($data){
+            $data->soft_delete = 0;
+        }else{
+            $data = new TabunganUmum();
+            $data->nomor_tabungan = $nomor_tabungan;
+            $data->nama_tabungan = $nama_tabungan;
+            $data->keterangan = $keterangan;
+        }
+        $data->save();
+
+        return redirect('/transaksi/tabungan/umum');
     }
 
     public function importTabunganSiswa(Request $request){
@@ -139,5 +173,11 @@ class TabunganController extends Controller
 		Excel::import(new ImportTabunganGuru, $request->file('file')->store('files'));
 	
 		return redirect('/transaksi/tabungan/guru');
+	}
+
+    public function importTabunganUmum(Request $request){
+		Excel::import(new ImportTabunganUmum, $request->file('file')->store('files'));
+	
+		return redirect('/transaksi/tabungan/umum');
 	}
 }

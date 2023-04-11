@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('kode_transaksi');
             $table->unsignedInteger('id_anggota')->nullable();
             $table->foreign('id_anggota')->references('id_anggota')->on('anggota');
+            $table->unsignedInteger('id_tabungan_umum')->nullable();
+            $table->foreign('id_tabungan_umum')->references('id_tabungan_umum')->on('tabungan_umum');
             $table->smallInteger('tipe_transaksi');
             $table->string('nama_transaksi')->nullable();
             $table->unsignedInteger('id_tagihan')->nullable();

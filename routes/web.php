@@ -54,8 +54,10 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi/tabungan/siswa', [TabunganController::class, 'siswa'])->name('sikas-transaksi--tabungan-siswa');
     Route::get('/transaksi/tabungan/guru', [TabunganController::class, 'guru'])->name('sikas-transaksi--tabungan-guru');
     Route::get('/transaksi/tabungan/umum', [TabunganController::class, 'umum'])->name('sikas-transaksi--tabungan-umum');
+    Route::post('/transaksi/tabungan/tambahTabunganUmum', [TabunganController::class, 'tambahTabunganUmum'])->name('sikas-transaksi--tambah-tabungan-umum');
     Route::post('/transaksi/importTabunganSiswa', [TabunganController::class, 'importTabunganSiswa'])->name('sikas-transaksi--importtabungansiswa');
     Route::post('/transaksi/importTabunganGuru', [TabunganController::class, 'importTabunganGuru'])->name('sikas-transaksi--importtabunganguru');
+    Route::post('/transaksi/importTabunganUmum', [TabunganController::class, 'importTabunganUmum'])->name('sikas-transaksi--import-tabungan-umum');
     // Route::get('/transaksi/pemasukan', [Main::class, 'TransaksiPemasukan'])->name('sikas-transaksi--pemasukan');
     // Route::post('/transaksi/importPemasukan', [Main::class, 'importPemasukan'])->name('sikas-transaksi--importpemasukan');
     Route::get('/transaksi/pengeluaran', [Main::class, 'TransaksiPengeluaran'])->name('sikas-transaksi--pengeluaran');
@@ -112,9 +114,11 @@ Route::group(['middleware' => 'authsession'], function () {
     // Query
     Route::post('/query/dataSiswa', [QueryController::class, 'dataSiswa'])->name('sikas-query-datasiswa');
     Route::post('/query/dataGuru', [QueryController::class, 'dataGuru'])->name('sikas-query-dataguru');
+    Route::post('/query/dataTabunganUmum', [QueryController::class, 'dataTabunganUmum'])->name('sikas-query-data-tabungan-umum');
     Route::post('/query/siswaById', [QueryController::class, 'siswaById'])->name('sikas-query-siswabyid');
     Route::post('/query/siswaByFilter', [QueryController::class, 'siswaByFilter'])->name('sikas-query-siswabyfilter');
     Route::post('/query/guruById', [QueryController::class, 'guruById'])->name('sikas-query-gurubyid');
+    Route::post('/query/tabunganUmumById', [QueryController::class, 'tabunganUmumById'])->name('sikas-query-tabungan-umum-by-id');
     Route::post('/query/tellerById', [QueryController::class, 'tellerById'])->name('sikas-query-tellerbyid');
     Route::post('/query/strukturSekolahById', [QueryController::class, 'strukturSekolahById'])->name('sikas-query-struktursekolahbyid');
     Route::post('/query/jurusanById', [QueryController::class, 'jurusanById'])->name('sikas-query-jurusanbyid');
@@ -122,12 +126,18 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/setorTabunganSiswa', [QueryController::class, 'setorTabunganSiswa'])->name('sikas-query-setortabungansiswa');
     Route::post('/query/penarikanTabunganSiswa', [QueryController::class, 'penarikanTabunganSiswa'])->name('sikas-query-penarikantabungansiswa');
     Route::post('/query/approvePenarikanTabunganSiswa', [QueryController::class, 'approvePenarikanTabunganSiswa'])->name('sikas-query-approvepenarikantabungansiswa');
+    Route::post('/query/setorTabunganUmum', [QueryController::class, 'setorTabunganUmum'])->name('sikas-query-setor-tabungan-umum');
+    Route::post('/query/penarikanTabunganUmum', [QueryController::class, 'penarikanTabunganUmum'])->name('sikas-query-penarikan-tabungan-umum');
+    Route::post('/query/approvePenarikanTabunganUmum', [QueryController::class, 'approvePenarikanTabunganUmum'])->name('sikas-query-approve-penarikan-tabungan-umum');
     Route::post('/query/riwayatPembayaranSpp', [QueryController::class, 'riwayatPembayaranSpp'])->name('sikas-query-riwayatpembayaranspp');
     Route::post('/query/riwayatTabungan', [QueryController::class, 'riwayatTabungan'])->name('sikas-query-riwayattabungan');
+    Route::post('/query/riwayatTabunganUmum', [QueryController::class, 'riwayatTabunganUmum'])->name('sikas-query-riwayat-tabungan-umum');
     Route::post('/query/updateHistoryPembayaran', [QueryController::class, 'updateHistoryPembayaran'])->name('sikas-query-updatehistorypembayaran');
     Route::post('/query/deleteHistoryPembayaran', [QueryController::class, 'deleteHistoryPembayaran'])->name('sikas-query-deletehistorypembayaran');
     Route::post('/query/updateHistoryTabungan', [QueryController::class, 'updateHistoryTabungan'])->name('sikas-query-updatehistorytabungan');
     Route::post('/query/deleteHistoryTabungan', [QueryController::class, 'deleteHistoryTabungan'])->name('sikas-query-deletehistorytabungan');
+    Route::post('/query/updateHistoryTabunganUmum', [QueryController::class, 'updateHistoryTabunganUmum'])->name('sikas-query-update-history-tabungan-umum');
+    Route::post('/query/deleteHistoryTabunganUmum', [QueryController::class, 'deleteHistoryTabunganUmum'])->name('sikas-query-delete-history-tabungan-umum');
     Route::post('/query/pengeluaran', [QueryController::class, 'pengeluaran'])->name('sikas-query-pengeluaran');
     Route::post('/query/approvePengeluaran', [QueryController::class, 'approvePengeluaran'])->name('sikas-query-approvepengeluaran');
     Route::post('/query/updatePengeluaran', [QueryController::class, 'updatePengeluaran'])->name('sikas-query-updatepengeluaran');

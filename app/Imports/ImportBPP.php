@@ -372,6 +372,11 @@ class ImportBPP implements ToModel, WithStartRow
                         }
                     }
 
+                    if($row[$index_bulan] == "Keluar" || $row[$index_bulan] == "keluar" || $row[$index_bulan] == "KELUAR"){
+                        $siswa->alumni = 2;
+                        $siswa->save();
+                    }
+
                     $index_bulan++;
                 }
 
@@ -474,6 +479,11 @@ class ImportBPP implements ToModel, WithStartRow
                             $transaksi_baru->save();
                             $banyak_bulan_dibayar = 0;
                         }
+                    }
+
+                    if($row[$index_bulan] == "Keluar" || $row[$index_bulan] == "keluar" || $row[$index_bulan] == "KELUAR"){
+                        $siswa->alumni = 2;
+                        $siswa->save();
                     }
 
                     $index_bulan += 1;

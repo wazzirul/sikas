@@ -11,7 +11,6 @@ use App\Models\Tagihan;
 use App\Models\Jurusan;
 use App\Models\HistoryTagihanBulanan;
 use App\Models\Transaksi;
-use App\Models\BridgeHistoryBulan;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 

@@ -20,6 +20,7 @@ use App\Models\Jurusan;
 use App\Models\Tagihan;
 use App\Models\Kelas;
 use App\Models\User;
+use App\Models\TabunganUmum;
 use App\Models\BridgeHistoryBulan;
 use Carbon\Carbon as Carbon;
 
@@ -77,6 +78,23 @@ class QueryController extends Controller
         return response($anggota, 200);
     }
 
+    public function dataTabunganUmum(Request $request)
+    {
+        $search = $request->input('search');
+        $limit = $request->input('limit');
+        $tabungan_umum = TabunganUmum::where(function ($query) use ($search) {
+            $query->where('nomor_tabungan', 'LIKE', '%' . $search . '%');
+            $query->orWhere('nama_tabungan', 'LIKE', '%' . $search . '%');
+            $query->orWhere('keterangan', 'LIKE', '%' . $search . '%');
+        })
+            ->inRandomOrder()
+            ->where('soft_delete', 0)
+            ->limit($limit)
+            ->get();
+
+        return response($tabungan_umum, 200);
+    }
+
     public function siswaById(Request $request)
     {
         $id = $request->input('id');
@@ -115,6 +133,15 @@ class QueryController extends Controller
             ->first();
 
         return response($anggota, 200);
+    }
+
+    public function tabunganUmumById(Request $request)
+    {
+        $id = $request->input('id');
+        $tabungan_umum = TabunganUmum::where('id_tabungan_umum', $id)
+            ->first();
+
+        return response($tabungan_umum, 200);
     }
 
     public function tellerById(Request $request)
@@ -725,6 +752,7 @@ class QueryController extends Controller
 
         return response($data, 200);
     }
+    
 
     public function penarikanTabunganSiswa(Request $request)
     {
@@ -835,6 +863,149 @@ class QueryController extends Controller
         return response($transaksi, 200);
     }
 
+    public function setorTabunganUmum(Request $request)
+    {
+        $id_tabungan_umum = $request->input('id_tabungan_umum');
+        $nominal = $request->input('nominal');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+        $tabungan_umum = TabunganUmum::where('id_tabungan_umum', $id_tabungan_umum)->first();
+
+        $transaksi = new Transaksi();
+        $transaksi->id_admin = Session::get('id_user');
+        $transaksi->nomor_transaksi = '002000' . date('dmY');
+        $transaksi->kode_transaksi = 'TBNGNU-UMUM-' . $id_tabungan_umum . '-' . date('hi-dmY');
+        $transaksi->nama_transaksi = 'Setoran Tabungan';
+        $transaksi->id_tabungan_umum = $id_tabungan_umum;
+        $transaksi->tipe_transaksi = 2;
+        $transaksi->jumlah = (int)$nominal;
+
+        $keuangan_sekolah = KeuanganSekolah::first();
+        if (!$keuangan_sekolah) {
+            $keuangan_sekolah = new KeuanganSekolah();
+            $keuangan_sekolah->pemasukan = $nominal;
+            $keuangan_sekolah->total = $nominal;
+        } else {
+            $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan + (int)$nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$nominal;
+        }
+
+        $tabungan_anggota = $tabungan_umum->tabungan ?? 0;
+        $tabungan_umum->tabungan = (int)$tabungan_anggota + (int)$nominal;
+        $transaksi->mutasi = (int)$tabungan_anggota + (int)$nominal;
+
+        $transaksi->save();
+        $keuangan_sekolah->save();
+        $tabungan_umum->save();
+
+        $data['tanggal'] = Carbon::now()->format('l, d F Y');
+        $data['tabungan'] = $tabungan_umum;
+        $data['transaksi'] = $transaksi;
+        $data['kasir'] = Session::get('nama');
+
+        return response($data, 200);
+    }
+    
+
+    public function penarikanTabunganUmum(Request $request)
+    {
+        $id_tabungan_umum = $request->input('id_tabungan_umum');
+        $nominal = $request->input('nominal');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+        $tabungan_umum = TabunganUmum::where('id_tabungan_umum', $id_tabungan_umum)->first();
+
+        $transaksi = new Transaksi();
+        $transaksi->id_admin = Session::get('id_user');
+        $transaksi->nomor_transaksi = '003000' . date('dmY');
+        $transaksi->kode_transaksi = 'TBNGN-UMUM-' . $id_tabungan_umum . '-' . date('hi-dmY');
+        $transaksi->nama_transaksi = 'Penarikan Tabungan';
+        $transaksi->id_tabungan_umum = $id_tabungan_umum;
+        $transaksi->tipe_transaksi = 3;
+        $transaksi->jumlah = (int)$nominal;
+
+        if(Session::get('tipe_user') == 1){
+            $keuangan_sekolah = KeuanganSekolah::first();
+            if (!$keuangan_sekolah) {
+                $keuangan_sekolah = new KeuanganSekolah();
+                $keuangan_sekolah->pengeluaran = $nominal;
+                $keuangan_sekolah->total = 0 - $nominal;
+            } else {
+                $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal;
+            }
+    
+            $tabungan_anggota = $tabungan_umum->tabungan ?? 0;
+            $tabungan_umum->tabungan = (int)$tabungan_anggota - (int)$nominal;
+            $transaksi->mutasi = (int)$tabungan_anggota - (int)$nominal;
+
+            $transaksi->approved = 1;
+
+            $keuangan_sekolah->save();
+            $tabungan_umum->save();
+        }else{
+            $tabungan_anggota = $tabungan_umum->tabungan ?? 0;
+            $transaksi->mutasi = (int)$tabungan_anggota - (int)$nominal;
+
+            $transaksi->approved = 0;
+        }
+
+        $transaksi->save();
+
+        $data['tanggal'] = Carbon::now()->format('l, d F Y');
+        $data['tabungan'] = $tabungan_umum;
+        $data['transaksi'] = $transaksi;
+        $data['kasir'] = Session::get('nama');
+
+        return response($data, 200);
+    }
+
+    public function approvePenarikanTabunganUmum(Request $request)
+    {
+        $id_transaksi = $request->input('id_transaksi');
+        $id_tabungan_umum = $request->input('id_tabungan_umum');
+        $tabungan_umum = TabunganUmum::where('id_tabungan_umum', $id_tabungan_umum)->first();
+        $transaksi = Transaksi::find($id_transaksi);
+        $nominal = (int)$transaksi->jumlah;
+        
+        $keuangan_sekolah = KeuanganSekolah::first();
+        if (!$keuangan_sekolah) {
+            $keuangan_sekolah = new KeuanganSekolah();
+            $keuangan_sekolah->pengeluaran = $nominal;
+            $keuangan_sekolah->total = 0 - $nominal;
+        } else {
+            $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$nominal;
+            $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$nominal;
+        }
+
+        $tabungan_anggota = $tabungan_umum->tabungan ?? 0;
+        $tabungan_umum->tabungan = (int)$tabungan_anggota - (int)$nominal;
+
+        $transaksi->approved = 1;
+
+        $keuangan_sekolah->save();
+        $tabungan_umum->save();
+        $transaksi->save();
+
+        // HISTORY
+        $history = Transaksi::where('id_tabungan_umum', $id_tabungan_umum)
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->where('id_transaksi', '>', $id_transaksi)
+            ->where('soft_delete', 0)
+            ->get();
+
+        foreach ($history as $h) {
+            $mutasi_lama = $h->mutasi;
+            $h->mutasi = (int)$mutasi_lama - (int)$nominal;
+            $h->save();
+        }
+
+        return response($transaksi, 200);
+    }
+
     public function riwayatPembayaranSpp(Request $request)
     {
         $id_anggota = $request->input('id_anggota');
@@ -852,6 +1023,20 @@ class QueryController extends Controller
     {
         $id_anggota = $request->input('id_anggota');
         $transaksi = Transaksi::where('id_anggota', $id_anggota)
+            ->where('soft_delete', 0)
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->with('Admin')
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+
+        return response($transaksi, 200);
+    }
+
+    public function riwayatTabunganUmum(Request $request)
+    {
+        $id_tabungan_umum = $request->input('id_tabungan_umum');
+        $transaksi = Transaksi::where('id_tabungan_umum', $id_tabungan_umum)
             ->where('soft_delete', 0)
             ->where('tipe_transaksi', '>=', 2)
             ->where('tipe_transaksi', '<=', 3)
@@ -1035,6 +1220,7 @@ class QueryController extends Controller
 
         return response($transaksi, 200);
     }
+    
 
     public function deleteHistoryTabungan(Request $request)
     {
@@ -1057,6 +1243,141 @@ class QueryController extends Controller
 
         // HISTORY
         $history = Transaksi::where('id_anggota', $id_anggota)
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->where('id_transaksi', '>', $id_transaksi)
+            ->where('soft_delete', 0)
+            ->get();
+
+        foreach ($history as $h) {
+            $mutasi_lama = $h->mutasi;
+            if ((int)$transaksi->tipe_transaksi == 2) {
+                $h->mutasi = (int)$mutasi_lama - (int)$nominal_awal;
+            } else {
+                $h->mutasi = (int)$mutasi_lama + (int)$nominal_awal;
+            }
+            $h->save();
+        }
+
+        return response($transaksi, 200);
+    }
+
+    public function updateHistoryTabunganUmum(Request $request)
+    {
+        $id_transaksi = $request->input('id_transaksi');
+        $id_tabungan_umum = $request->input('id_tabungan_umum');
+        $nominal = $request->input('nominal');
+        $nominal = str_replace('Rp', '', $nominal);
+        $nominal = str_replace('.', '', $nominal);
+        $nominal = str_replace(' ', '', $nominal);
+
+        $transaksi = Transaksi::find($id_transaksi);
+        $nominal_awal = $transaksi->jumlah;
+        $keuangan_sekolah = KeuanganSekolah::first();
+        $tabungan_umum = TabunganUmum::where('id_tabungan_umum', $transaksi->id_tabungan_umum)->first();
+        $selisih_nominal = 0;
+        $validasi_nominal;
+
+        if ((int)$nominal_awal >= (int)$nominal) {
+            $selisih_nominal = (int)$nominal_awal - (int)$nominal;
+            $tabungan_awal = $tabungan_umum->tabungan;
+            $mutasi_awal = $transaksi->mutasi;
+            $transaksi->jumlah = $nominal;
+            if ((int)$transaksi->tipe_transaksi == 2) {
+                $tabungan_umum->tabungan = (int)$tabungan_awal - (int)$selisih_nominal;
+                $transaksi->mutasi = (int)$mutasi_awal - (int)$selisih_nominal;
+                $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan - (int)$selisih_nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
+            } else {
+                $transaksi->mutasi = (int)$mutasi_awal + (int)$selisih_nominal;
+                if(Session::get('tipe_user') == 1){
+                    $tabungan_umum->tabungan = (int)$tabungan_awal + (int)$selisih_nominal;
+                    $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran + (int)$selisih_nominal;
+                    $keuangan_sekolah->total = (int)$keuangan_sekolah->total - (int)$selisih_nominal;
+                    $transaksi->approved = 1;
+                }else{
+                    $transaksi->approved = 0;
+                }
+            }
+            $validasi_nominal = 'besar';
+        } else {
+            $selisih_nominal = (int)$nominal - (int)$nominal_awal;
+            $tabungan_awal = $tabungan_umum->tabungan;
+            $mutasi_awal = $transaksi->mutasi;
+            $transaksi->jumlah = $nominal;
+            if ((int)$transaksi->tipe_transaksi == 2) {
+                $tabungan_umum->tabungan = (int)$tabungan_awal + (int)$selisih_nominal;
+                $transaksi->mutasi = (int)$mutasi_awal + (int)$selisih_nominal;
+                $keuangan_sekolah->pemasukan = (int)$keuangan_sekolah->pemasukan + (int)$selisih_nominal;
+                $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
+            } else {
+                $transaksi->mutasi = (int)$mutasi_awal - (int)$selisih_nominal;
+                if(Session::get('tipe_user') == 1){
+                    $tabungan_umum->tabungan = (int)$tabungan_awal - (int)$selisih_nominal;
+                    $keuangan_sekolah->pengeluaran = (int)$keuangan_sekolah->pengeluaran - (int)$selisih_nominal;
+                    $keuangan_sekolah->total = (int)$keuangan_sekolah->total + (int)$selisih_nominal;
+                    $transaksi->approved = 1;
+                }else{
+                    $transaksi->approved = 0;
+                }
+            }
+            $validasi_nominal = 'kecil';
+        }
+
+        $transaksi->save();
+        $tabungan_umum->save();
+
+        // HISTORY
+        $history = Transaksi::where('id_tabungan_umum', $id_tabungan_umum)
+            ->where('tipe_transaksi', '>=', 2)
+            ->where('tipe_transaksi', '<=', 3)
+            ->where('id_transaksi', '>', $id_transaksi)
+            ->where('soft_delete', 0)
+            ->get();
+
+        foreach ($history as $h) {
+            $mutasi_lama = $h->mutasi;
+            if ((int)$transaksi->tipe_transaksi == 2) {
+                if ($validasi_nominal == 'besar') {
+                    $h->mutasi = (int)$mutasi_lama - (int)$selisih_nominal;
+                } else {
+                    $h->mutasi = (int)$mutasi_lama + (int)$selisih_nominal;
+                }
+            } else {
+                if ($validasi_nominal == 'besar') {
+                    $h->mutasi = (int)$mutasi_lama + (int)$selisih_nominal;
+                } else {
+                    $h->mutasi = (int)$mutasi_lama - (int)$selisih_nominal;
+                }
+            }
+            $h->save();
+        }
+
+        return response($transaksi, 200);
+    }
+    
+
+    public function deleteHistoryTabunganUmum(Request $request)
+    {
+        $id_transaksi = $request->input('id_transaksi');
+        $id_tabungan_umum = $request->input('id_tabungan_umum');
+        $transaksi = Transaksi::find($id_transaksi);
+        $tabungan_umum = TabunganUmum::where('id_tabungan_umum', $transaksi->id_tabungan_umum)->first();
+
+        $nominal_awal = $transaksi->jumlah;
+        $tabungan_awal = $tabungan_umum->tabungan;
+        if ((int)$transaksi->tipe_transaksi == 2) {
+            $tabungan_umum->tabungan = (int)$tabungan_awal - (int)$nominal_awal;
+        } else {
+            if($transaksi->approved == 1) $tabungan_umum->tabungan = (int)$tabungan_awal + (int)$nominal_awal;
+        }
+        $transaksi->soft_delete = 1;
+
+        $transaksi->save();
+        $tabungan_umum->save();
+
+        // HISTORY
+        $history = Transaksi::where('id_tabungan_umum', $id_tabungan_umum)
             ->where('tipe_transaksi', '>=', 2)
             ->where('tipe_transaksi', '<=', 3)
             ->where('id_transaksi', '>', $id_transaksi)
