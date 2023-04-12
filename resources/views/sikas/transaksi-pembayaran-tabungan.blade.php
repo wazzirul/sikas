@@ -73,7 +73,7 @@
         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-siswa" aria-controls="navs-pills-tabungan-siswa" aria-selected="true">Tabungan Siswa</button>
       </li>
       <li class="nav-item">
-        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-guru" aria-controls="navs-pills-tabungan-guru" aria-selected="false">Tabungan Guru</button>
+        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-guru" aria-controls="navs-pills-tabungan-guru" aria-selected="false">Tabungan Umum</button>
       </li>
     </ul>
     <div class="tab-content">
@@ -135,10 +135,10 @@
               <tr>
                 <th>Tanggal</th>
                 <th>Nama Teller</th>
-                <th>NIP</th>
-                <th>Nama Guru</th>
+                <th>Nomor Tabungan</th>
+                <th>Nama Tabungan</th>
                 <th>Nominal</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
               </tr>
             </thead>
             <tbody id="tbody-tabungan-guru">
@@ -148,21 +148,21 @@
                   <p>{{ \Carbon\Carbon::parse($tg->tanggal)->translatedFormat('F, d Y') }}</p>
                 </td>
                 <td class="text-medium color-neutral-100">{{ $tg->Admin->nama }}</td>
-                <td class="text-medium color-neutral-100">{{ $tg->Anggota->nip }}</td>
+                <td class="text-medium color-neutral-100">{{ $tg->TabunganUmum->nomor_tabungan }}</td>
                 <td>
-                  <p class="text-medium text-black">{{ $tg->Anggota->nama }} 'Jabatan {{ $tg->Anggota->Jabatan != null ? $tg->Anggota->Jabatan->nama : "Guru" }}'</p>
+                  <p class="text-medium text-black">{{ $tg->TabunganUmum->nama_tabungan }}</p>
                 </td>
                 <td>
                   <p class="text-bold text-black jumlah-pembayaran">{{ $tg->jumlah }}</p>
                 </td>
-                <td>
+                <!-- <td>
                   <div class="d-flex align-items-center justify-content-start gap-3">
-                    <a href="/transaksi/history-transaksi-siswa/detail/{{ $tg->Anggota->id_anggota }}" class="table__link-detail d-flex align-items-center gap-2">
+                    <a href="/transaksi/tabungan/umum" class="table__link-detail d-flex align-items-center gap-2">
                       Lihat Detail
                       <i class="fa-solid fa-eye"></i>
                     </a>
                   </div>
-                </td>
+                </td> -->
               </tr>
               @endforeach
             </tbody>
@@ -171,8 +171,8 @@
         @else
         <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state-guru">
           <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
-          <h4 class="text-bold color-neutral-100">Data Tabungan Guru Kosong</h4>
-          <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan guru.</p>
+          <h4 class="text-bold color-neutral-100">Data Tabungan Umum Kosong</h4>
+          <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan umum.</p>
         </div>
         @endif
       </div>
