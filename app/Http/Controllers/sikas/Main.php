@@ -35,6 +35,7 @@ class Main extends Controller
       ->where('soft_delete', 0)
       ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_transaksi', 'DESC')
+      ->limit(200)
       ->get();
 
     $tabungan_siswa = Transaksi::where('tipe_transaksi', 2)
@@ -56,6 +57,7 @@ class Main extends Controller
       ->where('soft_delete', 0)
       ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_transaksi', 'DESC')
+      ->limit(200)
       ->get();
 
     $tabungan_guru = Transaksi::where('tipe_transaksi', 2)
@@ -77,6 +79,7 @@ class Main extends Controller
       ->where('soft_delete', 0)
       ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_transaksi', 'DESC')
+      ->limit(200)
       ->get();
 
     $keringanan = PengajuanKeringanan::where('soft_delete', 0)
@@ -88,6 +91,7 @@ class Main extends Controller
       ->with('Anggota.Kelas', 'Anggota.Jurusan')
       ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_pengajuan_keringanan', 'DESC')
+      ->limit(200)
       ->get();
 
     $penambahan = PengajuanPenambahan::where('soft_delete', 0)
@@ -99,6 +103,7 @@ class Main extends Controller
       ->with('Anggota.Kelas', 'Anggota.Jurusan')
       ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_pengajuan_penambahan', 'DESC')
+      ->limit(200)
       ->get();
 
     $pengeluaran = Transaksi::where('tipe_transaksi', '>=', 3)
@@ -114,6 +119,7 @@ class Main extends Controller
       ->with('Admin')
       ->where('id_admin', Session::get('id_user'))
       ->orderBy('id_transaksi', 'DESC')
+      ->limit(200)
       ->get();
 
     return view('sikas.dashboard', [
