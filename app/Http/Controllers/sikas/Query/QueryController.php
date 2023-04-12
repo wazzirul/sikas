@@ -438,8 +438,6 @@ class QueryController extends Controller
         if($month_now > 6) $tahun_ajaran = $carbon_now->copy()->year.'-'.$carbon_now->addYears(1)->year;
         else $tahun_ajaran = $carbon_now->copy()->subYears(1)->year.'-'.$carbon_now->copy()->year;
 
-
-
         if($keuangan_anggota->tipe_tagihan == 2){
             $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                 ->where('bulan', '!=', 'null')
@@ -457,12 +455,23 @@ class QueryController extends Controller
                 ->where('tahun_ajaran', $tahun_ajaran)
                 ->count();
 
+            $tagihan_perbulan_awal = round((int)$keuangan_anggota->tagihan_pertama / 12);
+            HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->update([
+                    'jumlah' => $tagihan_perbulan_awal,
+                ]);
+
             $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
             HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                 ->where('bulan', '!=', 'null')
                 ->where('prefix_tagihan', null)
                 ->where('soft_delete', 0)
                 ->where('status', 0)
+                ->where('tahun_ajaran', $tahun_ajaran)
                 ->update([
                     'jumlah' => $tagihan_perbulan,
                 ]);
@@ -516,6 +525,9 @@ class QueryController extends Controller
         $pengajuan->save();
         $keuangan_anggota->save();
 
+        if($month_now > 6) $tahun_ajaran = $carbon_now->copy()->year.'-'.$carbon_now->addYears(1)->year;
+        else $tahun_ajaran = $carbon_now->copy()->subYears(1)->year.'-'.$carbon_now->copy()->year;
+
         if($keuangan_anggota->tipe_tagihan == 2){
             $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                 ->where('bulan', '!=', 'null')
@@ -533,12 +545,23 @@ class QueryController extends Controller
                 ->where('tahun_ajaran', $tahun_ajaran)
                 ->count();
 
+            $tagihan_perbulan_awal = round((int)$keuangan_anggota->tagihan_pertama / 12);
+            HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->update([
+                    'jumlah' => $tagihan_perbulan_awal,
+                ]);
+
             $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
             HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                 ->where('bulan', '!=', 'null')
                 ->where('prefix_tagihan', null)
                 ->where('soft_delete', 0)
                 ->where('status', 0)
+                ->where('tahun_ajaran', $tahun_ajaran)
                 ->update([
                     'jumlah' => $tagihan_perbulan,
                 ]);
@@ -595,6 +618,9 @@ class QueryController extends Controller
             }
             $keuangan_anggota->save();
 
+            if($month_now > 6) $tahun_ajaran = $carbon_now->copy()->year.'-'.$carbon_now->addYears(1)->year;
+            else $tahun_ajaran = $carbon_now->copy()->subYears(1)->year.'-'.$carbon_now->copy()->year;
+
             if($keuangan_anggota->tipe_tagihan == 2){
                 $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
@@ -603,7 +629,7 @@ class QueryController extends Controller
                     ->select('tahun_ajaran')
                     ->distinct()
                     ->get();
-    
+
                 $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
                     ->where('prefix_tagihan', null)
@@ -611,13 +637,24 @@ class QueryController extends Controller
                     ->where('status', 0)
                     ->where('tahun_ajaran', $tahun_ajaran)
                     ->count();
-    
+
+                $tagihan_perbulan_awal = round((int)$keuangan_anggota->tagihan_pertama / 12);
+                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->update([
+                        'jumlah' => $tagihan_perbulan_awal,
+                    ]);
+
                 $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
                 HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
                     ->where('prefix_tagihan', null)
                     ->where('soft_delete', 0)
                     ->where('status', 0)
+                    ->where('tahun_ajaran', $tahun_ajaran)
                     ->update([
                         'jumlah' => $tagihan_perbulan,
                     ]);
@@ -681,6 +718,9 @@ class QueryController extends Controller
             $pengajuan->save();
             $keuangan_anggota->save();
 
+            if($month_now > 6) $tahun_ajaran = $carbon_now->copy()->year.'-'.$carbon_now->addYears(1)->year;
+            else $tahun_ajaran = $carbon_now->copy()->subYears(1)->year.'-'.$carbon_now->copy()->year;
+
             if($keuangan_anggota->tipe_tagihan == 2){
                 $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
@@ -689,7 +729,7 @@ class QueryController extends Controller
                     ->select('tahun_ajaran')
                     ->distinct()
                     ->get();
-    
+
                 $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
                     ->where('prefix_tagihan', null)
@@ -697,13 +737,24 @@ class QueryController extends Controller
                     ->where('status', 0)
                     ->where('tahun_ajaran', $tahun_ajaran)
                     ->count();
-    
+
+                $tagihan_perbulan_awal = round((int)$keuangan_anggota->tagihan_pertama / 12);
+                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->update([
+                        'jumlah' => $tagihan_perbulan_awal,
+                    ]);
+
                 $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
                 HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
                     ->where('prefix_tagihan', null)
                     ->where('soft_delete', 0)
                     ->where('status', 0)
+                    ->where('tahun_ajaran', $tahun_ajaran)
                     ->update([
                         'jumlah' => $tagihan_perbulan,
                     ]);
@@ -746,6 +797,9 @@ class QueryController extends Controller
             $pengajuan->save();
             $keuangan_anggota->save();
 
+            if($month_now > 6) $tahun_ajaran = $carbon_now->copy()->year.'-'.$carbon_now->addYears(1)->year;
+            else $tahun_ajaran = $carbon_now->copy()->subYears(1)->year.'-'.$carbon_now->copy()->year;
+
             if($keuangan_anggota->tipe_tagihan == 2){
                 $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
@@ -754,7 +808,7 @@ class QueryController extends Controller
                     ->select('tahun_ajaran')
                     ->distinct()
                     ->get();
-    
+
                 $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
                     ->where('prefix_tagihan', null)
@@ -762,13 +816,24 @@ class QueryController extends Controller
                     ->where('status', 0)
                     ->where('tahun_ajaran', $tahun_ajaran)
                     ->count();
-    
+
+                $tagihan_perbulan_awal = round((int)$keuangan_anggota->tagihan_pertama / 12);
+                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->update([
+                        'jumlah' => $tagihan_perbulan_awal,
+                    ]);
+
                 $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
                 HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
                     ->where('prefix_tagihan', null)
                     ->where('soft_delete', 0)
                     ->where('status', 0)
+                    ->where('tahun_ajaran', $tahun_ajaran)
                     ->update([
                         'jumlah' => $tagihan_perbulan,
                     ]);
@@ -800,6 +865,9 @@ class QueryController extends Controller
             $pengajuan->save();
             $keuangan_anggota->save();
 
+            if($month_now > 6) $tahun_ajaran = $carbon_now->copy()->year.'-'.$carbon_now->addYears(1)->year;
+            else $tahun_ajaran = $carbon_now->copy()->subYears(1)->year.'-'.$carbon_now->copy()->year;
+
             if($keuangan_anggota->tipe_tagihan == 2){
                 $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
@@ -808,7 +876,7 @@ class QueryController extends Controller
                     ->select('tahun_ajaran')
                     ->distinct()
                     ->get();
-    
+
                 $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
                     ->where('prefix_tagihan', null)
@@ -816,13 +884,24 @@ class QueryController extends Controller
                     ->where('status', 0)
                     ->where('tahun_ajaran', $tahun_ajaran)
                     ->count();
-    
+
+                $tagihan_perbulan_awal = round((int)$keuangan_anggota->tagihan_pertama / 12);
+                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->update([
+                        'jumlah' => $tagihan_perbulan_awal,
+                    ]);
+
                 $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
                 HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                     ->where('bulan', '!=', 'null')
                     ->where('prefix_tagihan', null)
                     ->where('soft_delete', 0)
                     ->where('status', 0)
+                    ->where('tahun_ajaran', $tahun_ajaran)
                     ->update([
                         'jumlah' => $tagihan_perbulan,
                     ]);
