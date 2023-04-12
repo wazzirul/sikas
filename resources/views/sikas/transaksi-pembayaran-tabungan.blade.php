@@ -42,7 +42,7 @@
       <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Siswa</h5>
     </div>
   </div>
-  <div class="card">
+  <!-- <div class="card">
     <div class="card-body">
       <a href="{{route('sikas-transaksi--tabungan-guru')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
         <div class="jenis-pembayaran__icon-wrap">
@@ -52,7 +52,7 @@
       </a>
       <h5 class="text-bold color-black mt-5">Pembayaran Tabungan Guru</h5>
     </div>
-  </div>
+  </div> -->
   <div class="card">
     <div class="card-body">
       <a href="{{route('sikas-transaksi--tabungan-umum')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
