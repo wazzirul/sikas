@@ -6,6 +6,7 @@ use Session;
 use App\Models\KeuanganSekolah;
 use App\Models\Transaksi;
 use App\Models\TabunganUmum;
+use App\Models\StrukturSekolah;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
@@ -23,7 +24,7 @@ class ImportTabunganUmum implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[2] && $row[3] && $row[4]){
+        if($row[2] && $row[3]){
             if($row[1] == "" || $row[1] == "0") $row[1] = "-"; 
             $tabungan_umum = TabunganUmum::where('nama_tabungan', $row[2])
                 ->where('keterangan', $row[3])
@@ -56,6 +57,18 @@ class ImportTabunganUmum implements ToModel, WithStartRow
             $tabungan_umum->nama_tabungan = $row[2];
             $tabungan_umum->keterangan = $row[3];
             $tabungan_umum->save();
+
+            $jabatan = StrukturSekolah::where('jabatan', $row['3'])
+                ->first();
+
+            if($jabatan){
+                $jabatan->soft_delete = 0;
+            }else{
+                $jabatan = new StrukturSekolah();
+                $jabatan->jabatan = $row[3];
+            }
+
+            $jabatan->save();
             
             $tabungan_lama = (int)$tabungan_umum->tabungan;
             $tabungan_baru = $row[4];
@@ -63,6 +76,8 @@ class ImportTabunganUmum implements ToModel, WithStartRow
             $tabungan_baru = str_replace('rp', '', $tabungan_baru);
             $tabungan_baru = str_replace('.', '', $tabungan_baru);
             $tabungan_baru = str_replace(' ', '', $tabungan_baru);
+            $tabungan_baru = str_replace('-', '', $tabungan_baru);
+            if($tabungan_baru == "") $tabungan_baru = 0;
             $tabungan_baru = (int)$tabungan_baru;
 
             $tabungan_umum->tabungan = $tabungan_baru;

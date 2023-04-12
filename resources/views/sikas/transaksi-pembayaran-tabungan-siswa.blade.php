@@ -141,11 +141,6 @@ Transaksi
               <i class="fa-solid fa-plus"></i>
             </button>
           </div>
-          <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
-            <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">
-            <h4 class="text-bold color-neutral-100">Belum Ada Siswa yang Dipilih</h4>
-            <p class="color-neutral-80">Lakukan pencarian / pilih salah satu data siswa.</p>
-          </div>
         </div>
       </div>
     </div>
