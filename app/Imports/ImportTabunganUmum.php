@@ -23,7 +23,7 @@ class ImportTabunganUmum implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[2] && $row[3] && $row[7]){
+        if($row[2] && $row[3] && $row[4]){
             if($row[1] == "" || $row[1] == "0") $row[1] = "-"; 
             $tabungan_umum = TabunganUmum::where('nama_tabungan', $row[2])
                 ->where('keterangan', $row[3])
@@ -58,7 +58,7 @@ class ImportTabunganUmum implements ToModel, WithStartRow
             $tabungan_umum->save();
             
             $tabungan_lama = (int)$tabungan_umum->tabungan;
-            $tabungan_baru = $row[7];
+            $tabungan_baru = $row[4];
             $tabungan_baru = str_replace('Rp', '', $tabungan_baru);
             $tabungan_baru = str_replace('rp', '', $tabungan_baru);
             $tabungan_baru = str_replace('.', '', $tabungan_baru);

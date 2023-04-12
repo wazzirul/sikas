@@ -94,6 +94,8 @@ class ImportDinamis implements ToModel, WithStartRow
             $nominal = str_replace('Rp', '', $nominal);
             $nominal = str_replace('.', '', $nominal);
             $nominal = str_replace(' ', '', $nominal);
+            $nominal = str_replace('-', '', $nominal);
+            if($nominal == "") $nominal = 0;
 
             $master_tagihan = Tagihan::find($id_tagihan);
 
@@ -111,11 +113,6 @@ class ImportDinamis implements ToModel, WithStartRow
                 $history_tagihan->save();
             }
 
-            $nominal_akhir = $row[9];
-            $nominal_akhir = str_replace('Rp', '', $nominal_akhir);
-            $nominal_akhir = str_replace('.', '', $nominal_akhir);
-            $nominal_akhir = str_replace(' ', '', $nominal_akhir);
-
             Transaksi::where('id_tagihan', $id_tagihan)
                 ->where('id_anggota', $id_anggota)
                 ->where('tipe_transaksi', 8)
@@ -123,22 +120,6 @@ class ImportDinamis implements ToModel, WithStartRow
                 ->update([
                     'soft_delete' => 1
                 ]);
-
-            $kurang_bayar = $master_tagihan->jumlah - ($nominal);
-            if($kurang_bayar > $nominal_akhir){
-                $transaksi_lalu = $kurang_bayar - $nominal_akhir;
-
-                $transaksi = new Transaksi();
-                $transaksi->id_admin = Session::get('id_user');
-                $transaksi->nomor_transaksi = '008000' . date('dmY');
-                $transaksi->kode_transaksi = 'DNMS-' . $id_anggota . '-' . date('hi-dmY');
-                $transaksi->id_anggota = $id_anggota;
-                $transaksi->tipe_transaksi = 8;
-                $transaksi->id_tagihan = $master_tagihan->prefix_tagihan;
-                $transaksi->jumlah = $transaksi_lalu;
-                $transaksi->nama_transaksi = $master_tagihan->nama;
-                $transaksi->save();
-            }
 
             $transaksi = new Transaksi();
             $transaksi->id_admin = Session::get('id_user');

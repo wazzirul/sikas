@@ -63,7 +63,7 @@ class ImportBPP implements ToModel, WithStartRow
                 $siswa->alumni = 0;
             }else if($row[5] == 'Alumni'){
                 $siswa->alumni = 1;
-                $siswa->angkatan = $row[7];
+                $siswa->angkatan = $row[8];
             }else{
                 $siswa->alumni = 2;
             }
@@ -307,8 +307,8 @@ class ImportBPP implements ToModel, WithStartRow
 
             $keuangan_sekolah = KeuanganSekolah::first();
             if($row[6] == "Angsuran"){
-                $nominal_partisipasi = $row[24];
-                $nominal_bayar = $row[25];
+                $nominal_partisipasi = $row[22];
+                $nominal_bayar = $row[23];
 
                 $nominal_partisipasi = str_replace('Rp', '', $nominal_partisipasi);
                 $nominal_partisipasi = str_replace('rp', '', $nominal_partisipasi);
@@ -330,7 +330,7 @@ class ImportBPP implements ToModel, WithStartRow
                 $keuangan_sekolah->pemasukan += (int)$nominal_partisipasi;
                 $keuangan_sekolah->total += (int)$nominal_partisipasi;
 
-                $index_bulan = 12;
+                $index_bulan = 10;
                 $index_terbayar = 0;
                 for ($q = 0; $q < 12; $q++) {
                     if($row[$index_bulan] != ""){
@@ -383,8 +383,8 @@ class ImportBPP implements ToModel, WithStartRow
                 $keuangan_siswa->angsuran_ke = (int)$index_terbayar;
 
             }else if($row[6] == "Bulanan"){
-                $nominal_partisipasi = $row[24];
-                $nominal_bayar = $row[25];
+                $nominal_partisipasi = $row[22];
+                $nominal_bayar = $row[23];
 
                 $nominal_partisipasi = str_replace('Rp', '', $nominal_partisipasi);
                 $nominal_partisipasi = str_replace('rp', '', $nominal_partisipasi);
@@ -410,7 +410,7 @@ class ImportBPP implements ToModel, WithStartRow
                     ->limit(12)
                     ->get();
 
-                $index_bulan = 12;
+                $index_bulan = 10;
                 $index_terbayar = 0;
                 $total_bayar_bulanan = 0;
 
@@ -490,8 +490,8 @@ class ImportBPP implements ToModel, WithStartRow
                 }
             }
 
-            if($row[8] != null){
-                $tagihan_pertama = $row[8];
+            if($row[9] != null){
+                $tagihan_pertama = $row[9];
                 $tagihan_pertama = str_replace('Rp', '', $tagihan_pertama);
                 $tagihan_pertama = str_replace('rp', '', $tagihan_pertama);
                 $tagihan_pertama = str_replace('.', '', $tagihan_pertama);
