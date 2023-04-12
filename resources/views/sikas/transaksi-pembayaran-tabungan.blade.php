@@ -44,7 +44,7 @@
   </div>
   <!-- <div class="card">
     <div class="card-body">
-      <a href="{{route('sikas-transaksi--tabungan-guru')}}" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
+      <a href="" class="d-flex justify-content-between align-items-center gap-3 jenis-pembayaran__link">
         <div class="jenis-pembayaran__icon-wrap">
           <i class="fa-solid fa-coins jenis-pembayaran__icon"></i>
         </div>

@@ -432,6 +432,14 @@ class QueryController extends Controller
         $keuangan_anggota->tagihan_pertama -= (int)$nominal;
         $keuangan_anggota->save();
 
+        $carbon_now = Carbon::now();
+        $month_now = $carbon_now->copy()->month;
+
+        if($month_now > 6) $tahun_ajaran = $carbon_now->copy()->year.'-'.$carbon_now->addYears(1)->year;
+        else $tahun_ajaran = $carbon_now->copy()->subYears(1)->year.'-'.$carbon_now->copy()->year;
+
+
+
         if($keuangan_anggota->tipe_tagihan == 2){
             $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
                 ->where('bulan', '!=', 'null')
@@ -441,26 +449,23 @@ class QueryController extends Controller
                 ->distinct()
                 ->get();
 
-            foreach($tahun_ajaran_siswa as $tas){
-                $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-                    ->where('bulan', '!=', 'null')
-                    ->where('prefix_tagihan', null)
-                    ->where('soft_delete', 0)
-                    ->where('status', 0)
-                    ->where('tahun_ajaran', $tas->tahun_ajaran)
-                    ->count();
-    
-                $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
-                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-                    ->where('bulan', '!=', 'null')
-                    ->where('prefix_tagihan', null)
-                    ->where('soft_delete', 0)
-                    ->where('status', 0)
-                    ->where('tahun_ajaran', $tas->tahun_ajaran)
-                    ->update([
-                        'jumlah' => $tagihan_perbulan,
-                    ]);
-            }
+            $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->where('tahun_ajaran', $tahun_ajaran)
+                ->count();
+
+            $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
+            HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->update([
+                    'jumlah' => $tagihan_perbulan,
+                ]);
         }
 
         $res_anggota = Anggota::where('id_anggota', $id_anggota)
@@ -520,26 +525,23 @@ class QueryController extends Controller
                 ->distinct()
                 ->get();
 
-            foreach($tahun_ajaran_siswa as $tas){
-                $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-                    ->where('bulan', '!=', 'null')
-                    ->where('prefix_tagihan', null)
-                    ->where('soft_delete', 0)
-                    ->where('status', 0)
-                    ->where('tahun_ajaran', $tas->tahun_ajaran)
-                    ->count();
-    
-                $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
-                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-                    ->where('bulan', '!=', 'null')
-                    ->where('prefix_tagihan', null)
-                    ->where('soft_delete', 0)
-                    ->where('status', 0)
-                    ->where('tahun_ajaran', $tas->tahun_ajaran)
-                    ->update([
-                        'jumlah' => $tagihan_perbulan,
-                    ]);
-            }
+            $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->where('tahun_ajaran', $tahun_ajaran)
+                ->count();
+
+            $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
+            HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                ->where('bulan', '!=', 'null')
+                ->where('prefix_tagihan', null)
+                ->where('soft_delete', 0)
+                ->where('status', 0)
+                ->update([
+                    'jumlah' => $tagihan_perbulan,
+                ]);
         }
 
         $res_anggota = Anggota::where('id_anggota', $id_anggota)
@@ -602,26 +604,23 @@ class QueryController extends Controller
                     ->distinct()
                     ->get();
     
-                foreach($tahun_ajaran_siswa as $tas){
-                    $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-                        ->where('bulan', '!=', 'null')
-                        ->where('prefix_tagihan', null)
-                        ->where('soft_delete', 0)
-                        ->where('status', 0)
-                        ->where('tahun_ajaran', $tas->tahun_ajaran)
-                        ->count();
-        
-                    $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
-                    HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-                        ->where('bulan', '!=', 'null')
-                        ->where('prefix_tagihan', null)
-                        ->where('soft_delete', 0)
-                        ->where('status', 0)
-                        ->where('tahun_ajaran', $tas->tahun_ajaran)
-                        ->update([
-                            'jumlah' => $tagihan_perbulan,
-                        ]);
-                }
+                $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->where('tahun_ajaran', $tahun_ajaran)
+                    ->count();
+    
+                $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
+                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->update([
+                        'jumlah' => $tagihan_perbulan,
+                    ]);
             }
 
             $res_anggota = Anggota::where('id_anggota', $id_anggota)
@@ -691,26 +690,23 @@ class QueryController extends Controller
                     ->distinct()
                     ->get();
     
-                foreach($tahun_ajaran_siswa as $tas){
-                    $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-                        ->where('bulan', '!=', 'null')
-                        ->where('prefix_tagihan', null)
-                        ->where('soft_delete', 0)
-                        ->where('status', 0)
-                        ->where('tahun_ajaran', $tas->tahun_ajaran)
-                        ->count();
-        
-                    $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
-                    HistoryTagihanBulanan::where('id_anggota', $id_anggota)
-                        ->where('bulan', '!=', 'null')
-                        ->where('prefix_tagihan', null)
-                        ->where('soft_delete', 0)
-                        ->where('status', 0)
-                        ->where('tahun_ajaran', $tas->tahun_ajaran)
-                        ->update([
-                            'jumlah' => $tagihan_perbulan,
-                        ]);
-                }
+                $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->where('tahun_ajaran', $tahun_ajaran)
+                    ->count();
+    
+                $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
+                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->update([
+                        'jumlah' => $tagihan_perbulan,
+                    ]);
             }
     
             $res_anggota = Anggota::where('id_anggota', $id_anggota)
@@ -750,6 +746,34 @@ class QueryController extends Controller
             $pengajuan->save();
             $keuangan_anggota->save();
 
+            if($keuangan_anggota->tipe_tagihan == 2){
+                $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->select('tahun_ajaran')
+                    ->distinct()
+                    ->get();
+    
+                $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->where('tahun_ajaran', $tahun_ajaran)
+                    ->count();
+    
+                $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
+                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->update([
+                        'jumlah' => $tagihan_perbulan,
+                    ]);
+            }
+
             $data['message'] = 'Data Pengajuan Berhasil Dihapus.';
             return response($data, 200);
         }else{
@@ -775,6 +799,34 @@ class QueryController extends Controller
 
             $pengajuan->save();
             $keuangan_anggota->save();
+
+            if($keuangan_anggota->tipe_tagihan == 2){
+                $tahun_ajaran_siswa =  HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->select('tahun_ajaran')
+                    ->distinct()
+                    ->get();
+    
+                $total_bulan_belum_dibayar = HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->where('tahun_ajaran', $tahun_ajaran)
+                    ->count();
+    
+                $tagihan_perbulan = round((int)$keuangan_anggota->tagihan / (int)$total_bulan_belum_dibayar);
+                HistoryTagihanBulanan::where('id_anggota', $id_anggota)
+                    ->where('bulan', '!=', 'null')
+                    ->where('prefix_tagihan', null)
+                    ->where('soft_delete', 0)
+                    ->where('status', 0)
+                    ->update([
+                        'jumlah' => $tagihan_perbulan,
+                    ]);
+            }
     
             $data['message'] = 'Data Pengajuan Berhasil Dihapus.';
             return response($data, 200);
