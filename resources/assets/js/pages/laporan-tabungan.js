@@ -52,9 +52,10 @@ function retrieveLaporanDetail() {
             $('#data-laporan-pembayaran-tabungan').DataTable().clear().destroy();
 
             $.each(result, (index, value) => {
+                console.log(value);
                 let keterangan
-                if (value.anggota.tipe_anggota == 1) {
-                    keterangan = `${value.anggota.nama} \‘kelas ${value.anggota.jabatan != null ? value.anggota.jabatan.nama : 'Guru'}\’`;
+                if (value.anggota == null) {
+                    keterangan = `${value.tabungan_umum.nama_tabungan}`;
                 } else {
                     keterangan = `${value.anggota.nama} \‘kelas ${value.anggota.kelas.nama} ${value.anggota.jurusan.nama} ${value.anggota.nomor_kelas}\’`;
                 }

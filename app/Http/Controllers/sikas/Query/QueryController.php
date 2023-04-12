@@ -2068,7 +2068,7 @@ class QueryController extends Controller
             ->whereDate('tanggal', '<=', $tanggal_akhir)
             ->where('soft_delete', 0)
             ->orderBy('id_transaksi', 'DESC')
-            ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan', 'Admin')
+            ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan', 'Admin', 'TabunganUmum')
             ->get();
 
         return response($laporan, 200);

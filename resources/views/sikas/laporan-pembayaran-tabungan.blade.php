@@ -72,10 +72,10 @@ Laporan
               <p class="text-medium color-neutral-100">{{ $l->tipe_transaksi == 2 ? 'Setor Tabungan' : 'Tarik Tabungan' }}</p>
             </td>
             <td>
-              @if($l->Anggota->tipe_anggota == 1)
-              <p class="text-medium color-neutral-100">{{ $l->Anggota->nama }} ‘jabatan {{ $l->Anggota->Jabatan != null ? $l->Anggota->Jabatan->nama : 'Guru' }}’</p>
+              @if($l->Anggota == null)
+              <p class="text-medium color-neutral-100">{{ $l->TabunganUmum->nama_tabungan }}</p>
               @else
-              <p class="text-medium color-neutral-100">{{ $l->Anggota->nama }} ‘kelas {{ $l->Anggota->Kelas->nama }} {{ $l->Anggota->Jurusan->nama }} {{ $l->Anggota->nomor_kelas }}’</p>
+              <p class="text-medium color-neutral-100">{{ $l->Anggota->nama ?? '-q' }} ‘kelas {{ $l->Anggota->Kelas->nama ?? '-q' }} {{ $l->Anggota->Jurusan->nama ?? '-q' }} {{ $l->Anggota->nomor_kelas }}’</p>
               @endif
             </td>
             <td>

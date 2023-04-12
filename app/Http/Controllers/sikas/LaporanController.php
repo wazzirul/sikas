@@ -197,9 +197,9 @@ class LaporanController extends Controller
     $laporan = Transaksi::where('tipe_transaksi', '>=', 2)
       ->where('tipe_transaksi', '<=', 3)
       ->where('soft_delete', 0)
-      ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan', 'Admin')
+      ->with('Anggota.Kelas', 'Anggota.Jurusan', 'Anggota.Jabatan', 'Admin', 'TabunganUmum')
       ->get();
-
+    // dd($laporan[7]);
     return view('sikas.laporan-pembayaran-tabungan', [
       'laporan' => $laporan,
     ]);
