@@ -5,7 +5,7 @@ $(document).ready(function () {
   $('#riwayat-transaksi-tabungan-siswa').DataTable({
     "aaSorting": [],
   });
-  $('#riwayat-transaksi-tabungan-guru').DataTable({
+  $('#riwayat-transaksi-tabungan-umum').DataTable({
     "aaSorting": [],
   });
   $('#riwayat-transaksi-pengajuan-penambahan').DataTable({

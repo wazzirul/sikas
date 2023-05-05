@@ -89,6 +89,7 @@ class QueryController extends Controller
         })
             ->inRandomOrder()
             ->where('soft_delete', 0)
+            ->with('Jabatan')
             ->limit($limit)
             ->get();
 
@@ -139,6 +140,7 @@ class QueryController extends Controller
     {
         $id = $request->input('id');
         $tabungan_umum = TabunganUmum::where('id_tabungan_umum', $id)
+            ->with('Jabatan')
             ->first();
 
         return response($tabungan_umum, 200);
@@ -1116,8 +1118,11 @@ class QueryController extends Controller
         $keuangan_sekolah->save();
         $tabungan_umum->save();
 
+        $jabatan = StrukturSekolah::find($tabungan_umum->keterangan);
+
         $data['tanggal'] = Carbon::now()->format('l, d F Y');
         $data['tabungan'] = $tabungan_umum;
+        $data['jabatan'] = $jabatan;
         $data['transaksi'] = $transaksi;
         $data['kasir'] = Session::get('nama');
 
@@ -1170,10 +1175,12 @@ class QueryController extends Controller
         }
 
         $transaksi->save();
+        $jabatan = StrukturSekolah::find($tabungan_umum->keterangan);
 
         $data['tanggal'] = Carbon::now()->format('l, d F Y');
         $data['tabungan'] = $tabungan_umum;
         $data['transaksi'] = $transaksi;
+        $data['jabatan'] = $jabatan;
         $data['kasir'] = Session::get('nama');
 
         return response($data, 200);

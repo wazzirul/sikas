@@ -15,6 +15,7 @@ use App\Models\Kelas;
 use App\Models\Jurusan;
 use App\Models\KeuanganAnggota;
 use App\Models\KeuanganSekolah;
+use App\Models\StrukturSekolah;
 use App\Models\PengajuanKeringanan;
 use App\Models\Transaksi;
 use App\Models\TabunganUmum;
@@ -35,9 +36,10 @@ class TabunganController extends Controller
             ->limit(10)
             ->get();
 
-        $tabungan_guru = Transaksi::where('soft_delete', 0)
+        $tabungan_umum = Transaksi::where('soft_delete', 0)
             ->where('tipe_transaksi', '>=', 2)
             ->where('tipe_transaksi', '<=', 3)
+            ->where('id_tabungan_umum', '!=', null)
             ->with('Admin','TabunganUmum')
             ->orderBy('id_transaksi', 'DESC')
             ->limit(10)
@@ -45,7 +47,7 @@ class TabunganController extends Controller
 
         return view('sikas.transaksi-pembayaran-tabungan', [
             'tabungan_siswa' => $tabungan_siswa,
-            'tabungan_guru' => $tabungan_guru,
+            'tabungan_umum' => $tabungan_umum,
         ]);
     }
 
@@ -130,8 +132,12 @@ class TabunganController extends Controller
         if(!$tabungan_umum) $id_tabungan_umum = 1;
         else $id_tabungan_umum = (int)$tabungan_umum->id_tabungan_umum + 1;
 
+        $jabatan = StrukturSekolah::where('soft_delete', 0)
+            ->get();
+
         return view('sikas.transaksi-pembayaran-tabungan-umum', [
-            'id_tabungan_umum' => $id_tabungan_umum
+            'id_tabungan_umum' => $id_tabungan_umum,
+            'jabatan' => $jabatan,
         ]);
     }
 

@@ -172,44 +172,9 @@ Transaksi
             <label for="jabatanKelas" class="form-label">Jabatan / Kelas</label>
             <!-- AUTO COMPLETE DROPDOWN -->
             <select id="jabatanKelas" name="keterangan" class="selectpicker form-control choices-sikas">
-              <option value="Umum">Umum</option>
-              <option value="Guru">Guru</option>
-              <option value="XII OTR 1">XII OTR 1</option>
-              <option value="XII OTR 2">XII OTR 2</option>
-              <option value="XII OTR 3">XII OTR 3</option>
-              <option value="XII TBSM 1">XII TBSM 1</option>
-              <option value="XII TBSM 2">XII TBSM 2</option>
-              <option value="XII TBSM 3">XII TBSM 3</option>
-              <option value="XII TKJ 1">XII TKJ 1</option>
-              <option value="XII TKJ 2">XII TKJ 2</option>
-              <option value="XII TKJ 3">XII TKJ 3</option>
-              <option value="XII TKR 1">XII TKR 1</option>
-              <option value="XII TKR 2">XII TKR 2</option>
-              <option value="XII TKR 3">XII TKR 3</option>
-              <option value="XI OTR 1">XI OTR 1</option>
-              <option value="XI OTR 2">XI OTR 2</option>
-              <option value="XI OTR 3">XI OTR 3</option>
-              <option value="XI TBSM 1">XI TBSM 1</option>
-              <option value="XI TBSM 2">XI TBSM 2</option>
-              <option value="XI TBSM 3">XI TBSM 3</option>
-              <option value="XI TKJ 1">XI TKJ 1</option>
-              <option value="XI TKJ 2">XI TKJ 2</option>
-              <option value="XI TKJ 3">XI TKJ 3</option>
-              <option value="XI TKR 1">XI TKR 1</option>
-              <option value="XI TKR 2">XI TKR 2</option>
-              <option value="XI TKR 3">XI TKR 3</option>
-              <option value="X OTR 1">X OTR 1</option>
-              <option value="X OTR 2">X OTR 2</option>
-              <option value="X OTR 3">X OTR 3</option>
-              <option value="X TBSM 1">X TBSM 1</option>
-              <option value="X TBSM 2">X TBSM 2</option>
-              <option value="X TBSM 3">X TBSM 3</option>
-              <option value="X TKJ 1">X TKJ 1</option>
-              <option value="X TKJ 2">X TKJ 2</option>
-              <option value="X TKJ 3">X TKJ 3</option>
-              <option value="X TKR 1">X TKR 1</option>
-              <option value="X TKR 2">X TKR 2</option>
-              <option value="X TKR 3">X TKR 3</option>
+              @foreach($jabatan as $j)
+              <option value="{{ $j->id_struktur_sekolah }}">{{ $j->jabatan }}</option>
+              @endforeach
             </select>
           </div>
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">

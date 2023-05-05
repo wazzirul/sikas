@@ -17,6 +17,7 @@ use App\Models\PengajuanKeringanan;
 use App\Models\PengajuanPenambahan;
 use App\Models\StrukturSekolah;
 use App\Models\Transaksi;
+use App\Models\TabunganUmum;
 
 class Main extends Controller
 {
@@ -60,21 +61,17 @@ class Main extends Controller
       ->limit(200)
       ->get();
 
-    $tabungan_guru = Transaksi::where('tipe_transaksi', 2)
-      ->with(['Anggota'])
-        ->whereHas('Anggota', function($q) {
-        $q->where('anggota.tipe_anggota', '=', 1); 
-      })
+    $tabungan_umum = Transaksi::where('tipe_transaksi', 2)
+      ->where('id_tabungan_umum', '!=', null)
+      ->with('TabunganUmum')
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
       ->where('id_admin', Session::get('id_user'))
       ->sum('jumlah');
-    $data_tabungan_guru = Transaksi::where('tipe_transaksi', 2)
-      ->with(['Anggota'])
-        ->whereHas('Anggota', function($q) {
-        $q->where('anggota.tipe_anggota', '=', 1); 
-      })
-      ->with('Anggota.Jabatan', 'Admin')
+
+    $data_tabungan_umum = Transaksi::where('tipe_transaksi', 2)
+      ->where('id_tabungan_umum', '!=', null)
+      ->with('TabunganUmum', 'TabunganUmum.Jabatan', 'Admin')
       ->whereDate('tanggal', $hari_ini)
       ->where('soft_delete', 0)
       ->where('id_admin', Session::get('id_user'))
@@ -125,14 +122,14 @@ class Main extends Controller
     return view('sikas.dashboard', [
       'transaksi_spp' => $transaksi_spp,
       'tabungan_siswa' => $tabungan_siswa,
-      'tabungan_guru' => $tabungan_guru,
+      'tabungan_umum' => $tabungan_umum,
       'penambahan' => $penambahan,
       'keringanan' => $keringanan,
       'pengeluaran' => $pengeluaran,
 
       'data_transaksi_spp' => $data_transaksi_spp,
       'data_tabungan_siswa' => $data_tabungan_siswa,
-      'data_tabungan_guru' => $data_tabungan_guru,
+      'data_tabungan_umum' => $data_tabungan_umum,
       'data_penambahan' => $data_penambahan,
       'data_keringanan' => $data_keringanan,
       'data_pengeluaran' => $data_pengeluaran,

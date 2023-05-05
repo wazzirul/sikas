@@ -26,8 +26,20 @@ class ImportTabunganUmum implements ToModel, WithStartRow
     {
         if($row[2] && $row[3]){
             if($row[1] == "" || $row[1] == "0") $row[1] = "-"; 
+
+            $jabatan = StrukturSekolah::where('jabatan', $row['3'])
+                ->first();
+
+            if($jabatan){
+                $jabatan->soft_delete = 0;
+            }else{
+                $jabatan = new StrukturSekolah();
+                $jabatan->jabatan = $row[3];
+            }
+            $jabatan->save();
+
             $tabungan_umum = TabunganUmum::where('nama_tabungan', $row[2])
-                ->where('keterangan', $row[3])
+                ->where('keterangan', $jabatan->id_struktur_sekolah)
                 ->first();
 
             if($tabungan_umum){
@@ -54,21 +66,13 @@ class ImportTabunganUmum implements ToModel, WithStartRow
             }
 
             $keuangan_sekolah = KeuanganSekolah::first();
-            $tabungan_umum->nama_tabungan = $row[2];
-            $tabungan_umum->keterangan = $row[3];
-            $tabungan_umum->save();
-
-            $jabatan = StrukturSekolah::where('jabatan', $row['3'])
-                ->first();
-
-            if($jabatan){
-                $jabatan->soft_delete = 0;
-            }else{
-                $jabatan = new StrukturSekolah();
-                $jabatan->jabatan = $row[3];
+            if($keuangan_sekolah == null){
+                $keuangan_sekolah = new KeuanganSekolah();
+                $keuangan_sekolah->save();
             }
-
-            $jabatan->save();
+            $tabungan_umum->nama_tabungan = $row[2];
+            $tabungan_umum->keterangan = $jabatan->id_struktur_sekolah;
+            $tabungan_umum->save();
             
             $tabungan_lama = (int)$tabungan_umum->tabungan;
             $tabungan_baru = $row[4];

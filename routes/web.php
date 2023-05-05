@@ -89,9 +89,9 @@ Route::group(['middleware' => 'authsession'], function () {
         Route::post('/siswa/import', [SiswaController::class, 'importSiswa'])->name('sikas-importsiswa');
 
         //Karyawan Controller
-        Route::get('/karyawan', [KaryawanController::class, 'index'])->name('sikas-karyawan');
-        Route::post('/karyawan/post', [KaryawanController::class, 'postKaryawan'])->name('sikas-postkaryawan');
-        Route::post('/karyawan/import', [KaryawanController::class, 'importKaryawan'])->name('sikas-importkaryawan');
+        // Route::get('/karyawan', [KaryawanController::class, 'index'])->name('sikas-karyawan');
+        // Route::post('/karyawan/post', [KaryawanController::class, 'postKaryawan'])->name('sikas-postkaryawan');
+        // Route::post('/karyawan/import', [KaryawanController::class, 'importKaryawan'])->name('sikas-importkaryawan');
 
         //Jenis Pembayaran Controller
         Route::get('/jenis-transaksi', [JenisPembayaranController::class, 'index'])->name('sikas-jenis-pembayaran');

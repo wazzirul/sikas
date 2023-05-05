@@ -306,6 +306,10 @@ class ImportBPP implements ToModel, WithStartRow
             $keuangan_siswa->save();
 
             $keuangan_sekolah = KeuanganSekolah::first();
+            if($keuangan_sekolah == null){
+                $keuangan_sekolah = new KeuanganSekolah();
+                $keuangan_sekolah->save();
+            }
             if($row[6] == "Angsuran"){
                 $nominal_partisipasi = $row[22];
                 $nominal_bayar = $row[23];

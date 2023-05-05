@@ -39,6 +39,10 @@ class ImportPemasukan implements ToModel, WithStartRow
             $transaksi->jumlah = (int)$nominal_jumlah;
 
             $keuangan_sekolah = KeuanganSekolah::first();
+            if($keuangan_sekolah == null){
+                $keuangan_sekolah = new KeuanganSekolah();
+                $keuangan_sekolah->save();
+            }
             $keuangan_sekolah->pemasukan += (int)$nominal_jumlah;
             $keuangan_sekolah->total += (int)$nominal_jumlah;
 

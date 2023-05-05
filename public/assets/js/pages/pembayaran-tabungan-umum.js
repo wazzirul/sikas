@@ -56,7 +56,7 @@ function retrieveTabunganUmum(search = "") {
                         </div>
                         <div class="d-flex flex-column gap-1">
                         <p class="color-neutral-80">Jabatan / Kelas</p>
-                        <p class="kelas-siswa text-bold text-info">${value.keterangan}</p>
+                        <p class="kelas-siswa text-bold text-info">${value.jabatan != null ? value.jabatan.jabatan : '-'}</p>
                         </div>
                         <div href="#" class="cari-siswa__item-detail">
                         <i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
@@ -70,7 +70,7 @@ function retrieveTabunganUmum(search = "") {
             })
         },
         error: (err) => {
-            console.log(err);
+            console.log(err.responseJSON.message);
         }
     })
 }
@@ -96,7 +96,7 @@ function clickTabungan(e) {
         success: (result) => {
             $('.detail-nama').text(result.nama_tabungan);
             $('.detail-nomor').text(result.nomor_tabungan);
-            $('.detail-keterangan').text(result.keterangan);
+            $('.detail-keterangan').text(result.jabatan != null ? result.jabatan.jabatan : '-');
             $('.detail-tabungan').text('Rp. ' + numberFormat(result.tabungan));
         },
         error: (err) => {
@@ -325,7 +325,7 @@ $(document).on('submit', 'form#form-setor-tabungan', function (e) {
         data,
         success: (result) => {
             try {
-                let { tanggal, tabungan, kasir, transaksi } = result
+                let { tanggal, tabungan, kasir, transaksi, jabatan } = result
                 let tgl = new Date(Date.parse(tanggal));
                 let day = tgl.toLocaleDateString('id', { weekday: 'long' });
                 let bulan = tgl.getMonth();
@@ -336,7 +336,7 @@ $(document).on('submit', 'form#form-setor-tabungan', function (e) {
                     numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
                     removetransactionnumber = true,
                     numberandname = `${tabungan.nomor_tabungan} / ${tabungan.nama_tabungan}`,
-                    classname = tabungan.keterangan,
+                    classname = jabatan.jabatan,
                     transactiontype = `Setor Tabungan ${tabungan.nama_tabungan}`,
                     total = transaksi.jumlah,
                     savingsfund = transaksi.mutasi,
@@ -397,7 +397,7 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
             data,
             success: (result) => {
                 try {
-                    let { tanggal, tabungan, kasir, transaksi } = result
+                    let { tanggal, tabungan, kasir, transaksi, jabatan } = result
                     let tgl = new Date(Date.parse(tanggal));
                     let day = tgl.toLocaleDateString('id', { weekday: 'long' });
                     let bulan = tgl.getMonth();
@@ -408,7 +408,7 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
                         numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
                         removetransactionnumber = true,
                         numberandname = `${tabungan.nomor_tabungan} / ${tabungan.nama_tabungan}`,
-                        classname = tabungan.keterangan,
+                        classname = jabatan.jabatan,
                         transactiontype = `Penarikan Tabungan ${tabungan.nama_tabungan}`,
                         total = transaksi.jumlah,
                         savingsfund = transaksi.mutasi,

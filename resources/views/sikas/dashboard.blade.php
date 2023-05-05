@@ -68,8 +68,8 @@ Dashboard
             <i class="fa-solid fa-coins text-danger avatar-icon"></i>
           </div>
         </div>
-        <span class="fw-semibold d-block mb-1">Transaksi Tabungan Guru Hari ini</span>
-        <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $tabungan_guru }}</h3>
+        <span class="fw-semibold d-block mb-1">Transaksi Tabungan Umum Hari ini</span>
+        <h3 class="card-title color-black mb-2 nominal-transaksi">{{ $tabungan_umum }}</h3>
       </div>
     </div>
   </div>
@@ -125,7 +125,7 @@ Dashboard
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-siswa" aria-controls="navs-pills-tabungan-siswa" aria-selected="false">Tabungan Siswa</button>
           </li>
           <li class="nav-item">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-guru" aria-controls="navs-pills-tabungan-guru" aria-selected="false">Tabungan Guru</button>
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-umum" aria-controls="navs-pills-tabungan-umum" aria-selected="false">Tabungan Umum</button>
           </li>
           <li class="nav-item">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-pengajuan-penambahan" aria-controls="navs-pills-pengajuan-penambahan" aria-selected="false">Pengajuan Penambahan</button>
@@ -237,37 +237,37 @@ Dashboard
           </div>
           @endif
         </div>
-        <div class="tab-pane fade" id="navs-pills-tabungan-guru" role="tabpanel">
-          @if(count($data_tabungan_guru) != 0)
+        <div class="tab-pane fade" id="navs-pills-tabungan-umum" role="tabpanel">
+          @if(count($data_tabungan_umum) != 0)
           <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="riwayat-transaksi-tabungan-guru">
+            <table class="table table-striped" id="riwayat-transaksi-tabungan-umum">
               <thead>
                 <tr>
                   <th>Tanggal</th>
                   <th>Nama Teller</th>
-                  <th>NIP</th>
-                  <th>Nama Guru</th>
+                  <th>Nomor Tabungan</th>
+                  <th>Nama</th>
                   <th>Nominal</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($data_tabungan_guru as $dtg)
+                @foreach($data_tabungan_umum as $dtu)
                 <tr>
                   <td>
-                    <p>{{ \Carbon\Carbon::parse($dtg->tanggal)->translatedFormat('d F Y') }}</p>
+                    <p>{{ \Carbon\Carbon::parse($dtu->tanggal)->translatedFormat('d F Y') }}</p>
                   </td>
-                  <td class="text-medium color-neutral-100">{{ $dtg->Admin->nama }}</td>
-                  <td class="text-medium color-neutral-100">{{ $dtg->Anggota->nip }}</td>
+                  <td class="text-medium color-neutral-100">{{ $dtu->Admin->nama }}</td>
+                  <td class="text-medium color-neutral-100">{{ $dtu->TabunganUmum->nomor_tabungan }}</td>
                   <td>
-                    <p class="text-medium text-black">{{ $dtg->Anggota->nama }} '{{ $dtg->Anggota->Jabatan != null ? $dtg->Anggota->Jabatan->nama : 'Guru' }}'</p>
+                    <p class="text-medium text-black">{{ $dtu->TabunganUmum->nama_tabungan }} '{{ $dtu->TabunganUmum->Jabatan != null ? $dtu->TabunganUmum->Jabatan->jabatan : '-' }}'</p>
                   </td>
                   <td>
-                    <p class="text-bold text-black nominal-transaksi">{{ $dtg->jumlah }}</p>
+                    <p class="text-bold text-black nominal-transaksi">{{ $dtu->jumlah }}</p>
                   </td>
                   <td>
                     <div class="d-flex align-items-center justify-content-start gap-3">
-                      <a href="/transaksi/history-transaksi-siswa/detail/{{$dtg->Anggota->id_anggota}}" class="table__link-detail d-flex align-items-center gap-2">
+                      <a href="/transaksi/tabungan/umum" class="table__link-detail d-flex align-items-center gap-2">
                         Lihat Detail
                         <i class="fa-solid fa-eye"></i>
                       </a>
@@ -281,8 +281,8 @@ Dashboard
           @else
           <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state">
             <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
-            <h4 class="text-bold color-neutral-100">Data Tabungan Guru Kosong</h4>
-            <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan guru.</p>
+            <h4 class="text-bold color-neutral-100">Data Tabungan Umum Kosong</h4>
+            <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan umum.</p>
           </div>
           @endif
         </div>

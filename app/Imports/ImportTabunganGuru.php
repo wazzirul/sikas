@@ -55,6 +55,10 @@ class ImportTabunganGuru implements ToModel, WithStartRow
             }
 
             $keuangan_sekolah = KeuanganSekolah::first();
+            if($keuangan_sekolah == null){
+                $keuangan_sekolah = new KeuanganSekolah();
+                $keuangan_sekolah->save();
+            }
             $keuangan_anggota = KeuanganAnggota::where('id_anggota', $anggota->id_anggota)
                 ->first();
 

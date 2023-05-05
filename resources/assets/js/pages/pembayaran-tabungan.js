@@ -4,8 +4,8 @@ $(document).ready(function () {
       "aaSorting": [],
     });
   }
-  if ($("#riwayat-tabungan-guru").length == 1) {
-    $('#riwayat-tabungan-guru').DataTable({
+  if ($("#riwayat-tabungan-umum").length == 1) {
+    $('#riwayat-tabungan-umum').DataTable({
       "aaSorting": [],
     });
   }

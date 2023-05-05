@@ -51,12 +51,12 @@
     </li>
 
     @if(Session::get('tipe_user') == 1)
-    <li class="menu-item {{ Route::is('sikas-karyawan') == true ? 'active' : '' }}">
-      <a href="{{route('sikas-karyawan')}}" class="menu-link">
+    <!-- <li class="menu-item {{ Route::is('sikas-siswa') == true ? 'active' : '' }}">
+      <a href="{{route('sikas-siswa')}}" class="menu-link">
         <i class="fa-solid fa-user-tie menu-item__icon"></i>
         <p class="menu-item__text">karyawan</p>
       </a>
-    </li>
+    </li> -->
     <li class="menu-item {{ Route::is('sikas-siswa') == true ? 'active' : '' }}">
       <a href="{{route('sikas-siswa')}}" class="menu-link">
         <i class="fa-solid fa-graduation-cap menu-item__icon"></i>

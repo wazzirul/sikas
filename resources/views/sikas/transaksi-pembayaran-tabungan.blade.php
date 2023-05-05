@@ -73,7 +73,7 @@
         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-siswa" aria-controls="navs-pills-tabungan-siswa" aria-selected="true">Tabungan Siswa</button>
       </li>
       <li class="nav-item">
-        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-guru" aria-controls="navs-pills-tabungan-guru" aria-selected="false">Tabungan Umum</button>
+        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-tabungan-umum" aria-controls="navs-pills-tabungan-umum" aria-selected="false">Tabungan Umum</button>
       </li>
     </ul>
     <div class="tab-content">
@@ -127,10 +127,10 @@
         @endif
       </div>
 
-      <div class="tab-pane fade" id="navs-pills-tabungan-guru" role="tabpanel">
-        @if(count($tabungan_guru) != 0)
-        <div class="table-responsive text-nowrap tabel-guru">
-          <table class="table table-striped" id="riwayat-tabungan-guru">
+      <div class="tab-pane fade" id="navs-pills-tabungan-umum" role="tabpanel">
+        @if(count($tabungan_umum) != 0)
+        <div class="table-responsive text-nowrap tabel-umum">
+          <table class="table table-striped" id="riwayat-tabungan-umum">
             <thead>
               <tr>
                 <th>Tanggal</th>
@@ -141,19 +141,19 @@
                 <!-- <th>Actions</th> -->
               </tr>
             </thead>
-            <tbody id="tbody-tabungan-guru">
-            @foreach($tabungan_guru as $tg)
+            <tbody id="tbody-tabungan-umum">
+            @foreach($tabungan_umum as $tu)
               <tr>
                 <td>
-                  <p>{{ \Carbon\Carbon::parse($tg->tanggal)->translatedFormat('F, d Y') }}</p>
+                  <p>{{ \Carbon\Carbon::parse($tu->tanggal)->translatedFormat('F, d Y') }}</p>
                 </td>
-                <td class="text-medium color-neutral-100">{{ $tg->Admin->nama }}</td>
-                <td class="text-medium color-neutral-100">{{ $tg->TabunganUmum->nomor_tabungan }}</td>
+                <td class="text-medium color-neutral-100">{{ $tu->Admin->nama }}</td>
+                <td class="text-medium color-neutral-100">{{ $tu->TabunganUmum->nomor_tabungan }}</td>
                 <td>
-                  <p class="text-medium text-black">{{ $tg->TabunganUmum->nama_tabungan }}</p>
+                  <p class="text-medium text-black">{{ $tu->TabunganUmum->nama_tabungan }}</p>
                 </td>
                 <td>
-                  <p class="text-bold text-black jumlah-pembayaran">{{ $tg->jumlah }}</p>
+                  <p class="text-bold text-black jumlah-pembayaran">{{ $tu->jumlah }}</p>
                 </td>
                 <!-- <td>
                   <div class="d-flex align-items-center justify-content-start gap-3">
@@ -169,7 +169,7 @@
           </table>
         </div>
         @else
-        <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state-guru">
+        <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state-umum">
           <img src="{{asset('assets/img/sikas/empty-illustration.png')}}" alt="">
           <h4 class="text-bold color-neutral-100">Data Tabungan Umum Kosong</h4>
           <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan umum.</p>

@@ -11,4 +11,8 @@ class TabunganUmum extends Model
     protected $primaryKey = 'id_tabungan_umum';
     protected $fillable = ['id_tabungan_umum','nama_tabungan','tabungan','keterangan','soft_delete'];
 
+    public function Jabatan()
+    {
+        return $this->hasOne('App\Models\StrukturSekolah','id_struktur_sekolah','keterangan');
+    }
 }

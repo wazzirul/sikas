@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('nomor_tabungan')->unique();
             $table->string('nama_tabungan');
             $table->bigInteger('tabungan')->default(0);
-            $table->string('keterangan')->nullable();
+            $table->unsignedInteger('keterangan')->nullable();
+            $table->foreign('keterangan')->references('id_struktur_sekolah')->on('struktur_sekolah');
 
             $table->smallInteger('soft_delete')->default(0);
             $table->timestamps();
