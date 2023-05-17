@@ -156,9 +156,10 @@ function clickTabungan(e) {
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
                         
-                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${number} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi} ${name}" data-total="${value.jumlah}" data-savingsfund="${totalMutasi}" data-notClassname="${true}" >
-                          <i class="fa-solid fa-print table-icon__link"></i>
-                        </a>
+                        ${value.approved == 1
+                        ? `<a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${number} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi} ${name}" data-total="${value.jumlah}" data-savingsfund="${totalMutasi}" data-notClassname="${true}" >
+                            <i class="fa-solid fa-print table-icon__link"></i>
+                          </a>` : ''}
                         
                         ${document.getElementById('session_admin').value == 1 || value.approved == 0 || value.tipe_transaksi == 2 ? `
                             <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
@@ -397,6 +398,7 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
             data,
             success: (result) => {
                 try {
+                    console.log(result);
                     let { tanggal, tabungan, kasir, transaksi, jabatan } = result
                     let tgl = new Date(Date.parse(tanggal));
                     let day = tgl.toLocaleDateString('id', { weekday: 'long' });
@@ -415,7 +417,7 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
                         notClassname = true
 
                     $('#button_penarikan_sukses').click();
-                    printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund, notClassname })
+                    if (transaksi.approved == 1) printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund, notClassname })
                 } catch (error) {
                     console.error(error);
                 }
