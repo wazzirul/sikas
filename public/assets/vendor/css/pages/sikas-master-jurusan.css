@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.color-red {
+  color: #FF1E00;
+}
+
 .color-white {
   color: #fff;
 }
@@ -287,6 +291,35 @@ th[rowspan]:not([rowspan="1"]) {
 .choices-sikas {
   border: 1px solid #E0E0E0 !important;
   border-radius: 0.375rem !important;
+}
+
+.menu-item__text {
+  position: relative;
+}
+
+.menu-item div {
+  position: relative;
+}
+
+.menu-item--confrimation {
+  position: absolute;
+  top: -4px;
+  right: -18px;
+  background: #FF1E00;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  font-size: 12px !important;
+}
+
+.layout-menu {
+  padding-bottom: 4px !important;
 }
 
 .card--master-jurusan {

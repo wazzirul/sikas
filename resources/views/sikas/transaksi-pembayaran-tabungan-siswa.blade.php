@@ -160,7 +160,7 @@ Transaksi
             <th>Jumlah Nominal</th>
             <th>Mutasi</th>
             <th>Status</th>
-            <th>Konfrimasi</th>
+            <th>Konfirmasi</th>
             <th></th>
           </tr>
         </thead>
@@ -241,15 +241,15 @@ Transaksi
     <div class="modal-content">
       <div class="modal-body">
         <div class="d-flex flex-column text-center justify-content-center align-items-center gap-3">
-          <h4 class="color-black text-bold text-center">Konfrimasi Transaksi Penarikan</h4>
+          <h4 class="color-black text-bold text-center">Konfirmasi Transaksi Penarikan</h4>
           <p class="">Apakah anda yakin akan melakukan penarikan sejumlah <br> 
             " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> "<br>
-            <small class="text-danger text-extra-bold font-half">*Penarikan yang telah dikonfrimasi tidak bisa diubah / dihapus datanya, pastikan data penarikan sudah benar!</small>
+            <small class="text-danger text-extra-bold font-half">*Penarikan yang telah dikonfirmasi tidak bisa diubah / dihapus datanya, pastikan data penarikan sudah benar!</small>
           </p>
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
-          <button class="btn btn-success w-100 confirm-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfrimSuccess">Konfrimasi</button>
+          <button class="btn btn-success w-100 confirm-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfrimSuccess">Konfirmasi</button>
         </div>
       </div>
     </div>
@@ -351,8 +351,8 @@ Transaksi
       <div class="modal-body">
         <div class="d-flex flex-column justify-content-center align-items-center text-center">
           <i class="fa-solid fa-circle-check icon-success text-success"></i>
-          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Konfrimasi Transaksi Data</h4>
-          <p class="color-neutral-80">Transaksi berhasil dikonfrimasi</p>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Konfirmasi Transaksi Data</h4>
+          <p class="color-neutral-80">Transaksi berhasil dikonfirmasi</p>
         </div>
       </div>
     </div>

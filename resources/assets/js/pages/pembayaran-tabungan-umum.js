@@ -146,10 +146,10 @@ function clickTabungan(e) {
                         <td>
                         ${value.approved == 0 && value.tipe_transaksi != 2 && document.getElementById('session_admin').value == 1 ? `
                             <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
-                                Konfrimasi
+                                Konfirmasi
                             </a>` : `
                             <a href="#" class="btn btn-dark disabled approve-button">
-                                Konfrimasi
+                                Konfirmasi
                             </a>`
                     }
                         </td>
