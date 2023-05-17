@@ -24,7 +24,7 @@
     <li class="menu-item {{ Route::is('sikas-transaksi*') == true ? 'active open' : '' }}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="fa-solid fa-chart-simple menu-item__icon"></i>
-        <p class="menu-item__text">Transaksi</p>
+        <p class="menu-item__text">Transaksi <span class="menu-item--confrimation">6</span></p>
       </a>
       <ul class="menu-sub">
         <li class="menu-item {{ Route::is('sikas-transaksi--biaya-penunjang-pendidikan*') == true ? 'active' : '' }}" id="sidebar-bpp">
@@ -34,7 +34,7 @@
         </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--tabungan*') == true ? 'active' : '' }}">
           <a href="{{route('sikas-transaksi--tabungan')}}" class="menu-link">
-            <div>Tabungan</div>
+            <div>Tabungan <span class="menu-item--confrimation">3</span></div>
           </a>
         </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--bpp-alumni*') == true ? 'active' : '' }}" id="sidebar-bpp">
@@ -44,19 +44,13 @@
         </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--pengeluaran') == true ? 'active' : '' }}">
           <a href="{{route('sikas-transaksi--pengeluaran')}}" class="menu-link">
-            <div>Pengeluaran</div>
+            <div>Pengeluaran <span class="menu-item--confrimation">3</span></div>
           </a>
         </li>
       </ul> 
     </li>
 
     @if(Session::get('tipe_user') == 1)
-    <!-- <li class="menu-item {{ Route::is('sikas-siswa') == true ? 'active' : '' }}">
-      <a href="{{route('sikas-siswa')}}" class="menu-link">
-        <i class="fa-solid fa-user-tie menu-item__icon"></i>
-        <p class="menu-item__text">karyawan</p>
-      </a>
-    </li> -->
     <li class="menu-item {{ Route::is('sikas-siswa') == true ? 'active' : '' }}">
       <a href="{{route('sikas-siswa')}}" class="menu-link">
         <i class="fa-solid fa-graduation-cap menu-item__icon"></i>

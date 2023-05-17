@@ -19,6 +19,7 @@ $grid-breakpoints: (
   xxl-2: 1440px,
 );
 
+$color-red: #FF1E00;
 $color-white: #fff;
 $color-black: #000;
 $color-border: #D0D4E0;
@@ -32,6 +33,7 @@ $color-neutral-80: #616161;
 $color-neutral-100:#1B1B1B;
 
 $colorsMap: (
+  red: #FF1E00,
   white: #fff,
   black: #000,
   border: #D0D4E0,
@@ -303,4 +305,30 @@ th[rowspan]:not([rowspan="1"]) {
 .choices-sikas{
   border: 1px solid $color-neutral-40 !important;
   border-radius: toRem(6) !important;
+}
+.menu-item__text{
+  position: relative;
+}
+.menu-item div{
+  position: relative;
+}
+.menu-item--confrimation{
+  position: absolute;
+  top: -4px;
+  right: -18px;
+  background: $color-red;
+  color: $color-white;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  font-size: 12px !important;
+}
+
+.layout-menu{
+  padding-bottom: 4px !important;
 }
