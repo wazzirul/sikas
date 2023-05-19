@@ -24,7 +24,7 @@
     <li class="menu-item {{ Route::is('sikas-transaksi*') == true ? 'active open' : '' }}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="fa-solid fa-chart-simple menu-item__icon"></i>
-        <p class="menu-item__text">Transaksi <span class="menu-item--confrimation">6</span></p>
+        <p class="menu-item__text">Transaksi <span class="menu-item--confrimation" id="sidebar-total-needconfirm">-</span></p>
       </a>
       <ul class="menu-sub">
         <li class="menu-item {{ Route::is('sikas-transaksi--biaya-penunjang-pendidikan*') == true ? 'active' : '' }}" id="sidebar-bpp">
@@ -34,7 +34,7 @@
         </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--tabungan*') == true ? 'active' : '' }}">
           <a href="{{route('sikas-transaksi--tabungan')}}" class="menu-link">
-            <div>Tabungan <span class="menu-item--confrimation">3</span></div>
+            <div>Tabungan <span class="menu-item--confrimation" id="sidebar-tabungan-needconfirm">-</span></div>
           </a>
         </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--bpp-alumni*') == true ? 'active' : '' }}" id="sidebar-bpp">
@@ -44,7 +44,7 @@
         </li>
         <li class="menu-item {{ Route::is('sikas-transaksi--pengeluaran') == true ? 'active' : '' }}">
           <a href="{{route('sikas-transaksi--pengeluaran')}}" class="menu-link">
-            <div>Pengeluaran <span class="menu-item--confrimation">3</span></div>
+            <div>Pengeluaran <span class="menu-item--confrimation" id="sidebar-pengeluaran-needconfirm">-</span></div>
           </a>
         </li>
       </ul> 

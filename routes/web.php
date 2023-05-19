@@ -180,6 +180,7 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/query/getPembayaranDinamis', [QueryController::class, 'getPembayaranDinamis'])->name('sikas-query-get-pembayaran-dinamis');
     Route::post('/query/getHistoryPembayaranDinamis', [QueryController::class, 'getHistoryPembayaranDinamis'])->name('sikas-query-get-history-pembayaran-dinamis');
     Route::get('/query/getSidebarPembayaranDinamis', [QueryController::class, 'getSidebarPembayaranDinamis'])->name('sikas-query-get-sidebar-pembayaran-dinamis');
+    Route::get('/query/getSidebarTransaksi', [QueryController::class, 'getSidebarTransaksi'])->name('sikas-query-get-sidebar-transaksi');
 });
 
 // Don't uncomment

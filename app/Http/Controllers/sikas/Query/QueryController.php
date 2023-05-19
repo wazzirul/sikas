@@ -2543,4 +2543,21 @@ class QueryController extends Controller
         
         return response($data, 200);
     }
+
+    public function getSidebarTransaksi(Request $request){
+        $tabungan = Transaksi::where('tipe_transaksi', 3)
+            ->where('approved', 0)
+            ->where('soft_delete', 0)
+            ->count();
+
+        $pengeluaran = Transaksi::where('tipe_transaksi', 4)
+            ->where('approved', 0)
+            ->where('soft_delete', 0)
+            ->count();
+
+        $data['tabungan'] = $tabungan;
+        $data['pengeluaran'] = $pengeluaran;
+
+        return response($data, 200);
+    }
 }

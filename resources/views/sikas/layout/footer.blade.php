@@ -42,5 +42,23 @@
         }
       }
   }
+
+  xhr.open("GET", '/query/getSidebarTransaksi');
+  // Send the request
+  xhr.send();
+  // Fired once the request completes successfully 
+  xhr.onload = function(e) {
+      // Check if the request was a success
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        // Get and convert the responseText into JSON
+        var response = JSON.parse(xhr.responseText);
+        let total_needconfirm = response.tabungan + response.pengeluaran;
+
+        document.getElementById('sidebar-total-needconfirm').innerHTML = total_needconfirm;
+        document.getElementById('sidebar-tabungan-needconfirm').innerHTML = response.tabungan;
+        document.getElementById('sidebar-pengeluaran-needconfirm').innerHTML = response.pengeluaran;
+        
+      }
+  }
 </script>
 <!--/ Footer-->
