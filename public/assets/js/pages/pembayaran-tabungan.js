@@ -9,6 +9,11 @@ $(document).ready(function () {
       "aaSorting": [],
     });
   }
+  if ($("#konfirmasi-tabungan").length == 1) {
+    $('#konfirmasi-tabungan').DataTable({
+      "aaSorting": [],
+    });
+  }
 
   $.each($('.jumlah-pembayaran'), (index, value) => {
     $(value).text('Rp. ' + numberFormat($(value).text()))

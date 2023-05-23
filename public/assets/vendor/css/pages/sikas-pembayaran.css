@@ -375,6 +375,10 @@ th[rowspan]:not([rowspan="1"]) {
   padding: 2rem;
 }
 
+.konfirmasi-pengeluaran {
+  padding: 2rem;
+}
+
 .card--pembayaran {
   position: relative;
 }

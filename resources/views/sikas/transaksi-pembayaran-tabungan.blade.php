@@ -65,6 +65,54 @@
     </div>
   </div>
 </div> 
+<div class="card konfirmasi-pengeluaran mt-5">
+  <h4 class="color-neutral-100 mb-5">Konfirmasi Transaksi Pengeluaran Tabungan</h4>
+  <div class="table-responsive text-nowrap tabel-siswa">
+    <table class="table table-striped" id="konfirmasi-tabungan">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Nama Teller</th>
+          <th>No Tabungan</th>
+          <th>Nama Tabungan</th>
+          <th>Total Tabungan</th>
+          <th>Nominal Pengeluaran</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-tabungan-siswa">
+        @foreach($tabungan_siswa as $ts)
+        <tr>
+          <td>
+            <p>{{ \Carbon\Carbon::parse($ts->tanggal)->translatedFormat('F, d Y') }}</p>
+          </td>
+          <td class="text-medium color-neutral-100">{{ $ts->Admin->nama }}</td>
+          <td class="text-medium color-neutral-100">{{ $ts->Anggota->nis }}</td>
+          <td>
+            <p class="text-medium text-black">{{ $ts->Anggota->nama }} 'Kelas {{ $ts->Anggota->Kelas->nama }} {{ $ts->Anggota->Jurusan->nama }} {{ $ts->Anggota->nomor_kelas }}'</p>
+          </td>
+          <td>
+            <p class="text-bold text-black jumlah-pembayaran">{{ $ts->jumlah }}</p>
+          </td>
+          <td>
+            <p class="text-bold text-black jumlah-pembayaran">{{ $ts->jumlah }}</p>
+          </td>
+          <td>
+              <p class="text-bold text-danger">Butuh Konfirmasi Admin</p>
+          </td>
+          <td>
+            <div class="d-flex align-items-center justify-content-start gap-3">
+              <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">Konfirmasi</a>
+            </div>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <div class="card riwayat-transaksi mt-5">
   <h4 class="color-neutral-100 mb-5">Riwayat Transaksi</h4>
   <div class="nav-align-top mb-4">
@@ -175,6 +223,27 @@
           <p class="color-neutral-80">Silahkan tambahkan data tabungan terlebih dulu untuk melihat data tabungan umum.</p>
         </div>
         @endif
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalConfrimData" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column text-center justify-content-center align-items-center gap-3">
+          <h4 class="color-black text-bold text-center">Konfirmasi Transaksi Penarikan</h4>
+          <p class="">Apakah anda yakin akan melakukan penarikan sejumlah <br> 
+            " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> "<br>
+            <small class="text-danger text-extra-bold font-half">*Penarikan yang telah dikonfirmasi tidak bisa diubah / dihapus datanya, pastikan data penarikan sudah benar!</small>
+          </p>
+        </div>
+        <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+          <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+          <button class="btn btn-success w-100 confirm-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfrimSuccess">Konfirmasi</button>
+        </div>
       </div>
     </div>
   </div>

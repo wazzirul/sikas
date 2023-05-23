@@ -11,7 +11,10 @@ $(document).ready(function () {
   if ($("#riwayat-pengeluaran").length == 1) {
     $('#riwayat-pengeluaran').DataTable();
   }
-
+  if ($("#konfirmasi-pengeluaran").length == 1) {
+    $('#konfirmasi-pengeluaran').DataTable();
+  }
+  
 
   $('#nominalPengeluaran').keyup((e) => {
     let input = e.currentTarget.value;

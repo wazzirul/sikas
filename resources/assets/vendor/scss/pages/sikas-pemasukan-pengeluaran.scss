@@ -5,6 +5,9 @@
 @import '../_reset';
 
 
+.konfirmasi-pengeluaran{
+  padding: toRem(32);
+}
 .card--pemasukan-pengeluaran{
   padding: toRem(32);
   display: grid;

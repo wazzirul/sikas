@@ -28,6 +28,7 @@
 @endsection
 
 @section('content')
+
 <div class="card-body__header d-flex flex-row justify-content-between align-items-start gap-1 mb-5">
   <p class="fw-bold mb-5">
     <span class="text-muted fw-light">Transaksi /</span> Pengeluaran
@@ -47,6 +48,45 @@
     </form>
   </div>
 </div>
+
+<div class="card konfirmasi-pengeluaran mb-5">
+  <h4 class="color-neutral-100 mb-5">Konfirmasi Transaksi Pengeluaran</h4>
+  <div class="table-responsive text-nowrap tabel-siswa">
+    <table class="table table-striped" id="konfirmasi-pengeluaran">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Nama Teller</th>
+          <th>Keterangan</th>
+          <th>Nominal Pengeluaran</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-tabungan-siswa">
+        <tr>
+          <td>
+            <p>April, 12 2023</p>
+          </td>
+          <td class="text-medium color-neutral-100">Teller</td>
+          <td class="text-medium color-neutral-100">Operasional Masjid</td>
+          <td>
+            <p class="text-medium text-black">Rp. 250.000</p>
+          </td>
+          <td>
+              <p class="text-bold text-danger">Butuh Konfirmasi Admin</p>
+          </td>
+          <td>
+            <div class="d-flex align-items-center justify-content-start gap-3">
+              <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">Konfirmasi</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <div class="card card--pemasukan-pengeluaran">
   <div class="pemasukan-pengeluaran__form">
     <h4 class="text-bold color-black mb-4">Form Pengeluaran</h4>

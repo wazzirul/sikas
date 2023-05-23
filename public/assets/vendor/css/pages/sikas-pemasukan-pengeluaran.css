@@ -322,6 +322,10 @@ th[rowspan]:not([rowspan="1"]) {
   padding-bottom: 4px !important;
 }
 
+.konfirmasi-pengeluaran {
+  padding: 2rem;
+}
+
 .card--pemasukan-pengeluaran {
   padding: 2rem;
   display: grid;
