@@ -60,28 +60,34 @@
           <th>Keterangan</th>
           <th>Nominal Pengeluaran</th>
           <th>Status</th>
+          @if(Session::get('tipe_user') == 1)
           <th>Actions</th>
+          @endif
         </tr>
       </thead>
-      <tbody id="tbody-tabungan-siswa">
+      <tbody>
+        @foreach($transaksi_perlu_approve as $tpa)
         <tr>
           <td>
-            <p>April, 12 2023</p>
+            <p>{{ \Carbon\Carbon::parse($tpa->tanggal)->translatedFormat('F, d Y') }}</p>
           </td>
-          <td class="text-medium color-neutral-100">Teller</td>
-          <td class="text-medium color-neutral-100">Operasional Masjid</td>
+          <td class="text-medium color-neutral-100">{{ $tpa->Admin->nama }}</td>
+          <td class="text-medium color-neutral-100">{{ $tpa->nama_transaksi }}</td>
           <td>
-            <p class="text-medium text-black">Rp. 250.000</p>
+            <p class="text-bold text-black jumlah-pembayaran">{{ $tpa->jumlah }}</p>
           </td>
           <td>
               <p class="text-bold text-danger">Butuh Konfirmasi Admin</p>
           </td>
+          @if(Session::get('tipe_user') == 1)
           <td>
             <div class="d-flex align-items-center justify-content-start gap-3">
-              <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">Konfirmasi</a>
+              <a href="#" class="btn btn-success approve-button" data-jumlah="{{ $tpa->jumlah }}" onClick="changeTransaksi({{ $tpa->id_transaksi }})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">Konfirmasi</a>
             </div>
           </td>
+          @endif
         </tr>
+        @endforeach
       </tbody>
     </table>
   </div>

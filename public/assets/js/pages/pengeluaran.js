@@ -14,7 +14,7 @@ $(document).ready(function () {
   if ($("#konfirmasi-pengeluaran").length == 1) {
     $('#konfirmasi-pengeluaran').DataTable();
   }
-  
+
 
   $('#nominalPengeluaran').keyup((e) => {
     let input = e.currentTarget.value;
@@ -26,6 +26,10 @@ $(document).ready(function () {
   })
 
   $.each($('.nominal-transaksi'), (index, value) => {
+    $(value).text('Rp. ' + numberFormat($(value).text()))
+  })
+
+  $.each($('.jumlah-pembayaran'), (index, value) => {
     $(value).text('Rp. ' + numberFormat($(value).text()))
   })
 

@@ -45,9 +45,18 @@ class TabunganController extends Controller
             ->limit(10)
             ->get();
 
+        $tabungan_perlu_approve = Transaksi::where('soft_delete', 0)
+            ->where('tipe_transaksi', 3)
+            ->where('approved', 0)
+            ->with('Admin','TabunganUmum')
+            ->with('Anggota.Kelas', 'Anggota.Jurusan')
+            ->orderBy('id_transaksi', 'DESC')
+            ->get();
+
         return view('sikas.transaksi-pembayaran-tabungan', [
             'tabungan_siswa' => $tabungan_siswa,
             'tabungan_umum' => $tabungan_umum,
+            'tabungan_perlu_approve' => $tabungan_perlu_approve,
         ]);
     }
 

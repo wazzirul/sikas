@@ -46,6 +46,18 @@ $(document).ready(function () {
 
   });
 
+  $('.approve-button').click((e) => {
+    $('.modal--transaksi__nominal-penarikan').text('Rp. ' + numberFormat(e.currentTarget.dataset.jumlah));
+
+    if (e.currentTarget.dataset.tipe_tabungan == 'siswa') {
+      $('#id_anggota_setoran').val(e.currentTarget.dataset.id_tabungan)
+      $('#tipe_tabungan_setoran').val('siswa')
+    } else {
+      $('#id_tabungan_umum_setoran').val(e.currentTarget.dataset.id_tabungan)
+      $('#tipe_tabungan_setoran').val('umum')
+    }
+  })
+
 });
 
 function numberFormat(x) {
@@ -53,3 +65,37 @@ function numberFormat(x) {
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return parts.join(",");
 }
+
+function changeTransaksi($id_transaksi) {
+  $('#id_transaksi').val($id_transaksi);
+}
+
+$('.confirm-transaksi-button').click(() => {
+  let id_transaksi = $('#id_transaksi').val();
+  let id_tabungan_umum = $('#id_tabungan_umum_setoran').val();
+  let id_anggota = $('#id_anggota_setoran').val();
+  let tipe_tabungan = $('#tipe_tabungan_setoran').val();
+
+  let url;
+  if (tipe_tabungan == 'siswa') url = '/query/approvePenarikanTabunganSiswa'
+  else url = '/query/approvePenarikanTabunganUmum'
+
+  $.ajax({
+    url: url,
+    method: 'POST',
+    data: {
+      _token: $('#ctoken').val(),
+      id_transaksi: id_transaksi,
+      id_tabungan_umum: id_tabungan_umum,
+      id_anggota: id_anggota,
+    },
+    success: () => {
+      setTimeout(() => {
+        location.reload()
+      }, 2000);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+})

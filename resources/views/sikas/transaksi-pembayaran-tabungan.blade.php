@@ -75,37 +75,50 @@
           <th>Nama Teller</th>
           <th>No Tabungan</th>
           <th>Nama Tabungan</th>
-          <th>Total Tabungan</th>
           <th>Nominal Pengeluaran</th>
+          <th>Mutasi Tabungan</th>
           <th>Status</th>
+          @if(Session::get('tipe_user') == 1)
           <th>Actions</th>
+          @endif
         </tr>
       </thead>
-      <tbody id="tbody-tabungan-siswa">
-        @foreach($tabungan_siswa as $ts)
+      <tbody>
+        @foreach($tabungan_perlu_approve as $tpa)
         <tr>
           <td>
-            <p>{{ \Carbon\Carbon::parse($ts->tanggal)->translatedFormat('F, d Y') }}</p>
+            <p>{{ \Carbon\Carbon::parse($tpa->tanggal)->translatedFormat('F, d Y') }}</p>
           </td>
-          <td class="text-medium color-neutral-100">{{ $ts->Admin->nama }}</td>
-          <td class="text-medium color-neutral-100">{{ $ts->Anggota->nis }}</td>
+          <td class="text-medium color-neutral-100">{{ $tpa->Admin->nama }}</td>
+
+          @if($tpa->id_tabungan_umum == null)
+          <td class="text-medium color-neutral-100">{{ $tpa->Anggota->nis }}</td>
           <td>
-            <p class="text-medium text-black">{{ $ts->Anggota->nama }} 'Kelas {{ $ts->Anggota->Kelas->nama }} {{ $ts->Anggota->Jurusan->nama }} {{ $ts->Anggota->nomor_kelas }}'</p>
+            <p class="text-medium text-black">{{ $tpa->Anggota->nama }} 'Kelas {{ $tpa->Anggota->Kelas->nama }} {{ $tpa->Anggota->Jurusan->nama }} {{ $tpa->Anggota->nomor_kelas }}'</p>
+          </td>
+          @else
+          <td class="text-medium color-neutral-100">{{ $tpa->TabunganUmum->nomor_tabungan }}</td>
+          <td>
+            <p class="text-medium text-black">{{ $tpa->TabunganUmum->nama_tabungan }}</p>
+          </td>
+          @endif
+          
+          <td>
+            <p class="text-bold text-black jumlah-pembayaran">{{ $tpa->jumlah }}</p>
           </td>
           <td>
-            <p class="text-bold text-black jumlah-pembayaran">{{ $ts->jumlah }}</p>
-          </td>
-          <td>
-            <p class="text-bold text-black jumlah-pembayaran">{{ $ts->jumlah }}</p>
+            <p class="text-bold text-black jumlah-pembayaran">{{ $tpa->mutasi }}</p>
           </td>
           <td>
               <p class="text-bold text-danger">Butuh Konfirmasi Admin</p>
           </td>
+          @if(Session::get('tipe_user') == 1)
           <td>
             <div class="d-flex align-items-center justify-content-start gap-3">
-              <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">Konfirmasi</a>
+              <a href="#" class="btn btn-success approve-button" data-jumlah="{{ $tpa->jumlah }}" data-tipe_tabungan="{{ $tpa->id_tabungan_umum == null ? 'siswa' : 'umum' }}" data-id_tabungan="{{ $tpa->id_tabungan_umum == null ? $tpa->id_anggota : $tpa->id_tabungan_umum }}" onClick="changeTransaksi({{ $tpa->id_transaksi }})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">Konfirmasi</a>
             </div>
           </td>
+          @endif
         </tr>
         @endforeach
       </tbody>
@@ -239,10 +252,31 @@
             " <span class="text-primary text-bold modal--transaksi__nominal-penarikan">Rp. 25.000</span> "<br>
             <small class="text-danger text-extra-bold font-half">*Penarikan yang telah dikonfirmasi tidak bisa diubah / dihapus datanya, pastikan data penarikan sudah benar!</small>
           </p>
+          <input type="hidden" id="id_transaksi" />
+          <input type="hidden" id="id_anggota_setoran" />
+          <input type="hidden" id="id_tabungan_umum_setoran" />
+          <input type="hidden" id="tipe_tabungan_setoran" />
+          <input type="hidden" id="ctoken" value="{{ csrf_token() }}">
+
         </div>
         <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
           <button class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
-          <button class="btn btn-success w-100 confirm-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfrimSuccess">Konfirmasi</button>
+          <button class="btn btn-success w-100 confirm-transaksi-button" data-bs-toggle="modal" data-bs-target="#modalConfirmSuccess">Konfirmasi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalConfirmSuccess" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-check icon-success text-success"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Konfirmasi Transaksi Data</h4>
+          <p class="color-neutral-80">Transaksi berhasil dikonfirmasi</p>
         </div>
       </div>
     </div>

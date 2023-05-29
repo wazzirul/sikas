@@ -170,9 +170,9 @@ function clickSiswa(e) {
                         <td>
                         <div class="d-flex align-items-center justify-content-end gap-3">
                         
-                        <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi} ${name}" data-total="${value.jumlah}" data-savingsfund="${savingsfund}">
-                          <i class="fa-solid fa-print table-icon__link"></i>
-                        </a>
+                        ${value.approved == 1 ? `<a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi} ${name}" data-total="${value.jumlah}" data-savingsfund="${savingsfund}">
+                            <i class="fa-solid fa-print table-icon__link"></i>
+                        </a>` : ''}
 
                         ${document.getElementById('session_admin').value == 1 || value.approved == 0 || value.tipe_transaksi == 2 ? `
                           <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
@@ -381,11 +381,11 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
         method = form.attr('method'),
         data = form.serialize()
 
-    let dontSubmit = false
-    form.find('input:not([type="hidden"])').each((_, el) => {
-        if (!$(el).val()) dontSubmit = true
-    })
-    if (dontSubmit) return
+    // let dontSubmit = false
+    // form.find('input:not([type="hidden"])').each((_, el) => {
+    //     if (!$(el).val()) dontSubmit = true
+    // })
+    // if (dontSubmit) return
 
     let total_tabungan = $('.detail-tabungan')[0].innerHTML;
     let nominal_penarikan = $('#nominalPenarikan').val();
@@ -429,7 +429,7 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
                         savingsfund = transaksi.mutasi
 
                     $('#button_penarikan_sukses').click();
-                    printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund })
+                    if (transaksi.approved == 1) printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund })
                 } catch (error) {
                     console.error(error);
                 }
@@ -441,7 +441,6 @@ $(document).on('submit', 'form#form-tarik-tabungan', function (e) {
             },
             complete: () => {
                 $('#nominalPenarikan').val('')
-
                 let id = $('.id_anggota_input').val()
                 $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
                 validatePenarikan = true;

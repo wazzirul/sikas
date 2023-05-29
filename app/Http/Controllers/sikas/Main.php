@@ -153,8 +153,16 @@ class Main extends Controller
       ->orderBy('id_transaksi', 'DESC')
       ->get();
 
+    $transaksi_perlu_approve = Transaksi::where('tipe_transaksi', 4)
+      ->where('soft_delete', 0)
+      ->where('approved', 0)
+      ->with('Admin')
+      ->orderBy('id_transaksi', 'DESC')
+      ->get();
+
     return view('sikas.transaksi-pengeluaran', [
       'transaksi' => $transaksi,
+      'transaksi_perlu_approve' => $transaksi_perlu_approve,
     ]);
   }
 
