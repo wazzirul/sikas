@@ -56,7 +56,10 @@ function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
             <div class="nominal-pronouncing uppercase">DANA TABUNGAN SAAT INI : Rp ${new Intl.NumberFormat('id').format(savingsfund)},-</div>
           </div>` : ''}
           ${remainingbill ? `<div class="row savings-fund">
-            <div class="nominal-pronouncing uppercase">SISA PARTISIPASI : Rp ${new Intl.NumberFormat('id').format(remainingbill)},-</div>
+            <div class="nominal-pronouncing uppercase">SISA PARTISIPASI : Rp ${new Intl.NumberFormat('id').format(remainingbill > 0 ? remainingbill : 0)},-</div>
+          </div>` : ''}
+          ${remainingbill < 0 ? `<div class="row savings-fund">
+            <div class="nominal-pronouncing uppercase">DEPOSIT KELEBIHAN : Rp ${new Intl.NumberFormat('id').format(Math.abs(remainingbill))},-</div>
           </div>` : ''}
         </div>
         <div class="page-footer">
