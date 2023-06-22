@@ -66,13 +66,14 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::get('/transaksi/history-transaksi-siswa/detail/{id}', [PembayaranController::class, 'historyTransaksiSiswaDetail'])->name('sikas-transaksi--pembayaran-history-siswa-detail');
 
     //Laporan Controller
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('sikas-laporan');
-    Route::get('/laporan-penggunaan-dana', [LaporanController::class, 'penggunaanDana'])->name('sikas-laporan--penggunaan-dana');
+    Route::get('/laporan', [LaporanController::class, 'pembayaranSPP'])->name('sikas-laporan');
+    // Route::get('/laporan', [LaporanController::class, 'index'])->name('sikas-laporan');
+    // Route::get('/laporan-penggunaan-dana', [LaporanController::class, 'penggunaanDana'])->name('sikas-laporan--penggunaan-dana');
     // Route::get('/laporan-pemasukan-dari-sumber-lain', [LaporanController::class, 'pemasukanSumberLain'])->name('sikas-laporan--pemasukan-dari-sumber-lain');
-    Route::get('/laporan-pengajuan-keringanan', [LaporanController::class, 'pengajuanKeringanan'])->name('sikas-laporan--pengajuan-keringanan');
-    Route::get('/laporan-pengajuan-penambahan', [LaporanController::class, 'pengajuanPenambahan'])->name('sikas-laporan--pengajuan-penambahan');
-    Route::get('/laporan-biaya-penunjang-pendidikan', [LaporanController::class, 'pembayaranSPP'])->name('sikas-laporan--biaya-penunjang-pendidikan');
-    Route::get('/laporan-pembayaran-tabungan', [LaporanController::class, 'pembayaranTabungan'])->name('sikas-laporan--pembayaran-tabungan');
+    // Route::get('/laporan-pengajuan-keringanan', [LaporanController::class, 'pengajuanKeringanan'])->name('sikas-laporan--pengajuan-keringanan');
+    // Route::get('/laporan-pengajuan-penambahan', [LaporanController::class, 'pengajuanPenambahan'])->name('sikas-laporan--pengajuan-penambahan');
+    // Route::get('/laporan-biaya-penunjang-pendidikan', [LaporanController::class, 'pembayaranSPP'])->name('sikas-laporan--biaya-penunjang-pendidikan');
+    // Route::get('/laporan-pembayaran-tabungan', [LaporanController::class, 'pembayaranTabungan'])->name('sikas-laporan--pembayaran-tabungan');
 
 
     ///////////////////////////////////

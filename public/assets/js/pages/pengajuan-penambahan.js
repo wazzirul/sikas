@@ -1,1 +1,120 @@
-function numberFormat(a){var e=a.toString().split(".");return e[0]=e[0].replace(/\B(?=(\d{3})+(?!\d))/g,"."),e.join(",")}function formatRupiah(a,e){var t=a.replace(/[^,\d]/g,"").toString().split(","),n=t[0].length%3,r=t[0].substr(0,n),o=t[0].substr(n).match(/\d{3}/gi);return o&&(separator=n?".":"",r+=separator+o.join(".")),r=null!=t[1]?r+","+t[1]:r,null==e?r:r?"Rp. "+r:""}$(document).ready((function(){$(".sisa-tanggungan").text("Rp. "+numberFormat($(".sisa-tanggungan").text())),1==$("#riwayat-pengajuan-keringanan").length&&$("#riwayat-pengajuan-keringanan").DataTable(),$.each($(".nominal-transaksi"),((a,e)=>{$(e).text("Rp. "+numberFormat($(e).text()))})),$("#upload-surat-pengajuan").change((()=>{$(".file-name").text($("#upload-surat-pengajuan").val().split("\\").pop()),$(".pengajuan-keringanan-form__item-upload").removeClass("d-none")})),$("#nominalPembayaran").keyup((a=>{let e=a.currentTarget.value;$("#nominalPembayaran").val(formatRupiah(e,"RP. "))})),$(".detail-pengajuan").click((a=>{let e=numberFormat(a.currentTarget.dataset.jumlah),t=a.currentTarget.dataset.file;t=t.split("/"),$(".modal-jumlah").text(e),a.currentTarget.dataset.file?($(".modal-file").text(t[t.length-1]),$(".modal-download").attr("download"),$(".modal-download").attr("href","/"+a.currentTarget.dataset.file)):($(".modal-file").text("Tidak ada file."),$(".modal-download").attr("href","#!"),$(".modal-download").removeAttr("download"))})),$("#tahunAjaran").keyup((a=>{$(".form-control.form-control-sm").find("input[type=search]").prevObject.each(((e,t)=>{$(t).val(a.currentTarget.value),$(t).keyup()}))}))})),$(document).on("submit","form#form-pengajuan-penambahan",(function(a){a.preventDefault();let e=$(this),t=e.attr("action"),n=e.attr("method"),r=new FormData(this);$.ajax({url:t,method:n,data:r,processData:!1,contentType:!1,success:a=>{try{let{tanggal:e,anggota:t,pengajuan:n,kasir:r}=a,o=new Date(Date.parse(e)),l=o.toLocaleDateString("id",{weekday:"long"}),u=o.toLocaleDateString("id",{month:"long"}),i=o.getDate(),m=o.getFullYear(),d=r,g=`${l}, ${i} ${u} ${m}`,s=!0,p=`${t.nis} / ${t.nama}`,c=t.detail_kelas,$="Pengajuan Penambahan Uang Akademik",h=n.jumlah;printReceipt(null,{username:d,numberanddate:g,removetransactionnumber:s,numberandname:p,classname:c,transactiontype:$,total:h},(()=>location.reload()))}catch(a){console.error(a)}},error:a=>{console.log(a)},complete:()=>{e.trigger("reset"),$(".pengajuan-keringanan-form__item-upload").addClass("d-none")}})}));
+$(document).ready(function () {
+  $('.sisa-tanggungan').text('Rp. ' + numberFormat($('.sisa-tanggungan').text()));
+
+  if ($("#riwayat-pengajuan-keringanan").length == 1) {
+    $('#riwayat-pengajuan-keringanan').DataTable();
+  }
+
+  $.each($('.nominal-transaksi'), (index, value) => {
+    $(value).text('Rp. ' + numberFormat($(value).text()))
+  })
+
+  $('#upload-surat-pengajuan').change(() => {
+    $('.file-name').text($('#upload-surat-pengajuan').val().split('\\').pop());
+    $('.pengajuan-keringanan-form__item-upload').removeClass('d-none');
+  })
+
+  $('#nominalPembayaran').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominalPembayaran').val(formatRupiah(input, 'RP. '))
+  })
+
+  $('.detail-pengajuan').click((el) => {
+    let jumlah = numberFormat(el.currentTarget.dataset.jumlah);
+    let file = el.currentTarget.dataset.file;
+    file = file.split('/');
+
+    $('.modal-jumlah').text(jumlah);
+    if (el.currentTarget.dataset.file) {
+      $('.modal-file').text(file[file.length - 1]);
+      $('.modal-download').attr('download');
+      $('.modal-download').attr('href', '/' + el.currentTarget.dataset.file);
+    } else {
+      $('.modal-file').text('Tidak ada file.');
+      $('.modal-download').attr('href', '#!');
+      $('.modal-download').removeAttr('download');
+    }
+  })
+
+  $('#tahunAjaran').keyup((e) => {
+    $('.form-control.form-control-sm').find('input[type=search]').prevObject.each((index, value) => {
+      $(value).val(e.currentTarget.value);
+      $(value).keyup();
+    });
+  })
+});
+
+function numberFormat(x) {
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return parts.join(",");
+}
+
+function formatRupiah(angka, prefix) {
+  var number_string = angka.replace(/[^,\d]/g, '').toString(),
+    split = number_string.split(','),
+    sisa = split[0].length % 3,
+    rupiah = split[0].substr(0, sisa),
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+  // tambahkan titik jika yang di input sudah menjadi angka ribuan
+  if (ribuan) {
+    separator = sisa ? '.' : '';
+    rupiah += separator + ribuan.join('.');
+  }
+
+  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+  return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}
+
+$(document).on('submit', 'form#form-pengajuan-penambahan', function (e) {
+  e.preventDefault()
+
+  let form = $(this),
+    url = form.attr('action'),
+    method = form.attr('method'),
+    data = new FormData(this)
+
+  // let dontSubmit = false
+  // form.find('input:not([type="hidden"])').each((_, el) => {
+  //   if (!$(el).val()) dontSubmit = true
+  // })
+  // if (dontSubmit) return
+
+  $.ajax({
+    url,
+    method,
+    data,
+    processData: false,
+    contentType: false,
+    success: (result) => {
+      try {
+        let { tanggal, anggota, pengajuan, kasir } = result
+        let tgl = new Date(Date.parse(tanggal));
+        let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+        let bulan = tgl.toLocaleDateString('id', { month: 'long' });
+        let date = tgl.getDate();
+        let tahun = tgl.getFullYear();
+
+        let username = kasir,
+          numberanddate = `${day}, ${date} ${bulan} ${tahun}`,
+          removetransactionnumber = true,
+          numberandname = `${anggota.nis} / ${anggota.nama}`,
+          classname = anggota.detail_kelas,
+          transactiontype = 'Pengajuan Penambahan Uang Akademik',
+          total = pengajuan.jumlah
+
+        printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total }, () => location.reload())
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    error: (err) => {
+      console.log(err);
+    },
+    complete: () => {
+      form.trigger('reset')
+      $('.pengajuan-keringanan-form__item-upload').addClass('d-none');
+    }
+  })
+})

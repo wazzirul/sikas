@@ -129,6 +129,11 @@ Transaksi
                 <h5 class="text-bold text-primary detail-tagihan">-</h5>
               </div>
             </div>
+            <div class="d-flex flex-row justify-content-between align-items-center gap-2 mt-4">
+              <div class="d-flex flex-column">
+                <p class="color-black">*Apabila nominal <span class="text-underline text-bold">sisa partisipasi minus</span> maka siswa memiliki deposit / sisa dana tersimpan dari <span class="text-underline text-bold">kelebihan tanggungan yang telah dibayarkan</span></p>
+              </div>
+            </div>
           </div>
           <div class="d-flex flex-column align-items-center justify-content-center text-center empty-state empty-detail-pembayaran">
             <img src="{{asset('assets/img/sikas/empty-illustration-2.png')}}" alt="">

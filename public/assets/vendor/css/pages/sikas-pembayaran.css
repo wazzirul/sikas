@@ -1,1 +1,836 @@
-.color-red{color:#ff1e00}.color-white{color:#fff}.color-black{color:#000}.color-border{color:#d0d4e0}.color-grey-icon{color:#c2c2c2}.color-dark-subtle{color:#abb6c3}.color-neutral-30{color:#ededed}.color-neutral-40{color:#e0e0e0}.color-neutral-50{color:#c2c2c2}.color-neutral-80{color:#616161}.color-neutral-100{color:#1b1b1b}*{scrollbar-color:#696cff transparent;scrollbar-width:thin;transition:all .2s linear}::-webkit-scrollbar-track{background-color:transparent;-webkit-box-shadow:unset}::-webkit-scrollbar{background-color:transparent;height:4px;width:4px}::-webkit-scrollbar-thumb{background-color:#696cff;border:unset}html{overflow-x:hidden;scroll-behavior:smooth}small{font-size:.75rem}h1,h2,h3,h4,h5,h6,p{margin:0}h4{font-size:1.5rem}h4,h5{font-style:normal;font-weight:600;line-height:1.2}h5{font-size:1.25rem}.mt-5{margin-top:2rem!important}.mb-5{margin-bottom:2rem!important}.btn{align-items:center;display:flex;flex-direction:row;gap:.75rem;justify-content:center}.form-control,.form-select{color:#1b1b1b}.form-control:active,.form-control:focus,.form-control:focus-visible,.form-control:focus-within,.form-select:active,.form-select:focus,.form-select:focus-visible,.form-select:focus-within{color:#1b1b1b}input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}.dt-row{margin-top:1rem!important}.table.table-striped{border:1px solid #e0e0e0!important}.table.table-striped tbody,.table.table-striped td,.table.table-striped th,.table.table-striped thead,.table.table-striped tr{border-color:#e0e0e0!important}.table .table-link-border{background-color:#c2c2c2;height:1.25rem!important;width:1px!important}.cursor-pointer{cursor:pointer}@media(max-width:1399.98px){.container,.container-fluid,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{max-width:100%;padding:2rem;width:100%}}@media(max-width:991.98px){.container,.container-fluid,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{padding:1.5rem}}.dataTables_wrapper{padding-bottom:1.5rem}th[rowspan]:not([rowspan="1"]){text-align:center;vertical-align:middle}.table tr td:last-child,.table tr th:last-child{white-space:nowrap;width:1%}.date-range{position:relative}.date-range #date-range-span{padding-right:2.5rem}.date-range .date-range-icon{bottom:0;height:1rem;margin:auto 0;position:absolute;right:1rem;top:0;width:1rem}.daterangepicker{right:1.5rem!important}.daterangepicker .drp-buttons{align-items:center;display:flex!important;flex-wrap:wrap!important;gap:.75rem;justify-content:end}.daterangepicker .drp-selected{width:100%!important}.tab-content{box-shadow:none}.w-max-content{width:-moz-max-content;width:max-content}.ml-auto{margin-left:auto}.mr-auto{margin-right:auto}.form-select{background-position:right .5rem center;min-height:2.5rem;padding:.4375rem 2rem .4375rem .875rem}.select2.select2-container{width:100%!important}.select2.select2-container .select2-selection{border:1px solid #d9dee3;min-height:2.5rem;padding:.4375rem 2rem .4375rem .875rem}.select2.select2-container .select2-search{position:relative;top:-4px}.select2.select2-container--open .select2-selection{border:1px solid #696cff}.select2.select2-container .select2-selection--single .select2-selection__rendered{line-height:25px;padding-left:0}.select2-results__options .select2-results__option{background-color:transparent!important;color:#616161!important;position:relative}.select2-results__options .select2-results__option--disabled{background-color:transparent!important;color:#02c39a!important}.select2-results__options .select2-results__option--disabled:after{content:"✓";position:absolute;right:1.5rem}.select2-results__options .select2-results__option--selected{background-color:#696cff!important;color:#fff!important}.select2-container--default .select2-selection--multiple .select2-selection__choice{background-color:#696cff!important;color:#fff!important;margin:0!important}.select2-container--default .select2-selection--single .select2-selection__arrow b{margin-top:2px}.select2-close-mask{z-index:2099}.select2-dropdown{z-index:3051}@media(max-width:991.98px){.card-body__header{flex-direction:column!important}}.choices-sikas{border:1px solid #e0e0e0!important;border-radius:.375rem!important}.menu-item div,.menu-item__text{position:relative}.menu-item--confrimation{align-items:center;background:#ff1e00;border-radius:100%;color:#fff;display:flex;flex-direction:row;font-size:12px!important;height:16px;justify-content:center;position:absolute;right:-18px;text-align:center;top:-4px;width:16px}.layout-menu{padding-bottom:4px!important}.btn-import-transaksi,.btn-unduh-format{padding:.75rem 1.5rem!important}.jenis-pembayaran{display:grid;gap:1rem;grid-template-columns:repeat(2,1fr)}.jenis-pembayaran .card{background-color:#fff;padding:2rem}.jenis-pembayaran .card .card-body{padding:0}.jenis-pembayaran .jenis-pembayaran__icon{height:2rem;transition:all .2s linear;width:2rem}.jenis-pembayaran .jenis-pembayaran__icon-wrap{align-items:center;background:#1b1b1b;border-radius:100%;display:flex;height:3.5rem;justify-content:center;transition:all .2s linear;width:3.5rem}.jenis-pembayaran .jenis-pembayaran__icon-wrap .jenis-pembayaran__icon{color:#fff;margin:auto}.jenis-pembayaran .jenis-pembayaran__link .jenis-pembayaran__icon--link{color:#1b1b1b}.jenis-pembayaran .jenis-pembayaran__link:hover .jenis-pembayaran__icon-wrap{background:#696cff}.jenis-pembayaran .jenis-pembayaran__link:hover .jenis-pembayaran__icon--link{color:#696cff}.konfirmasi-pengeluaran,.riwayat-transaksi{padding:2rem}.card--pembayaran{position:relative}.card--pembayaran .card-body{padding:2rem;position:relative}@media(max-width:1299.98px){.card--pembayaran .card-body{padding:2rem 1.5rem}}.card--pembayaran .card-body__wrapper{display:grid;gap:2rem;grid-template-columns:1fr 1px 1fr}@media(max-width:991.98px){.card--pembayaran .card-body__wrapper{grid-template-columns:1fr}}@media(max-width:1399.98px){.card--pembayaran .card-body__wrapper{gap:1.5rem}}@media(max-width:1299.98px){.card--pembayaran .card-body__wrapper{gap:1rem}}.card--pembayaran .input-group.input-group-merge .input-group-text{border:1px solid #e0e0e0;border-radius:.375rem!important;border-bottom-right-radius:0!important;border-right:0;border-top-right-radius:0!important}.card--pembayaran .input-group.input-group-merge .form-control{border:1px solid #e0e0e0;border-radius:.375rem!important;border-bottom-left-radius:0!important;border-left:0;border-right:1px solid #e0e0e0;border-top-left-radius:0!important}.card--pembayaran .horizontal-line{background:#ededed;height:100%;width:1px}@media(max-width:991.98px){.card--pembayaran .horizontal-line{height:1.5px;width:100%}}.card--pembayaran .cari-siswa{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;max-height:17.661875rem;overflow-y:auto}.card--pembayaran .cari-siswa .cari-siswa__item{align-items:center;background-color:#fff;border:1px solid #ededed;display:flex;gap:1rem;padding:1rem;transition:all .2s linear}.card--pembayaran .cari-siswa .cari-siswa__item:hover{background-color:#e0e0e0}.card--pembayaran .cari-siswa .cari-siswa__item-nama{width:15.625rem}@media(max-width:1299.98px){.card--pembayaran .cari-siswa .cari-siswa__item-nama{max-width:12.5rem}}@media(max-width:1199.98px){.card--pembayaran .cari-siswa .cari-siswa__item-nama{max-width:15.625rem}}@media(max-width:1063.98px){.card--pembayaran .cari-siswa .cari-siswa__item-nama{max-width:12.5rem}}@media(max-width:991.98px){.card--pembayaran .cari-siswa .cari-siswa__item-nama{max-width:18.75rem;width:18.75rem}}.card--pembayaran .cari-siswa .cari-siswa__nama-siswa{height:1.25rem;max-width:11.25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}@media(max-width:1299.98px){.card--pembayaran .cari-siswa .cari-siswa__nama-siswa{max-width:10rem}}@media(max-width:1199.98px){.card--pembayaran .cari-siswa .cari-siswa__nama-siswa{max-width:11.25rem}}@media(max-width:1063.98px){.card--pembayaran .cari-siswa .cari-siswa__nama-siswa{max-width:10rem}}@media(max-width:991.98px){.card--pembayaran .cari-siswa .cari-siswa__nama-siswa{max-width:16.25rem}}.card--pembayaran .cari-siswa .nomor-siswa{height:1.25rem;max-width:11.25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}@media(max-width:1299.98px){.card--pembayaran .cari-siswa .nomor-siswa{max-width:10rem}}@media(max-width:1199.98px){.card--pembayaran .cari-siswa .nomor-siswa{max-width:11.25rem}}@media(max-width:1063.98px){.card--pembayaran .cari-siswa .nomor-siswa{max-width:10rem}}@media(max-width:991.98px){.card--pembayaran .cari-siswa .nomor-siswa{max-width:16.25rem}}.card--pembayaran .cari-siswa .cari-siswa__icon{height:2rem;width:2rem}.card--pembayaran .cari-siswa .cari-siswa__item-detail{margin-left:auto}.card--pembayaran .cari-siswa .cari-siswa__item-detail .cari-siswa__item-detail__icon{height:1.25rem;width:1.25rem}.card--pembayaran .card-item--detail-dan-form{display:flex;flex-direction:column;gap:1.5rem}.card--pembayaran .detail-siswa{background:#e0e0e0;border-radius:.5rem;padding:1rem}.card--pembayaran .detail-siswa .detail-siswa__icon{height:2.5rem;width:2.5rem}.card--pembayaran .detail-siswa .detail-siswa__sisa-partisipasi,.card--pembayaran .detail-siswa .detail-siswa__status-siswa,.card--pembayaran .detail-siswa .detail-siswa__total-tabungan{width:9.375rem}.card--pembayaran .pembayaran-button{padding:1rem 2rem;width:-moz-max-content;width:max-content}.modal--transaksi .modal-dialog{max-width:23.75rem}.modal--transaksi .modal-body{padding:2rem}.modal--transaksi .icon{height:1.5rem;width:1.5rem}.modal--transaksi .icon-success{height:3.5rem;width:3.5rem}.modal--transaksi-tabungan .modal-dialog{max-width:30rem}.modal--transaksi-form .modal-dialog{max-width:36.25rem}.card--history-pembayaran,.card--history-transaksi-siswa{padding:2rem}.card--history-pembayaran .card-body,.card--history-transaksi-siswa .card-body{padding:0}.card--history-pembayaran .detail-siswa-history__subs,.card--history-transaksi-siswa .detail-siswa-history__subs{max-width:100%}.card--history-pembayaran .border-line,.card--history-transaksi-siswa .border-line{background:#ededed;height:1px;margin:2rem 0;width:100%}.card--history-pembayaran .table-link-border,.card--history-transaksi-siswa .table-link-border{background-color:#c2c2c2;height:1.25rem;width:1px}.tahun-ajaran{width:-moz-max-content;width:max-content}.tahun-ajaran,.tahun-ajaran .tahun-ajaran-input{position:relative}.tahun-ajaran .tahun-ajaran-input .form-control{padding:.75rem 3rem .75rem 1rem;position:relative;width:21.5rem}.tahun-ajaran .tahun-ajaran-input .input-icon{bottom:0;height:1.25rem;margin:auto 0;pointer-events:none;position:absolute;right:1rem;top:0;transition:all .2s linear;width:1.25rem}.tahun-ajaran .tahun-ajaran-input:active .input-icon,.tahun-ajaran .tahun-ajaran-input:focus .input-icon,.tahun-ajaran .tahun-ajaran-input:focus-visible .input-icon,.tahun-ajaran .tahun-ajaran-input:focus-within .input-icon{color:#696cff}.pengajuan-keringanan{display:grid;gap:2rem;grid-template-columns:1fr 1px max-content;padding:2rem}@media(max-width:991.98px){.pengajuan-keringanan{grid-template-columns:1fr}}.pengajuan-keringanan .detail-siswa .horizontal-line{background-color:#ededed;height:1px;width:100%}.pengajuan-keringanan .border-line{background-color:#ededed;height:100%;width:1px}@media(max-width:991.98px){.pengajuan-keringanan .border-line{grid-row:2/3;height:1.5px;width:100%}}.pengajuan-keringanan .pengajuan-keringanan__form{width:27.375rem}@media(max-width:991.98px){.pengajuan-keringanan .pengajuan-keringanan__form{grid-row:1/2;width:100%}}.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload{align-items:center;display:flex;flex-direction:row;gap:.5rem;margin-top:1rem;width:100%}.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .file-icon{height:2rem;width:2rem}.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .delete-file{margin-left:auto}.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .delete-file .delete-file__icon{height:1.5rem;width:1.5rem}.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .delete-file:hover .delete-file__icon{color:#ef233c}.card--riwayat-transaksi{padding:2rem}.card--riwayat-transaksi .card-body{padding:0}.card--riwayat-transaksi .table-icon__link{height:1.125rem;margin:2px 0;width:1.125rem}.card--riwayat-tabungan{padding:2rem}.card--riwayat-tabungan .card-body{padding:0}.card--riwayat-tabungan .table-icon__link{height:1.125rem;margin:2px 0;width:1.125rem}.modal--pengajuan-keringanan .modal-dialog{max-width:30rem}.form-check-bulanan{display:grid;gap:.375rem;grid-template-columns:repeat(4,1fr);width:100%}@media(max-width:1399.98px){.form-check-bulanan{grid-template-columns:repeat(3,1fr)}}@media(max-width:1063.98px){.form-check-bulanan{grid-template-columns:repeat(3,1fr)}}@media(max-width:991.98px){.form-check-bulanan{grid-template-columns:repeat(5,1fr)}}.form-check-bulanan .form-check{margin:0;padding:0}.form-check-bulanan .form-check-input{cursor:pointer;display:none}.form-check-bulanan .form-check-label{align-items:center;background-color:#233446;border-radius:.5rem;color:#fff;cursor:pointer;display:flex;flex-direction:row;gap:.5rem;justify-content:center;padding:.5rem .75rem;transition:all .2s linear;width:100%}@media(max-width:1399.98px){.form-check-bulanan .form-check-label{gap:.375rem}}@media(max-width:1199.98px){.form-check-bulanan .form-check-label{gap:.25rem}}@media(max-width:1063.98px){.form-check-bulanan .form-check-label{gap:.1875rem}}.form-check-bulanan .form-check-label .form-check-label__icon{color:#fff;display:none!important;height:1rem;transition:all .2s linear;width:1rem}@media(max-width:1399.98px){.form-check-bulanan .form-check-label .form-check-label__icon{height:.75rem;width:.75rem}}@media(max-width:1063.98px){.form-check-bulanan .form-check-label .form-check-label__icon{height:.625rem;width:.625rem}}.form-check-bulanan .form-check-input:checked~.form-check-label,.form-check-bulanan .form-check-input[checked]~.form-check-label,.form-check-bulanan .form-check-label.checked{background-color:#2196f3;color:#fff;opacity:1}.form-check-bulanan .form-check-input:checked~.form-check-label .form-check-label__icon,.form-check-bulanan .form-check-input[checked]~.form-check-label .form-check-label__icon,.form-check-bulanan .form-check-label.checked .form-check-label__icon{display:block!important}.form-check-bulanan .form-check-input:disabled~.form-check-label,.form-check-bulanan .form-check-input[disabled]~.form-check-label{background-color:#e0e0e0;color:#616161;cursor:default!important;opacity:1}.form-check-bulanan .form-check-input:disabled~.form-check-label .form-check-label__icon,.form-check-bulanan .form-check-input[disabled]~.form-check-label .form-check-label__icon{color:#616161;display:block!important}
+@charset "UTF-8";
+.color-red {
+  color: #FF1E00;
+}
+
+.color-white {
+  color: #fff;
+}
+
+.color-black {
+  color: #000;
+}
+
+.color-border {
+  color: #D0D4E0;
+}
+
+.color-grey-icon {
+  color: #C2C2C2;
+}
+
+.color-dark-subtle {
+  color: #ABB6C3;
+}
+
+.color-neutral-30 {
+  color: #EDEDED;
+}
+
+.color-neutral-40 {
+  color: #E0E0E0;
+}
+
+.color-neutral-50 {
+  color: #C2C2C2;
+}
+
+.color-neutral-80 {
+  color: #616161;
+}
+
+.color-neutral-100 {
+  color: #1B1B1B;
+}
+
+* {
+  scrollbar-color: #696cff transparent;
+  scrollbar-width: thin;
+  transition: all linear 0.2s;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: unset;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #696cff;
+  border: unset;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+small {
+  font-size: 0.75rem;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h4 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+h5 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.mt-5 {
+  margin-top: 2rem !important;
+}
+
+.mb-5 {
+  margin-bottom: 2rem !important;
+}
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-control, .form-select {
+  color: #1B1B1B;
+}
+.form-control:focus, .form-control:focus-visible, .form-control:focus-within, .form-control:active, .form-select:focus, .form-select:focus-visible, .form-select:focus-within, .form-select:active {
+  color: #1B1B1B;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.dt-row {
+  margin-top: 1rem !important;
+}
+
+.table.table-striped {
+  border: 1px solid #E0E0E0 !important;
+}
+.table.table-striped thead, .table.table-striped tbody, .table.table-striped tr, .table.table-striped td, .table.table-striped th {
+  border-color: #E0E0E0 !important;
+}
+.table .table-link-border {
+  width: 1px !important;
+  height: 1.25rem !important;
+  background-color: #C2C2C2;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+@media (max-width: 1399.98px) {
+  .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+    max-width: 100%;
+    width: 100%;
+    padding: 2rem;
+  }
+}
+@media (max-width: 991.98px) {
+  .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+    padding: 1.5rem;
+  }
+}
+
+.dataTables_wrapper {
+  padding-bottom: 1.5rem;
+}
+
+th[rowspan]:not([rowspan="1"]) {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table tr td:last-child, .table tr th:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.date-range {
+  position: relative;
+}
+.date-range #date-range-span {
+  padding-right: 2.5rem;
+}
+.date-range .date-range-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
+  height: 1rem;
+  width: 1rem;
+  margin: auto 0;
+}
+
+.daterangepicker {
+  right: 1.5rem !important;
+}
+.daterangepicker .drp-buttons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: end;
+}
+.daterangepicker .drp-selected {
+  width: 100% !important;
+}
+
+.tab-content {
+  box-shadow: none;
+}
+
+.w-max-content {
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.form-select {
+  padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+  background-position: right 0.5rem center;
+  min-height: 2.5rem;
+}
+
+.select2.select2-container {
+  width: 100% !important;
+}
+.select2.select2-container .select2-selection {
+  border: 1px solid #d9dee3;
+  padding: 0.4375rem 2rem 0.4375rem 0.875rem;
+  min-height: 2.5rem;
+}
+.select2.select2-container .select2-search {
+  position: relative;
+  top: -4px;
+}
+.select2.select2-container--open .select2-selection {
+  border: 1px solid #696cff;
+}
+.select2.select2-container .select2-selection--single .select2-selection__rendered {
+  padding-left: 0;
+  line-height: 25px;
+}
+
+.select2-results__options .select2-results__option {
+  position: relative;
+  background-color: transparent !important;
+  color: #616161 !important;
+}
+.select2-results__options .select2-results__option--disabled {
+  background-color: transparent !important;
+  color: #02c39a !important;
+}
+.select2-results__options .select2-results__option--disabled::after {
+  content: "✓";
+  position: absolute;
+  right: 1.5rem;
+}
+.select2-results__options .select2-results__option--selected {
+  background-color: #696cff !important;
+  color: #fff !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #696cff !important;
+  color: #fff !important;
+  margin: 0 !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  margin-top: 2px;
+}
+
+.select2-close-mask {
+  z-index: 2099;
+}
+
+.select2-dropdown {
+  z-index: 3051;
+}
+
+@media (max-width: 991.98px) {
+  .card-body__header {
+    flex-direction: column !important;
+  }
+}
+
+.choices-sikas {
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 0.375rem !important;
+}
+
+.menu-item__text {
+  position: relative;
+}
+
+.menu-item div {
+  position: relative;
+}
+
+.menu-item--confrimation {
+  position: absolute;
+  top: -4px;
+  right: -18px;
+  background: #FF1E00;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  font-size: 12px !important;
+}
+
+.layout-menu {
+  padding-bottom: 4px !important;
+}
+
+.btn-import-transaksi {
+  padding: 0.75rem 1.5rem !important;
+}
+
+.btn-unduh-format {
+  padding: 0.75rem 1.5rem !important;
+}
+
+.jenis-pembayaran {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.jenis-pembayaran .card {
+  background-color: #fff;
+  padding: 2rem;
+}
+.jenis-pembayaran .card .card-body {
+  padding: 0;
+}
+.jenis-pembayaran .jenis-pembayaran__icon {
+  width: 2rem;
+  height: 2rem;
+  transition: all linear 0.2s;
+}
+.jenis-pembayaran .jenis-pembayaran__icon-wrap {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: #1B1B1B;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all linear 0.2s;
+}
+.jenis-pembayaran .jenis-pembayaran__icon-wrap .jenis-pembayaran__icon {
+  color: #fff;
+  margin: auto;
+}
+.jenis-pembayaran .jenis-pembayaran__link .jenis-pembayaran__icon--link {
+  color: #1B1B1B;
+}
+.jenis-pembayaran .jenis-pembayaran__link:hover .jenis-pembayaran__icon-wrap {
+  background: #696cff;
+}
+.jenis-pembayaran .jenis-pembayaran__link:hover .jenis-pembayaran__icon--link {
+  color: #696cff;
+}
+
+.riwayat-transaksi {
+  padding: 2rem;
+}
+
+.konfirmasi-pengeluaran {
+  padding: 2rem;
+}
+
+.card--pembayaran {
+  position: relative;
+}
+.card--pembayaran .card-body {
+  position: relative;
+  padding: 2rem;
+}
+@media (max-width: 1299.98px) {
+  .card--pembayaran .card-body {
+    padding: 2rem 1.5rem;
+  }
+}
+.card--pembayaran .card-body__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 2rem;
+}
+@media (max-width: 991.98px) {
+  .card--pembayaran .card-body__wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 1399.98px) {
+  .card--pembayaran .card-body__wrapper {
+    gap: 1.5rem;
+  }
+}
+@media (max-width: 1299.98px) {
+  .card--pembayaran .card-body__wrapper {
+    gap: 1rem;
+  }
+}
+.card--pembayaran .input-group.input-group-merge .input-group-text {
+  border: 1px solid #E0E0E0;
+  border-right: 0;
+  border-radius: 0.375rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.card--pembayaran .input-group.input-group-merge .form-control {
+  border: 1px solid #E0E0E0;
+  border-radius: 0.375rem !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-left: 0;
+  border-right: 1px solid #E0E0E0;
+}
+.card--pembayaran .horizontal-line {
+  background: #EDEDED;
+  height: 100%;
+  width: 1px;
+}
+@media (max-width: 991.98px) {
+  .card--pembayaran .horizontal-line {
+    height: 1.5px;
+    width: 100%;
+  }
+}
+.card--pembayaran .cari-siswa {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 17.661875rem;
+  overflow-y: auto;
+}
+.card--pembayaran .cari-siswa .cari-siswa__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  transition: all linear 0.2s;
+  border: 1px solid #EDEDED;
+}
+.card--pembayaran .cari-siswa .cari-siswa__item:hover {
+  background-color: #E0E0E0;
+}
+.card--pembayaran .cari-siswa .cari-siswa__item-nama {
+  width: 15.625rem;
+}
+@media (max-width: 1299.98px) {
+  .card--pembayaran .cari-siswa .cari-siswa__item-nama {
+    max-width: 12.5rem;
+  }
+}
+@media (max-width: 1199.98px) {
+  .card--pembayaran .cari-siswa .cari-siswa__item-nama {
+    max-width: 15.625rem;
+  }
+}
+@media (max-width: 1063.98px) {
+  .card--pembayaran .cari-siswa .cari-siswa__item-nama {
+    max-width: 12.5rem;
+  }
+}
+@media (max-width: 991.98px) {
+  .card--pembayaran .cari-siswa .cari-siswa__item-nama {
+    width: 18.75rem;
+    max-width: 18.75rem;
+  }
+}
+.card--pembayaran .cari-siswa .cari-siswa__nama-siswa {
+  height: 1.25rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 11.25rem;
+}
+@media (max-width: 1299.98px) {
+  .card--pembayaran .cari-siswa .cari-siswa__nama-siswa {
+    max-width: 10rem;
+  }
+}
+@media (max-width: 1199.98px) {
+  .card--pembayaran .cari-siswa .cari-siswa__nama-siswa {
+    max-width: 11.25rem;
+  }
+}
+@media (max-width: 1063.98px) {
+  .card--pembayaran .cari-siswa .cari-siswa__nama-siswa {
+    max-width: 10rem;
+  }
+}
+@media (max-width: 991.98px) {
+  .card--pembayaran .cari-siswa .cari-siswa__nama-siswa {
+    max-width: 16.25rem;
+  }
+}
+.card--pembayaran .cari-siswa .nomor-siswa {
+  height: 1.25rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 11.25rem;
+}
+@media (max-width: 1299.98px) {
+  .card--pembayaran .cari-siswa .nomor-siswa {
+    max-width: 10rem;
+  }
+}
+@media (max-width: 1199.98px) {
+  .card--pembayaran .cari-siswa .nomor-siswa {
+    max-width: 11.25rem;
+  }
+}
+@media (max-width: 1063.98px) {
+  .card--pembayaran .cari-siswa .nomor-siswa {
+    max-width: 10rem;
+  }
+}
+@media (max-width: 991.98px) {
+  .card--pembayaran .cari-siswa .nomor-siswa {
+    max-width: 16.25rem;
+  }
+}
+.card--pembayaran .cari-siswa .cari-siswa__icon {
+  width: 2rem;
+  height: 2rem;
+}
+.card--pembayaran .cari-siswa .cari-siswa__item-detail {
+  margin-left: auto;
+}
+.card--pembayaran .cari-siswa .cari-siswa__item-detail .cari-siswa__item-detail__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.card--pembayaran .card-item--detail-dan-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.card--pembayaran .detail-siswa {
+  padding: 1rem;
+  background: #E0E0E0;
+  border-radius: 0.5rem;
+}
+.card--pembayaran .detail-siswa .detail-siswa__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.card--pembayaran .detail-siswa .detail-siswa__status-siswa,
+.card--pembayaran .detail-siswa .detail-siswa__sisa-partisipasi,
+.card--pembayaran .detail-siswa .detail-siswa__total-tabungan {
+  width: 9.375rem;
+}
+.card--pembayaran .pembayaran-button {
+  padding: 1rem 2rem;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.modal--transaksi .modal-dialog {
+  max-width: 23.75rem;
+}
+.modal--transaksi .modal-body {
+  padding: 2rem;
+}
+.modal--transaksi .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.modal--transaksi .icon-success {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.modal--transaksi-tabungan .modal-dialog {
+  max-width: 30rem;
+}
+
+.modal--transaksi-form .modal-dialog {
+  max-width: 36.25rem;
+}
+
+.card--history-pembayaran,
+.card--history-transaksi-siswa {
+  padding: 2rem;
+}
+.card--history-pembayaran .card-body,
+.card--history-transaksi-siswa .card-body {
+  padding: 0;
+}
+.card--history-pembayaran .detail-siswa-history__subs,
+.card--history-transaksi-siswa .detail-siswa-history__subs {
+  max-width: 100%;
+}
+.card--history-pembayaran .border-line,
+.card--history-transaksi-siswa .border-line {
+  width: 100%;
+  height: 1px;
+  background: #EDEDED;
+  margin: 2rem 0;
+}
+.card--history-pembayaran .table-link-border,
+.card--history-transaksi-siswa .table-link-border {
+  width: 1px;
+  height: 1.25rem;
+  background-color: #C2C2C2;
+}
+
+.tahun-ajaran {
+  position: relative;
+  width: -moz-max-content;
+  width: max-content;
+}
+.tahun-ajaran .tahun-ajaran-input {
+  position: relative;
+}
+.tahun-ajaran .tahun-ajaran-input .form-control {
+  position: relative;
+  padding: 0.75rem 1rem;
+  padding-right: 3rem;
+  width: 21.5rem;
+}
+.tahun-ajaran .tahun-ajaran-input .input-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
+  margin: auto 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: all linear 0.2s;
+  pointer-events: none;
+}
+.tahun-ajaran .tahun-ajaran-input:focus .input-icon, .tahun-ajaran .tahun-ajaran-input:focus-visible .input-icon, .tahun-ajaran .tahun-ajaran-input:focus-within .input-icon, .tahun-ajaran .tahun-ajaran-input:active .input-icon {
+  color: #696cff;
+}
+
+.pengajuan-keringanan {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1px max-content;
+  gap: 2rem;
+}
+@media (max-width: 991.98px) {
+  .pengajuan-keringanan {
+    grid-template-columns: 1fr;
+  }
+}
+.pengajuan-keringanan .detail-siswa .horizontal-line {
+  height: 1px;
+  width: 100%;
+  background-color: #EDEDED;
+}
+.pengajuan-keringanan .border-line {
+  height: 100%;
+  width: 1px;
+  background-color: #EDEDED;
+}
+@media (max-width: 991.98px) {
+  .pengajuan-keringanan .border-line {
+    width: 100%;
+    height: 1.5px;
+    grid-row: 2/3;
+  }
+}
+.pengajuan-keringanan .pengajuan-keringanan__form {
+  width: 27.375rem;
+}
+@media (max-width: 991.98px) {
+  .pengajuan-keringanan .pengajuan-keringanan__form {
+    width: 100%;
+    grid-row: 1/2;
+  }
+}
+.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .file-icon {
+  width: 2rem;
+  height: 2rem;
+}
+.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .delete-file {
+  margin-left: auto;
+}
+.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .delete-file .delete-file__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.pengajuan-keringanan .pengajuan-keringanan__form .pengajuan-keringanan-form__item-upload .delete-file:hover .delete-file__icon {
+  color: #ef233c;
+}
+
+.card--riwayat-transaksi {
+  padding: 2rem;
+}
+.card--riwayat-transaksi .card-body {
+  padding: 0;
+}
+.card--riwayat-transaksi .table-icon__link {
+  margin: 2px 0;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.card--riwayat-tabungan {
+  padding: 2rem;
+}
+.card--riwayat-tabungan .card-body {
+  padding: 0;
+}
+.card--riwayat-tabungan .table-icon__link {
+  margin: 2px 0;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.modal--pengajuan-keringanan .modal-dialog {
+  max-width: 30rem;
+}
+
+.form-check-bulanan {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.375rem;
+  width: 100%;
+}
+@media (max-width: 1399.98px) {
+  .form-check-bulanan {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 1063.98px) {
+  .form-check-bulanan {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 991.98px) {
+  .form-check-bulanan {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+.form-check-bulanan .form-check {
+  padding: 0;
+  margin: 0;
+}
+.form-check-bulanan .form-check-input {
+  cursor: pointer;
+  display: none;
+}
+.form-check-bulanan .form-check-label {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #233446;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  transition: all linear 0.2s;
+}
+@media (max-width: 1399.98px) {
+  .form-check-bulanan .form-check-label {
+    gap: 0.375rem;
+  }
+}
+@media (max-width: 1199.98px) {
+  .form-check-bulanan .form-check-label {
+    gap: 0.25rem;
+  }
+}
+@media (max-width: 1063.98px) {
+  .form-check-bulanan .form-check-label {
+    gap: 0.1875rem;
+  }
+}
+.form-check-bulanan .form-check-label .form-check-label__icon {
+  display: none !important;
+  color: #fff;
+  transition: all linear 0.2s;
+  width: 1rem;
+  height: 1rem;
+}
+@media (max-width: 1399.98px) {
+  .form-check-bulanan .form-check-label .form-check-label__icon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}
+@media (max-width: 1063.98px) {
+  .form-check-bulanan .form-check-label .form-check-label__icon {
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+}
+.form-check-bulanan .form-check-input[checked] ~ .form-check-label, .form-check-bulanan .form-check-input:checked ~ .form-check-label, .form-check-bulanan .form-check-label.checked {
+  opacity: 1;
+  background-color: #2196f3;
+  color: #fff;
+}
+.form-check-bulanan .form-check-input[checked] ~ .form-check-label .form-check-label__icon, .form-check-bulanan .form-check-input:checked ~ .form-check-label .form-check-label__icon, .form-check-bulanan .form-check-label.checked .form-check-label__icon {
+  display: block !important;
+}
+.form-check-bulanan .form-check-input[disabled] ~ .form-check-label, .form-check-bulanan .form-check-input:disabled ~ .form-check-label {
+  opacity: 1;
+  background-color: #E0E0E0;
+  color: #616161;
+  cursor: default !important;
+}
+.form-check-bulanan .form-check-input[disabled] ~ .form-check-label .form-check-label__icon, .form-check-bulanan .form-check-input:disabled ~ .form-check-label .form-check-label__icon {
+  display: block !important;
+  color: #616161;
+}

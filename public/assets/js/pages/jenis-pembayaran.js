@@ -1,1 +1,190 @@
-function changeTagihan(a){$("#id_tagihan").val(a),$(".div-angkatan").addClass("d-none"),$.ajax({url:"/query/jenisPembayaranById",method:"POST",data:{_token:$("#ctoken").val(),id:a},success:a=>{$("#update_nama").val(a.nama),$("#update_jumlah").val(a.jumlah),$("#update_id_kelas").val(a.id_kelas),$(".nama-delete-modal").text(a.nama),$("#flow_pembayaran").val(1==a.flow_tagihan?"Angsuran":"Bulanan"),$("#update_lain_nama").val(a.nama),$("#update_lain_jumlah").val(a.jumlah),$("#update_lain_id_kelas").val(a.id_kelas),null!=a.angkatan?($("#update_lain_status_siswa").val("alumni"),$(".div-angkatan").removeClass("d-none"),$("#update_lain_angkatan").val(a.angkatan)):($("#update_lain_status_siswa").val("aktif"),$(".div-angkatan").addClass("d-none"),$("#update_lain_angkatan").val("")),$("#update_lain_status_transaksi").val(a.status)},error:a=>{console.log(a)}})}function numberFormat(a){var t=a.toString().split(".");return t[0]=t[0].replace(/\B(?=(\d{3})+(?!\d))/g,"."),t.join(",")}function formatRupiah(a,t){var e=a.replace(/[^,\d]/g,"").toString().split(","),n=e[0].length%3,l=e[0].substr(0,n),i=e[0].substr(n).match(/\d{3}/gi);return i&&(separator=n?".":"",l+=separator+i.join(".")),l=null!=e[1]?l+","+e[1]:l,null==t?l:l?"Rp. "+l:""}$(document).ready((function(){$(".js-angkatan-multiple").select2({placeholder:"Pilih Angkatan ...",initSelection:function(a,t){}}),1==$("#data-jenis-pembayaran").length&&$("#data-jenis-pembayaran").DataTable({aaSorting:[[0,"asc"]]}),$(".update-tagihan-button").click((()=>{$("#animation-overlay").show();let a=$("#id_tagihan").val(),t=$("#update_nama").val(),e=$("#update_id_kelas").val(),n=$("#update_jumlah").val();$.ajax({url:"/query/updateJenisPembayaran",method:"POST",data:{_token:$("#ctoken").val(),id_tagihan:a,nama:t,id_kelas:e,jumlah:n},success:()=>{$("#button_edit_success").trigger("click"),setTimeout((()=>{location.reload()}),1500)},error:a=>{$("#button_edit_gagal").trigger("click"),console.log(a)},complete:()=>{$("#animation-overlay").hide()}})})),$(".update-lain-tagihan-button").click((()=>{$("#animation-overlay").show();let a=$("#id_tagihan").val(),t=$("#update_lain_nama").val(),e=$("#update_lain_id_kelas").val(),n=$("#update_lain_jumlah").val(),l=$("#update_lain_status_siswa").val(),i=$("#update_lain_angkatan").val(),u=$("#update_lain_status_transaksi").val();$.ajax({url:"/query/updateJenisPembayaran",method:"POST",data:{_token:$("#ctoken").val(),id_tagihan:a,nama:t,id_kelas:e,jumlah:n,status_siswa:l,angkatan:i,status:u},success:a=>{$("#button_edit_success").trigger("click"),setTimeout((()=>{location.reload()}),1500)},error:a=>{$("#button_edit_gagal").trigger("click"),console.log(a)},complete:()=>{$("#animation-overlay").hide()}})})),$(".delete-tagihan-button").click((()=>{let a=$("#id_tagihan").val();$.ajax({url:"/query/deleteJenisPembayaran",method:"POST",data:{_token:$("#ctoken").val(),id_tagihan:a},success:()=>{setTimeout((()=>{location.reload()}),1e3)},error:a=>{console.log(a)}})})),$("#jumlah").keyup((a=>{let t=a.currentTarget.value;$("#jumlah").val(formatRupiah(t,"RP. "))})),$("#update_jumlah").keyup((a=>{let t=a.currentTarget.value;$("#update_jumlah").val(formatRupiah(t,"RP. "))})),$("#update_lain_jumlah").keyup((a=>{let t=a.currentTarget.value;$("#update_lain_jumlah").val(formatRupiah(t,"RP. "))})),$(".status-siswa").change((a=>{"aktif"==a.currentTarget.value?$(".div-angkatan").addClass("d-none"):$(".div-angkatan").removeClass("d-none")})),$.each($(".nominal-pembayaran"),((a,t)=>{$(t).text("Rp. "+numberFormat($(t).text()))}))}));
+$(document).ready(function () {
+  $('.js-angkatan-multiple').select2({
+    placeholder: "Pilih Angkatan ...",
+    initSelection: function (element, callback) {
+    }
+  });
+
+  if ($("#data-jenis-pembayaran").length == 1) {
+    $('#data-jenis-pembayaran').DataTable({
+      "aaSorting": [[0, "asc"]],
+    });
+  }
+
+  $('.update-tagihan-button').click(() => {
+    $('#animation-overlay').show();
+    let id_tagihan = $('#id_tagihan').val();
+    let nama = $('#update_nama').val();
+    let id_kelas = $('#update_id_kelas').val();
+    let jumlah = $('#update_jumlah').val();
+
+    $.ajax({
+      url: '/query/updateJenisPembayaran',
+      method: 'POST',
+      data: {
+        _token: $('#ctoken').val(),
+        id_tagihan: id_tagihan,
+        nama: nama,
+        id_kelas: id_kelas,
+        jumlah: jumlah,
+      },
+      success: () => {
+        $('#button_edit_success').trigger('click')
+        setTimeout(() => {
+          location.reload()
+        }, 1500);
+      },
+      error: (err) => {
+        $('#button_edit_gagal').trigger('click')
+        console.log(err);
+      },
+      complete: () => {
+        $('#animation-overlay').hide();
+      }
+    })
+  })
+
+  $('.update-lain-tagihan-button').click(() => {
+    $('#animation-overlay').show();
+    let id_tagihan = $('#id_tagihan').val();
+    let nama = $('#update_lain_nama').val();
+    let id_kelas = $('#update_lain_id_kelas').val();
+    let jumlah = $('#update_lain_jumlah').val();
+    let status_siswa = $('#update_lain_status_siswa').val();
+    let angkatan = $('#update_lain_angkatan').val();
+    let status = $('#update_lain_status_transaksi').val();
+
+    $.ajax({
+      url: '/query/updateJenisPembayaran',
+      method: 'POST',
+      data: {
+        _token: $('#ctoken').val(),
+        id_tagihan: id_tagihan,
+        nama: nama,
+        id_kelas: id_kelas,
+        jumlah: jumlah,
+        status_siswa: status_siswa,
+        angkatan: angkatan,
+        status: status,
+      },
+      success: (result) => {
+        $('#button_edit_success').trigger('click')
+        setTimeout(() => {
+          location.reload()
+        }, 1500);
+      },
+      error: (err) => {
+        $('#button_edit_gagal').trigger('click')
+        console.log(err);
+      },
+      complete: () => {
+        $('#animation-overlay').hide();
+      }
+    })
+  })
+
+  $('.delete-tagihan-button').click(() => {
+    let id_tagihan = $('#id_tagihan').val();
+
+    $.ajax({
+      url: '/query/deleteJenisPembayaran',
+      method: 'POST',
+      data: {
+        _token: $('#ctoken').val(),
+        id_tagihan: id_tagihan,
+      },
+      success: () => {
+        setTimeout(() => {
+          location.reload()
+        }, 1000);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  })
+
+  $('#jumlah').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#jumlah').val(formatRupiah(input, 'RP. '))
+  })
+
+  $('#update_jumlah').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#update_jumlah').val(formatRupiah(input, 'RP. '))
+  })
+
+  $('#update_lain_jumlah').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#update_lain_jumlah').val(formatRupiah(input, 'RP. '))
+  })
+
+  $('.status-siswa').change((el) => {
+    el.currentTarget.value == 'aktif' ? $('.div-angkatan').addClass('d-none') : $('.div-angkatan').removeClass('d-none');
+  })
+
+  $.each($('.nominal-pembayaran'), (index, value) => {
+    $(value).text('Rp. ' + numberFormat($(value).text()))
+  })
+});
+
+function changeTagihan($id_tagihan) {
+  $('#id_tagihan').val($id_tagihan);
+  $('.div-angkatan').addClass('d-none');
+
+  $.ajax({
+    url: '/query/jenisPembayaranById',
+    method: 'POST',
+    data: {
+      _token: $('#ctoken').val(),
+      id: $id_tagihan,
+    },
+    success: (result) => {
+      $('#update_nama').val(result.nama);
+      $('#update_jumlah').val(result.jumlah);
+      $('#update_id_kelas').val(result.id_kelas);
+      $('.nama-delete-modal').text(result.nama);
+      $('#flow_pembayaran').val(result.flow_tagihan == 1 ? 'Angsuran' : 'Bulanan');
+
+      $('#update_lain_nama').val(result.nama);
+      $('#update_lain_jumlah').val(result.jumlah);
+      $('#update_lain_id_kelas').val(result.id_kelas);
+      if (result.angkatan != null) {
+        $('#update_lain_status_siswa').val("alumni");
+        $('.div-angkatan').removeClass('d-none');
+        $('#update_lain_angkatan').val(result.angkatan);
+      } else {
+        $('#update_lain_status_siswa').val("aktif");
+        $('.div-angkatan').addClass('d-none');
+        $('#update_lain_angkatan').val("");
+      }
+      $('#update_lain_status_transaksi').val(result.status);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+}
+
+function numberFormat(x) {
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return parts.join(",");
+}
+
+function formatRupiah(angka, prefix) {
+  var number_string = angka.replace(/[^,\d]/g, '').toString(),
+    split = number_string.split(','),
+    sisa = split[0].length % 3,
+    rupiah = split[0].substr(0, sisa),
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+  // tambahkan titik jika yang di input sudah menjadi angka ribuan
+  if (ribuan) {
+    separator = sisa ? '.' : '';
+    rupiah += separator + ribuan.join('.');
+  }
+
+  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+  return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}

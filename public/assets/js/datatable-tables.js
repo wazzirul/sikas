@@ -1,1 +1,47 @@
-$(document).ready((function(){1==$("#data-jenis-pembayaran").length&&$("#data-jenis-pembayaran").DataTable({aaSorting:[]}),1==$("#data-laporan").length&&$("#data-laporan").DataTable({aaSorting:[]}),1==$("#data-laporan-penggunaan-dana").length&&$("#data-laporan-penggunaan-dana").DataTable({aaSorting:[]}),1==$("#data-laporan-pemasukan-sumber-lain").length&&$("#data-laporan-pemasukan-sumber-lain").DataTable({aaSorting:[]}),1==$("#data-laporan-pengajuan-keringanan").length&&$("#data-laporan-pengajuan-keringanan").DataTable({aaSorting:[]}),1==$("#data-laporan-pembayaran-spp").length&&$("#data-laporan-pembayaran-spp").DataTable({aaSorting:[]}),1==$("#data-laporan-pembayaran-tabungan").length&&$("#data-laporan-pembayaran-tabungan").DataTable({aaSorting:[]}),1==$("#data-master-jabatan").length&&$("#data-master-jabatan").DataTable({aaSorting:[]}),1==$("#data-laporan-pembayaran-spp-perkelas").length&&$("#data-laporan-pembayaran-spp-perkelas").DataTable({aaSorting:[]})}));
+$(document).ready(function () {
+  if ($("#data-jenis-pembayaran").length == 1) {
+    $('#data-jenis-pembayaran').DataTable({
+      "aaSorting": [],
+    });
+  }
+  if ($("#data-laporan").length == 1) {
+    $('#data-laporan').DataTable({
+      "aaSorting": [],
+    });
+  }
+  if ($("#data-laporan-penggunaan-dana").length == 1) {
+    $('#data-laporan-penggunaan-dana').DataTable({
+      "aaSorting": [],
+    });
+  }
+  if ($("#data-laporan-pemasukan-sumber-lain").length == 1) {
+    $('#data-laporan-pemasukan-sumber-lain').DataTable({
+      "aaSorting": [],
+    });
+  }
+  if ($("#data-laporan-pengajuan-keringanan").length == 1) {
+    $('#data-laporan-pengajuan-keringanan').DataTable({
+      "aaSorting": [],
+    });
+  }
+  if ($("#data-laporan-pembayaran-spp").length == 1) {
+    $('#data-laporan-pembayaran-spp').DataTable({
+      "aaSorting": [],
+    });
+  }
+  if ($("#data-laporan-pembayaran-tabungan").length == 1) {
+    $('#data-laporan-pembayaran-tabungan').DataTable({
+      "aaSorting": [],
+    });
+  }
+  if ($("#data-master-jabatan").length == 1) {
+    $('#data-master-jabatan').DataTable({
+      "aaSorting": [],
+    });
+  }
+  if ($("#data-laporan-pembayaran-spp-perkelas").length == 1) {
+    $('#data-laporan-pembayaran-spp-perkelas').DataTable({
+      "aaSorting": [],
+    });
+  }
+});
