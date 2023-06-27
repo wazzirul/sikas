@@ -1,1 +1,70 @@
-function numberFormat(t){var a=t.toString().split(".");return a[0]=a[0].replace(/\B(?=(\d{3})+(?!\d))/g,"."),a.join(",")}function formatRupiah(t,a){var e=t.replace(/[^,\d]/g,"").toString().split(","),r=e[0].length%3,n=e[0].substr(0,r),i=e[0].substr(r).match(/\d{3}/gi);return i&&(separator=r?".":"",n+=separator+i.join(".")),n=null!=e[1]?n+","+e[1]:n,null==a?n:n?"Rp. "+n:""}$(document).ready((function(){$.each($(".nominal-pembayaran"),((t,a)=>{$(a).val("Rp. "+numberFormat($(a).data("value")))})),$(".nominal-pembayaran").keyup((t=>{let a=t.currentTarget.value;t.currentTarget.value=formatRupiah(a,"RP. ")}))}));let validateRisetTahun=!0;$(document).on("submit","form#myform",(function(t){t.preventDefault();let a=$(this),e=a.attr("action"),r=a.attr("method"),n=a.serialize(),i=!1;a.find('input:not([type="hidden"])').each(((t,a)=>{$(a).val()||(i=!0)})),i||validateRisetTahun&&(validateRisetTahun=!1,$.ajax({url:e,method:r,data:n,success:t=>{$(".success-button").click()},error:t=>{console.log(t)},complete:()=>{a.trigger("reset"),validateRisetTahun=!0}}))}));
+$(document).ready(function () {
+
+    $.each($('.nominal-pembayaran'), (index, value) => {
+        $(value).val('Rp. ' + numberFormat($(value).data('value')))
+    })
+
+    $('.nominal-pembayaran').keyup((e) => {
+        let input = e.currentTarget.value;
+        e.currentTarget.value = formatRupiah(input, 'RP. ');
+    })
+})
+
+function numberFormat(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return parts.join(",");
+}
+
+function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split = number_string.split(','),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}
+
+let validateRisetTahun = true;
+$(document).on('submit', 'form#myform', function (e) {
+    e.preventDefault()
+
+    let form = $(this),
+        url = form.attr('action'),
+        method = form.attr('method'),
+        data = form.serialize()
+
+    let dontSubmit = false
+    form.find('input:not([type="hidden"])').each((_, el) => {
+        if (!$(el).val()) dontSubmit = true
+    })
+    if (dontSubmit) return
+
+    if (validateRisetTahun) {
+        validateRisetTahun = false;
+
+        $.ajax({
+            url,
+            method,
+            data,
+            success: (result) => {
+                $('.success-button').click()
+            },
+            error: (err) => {
+                console.log(err);
+            },
+            complete: () => {
+                form.trigger('reset')
+                validateRisetTahun = true;
+            }
+        })
+    }
+})

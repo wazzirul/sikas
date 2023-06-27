@@ -1,1 +1,467 @@
-let dataSiswa,validateDelete=!0,validatePenarikan=!0;const MONTHS=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];function retrieveSiswa(a=""){let e=$("#filter_id_kelas").val(),t=$("#filter_id_jurusan").val(),n=$("#filter_nomor_kelas").val(),i=$("#filter_angkatan_siswa").val();$.ajax({url:"/query/dataSiswa",method:"POST",data:{_token:$("#ctoken").val(),search:a,id_kelas:e,id_jurusan:t,nomor_kelas:n,angkatan:i,limit:20},success:a=>{dataSiswa=a,$(".cari-siswa").empty(),$.each(a,((a,e)=>{$(".cari-siswa").append(`\n                    <a href="#!" class="cari-siswa__item" data-id="${e.id_anggota}">\n                        <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">\n                        <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>\n                        <div class="d-flex flex-column gap-1">\n                            <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">${e.nama}</p>\n                            <p class="nomor-siswa color-neutral-80">${e.nis}</p>\n                        </div>\n                        </div>\n                        <div class="d-flex flex-column gap-1">\n                          <p class="kelas-siswa text-bold text-info">${e.kelas.nama} ${e.jurusan.nama} ${e.nomor_kelas}</p>\n                          <p class="text-bold">\n                            ${0==e.alumni?'<span class="text-success">Aktif</span>':`<span class="text-danger">Alumni (${e.angkatan??"-"})</span>`}\n                          </p>\n                        </div>\n                        <div href="#" class="cari-siswa__item-detail">\n                        \t<i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>\n                        </div>\n                    </a>\n                `)})),$(".cari-siswa__item").click((a=>{clickSiswa(a)}))},error:a=>{console.log(a)}})}function clickSiswa(a){$(".penarikan-button").removeClass("disabled"),$(".setoran-button").removeClass("disabled"),$(".id_anggota_input").val(a.currentTarget.dataset.id),$(".card--riwayat-tabungan").removeClass("d-none");let e=$(document).find("#riwayat-tabungan").data("username"),t=$(a.currentTarget).find(".cari-siswa__nama-siswa").text(),n=$(a.currentTarget).find(".nomor-siswa").text(),i=$(a.currentTarget).find(".kelas-siswa").text();$.ajax({url:"/query/siswaById",method:"POST",data:{_token:$("#ctoken").val(),id:a.currentTarget.dataset.id},success:a=>{$(".detail-nama").text(a.nama),$(".detail-nis").text(a.nis),$(".detail-kelas").text(`${a.kelas.nama} ${a.jurusan.nama} ${a.nomor_kelas}`),$(".detail-tabungan").text("Rp. "+numberFormat(a.keuangan_anggota.tabungan)),0==a.alumni?($(".detail-status-siswa").empty(),$(".detail-status-siswa").append('\n                      <span class="text-success">Active</span>\n                ')):($(".detail-status-siswa").empty(),$(".detail-status-siswa").append(`\n                      <span class="text-danger">Alumni (${a.angkatan??"-"})</span>\n                `))},error:a=>{console.log(a)}}),$.ajax({url:"/query/riwayatTabungan",method:"POST",data:{_token:$("#ctoken").val(),id_anggota:a.currentTarget.dataset.id},success:a=>{$(".list-riwayat-tabungan").empty();let s=0;"undefined"==a?console.log("benar"):s=a[0].mutasi,$.each(a,((a,r)=>{let l=new Date(Date.parse(r.tanggal)),o=l.toLocaleDateString("id",{weekday:"long"}),d=l.toLocaleDateString("id",{month:"long"}),u=l.getDate(),c=l.getFullYear();$(".list-riwayat-tabungan").append(`\n                    <tr>\n                        <td>\n                            <p class="text-medium color-neutral-100">${d}, ${u} ${c}</p>\n                        </td>\n                        <td class="text-medium">\n                            <p class="text-medium color-neutral-100">${2==r.tipe_transaksi?"Setor":"Tarik"}</p>              \n                        </td>\n                        <td>\n                            <p class="text-medium color-neutral-100">${r.admin.nama}</p>\n                        </td>\n                        <td>\n                            <p class="text-medium color-neutral-100">Rp. ${numberFormat(r.jumlah)}</p>\n                        </td>\n                        <td>\n                            <p class="text-bold color-neutral-100">Rp. ${numberFormat(r.mutasi)}</p>\n                        </td>\n                        <td>\n                            <p class="text-bold color-neutral-100">${0==r.approved&&2!=r.tipe_transaksi?"Butuh Konfirmasi Admin":"Sudah Dikonfirmasi"}</p>\n                        </td>\n                        <td>\n                        ${0==r.approved&&2!=r.tipe_transaksi&&1==document.getElementById("session_admin").value?`\n                            <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(r.jumlah)}" onClick="changeTransaksi(${r.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">\n                                Konfrimasi\n                            </a>`:'\n                            <a href="#" class="btn btn-dark disabled approve-button">\n                                Konfrimasi\n                            </a>'}\n                        </td>\n                        <td>\n                        <div class="d-flex align-items-center justify-content-end gap-3">\n                        \n                        ${1==r.approved?`<a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${e}" data-numberanddate="${o}, ${u} ${d} ${c}" data-removetransactionnumber="true" data-numberandname="${n} / ${t}" data-classname="${i}" data-transactiontype="${r.nama_transaksi} ${t}" data-total="${r.jumlah}" data-savingsfund="${s}">\n                            <i class="fa-solid fa-print table-icon__link"></i>\n                        </a>`:""}\n\n                        ${1==document.getElementById("session_admin").value||0==r.approved||2==r.tipe_transaksi?`\n                          <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${r.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">\n                            <i class="fa-solid fa-pen table-icon__link"></i>\n                          </a>\n                        `:""}\n                          \n                          <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${r.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">\n                            <i class="fa-regular fa-trash-can table-icon__link"></i>\n                          </a>\n                        </div>\n                        </td>\n                    </tr>\n                `)})),0==a.length?($(".table-responsive").addClass("d-none"),$(".history-empty").removeClass("d-none")):($(".table-responsive").removeClass("d-none"),$(".history-empty").addClass("d-none")),$(".update-transaksi-button").click((()=>{updateTransaksi()})),$(".delete-transaksi-button").click((()=>{deleteTransaksi()})),$(".approve-button").click((a=>{$(".modal--transaksi__nominal-penarikan").text(a.currentTarget.dataset.jumlah)}))},error:a=>{console.log(a)}})}function updateTransaksi(){let a=$("#id_transaksi").val(),e=$("#id_anggota_setoran").val();$("#update-result").text(numberFormat($("#jumlah-pembayaran").val())),$.ajax({url:"/query/updateHistoryTabungan",method:"POST",data:{_token:$("#ctoken").val(),id_transaksi:a,id_anggota:e,nominal:$("#jumlah-pembayaran").val()},success:()=>{setTimeout((()=>{location.reload()}),2e3)},error:a=>{console.log(a)}})}function deleteTransaksi(){let a=$("#id_transaksi").val(),e=$("#id_anggota_setoran").val();validateDelete&&(validateDelete=!1,$.ajax({url:"/query/deleteHistoryTabungan",method:"POST",data:{_token:$("#ctoken").val(),id_transaksi:a,id_anggota:e},success:()=>{setTimeout((()=>{validateDelete=!0,location.reload()}),2e3)},error:a=>{validateDelete=!0,console.log(a)}}))}function changeTransaksi(a){$("#id_transaksi").val(a)}function numberFormat(a){var e=a.toString().split(".");return e[0]=e[0].replace(/\B(?=(\d{3})+(?!\d))/g,"."),e.join(",")}function formatRupiah(a,e){var t=a.replace(/[^,\d]/g,"").toString().split(","),n=t[0].length%3,i=t[0].substr(0,n),s=t[0].substr(n).match(/\d{3}/gi);return s&&(separator=n?".":"",i+=separator+s.join(".")),i=null!=t[1]?i+","+t[1]:i,null==e?i:i?"Rp. "+i:""}1==$("#riwayat-tabungan").length&&$("#riwayat-tabungan").DataTable(),$("#cari-siswa").keyup((a=>{retrieveSiswa(a.currentTarget.value)})),$("#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa").change((()=>{retrieveSiswa()})),retrieveSiswa(),$(".cari-siswa__item").click((a=>{clickSiswa(a)})),$(".confirm-transaksi-button").click((()=>{let a=$("#id_transaksi").val(),e=$("#id_anggota_setoran").val();$.ajax({url:"/query/approvePenarikanTabunganSiswa",method:"POST",data:{_token:$("#ctoken").val(),id_transaksi:a,id_anggota:e},success:()=>{setTimeout((()=>{location.reload()}),2e3)},error:a=>{console.log(a)}})})),$("#tabungan-upload-file").change((()=>{$("#importForm").submit()})),$("#nominalTabungan").keyup((a=>{let e=a.currentTarget.value;$("#nominalTabungan").val(formatRupiah(e,"RP. "))})),$("#nominalPenarikan").keyup((a=>{let e=a.currentTarget.value;$("#nominalPenarikan").val(formatRupiah(e,"RP. "))})),$("#jumlah-pembayaran").keyup((a=>{let e=a.currentTarget.value;$("#jumlah-pembayaran").val(formatRupiah(e,"RP. "))})),$(document).on("submit","form#form-setor-tabungan",(function(a){a.preventDefault();let e=$(this),t=e.attr("action"),n=e.attr("method"),i=e.serialize(),s=!1;e.find('input:not([type="hidden"])').each(((a,e)=>{$(e).val()||(s=!0)})),s||$.ajax({url:t,method:n,data:i,success:a=>{try{let{tanggal:e,anggota:t,kasir:n,transaksi:i}=a,s=new Date(Date.parse(e)),r=s.toLocaleDateString("id",{weekday:"long"}),l=s.getMonth(),o=s.getDate(),d=s.getFullYear(),u=n,c=`${r}, ${o} ${MONTHS[l]} ${d}`,m=!0,g=`${t.nis} / ${t.nama}`,$=t.detail_kelas,p=`Setor Tabungan ${t.nama}`,k=i.jumlah,_=i.mutasi;printReceipt(null,{username:u,numberanddate:c,removetransactionnumber:m,numberandname:g,classname:$,transactiontype:p,total:k,savingsfund:_})}catch(a){console.error(a)}},error:a=>{console.log(a)},complete:()=>{$("#nominalTabungan").val("");let a=$(".id_anggota_input").val();$(document).find(`.cari-siswa__item[data-id="${a}"]`).trigger("click")}})})),$(document).on("submit","form#form-tarik-tabungan",(function(a){a.preventDefault();let e=$(this),t=e.attr("action"),n=e.attr("method"),i=e.serialize(),s=$(".detail-tabungan")[0].innerHTML,r=$("#nominalPenarikan").val();s=s.replaceAll("Rp",""),s=s.replaceAll(".",""),s=s.replaceAll(" ",""),r=r.replaceAll("Rp",""),r=r.replaceAll(".",""),r=r.replaceAll(" ",""),parseInt(s)<parseInt(r)?$("#button_penarikan_gagal").click():validatePenarikan&&(validatePenarikan=!1,$.ajax({url:t,method:n,data:i,success:a=>{try{let{tanggal:e,anggota:t,kasir:n,transaksi:i}=a,s=new Date(Date.parse(e)),r=s.toLocaleDateString("id",{weekday:"long"}),l=s.getMonth(),o=s.getDate(),d=s.getFullYear(),u=n,c=`${r}, ${o} ${MONTHS[l]} ${d}`,m=!0,g=`${t.nis} / ${t.nama}`,p=t.detail_kelas,k=`Penarikan Tabungan ${t.nama}`,_=i.jumlah,v=i.mutasi;$("#button_penarikan_sukses").click(),1==i.approved&&printReceipt(null,{username:u,numberanddate:c,removetransactionnumber:m,numberandname:g,classname:p,transactiontype:k,total:_,savingsfund:v})}catch(a){console.error(a)}validatePenarikan=!0},error:a=>{console.log(a),validatePenarikan=!0},complete:()=>{$("#nominalPenarikan").val("");let a=$(".id_anggota_input").val();$(document).find(`.cari-siswa__item[data-id="${a}"]`).trigger("click"),validatePenarikan=!0}}))}));
+let dataSiswa;
+let validateDelete = true;
+let validatePenarikan = true;
+const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+if ($("#riwayat-tabungan").length == 1) {
+    $('#riwayat-tabungan').DataTable();
+}
+
+$('#cari-siswa').keyup((e) => {
+    let search = e.currentTarget.value;
+    retrieveSiswa(search);
+})
+
+$('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa').change(() => {
+    retrieveSiswa();
+})
+
+retrieveSiswa()
+function retrieveSiswa(search = "") {
+    let id_kelas = $('#filter_id_kelas').val();
+    let id_jurusan = $('#filter_id_jurusan').val();
+    let nomor_kelas = $('#filter_nomor_kelas').val();
+    let angkatan = $('#filter_angkatan_siswa').val();
+
+    $.ajax({
+        url: '/query/dataSiswa',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            search: search,
+            id_kelas: id_kelas,
+            id_jurusan: id_jurusan,
+            nomor_kelas: nomor_kelas,
+            angkatan: angkatan,
+            limit: 20,
+        },
+        success: (result) => {
+            dataSiswa = result;
+
+            $('.cari-siswa').empty();
+            $.each(result, (index, value) => {
+                $('.cari-siswa').append(`
+                    <a href="#!" class="cari-siswa__item" data-id="${value.id_anggota}">
+                        <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
+                        <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
+                        <div class="d-flex flex-column gap-1">
+                            <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">${value.nama}</p>
+                            <p class="nomor-siswa color-neutral-80">${value.nis}</p>
+                        </div>
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                          <p class="kelas-siswa text-bold text-info">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
+                          <p class="text-bold">
+                            ${value.alumni == 0 ? '<span class="text-success">Aktif</span>' :
+                        `<span class="text-danger">Alumni (${value.angkatan ?? '-'})</span>`}
+                          </p>
+                        </div>
+                        <div href="#" class="cari-siswa__item-detail">
+                        	<i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
+                        </div>
+                    </a>
+                `);
+            })
+
+            $('.cari-siswa__item').click((e) => {
+                clickSiswa(e);
+            })
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+$('.cari-siswa__item').click((e) => {
+    clickSiswa(e);
+})
+
+function clickSiswa(e) {
+    $('.penarikan-button').removeClass('disabled');
+    $('.setoran-button').removeClass('disabled');
+    $('.id_anggota_input').val(e.currentTarget.dataset.id);
+    $('.card--riwayat-tabungan').removeClass('d-none');
+
+    let kasir = $(document).find('#riwayat-tabungan').data('username')
+    let name = $(e.currentTarget).find('.cari-siswa__nama-siswa').text()
+    let nis = $(e.currentTarget).find('.nomor-siswa').text()
+    let classname = $(e.currentTarget).find('.kelas-siswa').text()
+
+    $.ajax({
+        url: '/query/siswaById',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id: e.currentTarget.dataset.id
+        },
+        success: (result) => {
+            $('.detail-nama').text(result.nama);
+            $('.detail-nis').text(result.nis);
+            $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
+            $('.detail-tabungan').text('Rp. ' + numberFormat(result.keuangan_anggota.tabungan));
+
+            if (result.alumni == 0) {
+                $('.detail-status-siswa').empty();
+                $('.detail-status-siswa').append(`
+                      <span class="text-success">Active</span>
+                `);
+            } else {
+                $('.detail-status-siswa').empty();
+                $('.detail-status-siswa').append(`
+                      <span class="text-danger">Alumni (${result.angkatan ?? '-'})</span>
+                `);
+            }
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+
+    $.ajax({
+        url: '/query/riwayatTabungan',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_anggota: e.currentTarget.dataset.id
+        },
+        success: (result) => {
+            $('.list-riwayat-tabungan').empty();
+            let savingsfund = 0;
+            if (result == 'undefined') { console.log("benar"); }
+            else { savingsfund = result[0].mutasi }
+            $.each(result, (index, value) => {
+                let tanggal = new Date(Date.parse(value.tanggal));
+                let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
+                let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
+                let date = tanggal.getDate();
+                let tahun = tanggal.getFullYear();
+
+                $('.list-riwayat-tabungan').append(`
+                    <tr>
+                        <td>
+                            <p class="text-medium color-neutral-100">${bulan}, ${date} ${tahun}</p>
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">${value.tipe_transaksi == 2 ? 'Setor' : 'Tarik'}</p>              
+                        </td>
+                        <td>
+                            <p class="text-medium color-neutral-100">${value.admin.nama}</p>
+                        </td>
+                        <td>
+                            <p class="text-medium color-neutral-100">Rp. ${numberFormat(value.jumlah)}</p>
+                        </td>
+                        <td>
+                            <p class="text-bold color-neutral-100">Rp. ${numberFormat(value.mutasi)}</p>
+                        </td>
+                        <td>
+                            <p class="text-bold color-neutral-100">${value.approved == 0 && value.tipe_transaksi != 2 ? 'Butuh Konfirmasi Admin' : 'Sudah Dikonfirmasi'}</p>
+                        </td>
+                        <td>
+                        ${value.approved == 0 && value.tipe_transaksi != 2 && document.getElementById('session_admin').value == 1 ? `
+                            <a href="#" class="btn btn-success approve-button" data-jumlah="Rp. ${numberFormat(value.jumlah)}" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalConfrimData">
+                                Konfrimasi
+                            </a>` : `
+                            <a href="#" class="btn btn-dark disabled approve-button">
+                                Konfrimasi
+                            </a>`
+                    }
+                        </td>
+                        <td>
+                        <div class="d-flex align-items-center justify-content-end gap-3">
+                        
+                        ${value.approved == 1 ? `<a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${day}, ${date} ${bulan} ${tahun}" data-removetransactionnumber="${true}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi} ${name}" data-total="${value.jumlah}" data-savingsfund="${savingsfund}">
+                            <i class="fa-solid fa-print table-icon__link"></i>
+                        </a>` : ''}
+
+                        ${document.getElementById('session_admin').value == 1 || value.approved == 0 || value.tipe_transaksi == 2 ? `
+                          <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                            <i class="fa-solid fa-pen table-icon__link"></i>
+                          </a>
+                        ` : ''}
+                          
+                          <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                            <i class="fa-regular fa-trash-can table-icon__link"></i>
+                          </a>
+                        </div>
+                        </td>
+                    </tr>
+                `);
+            })
+
+            if (result.length == 0) {
+                $('.table-responsive').addClass('d-none');
+                $('.history-empty').removeClass('d-none');
+            } else {
+                $('.table-responsive').removeClass('d-none');
+                $('.history-empty').addClass('d-none');
+            }
+
+            $('.update-transaksi-button').click(() => {
+                updateTransaksi();
+            })
+
+            $('.delete-transaksi-button').click(() => {
+                deleteTransaksi();
+            })
+
+            $('.approve-button').click((e) => {
+                $('.modal--transaksi__nominal-penarikan').text(e.currentTarget.dataset.jumlah);
+            })
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+function updateTransaksi() {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+    $('#update-result').text(numberFormat($('#jumlah-pembayaran').val()));
+
+    $.ajax({
+        url: '/query/updateHistoryTabungan',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_transaksi: id_transaksi,
+            id_anggota: id_anggota,
+            nominal: $('#jumlah-pembayaran').val(),
+        },
+        success: () => {
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+function deleteTransaksi() {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+
+    if (validateDelete) {
+        validateDelete = false;
+        $.ajax({
+            url: '/query/deleteHistoryTabungan',
+            method: 'POST',
+            data: {
+                _token: $('#ctoken').val(),
+                id_transaksi: id_transaksi,
+                id_anggota: id_anggota,
+            },
+            success: () => {
+                setTimeout(() => {
+                    validateDelete = true;
+                    location.reload()
+                }, 2000);
+            },
+            error: (err) => {
+                validateDelete = true;
+                console.log(err);
+            }
+        })
+    }
+}
+
+$('.confirm-transaksi-button').click(() => {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+
+    $.ajax({
+        url: '/query/approvePenarikanTabunganSiswa',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_transaksi: id_transaksi,
+            id_anggota: id_anggota,
+        },
+        success: () => {
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+})
+
+$('#tabungan-upload-file').change(() => {
+    $('#importForm').submit();
+})
+
+function changeTransaksi($id_transaksi) {
+    $('#id_transaksi').val($id_transaksi);
+}
+
+function numberFormat(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return parts.join(",");
+}
+
+$('#nominalTabungan').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominalTabungan').val(formatRupiah(input, 'RP. '))
+})
+
+$('#nominalPenarikan').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominalPenarikan').val(formatRupiah(input, 'RP. '))
+})
+
+$('#jumlah-pembayaran').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
+})
+
+$(document).on('submit', 'form#form-setor-tabungan', function (e) {
+    e.preventDefault()
+
+    let form = $(this),
+        url = form.attr('action'),
+        method = form.attr('method'),
+        data = form.serialize()
+
+    let dontSubmit = false
+    form.find('input:not([type="hidden"])').each((_, el) => {
+        if (!$(el).val()) dontSubmit = true
+    })
+    if (dontSubmit) return
+
+    $.ajax({
+        url,
+        method,
+        data,
+        success: (result) => {
+            try {
+                let { tanggal, anggota, kasir, transaksi } = result
+                let tgl = new Date(Date.parse(tanggal));
+                let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+                let bulan = tgl.getMonth();
+                let date = tgl.getDate();
+                let tahun = tgl.getFullYear();
+
+                let username = kasir,
+                    numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
+                    removetransactionnumber = true,
+                    numberandname = `${anggota.nis} / ${anggota.nama}`,
+                    classname = anggota.detail_kelas,
+                    transactiontype = `Setor Tabungan ${anggota.nama}`,
+                    total = transaksi.jumlah,
+                    savingsfund = transaksi.mutasi
+
+                printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund })
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        error: (err) => {
+            console.log(err);
+        },
+        complete: () => {
+            $('#nominalTabungan').val('')
+
+            let id = $('.id_anggota_input').val()
+            $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
+        }
+    })
+})
+
+$(document).on('submit', 'form#form-tarik-tabungan', function (e) {
+    e.preventDefault()
+
+    let form = $(this),
+        url = form.attr('action'),
+        method = form.attr('method'),
+        data = form.serialize()
+
+    // let dontSubmit = false
+    // form.find('input:not([type="hidden"])').each((_, el) => {
+    //     if (!$(el).val()) dontSubmit = true
+    // })
+    // if (dontSubmit) return
+
+    let total_tabungan = $('.detail-tabungan')[0].innerHTML;
+    let nominal_penarikan = $('#nominalPenarikan').val();
+
+    total_tabungan = total_tabungan.replaceAll('Rp', '');
+    total_tabungan = total_tabungan.replaceAll('.', '');
+    total_tabungan = total_tabungan.replaceAll(' ', '');
+
+    nominal_penarikan = nominal_penarikan.replaceAll('Rp', '');
+    nominal_penarikan = nominal_penarikan.replaceAll('.', '');
+    nominal_penarikan = nominal_penarikan.replaceAll(' ', '');
+
+    if (parseInt(total_tabungan) < parseInt(nominal_penarikan)) {
+        $('#button_penarikan_gagal').click();
+        return
+    }
+
+    if (validatePenarikan) {
+        validatePenarikan = false;
+
+        $.ajax({
+            url,
+            method,
+            data,
+            success: (result) => {
+                try {
+                    let { tanggal, anggota, kasir, transaksi } = result
+                    let tgl = new Date(Date.parse(tanggal));
+                    let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+                    let bulan = tgl.getMonth();
+                    let date = tgl.getDate();
+                    let tahun = tgl.getFullYear();
+
+                    let username = kasir,
+                        numberanddate = `${day}, ${date} ${MONTHS[bulan]} ${tahun}`,
+                        removetransactionnumber = true,
+                        numberandname = `${anggota.nis} / ${anggota.nama}`,
+                        classname = anggota.detail_kelas,
+                        transactiontype = `Penarikan Tabungan ${anggota.nama}`,
+                        total = transaksi.jumlah,
+                        savingsfund = transaksi.mutasi
+
+                    $('#button_penarikan_sukses').click();
+                    if (transaksi.approved == 1) printReceipt(null, { username, numberanddate, removetransactionnumber, numberandname, classname, transactiontype, total, savingsfund })
+                } catch (error) {
+                    console.error(error);
+                }
+                validatePenarikan = true;
+            },
+            error: (err) => {
+                console.log(err);
+                validatePenarikan = true;
+            },
+            complete: () => {
+                $('#nominalPenarikan').val('')
+                let id = $('.id_anggota_input').val()
+                $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
+                validatePenarikan = true;
+            }
+        })
+    }
+})
+
+function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split = number_string.split(','),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}

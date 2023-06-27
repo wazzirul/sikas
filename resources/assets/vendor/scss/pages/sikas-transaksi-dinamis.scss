@@ -1,0 +1,24 @@
+// * SIKAS Transaksi Pemasukan dan Pengeluaran
+// *******************************************************************************
+
+@import '../_bootstrap-extended/include';
+@import '../_reset';
+
+.transaksi-dinamis__wrapper{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 24px;
+  .transaksi-dinamis__link{
+    padding: 20px;
+    border-radius: 16px;
+    background: white;
+    transition: all linear .2s;
+
+    color:black;
+    font-size: 32px;
+    font-weight: 600;
+    &:hover{
+      color: $primary;
+    }
+  }
+}

@@ -1,1 +1,122 @@
-function updateTransaksi(){let a=$("#id_transaksi").val();$("#update-result").text(numberFormat($("#jumlah-pembayaran").val())),$.ajax({url:"/query/updatePemasukan",method:"POST",data:{_token:$("#ctoken").val(),id_transaksi:a,nominal:$("#jumlah-pembayaran").val()},success:()=>{setTimeout((()=>{location.reload()}),2e3)},error:a=>{console.log(a)}})}function deleteTransaksi(){let a=$("#id_transaksi").val();$.ajax({url:"/query/deletePemasukan",method:"POST",data:{_token:$("#ctoken").val(),id_transaksi:a},success:()=>{setTimeout((()=>{location.reload()}),2e3)},error:a=>{console.log(a)}})}function changeTransaksi(a){$("#id_transaksi").val(a)}function numberFormat(a){var e=a.toString().split(".");return e[0]=e[0].replace(/\B(?=(\d{3})+(?!\d))/g,"."),e.join(",")}function formatRupiah(a,e){var t=a.replace(/[^,\d]/g,"").toString().split(","),n=t[0].length%3,r=t[0].substr(0,n),o=t[0].substr(n).match(/\d{3}/gi);return o&&(separator=n?".":"",r+=separator+o.join(".")),r=null!=t[1]?r+","+t[1]:r,null==e?r:r?"Rp. "+r:""}$(document).ready((function(){1==$("#riwayat-pemasukan").length&&$("#riwayat-pemasukan").DataTable({aaSorting:[]}),$("#nominalPemasukan").keyup((a=>{let e=a.currentTarget.value;$("#nominalPemasukan").val(formatRupiah(e,"RP. "))})),$("#jumlah-pembayaran").keyup((a=>{let e=a.currentTarget.value;$("#jumlah-pembayaran").val(formatRupiah(e,"RP. "))})),$.each($(".nominal-transaksi"),((a,e)=>{$(e).text("Rp. "+numberFormat($(e).text()))})),$(".update-transaksi-button").click((()=>{updateTransaksi()})),$(".delete-transaksi-button").click((()=>{deleteTransaksi()})),$(".pengajuan-pemasukan-button").click((a=>{$.ajax({url:"/query/pemasukan",method:"POST",data:{_token:$("#ctoken").val(),nominal:$("#nominalPemasukan").val(),keterangan:$("#keterangan").val()},success:()=>{setTimeout((()=>{location.reload()}),2e3)},error:a=>{console.log(a)}})})),$("#pemasukan-upload-file").change((()=>{$("#importForm").submit()}))}));
+$(document).ready(function () {
+  if ($("#riwayat-pemasukan").length == 1) {
+    $('#riwayat-pemasukan').DataTable({
+      "aaSorting": [],
+    });
+  }
+
+  $('#nominalPemasukan').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominalPemasukan').val(formatRupiah(input, 'RP. '))
+  })
+  $('#jumlah-pembayaran').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
+  })
+
+  $.each($('.nominal-transaksi'), (index, value) => {
+    $(value).text('Rp. ' + numberFormat($(value).text()))
+  })
+
+  $('.update-transaksi-button').click(() => {
+    updateTransaksi();
+  })
+  $('.delete-transaksi-button').click(() => {
+    deleteTransaksi();
+  })
+
+  $('.pengajuan-pemasukan-button').click((e) => {
+    $.ajax({
+      url: '/query/pemasukan',
+      method: 'POST',
+      data: {
+        _token: $('#ctoken').val(),
+        nominal: $('#nominalPemasukan').val(),
+        keterangan: $('#keterangan').val(),
+      },
+      success: () => {
+        setTimeout(() => {
+          location.reload()
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  })
+
+  $('#pemasukan-upload-file').change(() => {
+    $('#importForm').submit();
+  })
+});
+
+function updateTransaksi() {
+  let id_transaksi = $('#id_transaksi').val();
+  $('#update-result').text(numberFormat($('#jumlah-pembayaran').val()));
+
+  $.ajax({
+    url: '/query/updatePemasukan',
+    method: 'POST',
+    data: {
+      _token: $('#ctoken').val(),
+      id_transaksi: id_transaksi,
+      nominal: $('#jumlah-pembayaran').val(),
+    },
+    success: () => {
+      setTimeout(() => {
+        location.reload()
+      }, 2000);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+}
+
+function deleteTransaksi() {
+  let id_transaksi = $('#id_transaksi').val();
+
+  $.ajax({
+    url: '/query/deletePemasukan',
+    method: 'POST',
+    data: {
+      _token: $('#ctoken').val(),
+      id_transaksi: id_transaksi,
+    },
+    success: () => {
+      setTimeout(() => {
+        location.reload()
+      }, 2000);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+}
+
+function changeTransaksi($id_transaksi) {
+  $('#id_transaksi').val($id_transaksi);
+}
+
+function numberFormat(x) {
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return parts.join(",");
+}
+
+function formatRupiah(angka, prefix) {
+  var number_string = angka.replace(/[^,\d]/g, '').toString(),
+    split = number_string.split(','),
+    sisa = split[0].length % 3,
+    rupiah = split[0].substr(0, sisa),
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+  // tambahkan titik jika yang di input sudah menjadi angka ribuan
+  if (ribuan) {
+    separator = sisa ? '.' : '';
+    rupiah += separator + ribuan.join('.');
+  }
+
+  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+  return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}

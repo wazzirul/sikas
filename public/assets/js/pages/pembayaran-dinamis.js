@@ -1,1 +1,382 @@
-$(document).ready((function(){$(".js-bulan-multiple").select2({placeholder:"Pilih Bulan ...",initSelection:function(a,e){}})}));let validateDelete=!0;function retrieveSiswa(a=""){let e=$("#filter_id_kelas").val(),t=$("#filter_id_jurusan").val(),n=$("#filter_nomor_kelas").val(),i=$("#filter_angkatan_siswa").val();$.ajax({url:"/query/dataSiswa",method:"POST",data:{_token:$("#ctoken").val(),search:a,id_kelas:e,id_jurusan:t,nomor_kelas:n,angkatan:i,limit:20},success:a=>{$(".cari-siswa").empty(),$.each(a,((a,e)=>{$(".cari-siswa").append(`\n                    <a href="#!" class="cari-siswa__item" data-id="${e.id_anggota}">\n                        <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">\n                        <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>\n                        <div class="d-flex flex-column gap-1">\n                            <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">${e.nama}</p>\n                            <p class="nomor-siswa color-neutral-80">${e.nis}</p>\n                        </div>\n                        </div>\n                        <div class="d-flex flex-column gap-1">\n                          <p class="kelas-siswa text-bold text-info">${e.kelas.nama} ${e.jurusan.nama} ${e.nomor_kelas}</p>\n                          <p class="text-bold">\n                            ${0==e.alumni?'<span class="text-success">Aktif</span>':`<span class="text-danger">Alumni (${e.angkatan??"-"})</span>`}\n                          </p>\n                        </div>\n                        <div href="#" class="cari-siswa__item-detail">\n                        \t<i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>\n                        </div>\n                    </a>\n                `)})),$(".cari-siswa__item").click((a=>{clickSiswa(a)}))},error:a=>{console.log(a)}})}function clickSiswa(a){$("#id_anggota").val(a.currentTarget.dataset.id),$(".ajukan-penambahan-button").attr("href",`/transaksi/pengajuan-penambahan/${a.currentTarget.dataset.id}`),$(".ajukan-keringanan-button").attr("href",`/transaksi/pengajuan-keringanan/${a.currentTarget.dataset.id}`),$(".empty-detail-pembayaran").addClass("d-none"),$(".pembayaran-button").removeClass("d-none"),$(".input-nominal").removeClass("d-none"),$(".card--riwayat-transaksi").removeClass("d-none");let e=$(document).find("#history-pembayaran").data("username"),t=$(a.currentTarget).find(".cari-siswa__nama-siswa").text(),n=$(a.currentTarget).find(".nomor-siswa").text(),i=$(a.currentTarget).find(".kelas-siswa").text(),s=0;$.ajax({url:"/query/siswaById",method:"POST",data:{_token:$("#ctoken").val(),id:a.currentTarget.dataset.id},success:a=>($(".detail-nama").text(a.nama),$(".detail-nis").text(a.nis),$(".detail-kelas").text(`${a.kelas.nama} ${a.jurusan.nama} ${a.nomor_kelas}`),0==a.alumni?($(".detail-status-siswa").empty(),$(".detail-status-siswa").append('\n                      <span class="text-success">Active</span>\n                ')):($(".detail-status-siswa").empty(),$(".detail-status-siswa").append(`\n                      <span class="text-danger">Alumni (${a.angkatan??"-"})</span>\n                `)),a.keuangan_anggota.tagihan),error:a=>{console.log(a)}}),$.ajax({url:"/query/getHistoryPembayaranDinamis",method:"POST",data:{_token:$("#ctoken").val(),id_anggota:a.currentTarget.dataset.id,id_tagihan:$("#prefix_tagihan").val()},success:r=>{$.each(r,((a,e)=>{s+=e.jumlah})),$.ajax({url:"/query/getPembayaranDinamis",method:"POST",data:{_token:$("#ctoken").val(),id_anggota:a.currentTarget.dataset.id,prefix_tagihan:$("#prefix_tagihan").val()},success:a=>{let l=a[0].jumlah;l-=s,$(".detail-tagihan").text("Rp. "+numberFormat(l)),$(".list-riwayat-pembayaran-dinamis").empty();let o=l-s;$.each(r,((a,s)=>{let r=new Date(Date.parse(s.tanggal)),l=r.toLocaleDateString("id",{weekday:"long"}),d=r.toLocaleDateString("id",{month:"long"}),c=r.getDate(),m=r.getFullYear();$(".list-riwayat-pembayaran-dinamis").append(`\n                            <tr>\n                                <input type="hidden" value="${s.nama_transaksi}" name="nama_transaksi">\n                                <td class="color-neutral-100">${d}, ${c} ${m}</td>\n                                <td class="color-neutral-100">${s.admin.nama}</td>\n                                <td class="color-neutral-100">${s.nama_transaksi}</td>\n                                <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(s.jumlah)}</td>\n                                <td>\n                                <div class="d-flex align-items-center justify-content-end gap-3">\n                                    <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${e}" data-numberanddate="${s.nomor_transaksi} / ${l}, ${c} ${d} ${m}" data-numberandname="${n} / ${t}" data-classname="${i}" data-transactiontype="${s.nama_transaksi}" data-total="${s.jumlah}" data-remainingbill="${o}" data-transactioncode="${s.kode_transaksi}">\n                                    <i class="fa-solid fa-print table-icon__link"></i>\n                                    </a>\n                                    <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${s.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">\n                                    <i class="fa-solid fa-pen table-icon__link"></i>\n                                    </a>\n                                    <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${s.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">\n                                    <i class="fa-regular fa-trash-can table-icon__link"></i>\n                                    </a>\n                                </div>\n                            </td>\n                        `)}))},error:()=>{$(".detail-tagihan").text("Tidak ada tanggungan.")}}),0==r.length?($(".table-responsive").addClass("d-none"),$(".history-empty").removeClass("d-none")):($(".table-responsive").removeClass("d-none"),$(".history-empty").addClass("d-none")),$(".update-transaksi-button").click((()=>{updateTransaksi()})),$(".delete-transaksi-button").click((()=>{deleteTransaksi()}))},error:a=>{console.log(a)}})}function changeTransaksi(a){$("#id_transaksi").val(a)}function numberFormat(a){var e=a.toString().split(".");return e[0]=e[0].replace(/\B(?=(\d{3})+(?!\d))/g,"."),e.join(",")}function updateTransaksi(){let a=$("#id_transaksi").val(),e=$("#id_anggota_setoran").val();$("#update-result").text(numberFormat($("#jumlah-pembayaran").val())),$.ajax({url:"/query/updateHistoryPembayaran",method:"POST",data:{_token:$("#ctoken").val(),id_transaksi:a,id_anggota:e,nominal:$("#jumlah-pembayaran").val()},success:()=>{setTimeout((()=>{location.reload()}),2e3)},error:a=>{console.log(a)}})}function deleteTransaksi(){let a=$("#id_transaksi").val();validateDelete&&(validateDelete=!1,$.ajax({url:"/query/deleteHistoryPembayaran",method:"POST",data:{_token:$("#ctoken").val(),id_transaksi:a},success:()=>{setTimeout((()=>{validateDelete=!0,location.reload()}),2e3)},error:a=>{validateDelete=!0,console.log(a)}}))}function formatRupiah(a,e){var t=a.replace(/[^,\d]/g,"").toString().split(","),n=t[0].length%3,i=t[0].substr(0,n),s=t[0].substr(n).match(/\d{3}/gi);return s&&(separator=n?".":"",i+=separator+s.join(".")),i=null!=t[1]?i+","+t[1]:i,null==e?i:i?"Rp. "+i:""}1==$("#history-pembayaran").length&&$("#history-pembayaran").DataTable(),retrieveSiswa(),$("#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa").change((()=>{retrieveSiswa()})),$("#cari-siswa").keyup((a=>{retrieveSiswa(a.currentTarget.value)})),$(".cari-siswa__item").click((a=>{clickSiswa(a)})),$("#bpp-upload-file").change((()=>{$("#importForm").submit()})),$("#nominalPembayaran").keyup((a=>{let e=a.currentTarget.value;$("#nominalPembayaran").val(formatRupiah(e,"RP. "))})),$("#jumlah-pembayaran").keyup((a=>{let e=a.currentTarget.value;$("#jumlah-pembayaran").val(formatRupiah(e,"RP. "))})),$("#dinamis-upload-file").change((()=>{$("#importForm").submit()})),$(document).on("submit","form#form-pembayaran-akademik",(function(a){a.preventDefault();let e=$(this),t=e.attr("action"),n=e.attr("method"),i=e.serialize(),s=!1;if(e.find('input:not([type="hidden"])').each(((a,e)=>{$(e).val()||(s=!0)})),s)return;let r=$(".detail-tagihan")[0].innerHTML,l=$("#nominalPembayaran").val();if(r=r.replaceAll("Rp",""),r=r.replaceAll(".",""),r=r.replaceAll(" ",""),l=l.replaceAll("Rp",""),l=l.replaceAll(".",""),l=l.replaceAll(" ",""),parseInt(r)<parseInt(l))return $(".sisa-partisipasi").text("Rp. "+formatRupiah(r)),void $("#button_pembayaran_gagal").click();$.ajax({url:t,method:n,data:i,success:a=>{try{let{tanggal:e,anggota:t,transaksi:n,kasir:i}=a,s=new Date(Date.parse(e)),l=s.toLocaleDateString("id",{weekday:"long"}),o=s.toLocaleDateString("id",{month:"long"}),d=s.getDate(),c=s.getFullYear(),m=i,u=`${n.nomor_transaksi} / ${l}, ${d} ${o}, ${c}`,$=`${t.nis} / ${t.nama}`,g=t.detail_kelas,p=n.nama_transaksi,k=n.jumlah,_=n.kode_transaksi;remainingbill=r-k,printReceipt(null,{username:m,numberanddate:u,numberandname:$,classname:g,transactiontype:p,total:k,transactioncode:_,remainingbill:remainingbill})}catch(a){console.error(a)}},error:a=>{console.log(a)},complete:()=>{e.trigger("reset");let a=$("#id_anggota").val();$(document).find(`.cari-siswa__item[data-id="${a}"]`).trigger("click")}})}));
+$(document).ready(function () {
+    $('.js-bulan-multiple').select2({
+        placeholder: "Pilih Bulan ...",
+        initSelection: function (element, callback) {
+        }
+    });
+});
+let validateDelete = true;
+
+if ($("#history-pembayaran").length == 1) {
+    $('#history-pembayaran').DataTable();
+}
+
+retrieveSiswa();
+$('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa').change(() => {
+    retrieveSiswa();
+})
+
+$('#cari-siswa').keyup((e) => {
+    let search = e.currentTarget.value;
+    retrieveSiswa(search);
+})
+
+function retrieveSiswa(search = "") {
+    let id_kelas = $('#filter_id_kelas').val();
+    let id_jurusan = $('#filter_id_jurusan').val();
+    let nomor_kelas = $('#filter_nomor_kelas').val();
+    let angkatan_siswa = $('#filter_angkatan_siswa').val();
+
+    $.ajax({
+        url: '/query/dataSiswa',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            search: search,
+            id_kelas: id_kelas,
+            id_jurusan: id_jurusan,
+            nomor_kelas: nomor_kelas,
+            angkatan: angkatan_siswa,
+            limit: 20,
+        },
+        success: (result) => {
+            $('.cari-siswa').empty();
+            $.each(result, (index, value) => {
+                $('.cari-siswa').append(`
+                    <a href="#!" class="cari-siswa__item" data-id="${value.id_anggota}">
+                        <div class="d-flex flex-row gap-3 align-items-center cari-siswa__item-nama">
+                        <i class="fa-regular fa-user cari-siswa__icon color-neutral-100"></i>
+                        <div class="d-flex flex-column gap-1">
+                            <p class="text-bold color-neutral-100 cari-siswa__nama-siswa">${value.nama}</p>
+                            <p class="nomor-siswa color-neutral-80">${value.nis}</p>
+                        </div>
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                          <p class="kelas-siswa text-bold text-info">${value.kelas.nama} ${value.jurusan.nama} ${value.nomor_kelas}</p>
+                          <p class="text-bold">
+                            ${value.alumni == 0 ? '<span class="text-success">Aktif</span>' :
+                        `<span class="text-danger">Alumni (${value.angkatan ?? '-'})</span>`}
+                          </p>
+                        </div>
+                        <div href="#" class="cari-siswa__item-detail">
+                        	<i class="fa-solid fa-chevron-right cari-siswa__item-detail__icon color-neutral-100"></i>
+                        </div>
+                    </a>
+                `);
+            })
+
+            $('.cari-siswa__item').click((e) => {
+                clickSiswa(e);
+            })
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+$('.cari-siswa__item').click((e) => {
+    clickSiswa(e);
+})
+
+function clickSiswa(e) {
+    $('#id_anggota').val(e.currentTarget.dataset.id);
+    $('.ajukan-penambahan-button').attr('href', `/transaksi/pengajuan-penambahan/${e.currentTarget.dataset.id}`);
+    $('.ajukan-keringanan-button').attr('href', `/transaksi/pengajuan-keringanan/${e.currentTarget.dataset.id}`);
+
+    $('.empty-detail-pembayaran').addClass('d-none');
+    $('.pembayaran-button').removeClass('d-none');
+    $('.input-nominal').removeClass('d-none');
+    $('.card--riwayat-transaksi').removeClass('d-none');
+
+    let kasir = $(document).find('#history-pembayaran').data('username')
+    let name = $(e.currentTarget).find('.cari-siswa__nama-siswa').text()
+    let nis = $(e.currentTarget).find('.nomor-siswa').text()
+    let classname = $(e.currentTarget).find('.kelas-siswa').text()
+    let tagihan_terbayar = 0;
+
+    $.ajax({
+        url: '/query/siswaById',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id: e.currentTarget.dataset.id
+        },
+        success: (result) => {
+            let jumlahTagihan
+            $('.detail-nama').text(result.nama);
+            $('.detail-nis').text(result.nis);
+            $('.detail-kelas').text(`${result.kelas.nama} ${result.jurusan.nama} ${result.nomor_kelas}`);
+            // $('.detail-tagihan').text('Rp. ' + numberFormat(result.keuangan_anggota.tagihan));            
+
+            if (result.alumni == 0) {
+                $('.detail-status-siswa').empty();
+                $('.detail-status-siswa').append(`
+                      <span class="text-success">Active</span>
+                `);
+            } else {
+                $('.detail-status-siswa').empty();
+                $('.detail-status-siswa').append(`
+                      <span class="text-danger">Alumni (${result.angkatan ?? '-'})</span>
+                `);
+            }
+
+            return jumlahTagihan = result.keuangan_anggota.tagihan;
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+
+    $.ajax({
+        url: '/query/getHistoryPembayaranDinamis',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_anggota: e.currentTarget.dataset.id,
+            id_tagihan: $('#prefix_tagihan').val(),
+        },
+        success: (result) => {
+            let total_tagihan = 0;
+            $.each(result, (index, value) => {
+                tagihan_terbayar += value.jumlah;
+            })
+            $.ajax({
+                url: '/query/getPembayaranDinamis',
+                method: 'POST',
+                data: {
+                    _token: $('#ctoken').val(),
+                    id_anggota: e.currentTarget.dataset.id,
+                    prefix_tagihan: $('#prefix_tagihan').val(),
+                },
+                success: (result_dinamis) => {
+                    let total_tagihan = result_dinamis[0].jumlah;
+                    total_tagihan -= tagihan_terbayar;
+                    $('.detail-tagihan').text('Rp. ' + numberFormat(total_tagihan))
+
+                    $('.list-riwayat-pembayaran-dinamis').empty();
+                    let sisa_tagihan = total_tagihan - tagihan_terbayar;
+                    $.each(result, (index, value) => {
+                        let tanggal = new Date(Date.parse(value.tanggal));
+                        let day = tanggal.toLocaleDateString('id', { weekday: 'long' });
+                        let bulan = tanggal.toLocaleDateString('id', { month: 'long' });
+                        let date = tanggal.getDate();
+                        let tahun = tanggal.getFullYear();
+
+                        $('.list-riwayat-pembayaran-dinamis').append(`
+                            <tr>
+                                <input type="hidden" value="${value.nama_transaksi}" name="nama_transaksi">
+                                <td class="color-neutral-100">${bulan}, ${date} ${tahun}</td>
+                                <td class="color-neutral-100">${value.admin.nama}</td>
+                                <td class="color-neutral-100">${value.nama_transaksi}</td>
+                                <td class="color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</td>
+                                <td>
+                                <div class="d-flex align-items-center justify-content-end gap-3">
+                                    <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-remainingbill="${sisa_tagihan}" data-transactioncode="${value.kode_transaksi}">
+                                    <i class="fa-solid fa-print table-icon__link"></i>
+                                    </a>
+                                    <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                                    <i class="fa-solid fa-pen table-icon__link"></i>
+                                    </a>
+                                    <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                                    <i class="fa-regular fa-trash-can table-icon__link"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        `);
+
+                    })
+                },
+                error: () => {
+                    $('.detail-tagihan').text('Tidak ada tanggungan.')
+                }
+            })
+
+            if (result.length == 0) {
+                $('.table-responsive').addClass('d-none');
+                $('.history-empty').removeClass('d-none');
+            } else {
+                $('.table-responsive').removeClass('d-none');
+                $('.history-empty').addClass('d-none');
+            }
+
+            $('.update-transaksi-button').click(() => {
+                updateTransaksi();
+            })
+
+            $('.delete-transaksi-button').click(() => {
+                deleteTransaksi();
+            })
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+$('#bpp-upload-file').change(() => {
+    $('#importForm').submit();
+})
+
+function changeTransaksi($id_transaksi) {
+    $('#id_transaksi').val($id_transaksi);
+}
+
+function numberFormat(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return parts.join(",");
+}
+
+$('#nominalPembayaran').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#nominalPembayaran').val(formatRupiah(input, 'RP. '))
+})
+
+$('#jumlah-pembayaran').keyup((e) => {
+    let input = e.currentTarget.value;
+    $('#jumlah-pembayaran').val(formatRupiah(input, 'RP. '))
+})
+
+$('#dinamis-upload-file').change(() => {
+    $('#importForm').submit();
+})
+
+function updateTransaksi() {
+    let id_transaksi = $('#id_transaksi').val();
+    let id_anggota = $('#id_anggota_setoran').val();
+    $('#update-result').text(numberFormat($('#jumlah-pembayaran').val()));
+
+    $.ajax({
+        url: '/query/updateHistoryPembayaran',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            id_transaksi: id_transaksi,
+            id_anggota: id_anggota,
+            nominal: $('#jumlah-pembayaran').val(),
+        },
+        success: () => {
+            setTimeout(() => {
+                location.reload()
+            }, 2000);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+function deleteTransaksi() {
+    let id_transaksi = $('#id_transaksi').val();
+
+    if (validateDelete) {
+        validateDelete = false;
+        $.ajax({
+            url: '/query/deleteHistoryPembayaran',
+            method: 'POST',
+            data: {
+                _token: $('#ctoken').val(),
+                id_transaksi: id_transaksi,
+            },
+            success: () => {
+                setTimeout(() => {
+                    validateDelete = true;
+                    location.reload()
+                }, 2000);
+            },
+            error: (err) => {
+                validateDelete = true;
+                console.log(err);
+            }
+        })
+    }
+}
+
+function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split = number_string.split(','),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}
+
+$(document).on('submit', 'form#form-pembayaran-akademik', function (e) {
+    e.preventDefault()
+
+    let form = $(this),
+        url = form.attr('action'),
+        method = form.attr('method'),
+        data = form.serialize()
+
+    let dontSubmit = false
+    form.find('input:not([type="hidden"])').each((_, el) => {
+        if (!$(el).val()) dontSubmit = true
+    })
+    if (dontSubmit) return
+
+    let total_tagihan = $('.detail-tagihan')[0].innerHTML;
+    let nominal_pembayaran = $('#nominalPembayaran').val();
+
+    total_tagihan = total_tagihan.replaceAll('Rp', '');
+    total_tagihan = total_tagihan.replaceAll('.', '');
+    total_tagihan = total_tagihan.replaceAll(' ', '');
+
+    nominal_pembayaran = nominal_pembayaran.replaceAll('Rp', '');
+    nominal_pembayaran = nominal_pembayaran.replaceAll('.', '');
+    nominal_pembayaran = nominal_pembayaran.replaceAll(' ', '');
+
+    if (parseInt(total_tagihan) < parseInt(nominal_pembayaran)) {
+        $('.sisa-partisipasi').text('Rp. ' + formatRupiah(total_tagihan));
+        $('#button_pembayaran_gagal').click();
+        return
+    }
+
+    $.ajax({
+        url,
+        method,
+        data,
+        success: (result) => {
+            try {
+                let { tanggal, anggota, transaksi, kasir } = result
+                let tgl = new Date(Date.parse(tanggal));
+                let day = tgl.toLocaleDateString('id', { weekday: 'long' });
+                let bulan = tgl.toLocaleDateString('id', { month: 'long' });
+                let date = tgl.getDate();
+                let tahun = tgl.getFullYear();
+
+                let username = kasir,
+                    numberanddate = `${transaksi.nomor_transaksi} / ${day}, ${date} ${bulan}, ${tahun}`,
+                    numberandname = `${anggota.nis} / ${anggota.nama}`,
+                    classname = anggota.detail_kelas,
+                    transactiontype = transaksi.nama_transaksi,
+                    total = transaksi.jumlah,
+                    transactioncode = transaksi.kode_transaksi;
+                remainingbill = total_tagihan - total,
+                    printReceipt(null, { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, remainingbill });
+
+            } catch (error) {
+                console.error(error);
+            }
+
+        },
+        error: (err) => {
+            console.log(err);
+        },
+        complete: () => {
+            form.trigger('reset')
+
+            let id = $('#id_anggota').val()
+            $(document).find(`.cari-siswa__item[data-id="${id}"]`).trigger('click')
+        }
+    })
+})

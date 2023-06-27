@@ -1,1 +1,56 @@
-$(document).ready((function(){1==$("#history-pembayaran").length&&$("#history-pembayaran").DataTable(),1==$("#riwayat-transaksi").length&&$("#riwayat-transaksi").DataTable(),1==$("#riwayat-tabungan-sekolah").length&&$("#riwayat-tabungan-sekolah").DataTable(),1==$("#riwayat-tabungan-siswa").length&&$("#riwayat-tabungan-siswa").DataTable(),1==$("#riwayat-tabungan-guru").length&&$("#riwayat-tabungan-guru").DataTable(),1==$("#riwayat-tabungan").length&&$("#riwayat-tabungan").DataTable(),1==$("#history-transaksi-siswa").length&&$("#history-transaksi-siswa").DataTable(),1==$("#upload-surat-pengajuan").length&&$("#upload-surat-pengajuan").change((function(){var a=this.files[0].name;$(".pengajuan-keringanan-form__item-upload").find(".file-name").text(a)})),$((function(){var a=moment().startOf("month"),t=moment().endOf("month");function n(a,t){$("#date-range-span span").html(a.format("DD/MM/YYYY")+" - "+t.format("DD/MM/YYYY")),$("#date-range-input").val(a.format("DD/MM/YYYY")+" - "+t.format("DD/MM/YYYY"))}$("#date-range-span").daterangepicker({startDate:a,endDate:t,alwaysShowCalendars:!0,ranges:{Today:[moment(),moment()],Yesterday:[moment().subtract(1,"days"),moment().subtract(1,"days")],"Last 7 Days":[moment().subtract(6,"days"),moment()],"Last 30 Days":[moment().subtract(29,"days"),moment()],"This Month":[moment().startOf("month"),moment().endOf("month")],"Last Month":[moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")]}},n),n(a,t)}))}));
+$(document).ready(function () {
+  if($("#history-pembayaran").length == 1) {
+    $('#history-pembayaran').DataTable();
+  }
+  if($("#riwayat-transaksi").length == 1) {
+    $('#riwayat-transaksi').DataTable();
+  }
+  if($("#riwayat-tabungan-sekolah").length == 1) {
+    $('#riwayat-tabungan-sekolah').DataTable();
+  }
+  if($("#riwayat-tabungan-siswa").length == 1) {
+    $('#riwayat-tabungan-siswa').DataTable();
+  }
+  if($("#riwayat-tabungan-guru").length == 1) {
+    $('#riwayat-tabungan-guru').DataTable();
+  }
+  if($("#riwayat-tabungan").length == 1) {
+    $('#riwayat-tabungan').DataTable();
+  }
+  if($("#history-transaksi-siswa").length == 1) {
+    $('#history-transaksi-siswa').DataTable();
+  }
+  if($("#upload-surat-pengajuan").length == 1) {
+    $('#upload-surat-pengajuan').change(function(){
+      var f = this.files[0];  
+      var name = f.name;    
+      $('.pengajuan-keringanan-form__item-upload').find('.file-name').text(name);
+    });
+  }
+  $(function() {
+    var start = moment().startOf('month');
+    var end = moment().endOf('month');
+
+    function cb(start, end) {
+        $('#date-range-span span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+        $('#date-range-input').val(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+    }
+
+    $('#date-range-span').daterangepicker({
+        startDate: start,
+        endDate: end,
+        alwaysShowCalendars: true,
+        ranges: {
+          'Today': [moment(), moment()],
+          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+  });
+});

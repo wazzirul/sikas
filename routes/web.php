@@ -64,7 +64,8 @@ Route::group(['middleware' => 'authsession'], function () {
     Route::post('/transaksi/importPengeluaran', [Main::class, 'importPengeluaran'])->name('sikas-transaksi--importpengeluaran');
     Route::get('/transaksi/history-transaksi-siswa', [PembayaranController::class, 'historyTransaksiSiswa'])->name('sikas-transaksi--pembayaran-history-siswa');
     Route::get('/transaksi/history-transaksi-siswa/detail/{id}', [PembayaranController::class, 'historyTransaksiSiswaDetail'])->name('sikas-transaksi--pembayaran-history-siswa-detail');
-
+    Route::get('/transaksi/transaksi-dinamis', [Main::class, 'TransaksiDinamis'])->name('sikas-transaksi--dinamis');
+    
     //Laporan Controller
     Route::get('/laporan', [LaporanController::class, 'pembayaranSPP'])->name('sikas-laporan');
     // Route::get('/laporan', [LaporanController::class, 'index'])->name('sikas-laporan');

@@ -1,1 +1,8 @@
-.misc-wrapper{align-items:center;display:flex;flex-direction:column;justify-content:center;min-height:calc(100vh - 3.25rem);text-align:center}
+.misc-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - (1.625rem * 2));
+  text-align: center;
+}

@@ -165,6 +165,9 @@ class Main extends Controller
       'transaksi_perlu_approve' => $transaksi_perlu_approve,
     ]);
   }
+  public function TransaksiDinamis(){
+    return view('sikas.transaksi-dinamis-wrapper');
+  }
 
   //Login
   public function login(){

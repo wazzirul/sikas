@@ -221,10 +221,13 @@ function clickSiswa(e) {
                             <a href="javascript:void(0)" title="Cetak ulang struk" class="table__link-detail text-dark" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-transactioncode="${value.kode_transaksi}" data-remainingbill="${remainingbill}">
                             <i class="fa-solid fa-print table-icon__link"></i>
                             </a>
-                            <a href="#" class="table__link-detail text-info" onClick="changeTransaksi(${value.id_transaksi}, true)" data-bs-toggle="modal" data-bs-target="#modalEditData">
+                            <a href="javascript:void(0)" title="Cetak salinan struk" class="table__link-detail text-warning" onClick="printReceipt(this)" data-username="${kasir}" data-numberanddate="${value.nomor_transaksi} / ${day}, ${date} ${bulan} ${tahun}" data-numberandname="${nis} / ${name}" data-classname="${classname}" data-transactiontype="${value.nama_transaksi}" data-total="${value.jumlah}" data-transactioncode="${value.kode_transaksi}" data-remainingbill="${remainingbill}">
+                            <i class="fa-solid fa-print table-icon__link"></i>
+                            </a>
+                            <a href="#" class="table__link-detail text-info" title="Edit Transaksi" onClick="changeTransaksi(${value.id_transaksi}, true)" data-bs-toggle="modal" data-bs-target="#modalEditData">
                             <i class="fa-solid fa-pen table-icon__link"></i>
                             </a>
-                            <a href="#" class="table__link-detail text-danger" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
+                            <a href="#" class="table__link-detail text-danger" title="Hapus Transaksi" onClick="changeTransaksi(${value.id_transaksi})" data-bs-toggle="modal" data-bs-target="#modalDeleteData">
                             <i class="fa-regular fa-trash-can table-icon__link"></i>
                             </a>
                         </div>
