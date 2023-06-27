@@ -20,6 +20,7 @@
   // Send the request
   xhr.send();
   // Fired once the request completes successfully 
+  let pageDinamis = false;
   xhr.onload = function(e) {
       // Check if the request was a success
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -43,15 +44,17 @@
       }
   }
 
-  xhr.open("GET", '/query/getSidebarTransaksi');
+  const xhr2 = new XMLHttpRequest();
+
+  xhr2.open("GET", '/query/getSidebarTransaksi');
   // Send the request
-  xhr.send();
+  xhr2.send();
   // Fired once the request completes successfully 
-  xhr.onload = function(e) {
+  xhr2.onload = function(e) {
       // Check if the request was a success
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         // Get and convert the responseText into JSON
-        var response = JSON.parse(xhr.responseText);
+        var response = JSON.parse(xhr2.responseText);
         let total_needconfirm = response.tabungan + response.pengeluaran;
 
         document.getElementById('sidebar-total-needconfirm').innerHTML = total_needconfirm;
