@@ -35,7 +35,7 @@ Laporan
   <div class="laporan-wrapper">
     <h4 class="text-bold color-black mb-4">Data Laporan Biaya Penunjang Pendidikan</h4>
     <div class="nav-align-top mb-4">
-      <ul class="nav nav-pills mb-3" role="tablist">
+      <ul class="nav nav-pills mb-3 d-none" role="tablist">
         <li class="nav-item">
           <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-laporan-per-kelas" aria-controls="navs-laporan-per-kelas" aria-selected="false">Laporan BPP Per Kelas</button>
         </li>
