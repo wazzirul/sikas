@@ -47,8 +47,8 @@
             <div>Pengeluaran <span class="menu-item--confrimation" id="sidebar-pengeluaran-needconfirm">-</span></div>
           </a>
         </li>
-        <li class="menu-item {{ Route::is('sikas-transaksi--dinamis') == true ? 'active' : '' }}">
-          <a href="{{route('sikas-transaksi--dinamis')}}" class="menu-link">
+        <li class="menu-item {{ Route::is('sikas-transaksi-dinamis*') == true ? 'active' : '' }}">
+          <a href="{{route('sikas-transaksi-dinamis')}}" class="menu-link">
             <div>Transaksi Dinamis <span class="menu-item--confrimation" id="sidebar-dinamis">-</span></div>
           </a>
         </li>

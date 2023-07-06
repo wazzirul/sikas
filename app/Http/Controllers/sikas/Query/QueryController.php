@@ -2076,8 +2076,8 @@ class QueryController extends Controller
         }
 
         $transaksi = Transaksi::where('id_tagihan', $id_tagihan)
-            ->leftjoin('anggota', 'anggota.id_anggota', '=', 'transaksi.id_anggota')
-            ->where('anggota.alumni', 0)
+            // ->leftjoin('anggota', 'anggota.id_anggota', '=', 'transaksi.id_anggota')
+            // ->where('anggota.alumni', 0)
             ->where('transaksi.tipe_transaksi', 1)
             ->where('transaksi.soft_delete', 0)
             ->get();

@@ -1,7 +1,7 @@
 'use strict';
 
 function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
-  let { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, removetransactionnumber, savingsfund, remainingbill, notClassname } = el?.dataset || raw
+  let { username, numberanddate, numberandname, classname, transactiontype, total, transactioncode, removetransactionnumber, savingsfund, remainingbill, notClassname, salinan } = el?.dataset || raw
   let formattedTotal = `${new Intl.NumberFormat('id').format(total)},-`
 
   if (!numberandname) return
@@ -10,7 +10,7 @@ function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
     printable: `
       <div class="page">
         <div>
-          <h4 class="page-header">Bukti Transaksi</h4>
+          <h4 class="page-header">${salinan == "true" ? 'Salinan ' : ''}Bukti Transaksi</h4>
           <div class="row">
             <div class="col-left list">
               <div class="list-key">
@@ -76,7 +76,7 @@ function printReceipt(el = {}, raw = {}, onPrintDialogClose = null) {
       </div>
       `,
     type: 'raw-html',
-    style: '@media print { @page { margin-top: 48px; margin-bottom: 48px; overflow:none; size: 14cm 24cm;} @page:first { margin-top: 0; margin-bottom: 0; } body { --main-color: #000000;  overflow:none; font-family: Helvetica,sans-serif !important; font-size: 14px !important; font-style: normal !important; font-weight:400 !important; letter-spacing: 0.03rem !important; padding: 0; color: var(--main-color); } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .ml-16 { margin-left: 16px !important; } .nowrap { white-space: nowrap !important; } .uppercase { text-transform: uppercase !important; } .border-bottom { border-bottom: 1px solid currentColor !important; } .align-items-center { align-items: center !important; } .page-header { text-transform: uppercase; font-weight:700; text-align: center; text-decoration: underline; margin-bottom: 24px; } .page-footer { margin-top: 120px; } .row { width: 100%; display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; margin-bottom: 2px; } .row .col-right { text-align: right; margin-left: 4px; } .row .col { flex: 1; } .list { width: 100%; display: flex; flex-direction: row; align-items: flex-start; } .list .list-key { flex: 0 0 auto; width: 144px; display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; } .list .list-value { flex: 1; margin-left: 4px; } .list-value--first{margin-bottom:2px;padding-bottom:2px;} .list .list-value__transaction-type{max-width: 450px;} .nominal-pronouncing { margin-top: 8px; } .savings-fund { margin-top: 16px; } .signature { width: 144px; display: flex; flex-direction: column; align-items: stretch; } .signature-name { text-transform: uppercase; text-align: center; border-bottom: 1px solid currentColor } .signature-desc { text-align: center; }',
+    style: '@media print { @page { margin-top: 48px; margin-bottom: 48px; overflow:none;} @page:first { margin-top: 0; margin-bottom: 0; } body { --main-color: #000000;  overflow:none; font-family: Helvetica,sans-serif !important; font-size: 14px !important; font-style: normal !important; font-weight:400 !important; letter-spacing: 0.03rem !important; padding: 0; color: var(--main-color); } } .page { width: 100%; min-height: 420px; padding-top: 16px; padding-bottom: 16px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; } .ml-16 { margin-left: 16px !important; } .nowrap { white-space: nowrap !important; } .uppercase { text-transform: uppercase !important; } .border-bottom { border-bottom: 1px solid currentColor !important; } .align-items-center { align-items: center !important; } .page-header { text-transform: uppercase; font-weight:700; text-align: center; text-decoration: underline; margin-bottom: 24px; } .page-footer { margin-top: 120px; } .row { width: 100%; display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; margin-bottom: 2px; } .row .col-right { text-align: right; margin-left: 4px; } .row .col { flex: 1; } .list { width: 100%; display: flex; flex-direction: row; align-items: flex-start; } .list .list-key { flex: 0 0 auto; width: 144px; display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; } .list .list-value { flex: 1; margin-left: 4px; } .list-value--first{margin-bottom:2px;padding-bottom:2px;} .list .list-value__transaction-type{max-width: 450px;} .nominal-pronouncing { margin-top: 8px; } .savings-fund { margin-top: 16px; } .signature { width: 144px; display: flex; flex-direction: column; align-items: stretch; } .signature-name { text-transform: uppercase; text-align: center; border-bottom: 1px solid currentColor } .signature-desc { text-align: center; }',
     documentTitle: 'BUKTI TRANSAKSI',
     onPrintDialogClose,
     fallbackPrintable: onPrintDialogClose

@@ -26,21 +26,23 @@
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         // Get and convert the responseText into JSON
         var response = JSON.parse(xhr.responseText);
-        for(var i = 0; i < response.length; i++){
-          let page_url = window.location.origin+'/transaksi/dinamis/'+response[i].prefix_tagihan;
-          let active_url;
-          window.location == page_url ? active_url = 'active' : '';
+        // for(var i = 0; i < response.length; i++){
+        //   let page_url = window.location.origin+'/transaksi/dinamis/'+response[i].prefix_tagihan;
+        //   let active_url;
+        //   window.location == page_url ? active_url = 'active' : '';
 
-          let txt = `
-            <li class="menu-item ${page_url == window.location ? 'active' : ''}">
-              <a href="/transaksi/dinamis/${response[i].prefix_tagihan}" class="menu-link">
-                <div>${response[i].nama}</div>
-              </a>
-            </li>
-          `;
+        //   let txt = `
+        //     <li class="menu-item ${page_url == window.location ? 'active' : ''}">
+        //       <a href="/transaksi/dinamis/${response[i].prefix_tagihan}" class="menu-link">
+        //         <div>${response[i].nama}</div>
+        //       </a>
+        //     </li>
+        //   `;
 
-          document.getElementById('sidebar-bpp').insertAdjacentHTML('afterend', txt);
-        }
+        //   document.getElementById('sidebar-bpp').insertAdjacentHTML('afterend', txt);
+        // }
+        console.log(response.length);
+        document.getElementById('sidebar-dinamis').innerHTML = response.length;
       }
   }
 

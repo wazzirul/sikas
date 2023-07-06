@@ -18,6 +18,7 @@ use App\Models\PengajuanPenambahan;
 use App\Models\StrukturSekolah;
 use App\Models\Transaksi;
 use App\Models\TabunganUmum;
+use App\Models\Tagihan;
 
 class Main extends Controller
 {
@@ -166,7 +167,15 @@ class Main extends Controller
     ]);
   }
   public function TransaksiDinamis(){
-    return view('sikas.transaksi-dinamis-wrapper');
+    $data = Tagihan::select('nama','prefix_tagihan')
+        ->where('soft_delete', 0)
+        ->where('tipe_tagihan', 2)
+        ->where('status', 1)
+        ->where('prefix_tagihan', '!=', null)
+        ->distinct()
+        ->get();
+        
+    return view('sikas.transaksi-dinamis-wrapper', ['data' => $data]);
   }
 
   //Login

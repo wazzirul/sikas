@@ -36,10 +36,9 @@
 </div>
 
 <div class="transaksi-dinamis__wrapper">
-  <a class="transaksi-dinamis__link" href="#" target="_blank">Wisuda</a>
-  <a class="transaksi-dinamis__link" href="#" target="_blank">Seragam</a>
-  <a class="transaksi-dinamis__link" href="#" target="_blank">Rekreasi</a>
-  <a class="transaksi-dinamis__link" href="#" target="_blank">Buku</a>
+  @foreach($data as $d)
+  <a class="transaksi-dinamis__link text-center" href="/transaksi/dinamis/{{ $d->prefix_tagihan }}" target="_blank">{{ $d->nama }}</a>
+  @endforeach
 </div>
 
 @endsection
