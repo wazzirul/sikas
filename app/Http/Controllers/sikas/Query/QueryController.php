@@ -210,6 +210,7 @@ class QueryController extends Controller
         $tagihan = KeuanganAnggota::where('id_anggota', $id_anggota)->first();
         $tanggungan = (int)$tagihan->tagihan;
         $master_tagihan = Tagihan::where('id_kelas', $anggota->id_kelas)
+            ->where('angkatan', $anggota->angkatan)
             ->first();
 
         // if ((int)$nominal <= $tanggungan) {
