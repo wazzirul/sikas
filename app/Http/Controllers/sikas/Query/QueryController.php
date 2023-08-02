@@ -198,6 +198,7 @@ class QueryController extends Controller
     {
         $id_anggota = $request->input('id_anggota');
         $bulan = $request->input('bulan');
+        $angsuran_ke = $request->input('angsuran_ke') ?? null;
         $tipe_pembayaran = $request->input('tipe_pembayaran');
         $tahun_ajaran = $request->input('tahun');
         $nominal = $request->input('nominalPembayaran');
@@ -213,6 +214,8 @@ class QueryController extends Controller
             ->where('angkatan', $anggota->angkatan)
             ->first();
 
+        if(!$angsuran_ke) $angsuran_ke = ((int)$tagihan->angsuran_ke + 1);
+
         // if ((int)$nominal <= $tanggungan) {
             $transaksi = new Transaksi();
             $transaksi->id_admin = Session::get('id_user');
@@ -225,7 +228,7 @@ class QueryController extends Controller
             $transaksi->save();
 
             if((int)$tipe_pembayaran == 1) {
-                $transaksi->nama_transaksi = $master_tagihan->nama.' Angsuran Ke-'.((int)$tagihan->angsuran_ke + 1).' '.$tahun_ajaran;
+                $transaksi->nama_transaksi = $master_tagihan->nama.' Angsuran Ke-'.$angsuran_ke.' '.$tahun_ajaran;
             }
             else {
                 if(count($bulan) > 1){
@@ -264,7 +267,7 @@ class QueryController extends Controller
             
             $transaksi->save();
 
-            $tagihan->angsuran_ke += 1;
+            $tagihan->angsuran_ke = $angsuran_ke;
             $tagihan->tagihan = $tanggungan - $nominal;
             $tagihan->save();
 
@@ -2475,6 +2478,7 @@ class QueryController extends Controller
 
                     if($keuangan_anggota){
                         $keuangan_anggota->tagihan += (int)$keuangan_anggota->tagihan_pertama;
+                        $keuangan_anggota->angsuran_ke = 0;
                         $keuangan_anggota->save();
                     }
 

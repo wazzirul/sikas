@@ -149,7 +149,7 @@ Transaksi
           <div class="form-transaksi__angsuran d-flex flex-column gap-4 pembayaran-angsuran d-none">
             <div class="">
               <label for="angsuran_ke" class="form-label">Angsuran Ke</label>
-              <input type="text" class="form-control disabled" id="angsuran_ke" name="angsuran_ke" disabled value="1">
+              <input type="text" class="form-control disabled" id="angsuran_ke" name="angsuran_ke" value="1">
             </div>
           </div>
           <div class="form-transaksi__angsuran d-flex flex-column pembayaran-bulanan d-none">
