@@ -52,6 +52,14 @@ $(document).ready(function () {
         })
     })
 
+    $('.applyBtn').click(() => {
+        fetchDataPembayaran();
+    })
+
+    $('#filter_id_kelas, #filter_id_jurusan, #filter_nomor_kelas, #filter_angkatan_siswa').change(() => {
+        fetchDataPembayaran();
+    })
+
     $('#filter_id_kelas_kelas, #filter_id_jurusan_kelas, #filter_nomor_kelas_kelas, #filter_angkatan_siswa_kelas').change(() => {
         let id_kelas = $('#filter_id_kelas_kelas').val() ?? null;
         let id_jurusan = $('#filter_id_jurusan_kelas').val() ?? null;
@@ -68,12 +76,85 @@ $(document).ready(function () {
     })
 })
 
+function fetchDataPembayaran() {
+    let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
+    let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+    let id_kelas = $('#filter_id_kelas').val();
+    let id_jurusan = $('#filter_id_jurusan').val();
+    let nomor_kelas = $('#filter_nomor_kelas').val();
+    let angkatan = $('#filter_angkatan_siswa').val();
+
+    $.ajax({
+        url: '/query/laporanPembayaranSpp',
+        method: 'POST',
+        data: {
+            _token: $('#ctoken').val(),
+            tanggal_awal: tanggal_awal,
+            tanggal_akhir: tanggal_akhir,
+            id_kelas: id_kelas,
+            id_jurusan: id_jurusan,
+            nomor_kelas: nomor_kelas,
+            angkatan: angkatan,
+        },
+        success: (result) => {
+            $('#tbody-laporan-spp').empty();
+            $('#data-laporan-pembayaran-spp').DataTable().clear().destroy();
+
+            $.each(result, (index, value) => {
+                $('#tbody-laporan-spp').append(`
+                    <tr>
+                        <td>
+                            <p class="text-medium color-neutral-100">${moment(value.tanggal).format('DD MMMM YYYY')}</p>
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">${value.admin.nama}</p>              
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">${value.anggota.nama}</p>              
+                        </td>
+                        <td>
+                            <p class="text-medium color-neutral-100 kelas">${value.anggota.kelas.nama} ${value.anggota.jurusan.nama} ${value.anggota.nomor_kelas}</p>
+                        </td>
+                        <td class="text-medium">
+                            <p class="text-medium color-neutral-100">${value.nama_transaksi}</p>              
+                        </td>
+                        <td>
+                            <p class="text-medium color-neutral-100 nominal-transaksi">Rp. ${numberFormat(value.jumlah)}</p>
+                        </td>
+                    </tr>
+                `);
+
+                if (index == (result.length - 1)) {
+                    $('#data-laporan-pembayaran-spp').DataTable({
+                        "aaSorting": [],
+                    });
+                }
+            })
+
+            if (result.length == 0) {
+                $('#data-laporan-pembayaran-spp').DataTable({
+                    "aaSorting": [],
+                });
+            }
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    })
+}
+
 function fetchDataPembayaranKelas(id_kelas, id_jurusan, nomor_kelas, angkatan) {
+    let tanggal_awal = $('#date-range-span').data('daterangepicker').startDate.format('YYYY-MM-DD');
+    let tanggal_akhir = $('#date-range-span').data('daterangepicker').endDate.format('YYYY-MM-DD');
+
     $.ajax({
         url: '/query/laporanPembayaranSppKelas',
         method: 'POST',
         data: {
             _token: $('#ctoken').val(),
+            tanggal_awal: tanggal_awal,
+            tanggal_akhir: tanggal_akhir,
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,

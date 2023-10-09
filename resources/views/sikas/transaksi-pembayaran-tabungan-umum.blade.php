@@ -55,10 +55,16 @@ Transaksi
   <div class="card-body">
     <div class="d-flex flex-row justify-content-between align-items-center mb-4">
       <h3 class="text-bold">Form Pembayaran Tabungan Umum</h3>
-      <button class="btn btn-lg btn-primary tabungan-umum-baru-button" data-bs-toggle="modal" data-bs-target="#modalBukaTabunganBaru">
-        Buka Tabungan Baru
-        <i class="fa-solid fa-plus"></i>
-      </button>
+      <div class="d-flex flex-row justify-content-between align-items-center gap-2">
+        <button class="btn btn-lg btn-warning tabungan-umum-baru-button" data-bs-toggle="modal" data-bs-target="#modalEditDataTabungan">
+          Edit Data Tabungan
+          <i class="fa-solid fa-pencil"></i>
+        </button>
+        <button class="btn btn-lg btn-primary tabungan-umum-baru-button" data-bs-toggle="modal" data-bs-target="#modalBukaTabunganBaru">
+          Buka Tabungan Baru
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
     </div>
     <div class="card-body__wrapper">
       <div class="card-item card-item--cari-siswa">
@@ -180,6 +186,47 @@ Transaksi
           <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
             <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalBukaTabunganBaruSuccess">Buat Tabungan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi modal--transaksi-tabungan fade" id="modalEditDataTabungan" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+          <h4 class="color-black text-bold">Edit Data Tabungan</h4>
+          <a href="#" data-bs-dismiss="modal" class="text-danger" aria-label="Close">
+            <i class="fa-solid fa-xmark icon"></i>
+          </a>
+        </div>
+        <form id="form-tambah-tabungan" action="/transaksi/tabungan/tambahTabunganUmum" method="POST">
+          {{ csrf_field() }}
+          <div class="mt-5">
+            <label for="nomorTabungan" class="form-label">Nomor Tabungan</label>
+            <input type="text" class="form-control" name="nomor_tabungan_disable" id="nomorTabungan" value="0001" disabled>
+            <input type="hidden" name="nomor_tabungan" id="nomor_tabungan">
+          </div>
+          <div class="mt-5">
+            <label for="namaTabungan" class="form-label">Nama Tabungan</label>
+            <input type="text" class="form-control" name="nama_tabungan" id="namaTabungan" placeholder="Nama Tabungan...">
+          </div>
+          <div class="mt-5">
+            <label for="jabatanKelas" class="form-label">Jabatan / Kelas</label>
+            <!-- AUTO COMPLETE DROPDOWN -->
+            <select id="jabatanKelas" name="keterangan" class="selectpicker form-control choices-sikas">
+              @foreach($jabatan as $j)
+              <option value="{{ $j->id_struktur_sekolah }}">{{ $j->jabatan }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="d-flex flex-row align-items-stretch gap-3 mt-5">
+            <button type="button" class="btn btn-outline-primary w-100" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEditDataTabunganSuccess">Edit Data Tabungan</button>
           </div>
         </form>
       </div>
@@ -347,6 +394,21 @@ Transaksi
         <div class="d-flex flex-column justify-content-center align-items-center text-center">
           <i class="fa-solid fa-circle-check icon-success text-success"></i>
           <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Membuat Tabungan</h4>
+          <p class="color-neutral-80">Anda bisa mulai menabung sekarang.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal--transaksi fade" id="modalEditDataTabunganSuccess" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <i class="fa-solid fa-circle-check icon-success text-success"></i>
+          <h4 class="color-neutral-100 mt-3 my-2">Selamat! Anda Berhasil Mengedit Data Tabungan</h4>
           <p class="color-neutral-80">Anda bisa mulai menabung sekarang.</p>
         </div>
       </div>

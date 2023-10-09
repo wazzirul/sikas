@@ -324,7 +324,7 @@ th[rowspan]:not([rowspan="1"]) {
 
 .jenis-laporan {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 @media (max-width: 1063.98px) {
