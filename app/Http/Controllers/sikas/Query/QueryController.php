@@ -2123,12 +2123,12 @@ class QueryController extends Controller
             ->whereDate('tanggal', '>=', $tanggal_awal)
             ->whereDate('tanggal', '<=', $tanggal_akhir)
             ->with('Anggota', 'Anggota.Kelas', 'Anggota.Jurusan', 'Admin')
-            ->whereHas('Anggota', function($q) use($id_kelas, $id_jurusan, $nomor_kelas){
+            ->whereHas('Anggota', function($q) use($id_kelas, $id_jurusan, $nomor_kelas, $angkatan){
                 $id_kelas && $q->where('anggota.id_kelas', $id_kelas);
                 $id_jurusan && $q->where('anggota.id_jurusan', $id_jurusan);
                 $nomor_kelas && $q->where('anggota.nomor_kelas', $nomor_kelas);
-            })
-            ->where('angkatan', $angkatan)
+                $angkatan && $q->where('anggota.angkatan', $angkatan);
+            })            
             ->where('soft_delete', 0)
             ->orderBy('id_transaksi', 'DESC')
             ->get();

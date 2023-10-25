@@ -44,7 +44,7 @@ Laporan
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane fade data-laporan-pembayaran-spp active" id="navs-histori-laporan" role="tabpanel">
+        <div class="tab-pane data-laporan-pembayaran-spp active" id="navs-histori-laporan" role="tabpanel">
           <div class="d-flex justify-content-between align-items-end mb-5 gap-3 flex-wrap">
             <div class="filter-siswa d-flex align-items-end gap-3">
               <div class="mt-3">

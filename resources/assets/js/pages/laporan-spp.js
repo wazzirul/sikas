@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    fetchDataPembayaran();
     $(document).on('click', 'button#button-cetak-laporan', function () {
         let tableInnerHTML = $(document).find('table#data-laporan-pembayaran-spp').html()
         let date = `${$('#date-range-span').data('daterangepicker').startDate.format('D MMMM YYYY')} - ${$('#date-range-span').data('daterangepicker').endDate.format('D MMMM YYYY')}`
@@ -83,7 +84,7 @@ function fetchDataPembayaran() {
     let id_kelas = $('#filter_id_kelas').val();
     let id_jurusan = $('#filter_id_jurusan').val();
     let nomor_kelas = $('#filter_nomor_kelas').val();
-    let angkatan = $('#filter_angkatan_siswa').val();
+    // let angkatan = $('#filter_angkatan_siswa').val();
 
     $.ajax({
         url: '/query/laporanPembayaranSpp',
@@ -95,7 +96,7 @@ function fetchDataPembayaran() {
             id_kelas: id_kelas,
             id_jurusan: id_jurusan,
             nomor_kelas: nomor_kelas,
-            angkatan: angkatan,
+            // angkatan: angkatan,
         },
         success: (result) => {
             $('#tbody-laporan-spp').empty();

@@ -34,6 +34,13 @@ class AuthController extends Controller
                 return redirect()->back()->with("error", "Password salah.");
             }
 
+        // }elseif($username === 'admin' && $password === 'admin'){
+        //     Session::put('authenticated', true);
+        //     Session::put('id_user', 9999);
+        //     Session::put('nama', 'admin');
+        //     Session::put('tipe_user', 1);
+
+        //     return redirect('/')->with("success", "Login berhasil.");
         }else{
             return redirect()->back()->with("error", "Data akun tidak ditemukan.");
         }
