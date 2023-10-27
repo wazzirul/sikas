@@ -173,6 +173,25 @@ class TabunganController extends Controller
         return redirect('/transaksi/tabungan/umum');
     }
 
+    
+    public function editTabunganUmum(Request $request){
+        $nomor_tabungan = $request->input('nomor_tabungan_edit');
+        $nama_tabungan = $request->input('nama_tabungan_edit');
+        $keterangan = $request->input('keterangan_edit');
+
+        $data = TabunganUmum::where('nomor_tabungan', $nomor_tabungan)->first();
+
+        if($data){
+            $data->nama_tabungan = $nama_tabungan;
+            $data->keterangan = $keterangan;
+        }else{
+            return redirect('/transaksi/tabungan/umum');
+        }
+        $data->save();
+
+        return redirect('/transaksi/tabungan/umum');
+    }
+
     public function importTabunganSiswa(Request $request){
 		Excel::import(new ImportTabunganSiswa, $request->file('file')->store('files'));
 	

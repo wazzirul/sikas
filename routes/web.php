@@ -56,6 +56,7 @@ Route::group(['middleware' => 'authsession'], function () {
     // Route::get('/transaksi/tabungan/guru', [TabunganController::class, 'guru'])->name('sikas-transaksi--tabungan-guru');
     Route::get('/transaksi/tabungan/umum', [TabunganController::class, 'umum'])->name('sikas-transaksi--tabungan-umum');
     Route::post('/transaksi/tabungan/tambahTabunganUmum', [TabunganController::class, 'tambahTabunganUmum'])->name('sikas-transaksi--tambah-tabungan-umum');
+    Route::post('/transaksi/tabungan/editTabunganUmum', [TabunganController::class, 'editTabunganUmum'])->name('sikas-transaksi--edit-tabungan-umum');
     Route::post('/transaksi/importTabunganSiswa', [TabunganController::class, 'importTabunganSiswa'])->name('sikas-transaksi--importtabungansiswa');
     // Route::post('/transaksi/importTabunganGuru', [TabunganController::class, 'importTabunganGuru'])->name('sikas-transaksi--importtabunganguru');
     Route::post('/transaksi/importTabunganUmum', [TabunganController::class, 'importTabunganUmum'])->name('sikas-transaksi--import-tabungan-umum');

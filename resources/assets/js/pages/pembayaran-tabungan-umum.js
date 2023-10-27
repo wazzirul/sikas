@@ -75,7 +75,32 @@ function retrieveTabunganUmum(search = "") {
     })
 }
 
+
+$('.tabungan-umum-edit-button').click((e) => {
+    clickEditTabungan(e);
+})
+
+function clickEditTabungan(e) {
+    const nomor = $('.detail-nomor').text();
+    const keterangan = $('.detail-keterangan').text();
+    const nama = $('.detail-nama').text();
+
+    $('#nomorTabunganEdit').val(nomor);
+    $('#nomor_tabungan_edit').val(nomor);
+    $('#namaTabunganEdit').val(nama);
+
+    // Select the appropriate option based on 'keterangan'
+    $('#jabatanKelasEdit option').filter(function() {
+        return $(this).text() === keterangan;
+    }).prop('selected', true);
+    
+    console.log('Nomor:', nomor);
+    console.log('Keterangan:', keterangan);
+    console.log('Nama:', nama);
+}
+
 function clickTabungan(e) {
+    $('.tabungan-umum-edit-button').removeClass('disabled');
     $('.penarikan-button').removeClass('disabled');
     $('.setoran-button').removeClass('disabled');
     $('.id_tabungan_umum_input').val(e.currentTarget.dataset.id);
